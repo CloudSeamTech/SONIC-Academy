@@ -5,7 +5,7 @@ import { LabStepNav } from '../lab-step-nav';
 
 import { useEffect, useRef, useState } from 'react';
 import type { GuidedLab as Guide } from '@/lib/guided-lab';
-import { BeginnerActions, BeginnerWords } from '../beginner-actions';
+import { BeginnerActions } from '../beginner-actions';
 import { productionPracticeFor } from '@/lib/lab-production-practice';
 import { explainStep } from '@/lib/step-coaching';
 import { checkTeachingFor } from '@/lib/reference-check-teaching';
@@ -126,6 +126,12 @@ export function GuidedLab({
         aria-label="Lab step completion"
       />
       <LessonWelcome content={welcome} showIntro={false} />
+      <section className="lesson-preflight">
+        <h3>Before you start</h3>
+        <p>{guide.before}</p>
+        <p><strong>Best practice:</strong> {productionPracticeFor(lessonId)}</p>
+        <p><strong>If you need to undo this lab:</strong> {guide.rollback}</p>
+      </section>
       {purpose && !welcome && (
         <section className="guided-purpose">
           <b>WHAT WE ARE BUILDING · WHY IT MATTERS</b>
@@ -257,31 +263,6 @@ export function GuidedLab({
           </div>
         </article>
       </div>
-      <aside className="teaching-callout">
-        <h3>Best practice at work</h3>
-        <p>{productionPracticeFor(lessonId)}</p>
-      </aside>
-      <details className="guided-extra-help">
-        <summary>More setup details</summary>
-        <p>{guide.before}</p>
-      </details>
-      <section className="guided-final">
-        <b>Final pass check</b>
-        <p>{guide.pass}</p>
-        <p>
-          Step checks are your notes, not proof that a server changed. Use the
-          lesson’s existing verification control only after your evidence
-          passes.
-        </p>
-      </section>
-      <details className="guided-reference guided-extra-help">
-        <summary>Need extra help? Computer terms and explanations</summary>
-        <BeginnerWords />
-      </details>
-      <details className="guided-rollback">
-        <summary>Stop / rollback plan</summary>
-        <p>{guide.rollback}</p>
-      </details>
       <output aria-live="polite">{notice}</output>
     </section>
   );

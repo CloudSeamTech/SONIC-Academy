@@ -413,6 +413,14 @@ function LessonView({
           </span>
         </div>
       </header>
+      <section className="migration-pane pane-warning">
+        <span className="pane-label">BEFORE YOU CHANGE ANYTHING</span>
+        <p>
+          For Azure work, review estimated cost and approved limits before
+          Create. For state-changing work, record the rollback first. SONIC does
+          not execute cloud changes silently.
+        </p>
+      </section>
       <div className="lesson-content">
         {lesson.id === 'lab-19' ? (
           <TroubleshootingLibrary />
@@ -428,71 +436,19 @@ function LessonView({
             />
           )
         )}
-        {!lesson.separated && (
+        {!guide && !lesson.separated && (
           <LessonVisualGuide key={lesson.id} lessonId={lesson.id} />
         )}
-        <details className="guided-reference" open={!guide}>
-          <summary>Full lesson reference, commands, and background</summary>
+        {!guide && lesson.id !== 'lab-19' && <section className="lesson-reference-notes">
+          <h2>Lesson instructions</h2>
           {blocks.map((block, index) => (
             <ContentBlock key={index} block={block} />
           ))}
-        </details>
+        </section>}
       </div>
-      <details className="guided-reference lesson-project-background">
-        <summary>More background about the project (optional)</summary>
-        <section className="migration-pane pane-mission">
-          <span className="pane-label">YOUR ONE JOB IN THIS PROJECT</span>
-          <p>
-            <b>{lesson.title}.</b> Work only on <b>{lesson.surface}</b>, capture
-            real evidence, and stop rather than guess when the expected result
-            does not match.
-          </p>
-        </section>
-        <section className="migration-pane pane-info">
-          <span className="pane-label">IN PLAIN ENGLISH</span>
-          <p>
-            {stage.plainEnglish} This project teaches the next necessary piece
-            and keeps the recovery path visible.
-          </p>
-        </section>
-        <section
-          className="project-rhythm"
-          aria-label="How to complete this project"
-        >
-          <span>
-            <b>1</b> Understand the question
-          </span>
-          <span>
-            <b>2</b> Follow one action at a time
-          </span>
-          <span>
-            <b>3</b> Compare actual evidence
-          </span>
-          <span>
-            <b>4</b> Mark verified only when it passes
-          </span>
-        </section>
-      </details>
-      <details className="engineer-detail">
-        <summary>Original workbook · optional reference</summary>
-        <p>
-          Authoritative workbook section{' '}
-          <b>
-            {lesson.code} / {lesson.sourceLabel}
-          </b>
-          , source lines {lesson.sourceStartLine}–{lesson.sourceEndLine}. The
-          complete approved section is rendered above; the source copy remains
-          in <code>docs/sources</code>.
-        </p>
-      </details>
-      <section className="migration-pane pane-warning">
-        <span className="pane-label">BEFORE YOU CHANGE ANYTHING</span>
-        <p>
-          For Azure work, review estimated cost and approved limits before
-          Create. For state-changing work, record the rollback first. SONIC does
-          not execute cloud changes silently.
-        </p>
-      </section>
+
+
+
       <section className="lesson-complete">
         <div>
           <ShieldCheck size={22} />
