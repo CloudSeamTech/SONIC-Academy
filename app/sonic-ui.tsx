@@ -223,10 +223,8 @@ export function SonicTerminal({
 
 export function CommandBreakdown({ arguments: args }: { arguments: string[] }) {
   return (
-    <details className="sonic-breakdown" open>
-      <summary>
-        COMMAND BREAKDOWN <span>{args.length} explanations</span>
-      </summary>
+    <section className="sonic-breakdown">
+      <h3>What the command means</h3>
       <ol>
         {args.map((argument, i) => (
           <li key={argument}>
@@ -235,7 +233,7 @@ export function CommandBreakdown({ arguments: args }: { arguments: string[] }) {
           </li>
         ))}
       </ol>
-    </details>
+    </section>
   );
 }
 
@@ -291,12 +289,7 @@ export function SonicWalkthrough({
                 <p className="walkthrough-location">
                   WHERE TO WORK: {step.where}
                 </p>
-                <details className="sonic-action-assist">
-                  <summary>
-                    How to open the correct terminal or application
-                  </summary>
-                  <SessionGuide location={step.where} />
-                </details>
+                {index === 0 && <section className="sonic-action-assist"><h4>Open your workspace</h4><SessionGuide location={step.where} /></section>}
                 <StepTeachingNotes
                   lessonId={lessonId || 'linux'}
                   title={step.title}

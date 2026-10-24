@@ -1,11 +1,8 @@
 'use client';
 import { LabOverview } from './lab-overview';
 import { LessonWelcome } from './lesson-welcome';
-import { welcomeFor } from '@/lib/lesson-welcome';
 import { SessionGuide } from './session-guide';
-import { productionPracticeFor } from '@/lib/lab-production-practice';
 import { LessonVisualGuide } from './lesson-visual-guide';
-import { beginnerTerms } from './beginner-language';
 import { formatMinutes, lessonTimings, timingFor } from './course-timing';
 import { Fragment, useEffect, useState, useSyncExternalStore } from 'react';
 import type { ProgressState } from '@/lib/progress-model';
@@ -81,14 +78,14 @@ function FollowupBlock({ block }: { block: NonNullable<Lesson['followup']> }) {
         </pre>
       </div>
       <output className="notice">{message}</output>
-      <details className="explanation" open>
-        <summary>Understand this command block</summary>
+      <section className="explanation">
+        <h3>What the command means</h3>
         <ul>
           {block.args.map((argument) => (
             <li key={argument}>{argument}</li>
           ))}
         </ul>
-      </details>
+      </section>
     </section>
   );
 }
@@ -271,17 +268,6 @@ export default function Home() {
               : undefined
         }
       >
-        <details className="edition-note">
-          <summary>
-            SONIC NOTE{' '}
-            <span>Continuous lab · deployment and recovery available</span>
-          </summary>
-          <p>
-            Continuous lab: retain your Milestone 2 endpoint and completed
-            tasks. New two-host, delivery, and rollback tasks start unverified.
-            Advanced Linux deep dives follow the Wazuh deployment scenario.
-          </p>
-        </details>
         {progress.previousEdition.length > 0 && (
           <p className="edition-note">
             Earlier edition: {progress.previousEdition.length}/6 verified tasks
@@ -569,61 +555,18 @@ export default function Home() {
                 <p className="task-phase">{lesson.phase}</p>
                 <LabOverview summary={lesson.objective} steps={lesson.walkthrough?.map(item => item.title) ?? [display.title]} outcome={lesson.walkthrough?.at(-1)?.expected ?? lesson.objective} />
                 <LessonWelcome lessonId={lesson.id} showIntro={false} />
-                <details
-                  className="lab-brief"
-                  aria-label="What, why, and production context"
-                >
-                  <summary>A little more context for this task</summary>
-                  <div>
-                    <b>WHAT YOU ARE DOING</b>
-                    <p>{welcomeFor(lesson.id)?.welcome ?? lesson.objective}</p>
-                  </div>
-                  <div>
-                    <b>WHY THIS MATTERS AT WORK</b>
-                    <p>{welcomeFor(lesson.id)?.why ?? lesson.why}</p>
-                  </div>
-                  <div>
-                    <b>LAB CHANGE · WHAT WILL BE DIFFERENT</b>
-                    <p>{lesson.change}</p>
-                  </div>
-                  <p className="lab-production-boundary">
-                    <strong>PRODUCTION BEST PRACTICE:</strong>{' '}
-                    {productionPracticeFor(lesson.id)}
-                  </p>
-                </details>
-                <details className="explanation lab-additional-context">
-                  <summary>
-                    More context: scenario, definitions, and workplace
-                    comparisons
-                  </summary>
-                  <p>{lesson.scenario}</p>
-                  {lesson.vsphere && <p>{lesson.vsphere}</p>}
-                  <details className="explanation" key={'words' + lesson.id}>
-                    <summary>Words used in this lesson</summary>
-                    <dl>
-                      {beginnerTerms(lesson).map(({ term, meaning }) => (
-                        <Fragment key={term}>
-                          <dt>
-                            <strong>{term}</strong>
-                          </dt>
-                          <dd>{meaning}</dd>
-                        </Fragment>
-                      ))}
-                    </dl>
-                  </details>
-                </details>
-                <LessonVisualGuide key={lesson.id} lessonId={lesson.id} />
+                {!lesson.walkthrough && <LessonVisualGuide key={lesson.id} lessonId={lesson.id} />}
                 {(lesson.visual === 'keys' ||
                   lesson.visual === 'architecture' ||
                   lesson.visual === 'protocols') && (
-                  <details className="explanation lab-additional-context">
-                    <summary>Optional architecture or command diagram</summary>
+                  <section className="explanation lab-additional-context">
+                    <h3>How this fits together</h3>
                     {lesson.visual === 'keys' && <KeyDiagram key={lesson.id} />}
                     {lesson.visual === 'architecture' && (
                       <ArchitectureDiagram />
                     )}
                     {lesson.visual === 'protocols' && <ProtocolDiagram />}
-                  </details>
+                  </section>
                 )}
                 {lesson.walkthrough ? (
                   <SonicWalkthrough
@@ -685,17 +628,14 @@ export default function Home() {
                     {visualSample ? (
                       <CommandBreakdown arguments={lesson.args} />
                     ) : (
-                      <details className="explanation" key={'args' + step}>
-                        <summary>
-                          Understand every argument{' '}
-                          <span>{lesson.args.length} explanations</span>
-                        </summary>
+                      <section className="explanation" key={'args' + step}>
+                        <h3>What the command means</h3>
                         <ul>
                           {lesson.args.map((a) => (
                             <li key={a}>{a}</li>
                           ))}
                         </ul>
-                      </details>
+                      </section>
                     )}
                     {lesson.followup && (
                       <FollowupBlock key={lesson.id} block={lesson.followup} />
@@ -728,8 +668,8 @@ export default function Home() {
                   </>
                 )}
                 {lesson.helpSections?.map((help, helpIndex) => (
-                  <details className="explanation" key={lesson.id + help.title}>
-                    <summary>{help.title}</summary>
+                  <section className="explanation" key={lesson.id + help.title}>
+                    <h3>{help.title}</h3>
                     <p>
                       Use this section only when its situation matches your
                       problem. Read the checks before changing anything.
@@ -739,13 +679,11 @@ export default function Home() {
                       lessonId={lesson.id}
                       variant={`help-${helpIndex + 1}`}
                     />
-                  </details>
+                  </section>
                 ))}
                 {lesson.workplaceWalkthrough && (
-                  <details className="explanation" key={'workplace' + step}>
-                    <summary>
-                      Workplace extension · vSphere snapshots and Veeam
-                    </summary>
+                  <section className="explanation" key={'workplace' + step}>
+                    <h3>Optional workplace extension</h3>
                     <p>
                       Optional workplace procedure. Use your approved
                       maintenance window and backup policy. This is separate
@@ -757,7 +695,7 @@ export default function Home() {
                       lessonId={lesson.id}
                       variant="workplace"
                     />
-                  </details>
+                  </section>
                 )}
                 <section className="result">
                   <h3>
@@ -779,12 +717,8 @@ export default function Home() {
                     <p>{lesson.verify}</p>
                   </section>
                 )}
-                <details className="explanation" key={'trouble' + step}>
-                  <summary>
-                    {visualSample
-                      ? 'TROUBLESHOOT // SONIC WARNING'
-                      : 'What could go wrong & how to troubleshoot'}
-                  </summary>
+                <section className="explanation" key={'trouble' + step}>
+                  <h3>If your result is different</h3>
                   <p>{lesson.trouble}</p>
                   <h3 className="troubleshooting-heading">
                     Work the problem in this order
@@ -794,7 +728,7 @@ export default function Home() {
                       <li key={item}>{item}</li>
                     ))}
                   </ol>
-                </details>
+                </section>
                 <section className="your-turn">
                   <h3>Your Turn</h3>
                   <p>{lesson.challenge}</p>
@@ -803,16 +737,8 @@ export default function Home() {
                     <p>{lesson.answer}</p>
                   </details>
                 </section>
-                <details className="explanation method-reminder">
-                  <summary>The administrator’s change method</summary>
-                  <p>{changeMethod.join(' → ')}</p>
-                  <p>
-                    Use the actual baseline, expected result, and rollback
-                    decision for this task. Document deviations and validate the
-                    complete outcome before closing the change.
-                  </p>
-                </details>
-                <details
+
+                <section
                   className={
                     visualSample
                       ? 'explanation rollback-checkpoint'
@@ -820,13 +746,9 @@ export default function Home() {
                   }
                   key={'rollback' + step}
                 >
-                  <summary>
-                    {visualSample
-                      ? 'ROLLBACK CHECKPOINT'
-                      : 'Rollback & change record'}
-                  </summary>
+                  <h3>If you need to undo this change</h3>
                   <p>{lesson.rollback}</p>
-                </details>
+                </section>
                 <div className="completion">
                   <div>
                     <strong>

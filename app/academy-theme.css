@@ -3356,3 +3356,24 @@ html body .academy-shell.academy-shell .reader-workspace .profile-page .account-
 .profile-actions button { padding: 12px 16px; border: 1px solid #84796b; border-radius: 6px; }
 .profile-page button:disabled { opacity: .65; cursor: not-allowed; }
 .profile-fields:disabled input { opacity: 1; color: #5c554c; }
+
+/* Consistent monochrome navigation, with explicit contrast and focus states. */
+html body .academy-shell.academy-shell .reader-workspace :is(.guided-pagination, .lesson-navigation, .alma-pagination, .lesson-pagination) :is(button, a) {
+  background: #CDBFA9 !important;
+  color: #181818 !important;
+  border: 1px solid #88765E !important;
+  border-radius: 6px;
+  padding: 12px 18px;
+  min-height: 48px;
+  font-weight: 700;
+  opacity: 1;
+  text-decoration: none;
+}
+html body .academy-shell.academy-shell .reader-workspace :is(.guided-pagination, .lesson-navigation, .alma-pagination, .lesson-pagination) :is(button, a) :is(span, small, svg) { color: #181818 !important; }
+html body .academy-shell.academy-shell .reader-workspace :is(.guided-pagination, .lesson-navigation, .alma-pagination, .lesson-pagination) :is(button, a):hover:not(:disabled) { background: #BFAF96 !important; }
+html body .academy-shell.academy-shell .reader-workspace :is(.guided-pagination, .lesson-navigation, .alma-pagination, .lesson-pagination) :is(button, a):focus-visible { outline: 3px solid #181818; outline-offset: 3px; }
+html body .academy-shell.academy-shell .reader-workspace :is(.guided-pagination, .lesson-navigation) button:disabled { background: #E1D6C4 !important; color: #6C6255 !important; border-color: #B4A58F !important; cursor: not-allowed; }
+.lesson-reference-link { margin: 24px 0; }
+.reference-subject { margin: 36px 0; scroll-margin-top: 24px; }
+.reference-subject li { margin: 12px 0; }
+.references-page .information-nav { flex-wrap: wrap; }

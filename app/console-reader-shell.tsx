@@ -234,6 +234,7 @@ export function ConsoleReaderShell({
           <nav aria-label="Support and business information">
             <a href="/support#contact">Contact us</a>
             <a href="/support#faq">FAQ</a>
+            <a href="/references">References</a>
             <a href="/support#billing">Billing information</a>
             <a href="/support#privacy">Privacy</a>
             <a href="/support#about">About us</a>

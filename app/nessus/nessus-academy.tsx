@@ -331,15 +331,15 @@ function LessonReader({
             ))}
           </ul>
         </section>
-        <details className="nessus-explanation">
-          <summary>Troubleshooting · my screen is different</summary>
+        <section className="nessus-explanation">
+          <h3>If your screen is different</h3>
           {lesson.troubleshooting.map((item, i) => (
             <section key={i}>
               <h3>{item.problem}</h3>
               <p>{item.fix}</p>
             </section>
           ))}
-        </details>
+        </section>
       </div>
       <section className="nessus-exercise">
         <span className="eyebrow">YOUR TURN / PRACTICAL EXERCISE</span>
@@ -526,11 +526,8 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
           </small>
         </header>
         {isSplunk && (
-          <details
-            className="teaching-callout splunk-practice-files"
-            open={lesson.id === 'splunk-start'}
-          >
-            <summary>Your practice files and setup help</summary>
+          <section className="teaching-callout splunk-practice-files">
+            <h2>Your practice files</h2>
             <p>
               Download these inside your practice VM. All three files contain
               fictional lab data. Upload each event CSV only once using Add Data
@@ -554,7 +551,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
               PowerShell. A reference picture shows real vendor controls, not
               your own result.
             </p>
-          </details>
+          </section>
         )}
         <LabOverview
           summary={lesson.what === lesson.description ? undefined : lesson.what}
@@ -609,28 +606,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             </a>
           )}
         </nav>
-        <details className="guided-reference alma-sources">
-          <summary>References and a note for instructors</summary>
-          <p>
-            We’ve checked the written steps against the official references
-            below. Real interfaces can change, so compare your version and
-            subscription or license with the lesson before making a change.
-            Original interface references show real controls. Action diagrams
-            are labeled as illustrations; remaining capture gaps use checklists.
-            These pages have been tested, but an instructor still needs to test
-            installation, updates, scans and recovery in a real practice lab.
-          </p>
-          {course.sources.map((source) => (
-            <a
-              key={source.url}
-              href={source.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {source.title} ↗
-            </a>
-          ))}
-        </details>
+        <p className="lesson-reference-link"><a href={`/references#${course.id}`}>Official references and version notes →</a></p>
       </main>
     </ConsoleReaderShell>
   );

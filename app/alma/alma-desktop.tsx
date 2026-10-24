@@ -5,7 +5,6 @@ import { useEffect, useState, useSyncExternalStore } from 'react';
 import course from '@/content/alma/desktop-lessons.json';
 import { ConsoleReaderShell } from '../console-reader-shell';
 import { GuidedLab } from '../migration/guided-lab';
-import { LessonVisualGuide } from '../lesson-visual-guide';
 import {
   almaSnapshot,
   almaServerSnapshot,
@@ -60,35 +59,13 @@ export function AlmaDesktop() {
           </small>
         </header>
         {id === 'alma-real-terminal' && <p><a href="/migration#view=terminal&setup=1">Start here: install Node.js, npm and Git with the Windows setup guide →</a></p>}
-        <details className="guided-reference alma-course-index">
-          <summary>Pick a class · start at 1</summary>
-          {[...new Set(course.lessons.map((item) => item.section))].map(
-            (section) => (
-              <section key={section}>
-                <h2>{section}</h2>
-                {course.lessons
-                  .filter((item) => item.section === section)
-                  .map((item) => (
-                    <a
-                      key={item.id}
-                      href={`#lesson=${item.id}`}
-                      aria-current={item.id === id ? 'page' : undefined}
-                    >
-                      {completed.includes(item.id) ? '✓ ' : ''}
-                      {item.title}
-                    </a>
-                  ))}
-              </section>
-            ),
-          )}
-        </details>
+        <p><a href="/?view=courses&subject=alma">Browse AlmaLinux Desktop classes →</a></p>
         <article key={id}>
           <GuidedLab
             lessonId={id}
             guide={lesson.guide}
             purpose={lesson.description}
           />
-          <LessonVisualGuide lessonId={id} />
           <section className="alma-verify">
             <h2>Finished? Check your work</h2>
             <p>{lesson.guide.pass}</p>
@@ -125,25 +102,7 @@ export function AlmaDesktop() {
             )}
           </nav>
         </article>
-        <details className="guided-reference alma-sources">
-          <summary>Official references and version notes</summary>
-          <p>
-            Illustrations show representative screens, not exact product
-            captures. Settings and package availability change between releases.
-            Commands have not been executed against your hardware; use your own
-            observed results.
-          </p>
-          {course.sources.map((source) => (
-            <a
-              href={source.url}
-              key={source.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {source.title} ↗
-            </a>
-          ))}
-        </details>
+        <p className="lesson-reference-link"><a href="/references#alma">Official references and version notes →</a></p>
       </main>
     </ConsoleReaderShell>
   );
