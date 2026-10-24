@@ -572,6 +572,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
               <a href="/?view=courses&subject=windows">
                 Windows installation prerequisites
               </a>
+              <a href="/migration#lesson=lab-06">IIS foundation</a>
               <a href="/alma#lesson=alma-install">AlmaLinux installation</a>
               <a href="/alma#lesson=alma-terminal">AlmaLinux terminal basics</a>
             </nav>
