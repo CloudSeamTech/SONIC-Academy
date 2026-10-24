@@ -13,7 +13,7 @@ test('two-tier catalog has valid foundation IDs and reserves enterprise troubles
   assert.equal(new Set(freeLessonIds).size, freeLessonIds.length);
   assert.ok(freeLessonIds.every((id) => valid.has(id)));
   assert.equal(lessons.filter((l) => lessonTier(l.id) === 'free').length, 42);
-  assert.equal(lessons.filter((l) => lessonTier(l.id) === 'apex').length, 179);
+  assert.equal(lessons.filter((l) => lessonTier(l.id) === 'apex').length, 188);
   for (const id of [
     'lab-19',
     'lab-07',

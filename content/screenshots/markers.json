@@ -1,0 +1,635 @@
+{
+  "/dmz/screens/dmz-plan-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 15,
+      "y": 24,
+      "label": "Start at the visitor side and follow only the approved request arrows."
+    },
+    {
+      "number": 2,
+      "x": 85,
+      "y": 39,
+      "label": "The application and data/domain infrastructure remain private; verify the denied paths too."
+    }
+  ],
+  "/dmz/screens/dmz-plan-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 15,
+      "y": 24,
+      "label": "Start at the visitor side and follow only the approved request arrows."
+    },
+    {
+      "number": 2,
+      "x": 85,
+      "y": 39,
+      "label": "The application and data/domain infrastructure remain private; verify the denied paths too."
+    }
+  ],
+  "/dmz/screens/dmz-plan-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 15,
+      "y": 24,
+      "label": "Start at the visitor side and follow only the approved request arrows."
+    },
+    {
+      "number": 2,
+      "x": 85,
+      "y": 39,
+      "label": "The application and data/domain infrastructure remain private; verify the denied paths too."
+    }
+  ],
+  "/dmz/screens/dmz-networks-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 24,
+      "y": 33,
+      "label": "Confirm the exact VM, network or virtual adapter before changing settings."
+    },
+    {
+      "number": 2,
+      "x": 77,
+      "y": 57,
+      "label": "Compare the displayed address, custom VMnet, or power state with the written step."
+    }
+  ],
+  "/dmz/screens/dmz-networks-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 24,
+      "y": 33,
+      "label": "Confirm the exact VM, network or virtual adapter before changing settings."
+    },
+    {
+      "number": 2,
+      "x": 77,
+      "y": 57,
+      "label": "Compare the displayed address, custom VMnet, or power state with the written step."
+    }
+  ],
+  "/dmz/screens/dmz-networks-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 23,
+      "y": 33,
+      "label": "Choose the static-address option on the virtual VMnet2 adapter, not the physical Ethernet or Wi-Fi adapter."
+    },
+    {
+      "number": 2,
+      "x": 62,
+      "y": 42,
+      "label": "Use 10.50.0.254 with the /24 mask; leave this management adapter\u2019s gateway and DNS blank."
+    }
+  ],
+  "/dmz/screens/dmz-networks-screen-4.svg": [
+    {
+      "number": 1,
+      "x": 24,
+      "y": 33,
+      "label": "Confirm the exact VM, network or virtual adapter before changing settings."
+    },
+    {
+      "number": 2,
+      "x": 77,
+      "y": 57,
+      "label": "Compare the displayed address, custom VMnet, or power state with the written step."
+    }
+  ],
+  "/dmz/screens/dmz-firewall-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 6,
+      "y": 26,
+      "label": "Use the FW01 VMware console and match interface MACs; do not copy example device names blindly."
+    },
+    {
+      "number": 2,
+      "x": 7,
+      "y": 43,
+      "label": "Check the selected zone and address before confirming. The complete four-zone values are in the written step."
+    }
+  ],
+  "/dmz/screens/dmz-firewall-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 6,
+      "y": 26,
+      "label": "Use the FW01 VMware console and match interface MACs; do not copy example device names blindly."
+    },
+    {
+      "number": 2,
+      "x": 7,
+      "y": 43,
+      "label": "Check the selected zone and address before confirming. The complete four-zone values are in the written step."
+    }
+  ],
+  "/dmz/screens/dmz-firewall-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 25,
+      "y": 24,
+      "label": "Confirm the intended interface or NAT screen. New connection rules belong on their ingress interface."
+    },
+    {
+      "number": 2,
+      "x": 78,
+      "y": 43,
+      "label": "Verify the exact source, destination, port and rule state; never substitute an unrestricted allow."
+    }
+  ],
+  "/dmz/screens/dmz-firewall-screen-4.svg": [
+    {
+      "number": 1,
+      "x": 25,
+      "y": 24,
+      "label": "Confirm the intended interface or NAT screen. New connection rules belong on their ingress interface."
+    },
+    {
+      "number": 2,
+      "x": 78,
+      "y": 43,
+      "label": "Verify the exact source, destination, port and rule state; never substitute an unrestricted allow."
+    }
+  ],
+  "/dmz/screens/dmz-firewall-screen-5.svg": [
+    {
+      "number": 1,
+      "x": 25,
+      "y": 24,
+      "label": "Confirm the intended interface or NAT screen. New connection rules belong on their ingress interface."
+    },
+    {
+      "number": 2,
+      "x": 78,
+      "y": 43,
+      "label": "Verify the exact source, destination, port and rule state; never substitute an unrestricted allow."
+    }
+  ],
+  "/dmz/screens/dmz-iis-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-iis-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-iis-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 13,
+      "y": 40,
+      "label": "Select the dedicated DMZ-Lab site on IIS-DMZ01; do not change an existing APP01 website."
+    },
+    {
+      "number": 2,
+      "x": 66,
+      "y": 43,
+      "label": "Verify the binding name, HTTPS port, SNI and selected test certificate."
+    }
+  ],
+  "/dmz/screens/dmz-iis-screen-4.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-proxy-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-proxy-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-proxy-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-proxy-screen-4.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-proxy-screen-5.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-publish-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 35,
+      "y": 40,
+      "label": "Choose Manual IPv4 on TEST01\u2019s only Wired adapter."
+    },
+    {
+      "number": 2,
+      "x": 71,
+      "y": 56,
+      "label": "Use the OUTSIDE network values; this visitor must not have a private or NAT adapter."
+    }
+  ],
+  "/dmz/screens/dmz-publish-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 25,
+      "y": 24,
+      "label": "Confirm the intended interface or NAT screen. New connection rules belong on their ingress interface."
+    },
+    {
+      "number": 2,
+      "x": 78,
+      "y": 43,
+      "label": "Verify the exact source, destination, port and rule state; never substitute an unrestricted allow."
+    }
+  ],
+  "/dmz/screens/dmz-publish-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-publish-screen-4.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-verify-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-verify-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-verify-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 25,
+      "y": 24,
+      "label": "Confirm the intended interface or NAT screen. New connection rules belong on their ingress interface."
+    },
+    {
+      "number": 2,
+      "x": 78,
+      "y": 43,
+      "label": "Verify the exact source, destination, port and rule state; never substitute an unrestricted allow."
+    }
+  ],
+  "/dmz/screens/dmz-recover-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-recover-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 25,
+      "y": 24,
+      "label": "Confirm the intended interface or NAT screen. New connection rules belong on their ingress interface."
+    },
+    {
+      "number": 2,
+      "x": 78,
+      "y": 43,
+      "label": "Verify the exact source, destination, port and rule state; never substitute an unrestricted allow."
+    }
+  ],
+  "/dmz/screens/dmz-recover-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 5,
+      "y": 24,
+      "label": "Use the named guest console and shell. These are teaching examples, not commands executed by this website."
+    },
+    {
+      "number": 2,
+      "x": 4,
+      "y": 82,
+      "label": "Compare your observed output with this expected observation; do not treat the illustration as proof."
+    }
+  ],
+  "/dmz/screens/dmz-recover-screen-4.svg": [
+    {
+      "number": 1,
+      "x": 24,
+      "y": 33,
+      "label": "Confirm the exact VM, network or virtual adapter before changing settings."
+    },
+    {
+      "number": 2,
+      "x": 77,
+      "y": 57,
+      "label": "Compare the displayed address, custom VMnet, or power state with the written step."
+    }
+  ],
+  "/dmz/screens/dmz-azure-screen-1.svg": [
+    {
+      "number": 1,
+      "x": 15,
+      "y": 24,
+      "label": "Start at the visitor side and follow only the approved request arrows."
+    },
+    {
+      "number": 2,
+      "x": 85,
+      "y": 39,
+      "label": "The application and data/domain infrastructure remain private; verify the denied paths too."
+    }
+  ],
+  "/dmz/screens/dmz-azure-screen-2.svg": [
+    {
+      "number": 1,
+      "x": 15,
+      "y": 24,
+      "label": "Start at the visitor side and follow only the approved request arrows."
+    },
+    {
+      "number": 2,
+      "x": 85,
+      "y": 39,
+      "label": "The application and data/domain infrastructure remain private; verify the denied paths too."
+    }
+  ],
+  "/dmz/screens/dmz-azure-screen-3.svg": [
+    {
+      "number": 1,
+      "x": 24,
+      "y": 33,
+      "label": "Confirm the exact VM, network or virtual adapter before changing settings."
+    },
+    {
+      "number": 2,
+      "x": 77,
+      "y": 57,
+      "label": "Compare the displayed address, custom VMnet, or power state with the written step."
+    }
+  ],
+  "/interface-screenshots/vmware-network-editor.png": [
+    {
+      "number": 1,
+      "x": 28,
+      "y": 20,
+      "label": "Network list: select the lab VMnet. This vendor reference currently shows VMnet8; follow your lesson\u2019s written values."
+    },
+    {
+      "number": 2,
+      "x": 8,
+      "y": 68,
+      "label": "Choose the required network mode. A DMZ lab host-only network is different from the NAT example in this reference."
+    }
+  ],
+  "/dmz/references/firewall_rules_1.png": [
+    {
+      "number": 1,
+      "x": 15,
+      "y": 25,
+      "label": "Select the intended ingress interface before reviewing its rules."
+    },
+    {
+      "number": 2,
+      "x": 89.7,
+      "y": 65.5,
+      "label": "Add a narrow rule, then inspect its source, destination and port before applying."
+    },
+    {
+      "number": 3,
+      "x": 4.7,
+      "y": 83.7,
+      "label": "Apply only after checking rule order and preserving administrator access."
+    }
+  ],
+  "/interface-screenshots/alma-software.png": [
+    {
+      "number": 1,
+      "x": 4,
+      "y": 6,
+      "label": "Search finds an application by name. Follow the class\u2019s package/source choice rather than installing an unrelated result."
+    },
+    {
+      "number": 2,
+      "x": 49,
+      "y": 6,
+      "label": "Installed lists applications already present; Updates is the adjacent maintenance view."
+    }
+  ],
+  "/interface-screenshots/az-nsg-add-rule.png": [
+    {
+      "number": 1,
+      "x": 55,
+      "y": 12,
+      "label": "Source: restrict it to the approved address or subnet in the lesson; do not copy the sample Any source."
+    },
+    {
+      "number": 2,
+      "x": 65,
+      "y": 38,
+      "label": "Destination port: enter your lesson\u2019s service port. The original reference shows an 8080 example."
+    },
+    {
+      "number": 3,
+      "x": 44,
+      "y": 47,
+      "label": "Choose the required protocol explicitly; a web-only rule normally uses TCP."
+    }
+  ],
+  "/interface-screenshots/win-server-roles.png": [
+    {
+      "number": 1,
+      "x": 45,
+      "y": 38.5,
+      "label": "The wizard is on Server Roles. Check the destination server before changing a role."
+    },
+    {
+      "number": 2,
+      "x": 55.5,
+      "y": 38.7,
+      "label": "This original reference highlights Active Directory Domain Services. Select only the role named in your actual lesson."
+    }
+  ],
+  "/splunk/interface-02.png": [
+    {
+      "number": 4,
+      "x": 16,
+      "y": 32,
+      "embedded": true,
+      "label": "Search bar: paste the class SPL here, not in PowerShell or the SONIC terminal."
+    },
+    {
+      "number": 5,
+      "x": 90,
+      "y": 20,
+      "embedded": true,
+      "label": "Time picker: use All time for the class\u2019s fixed-date CSV data unless the lesson asks for another range."
+    }
+  ],
+  "/splunk/interface-03.png": [
+    {
+      "number": 2,
+      "x": 29,
+      "y": 24,
+      "embedded": true,
+      "label": "Use your CloudSeam search and index; the source image shows unrelated vendor tutorial data."
+    },
+    {
+      "number": 3,
+      "x": 79,
+      "y": 24,
+      "embedded": true,
+      "label": "The time range controls which events the search can see."
+    },
+    {
+      "number": 5,
+      "x": 36,
+      "y": 37,
+      "embedded": true,
+      "label": "Events shows records; Statistics and Visualization are used after suitable searches."
+    },
+    {
+      "number": 8,
+      "x": 12,
+      "y": 78,
+      "embedded": true,
+      "label": "The Fields sidebar helps you discover the fields available in the current results."
+    },
+    {
+      "number": 10,
+      "x": 70,
+      "y": 12,
+      "embedded": true,
+      "label": "Save As is where a suitable search can become a report or dashboard panel."
+    }
+  ],
+  "/splunk/interface-05.png": [
+    {
+      "number": 1,
+      "x": 50,
+      "y": 24,
+      "label": "Choose Upload to ingest the exact event CSV named in the lesson. Lookup CSV files follow the separate Lookups workflow."
+    }
+  ]
+}

@@ -1,0 +1,328 @@
+[
+  {
+    "id": "dmz-plan-screen-1",
+    "src": "/dmz/screens/dmz-plan-screen-1.svg",
+    "title": "Follow one web request",
+    "platform": "CloudSeam lab network diagram",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-plan-screen-2",
+    "src": "/dmz/screens/dmz-plan-screen-2.svg",
+    "title": "Choose local practice before Azure",
+    "platform": "CloudSeam lab network diagram",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-plan-screen-3",
+    "src": "/dmz/screens/dmz-plan-screen-3.svg",
+    "title": "Reserve four networks without changing the domain controllers",
+    "platform": "CloudSeam lab network diagram",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-networks-screen-1",
+    "src": "/dmz/screens/dmz-networks-screen-1.svg",
+    "title": "Prepare the VM images and package tools",
+    "platform": "VMware Workstation Pro on Windows 10",
+    "source": "https://docs.opnsense.org/manual/virtuals.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-networks-screen-2",
+    "src": "/dmz/screens/dmz-networks-screen-2.svg",
+    "title": "Create the four isolated switches",
+    "platform": "VMware Workstation Pro on Windows 10",
+    "source": "https://docs.opnsense.org/manual/virtuals.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-networks-screen-3",
+    "src": "/dmz/screens/dmz-networks-screen-3.svg",
+    "title": "Move only the host management adapter",
+    "platform": "Windows 10 \u00b7 virtual network adapter IPv4 properties",
+    "source": "https://docs.opnsense.org/manual/virtuals.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-networks-screen-4",
+    "src": "/dmz/screens/dmz-networks-screen-4.svg",
+    "title": "Attach the VMs and record their MAC addresses",
+    "platform": "VMware Workstation Pro on Windows 10",
+    "source": "https://docs.opnsense.org/manual/virtuals.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-firewall-screen-1",
+    "src": "/dmz/screens/dmz-firewall-screen-1.svg",
+    "title": "Install OPNsense on FW01",
+    "platform": "OPNsense VM console",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-firewall-screen-2",
+    "src": "/dmz/screens/dmz-firewall-screen-2.svg",
+    "title": "Set the firewall\u2019s four addresses",
+    "platform": "OPNsense VM console",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-firewall-screen-3",
+    "src": "/dmz/screens/dmz-firewall-screen-3.svg",
+    "title": "Label the interfaces and allow the lab\u2019s private outside addresses",
+    "platform": "OPNsense web interface",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-firewall-screen-4",
+    "src": "/dmz/screens/dmz-firewall-screen-4.svg",
+    "title": "Keep an explicit administrator doorway",
+    "platform": "OPNsense web interface",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-firewall-screen-5",
+    "src": "/dmz/screens/dmz-firewall-screen-5.svg",
+    "title": "Allow one private web service from the proxy",
+    "platform": "OPNsense web interface",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-iis-screen-1",
+    "src": "/dmz/screens/dmz-iis-screen-1.svg",
+    "title": "Give the new private server its address",
+    "platform": "Windows Server 2019 \u00b7 Windows PowerShell",
+    "source": "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-iis-screen-2",
+    "src": "/dmz/screens/dmz-iis-screen-2.svg",
+    "title": "Install IIS and create a clearly named practice site",
+    "platform": "Windows Server 2019 \u00b7 Windows PowerShell",
+    "source": "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-iis-screen-3",
+    "src": "/dmz/screens/dmz-iis-screen-3.svg",
+    "title": "Bind HTTPS and export only the public certificate",
+    "platform": "Windows Server 2019 \u00b7 IIS Manager",
+    "source": "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-iis-screen-4",
+    "src": "/dmz/screens/dmz-iis-screen-4.svg",
+    "title": "Restrict the Windows firewall and stage the public certificate",
+    "platform": "Windows Server 2019 \u00b7 Windows PowerShell",
+    "source": "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-proxy-screen-1",
+    "src": "/dmz/screens/dmz-proxy-screen-1.svg",
+    "title": "Set PROXY01\u2019s DMZ address",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-proxy-screen-2",
+    "src": "/dmz/screens/dmz-proxy-screen-2.svg",
+    "title": "Copy the pinned backend certificate and prove the private HTTPS hop",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-proxy-screen-3",
+    "src": "/dmz/screens/dmz-proxy-screen-3.svg",
+    "title": "Create the visitor-facing lab certificate",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-proxy-screen-4",
+    "src": "/dmz/screens/dmz-proxy-screen-4.svg",
+    "title": "Install the exact NGINX HTTPS proxy configuration",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-proxy-screen-5",
+    "src": "/dmz/screens/dmz-proxy-screen-5.svg",
+    "title": "Start the service without disabling host protections",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-publish-screen-1",
+    "src": "/dmz/screens/dmz-publish-screen-1.svg",
+    "title": "Give the visitor its isolated outside address",
+    "platform": "AlmaLinux 9 GNOME \u00b7 Network settings",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-publish-screen-2",
+    "src": "/dmz/screens/dmz-publish-screen-2.svg",
+    "title": "Forward outside TCP 443 to the DMZ proxy",
+    "platform": "OPNsense web interface",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-publish-screen-3",
+    "src": "/dmz/screens/dmz-publish-screen-3.svg",
+    "title": "Give the visitor only the public trust certificate",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-publish-screen-4",
+    "src": "/dmz/screens/dmz-publish-screen-4.svg",
+    "title": "Make a real verified request through the whole path",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-verify-screen-1",
+    "src": "/dmz/screens/dmz-verify-screen-1.svg",
+    "title": "Test direct outside access to the backend",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-verify-screen-2",
+    "src": "/dmz/screens/dmz-verify-screen-2.svg",
+    "title": "Test the DMZ\u2019s blocked management and domain paths",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-verify-screen-3",
+    "src": "/dmz/screens/dmz-verify-screen-3.svg",
+    "title": "Check the policy and adapter inventory together",
+    "platform": "OPNsense web interface",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-recover-screen-1",
+    "src": "/dmz/screens/dmz-recover-screen-1.svg",
+    "title": "Correlate the request in proxy and IIS logs",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-recover-screen-2",
+    "src": "/dmz/screens/dmz-recover-screen-2.svg",
+    "title": "Create one controlled upstream failure",
+    "platform": "OPNsense web interface",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-recover-screen-3",
+    "src": "/dmz/screens/dmz-recover-screen-3.svg",
+    "title": "Separate certificate errors from routing errors",
+    "platform": "AlmaLinux 9 \u00b7 terminal/console",
+    "source": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-recover-screen-4",
+    "src": "/dmz/screens/dmz-recover-screen-4.svg",
+    "title": "Rehearse a clean rollback",
+    "platform": "VMware Workstation Pro on Windows 10",
+    "source": "https://docs.opnsense.org/manual/virtuals.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-azure-screen-1",
+    "src": "/dmz/screens/dmz-azure-screen-1.svg",
+    "title": "Map the design to Azure without copying VMnet settings",
+    "platform": "Azure architecture planning diagram",
+    "source": "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-azure-screen-2",
+    "src": "/dmz/screens/dmz-azure-screen-2.svg",
+    "title": "Compare the costs before choosing a hosted lab",
+    "platform": "Azure architecture planning diagram",
+    "source": "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-azure-screen-3",
+    "src": "/dmz/screens/dmz-azure-screen-3.svg",
+    "title": "Stop and hand over the local practice lab",
+    "platform": "VMware Workstation Pro on Windows 10",
+    "source": "https://docs.opnsense.org/manual/virtuals.html",
+    "credit": "CloudSeamTech \u00b7 interface recreation based on vendor documentation",
+    "note": "Illustrated training recreation with the exact lab values. This is not a live product capture or evidence that a command succeeded. Product versions can change labels; compare your own screen with the written steps."
+  },
+  {
+    "id": "dmz-opnsense-rules-reference",
+    "src": "/dmz/references/firewall_rules_1.png",
+    "title": "OPNsense Rules [new] \u00b7 interface selector, Add and Apply",
+    "platform": "OPNsense official documentation \u00b7 Rules [new]",
+    "source": "https://docs.opnsense.org/manual/firewall.html",
+    "original": "https://docs.opnsense.org/_images/firewall_rules_1.png",
+    "credit": "OPNsense Project \u00b7 official documentation",
+    "note": "Unmodified vendor interface reference. Its sample LAN any-to-any rules are the defaults to replace after verifying explicit administrator access; they are not the finished DMZ policy. Use the written CloudSeam addresses and rule order.",
+    "sha256": "06629d176bb54a481f1e77dedce90ba7183369bfb8f9c34996c48cfec3d837ff"
+  }
+]

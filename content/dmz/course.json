@@ -1,0 +1,1859 @@
+{
+  "id": "windows-dmz",
+  "title": "Build a DMZ for Your Private IIS Application",
+  "description": "Build a low-cost enterprise-style DMZ in VMware, publish through a reverse proxy, prove isolation and plan the Azure equivalent.",
+  "baseline": "Windows 10 host / Workstation Pro \u00b7 OPNsense Community \u00b7 AlmaLinux 9 / NGINX \u00b7 Windows Server 2019 / IIS \u00b7 isolated practice only",
+  "prerequisite": "Complete the linked Windows/VMware installation and IIS foundation lessons, plus AlmaLinux installation and terminal basics. PROXY01 uses AlmaLinux Minimal Install; TEST01 uses Workstation/GNOME. Use fresh FW01, PROXY01, IIS-DMZ01 and TEST01 VMs; leave existing AD and APP01 unchanged. This is isolated local practice, not Internet publication.",
+  "supplies": [
+    "A patched host with Workstation Pro, approximately 24\u201332 GB RAM and 200 GB free disk space.",
+    "Verified OPNsense/AlmaLinux media and valid Windows Server 2019 media/evaluation entitlement.",
+    "Access to the Windows host and each VM console; a private password manager and backup location.",
+    "No Azure subscription, home-router port forwarding or public DNS change is needed."
+  ],
+  "sources": [
+    {
+      "title": "OPNsense installation and virtual-machine requirements",
+      "url": "https://docs.opnsense.org/manual/virtuals.html"
+    },
+    {
+      "title": "OPNsense initial installation",
+      "url": "https://docs.opnsense.org/manual/install.html"
+    },
+    {
+      "title": "OPNsense interface configuration",
+      "url": "https://docs.opnsense.org/manual/interfaces.html"
+    },
+    {
+      "title": "OPNsense firewall rules and processing order",
+      "url": "https://docs.opnsense.org/manual/firewall.html"
+    },
+    {
+      "title": "OPNsense destination NAT",
+      "url": "https://docs.opnsense.org/manual/nat.html"
+    },
+    {
+      "title": "NGINX reverse proxy configuration",
+      "url": "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/"
+    },
+    {
+      "title": "NGINX upstream HTTPS and certificate verification",
+      "url": "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/"
+    },
+    {
+      "title": "Microsoft IIS HTTPS bindings",
+      "url": "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding"
+    },
+    {
+      "title": "Microsoft self-signed certificates for testing",
+      "url": "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate"
+    },
+    {
+      "title": "Azure Application Gateway and firewall architecture",
+      "url": "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway"
+    },
+    {
+      "title": "Azure Application Gateway pricing",
+      "url": "https://azure.microsoft.com/en-us/pricing/details/application-gateway/"
+    },
+    {
+      "title": "Azure pricing calculator",
+      "url": "https://azure.microsoft.com/en-us/pricing/calculator/"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "dmz-plan",
+      "title": "Understand What Belongs in a DMZ",
+      "description": "Draw the visitor-to-proxy-to-private-IIS route and choose the local practice design.",
+      "what": "Draw the visitor-to-proxy-to-private-IIS route and choose the local practice design.",
+      "why": "Think of the DMZ as a reception desk. Visitors talk to the receptionist; they do not receive a key to every room. A reverse proxy forwards a web request, not an unrestricted network connection.",
+      "needs": [
+        "Complete the Windows/VMware installation and IIS basics first. The public course link for those classes stays in the Windows pathway.",
+        "Use a supported, patched Windows host with Workstation Pro. A Windows 10 host needs applicable security updates/ESU; keep this lab isolated.",
+        "Plan around 24\u201332 GB host RAM and 200 GB free disk space for this four-VM exercise; you can shut down unrelated practice VMs. No Azure subscription is required."
+      ],
+      "bestPractices": [
+        "Write the allowed request route before opening any port."
+      ],
+      "commonMistakes": [
+        "Putting a reverse proxy in front does not make it a WAF or a fully production-ready deployment."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "My interface names or addresses differ.",
+          "fix": "Stop and compare the MAC address and VMnet assignment on each adapter. Use the VMware console to recover access; do not guess which interface is private."
+        }
+      ],
+      "pass": "A saved diagram, resource budget and non-overlapping address inventory are complete.",
+      "exercise": "Explain the request route to someone who has never configured a firewall. Point out why a reverse proxy is not a WAF or a replacement for patching.",
+      "quiz": [
+        {
+          "question": "What belongs in the DMZ for this design?",
+          "options": [
+            "Both domain controllers",
+            "The reverse proxy; IIS stays private",
+            "An unrestricted route to SQL"
+          ],
+          "answer": 1,
+          "explanation": "The DMZ proxy receives visitor requests and can reach only the explicitly allowed private web endpoint."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Follow one web request",
+          "where": "Your Windows host \u00b7 lab notebook",
+          "actions": [
+            "Write the training name app-dmz.cloudseam.tech at the top of your notes. It is a local test name, not a change to the live cloudseam.tech website.",
+            "Draw TEST01 \u2192 FW01 outside address \u2192 PROXY01 in the DMZ \u2192 IIS-DMZ01 in the private network. Write TCP 443 on each web connection.",
+            "Place DC01, DC02 and SQL in the existing 10.50.0.0/24 private/AD network. Put the new IIS application on a separate 10.80.0.0/24 network. Draw crossed-out lines from the visitor, DMZ and application network to domain/database management services.",
+            "Say this out loud: the proxy can request one web service; it does not give the visitor direct access to the private network."
+          ],
+          "breakdown": [
+            {
+              "term": "DMZ",
+              "meaning": "A separate network for the public-facing entry point. Its firewall rules limit what that entry point can reach."
+            },
+            {
+              "term": "Reverse proxy",
+              "meaning": "A server that receives a web request and makes an approved request to your private web server."
+            }
+          ],
+          "expected": "Your diagram separates visitor, DMZ, private application and private AD/management zones with one approved HTTPS route.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-plan-screen-1",
+            "title": "Follow one web request",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Your diagram separates visitor, DMZ, private application and private AD/management zones with one approved HTTPS route."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Choose local practice before Azure",
+          "where": "Your Windows host \u00b7 lab notebook",
+          "actions": [
+            "Choose VMware Workstation Pro for the first build: OPNsense Community is the firewall, AlmaLinux/NGINX is the proxy and Windows Server 2019/IIS is the backend.",
+            "Keep IIS-DMZ01 separate from the existing APP01 help-desk server. Do not overwrite its website or reuse a live server to save a VM.",
+            "Use a dedicated outside VM to imitate a visitor. Do not configure home-router port forwarding, a bridged NIC, a tunnel or a public DNS record.",
+            "Record the Azure follow-on: managed HTTPS ingress/WAF and a private backend are the production-style cloud pattern. A permanently running Application Gateway is not a $25-per-month promise."
+          ],
+          "breakdown": [
+            {
+              "term": "Why start locally?",
+              "meaning": "The same request-boundary concepts can be practiced without running a paid cloud gateway or opening your home router."
+            }
+          ],
+          "expected": "The plan is local and isolated. Azure is a later design comparison, not a resource deployment.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-plan-screen-2",
+            "title": "Choose local practice before Azure",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The plan is local and isolated. Azure is a later design comparison, not a resource deployment."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Reserve four networks without changing the domain controllers",
+          "where": "Windows host \u00b7 VMware Virtual Network Editor and lab notebook",
+          "actions": [
+            "Reserve VMnet2 / 10.50.0.0/24 for existing PRIVATE/AD management, VMnet3 / 10.60.0.0/24 for DMZ, VMnet4 / 10.70.0.0/24 for OUTSIDE and VMnet5 / 10.80.0.0/24 for APP_PRIVATE. Stop if any overlaps a physical, VPN or existing lab network.",
+            "Keep DC01 at 10.50.0.10 and DC02 at 10.50.0.11. Reserve 10.50.0.1 for FW01 management and 10.50.0.254 for the host\u2019s VMnet2 adapter. Check the inventory for conflicts first.",
+            "Reserve 10.80.0.40 for the new IIS-DMZ01 and 10.80.0.1 for FW01 APP_PRIVATE. Keeping the application on VMnet5 means it cannot bypass the firewall to reach the domain controllers on VMnet2.",
+            "Reserve 10.60.0.10 / 10.60.0.1 for PROXY01 / FW01 DMZ and 10.70.0.10 / 10.70.0.1 for TEST01 / FW01 OUTSIDE.",
+            "Leave DC01/DC02 gateways, the existing APP01 and all domain/public DNS records unchanged. IIS-DMZ01 is a standalone workgroup practice server; this lesson does not open domain ports for it."
+          ],
+          "breakdown": [
+            {
+              "term": "/24 network",
+              "meaning": "A subnet mask of 255.255.255.0. Addresses in each lab subnet share the first three numbers."
+            },
+            {
+              "term": "Separate application subnet",
+              "meaning": "IIS uses 10.80.0.0/24, so reaching AD on 10.50.0.0/24 must cross the firewall."
+            }
+          ],
+          "expected": "Your inventory shows unique addresses, unchanged DC01/DC02 and no overlapping subnets.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-plan-screen-3",
+            "title": "Reserve four networks without changing the domain controllers",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Your inventory shows unique addresses, unchanged DC01/DC02 and no overlapping subnets."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dmz-networks",
+      "title": "Build Four Isolated VMware Networks",
+      "description": "Create separate AD/management, application, DMZ and outside networks and prepare the four VMs.",
+      "what": "Create separate AD/management, application, DMZ and outside networks and prepare the four VMs.",
+      "why": "Separate virtual switches give us separate rooms. FW01 becomes the controlled doorway between them. A second NAT or bridged adapter would make another doorway.",
+      "needs": [
+        "Use the address plan from the previous lesson.",
+        "Download verified supported OPNsense amd64 DVD ISO, AlmaLinux 9 ISO and licensed/evaluation Windows Server 2019 media from the publishers. Use evaluation software only within its terms."
+      ],
+      "bestPractices": [
+        "Verify both the virtual-switch settings and every guest\u2019s adapter list."
+      ],
+      "commonMistakes": [
+        "Changing the physical adapter instead of the named VMware management adapter."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "My interface names or addresses differ.",
+          "fix": "Stop and compare the MAC address and VMnet assignment on each adapter. Use the VMware console to recover access; do not guess which interface is private."
+        }
+      ],
+      "pass": "The saved VMnet settings and NIC/MAC inventory match the diagram; original domain controllers remain unchanged.",
+      "exercise": "Reopen every guest\u2019s settings and audit the adapters without looking at your earlier checklist.",
+      "quiz": [
+        {
+          "question": "Which adapter creates a bypass around the lab firewall?",
+          "options": [
+            "An extra NAT or bridged NIC on a protected server",
+            "The proxy\u2019s single DMZ NIC",
+            "The visitor\u2019s single OUTSIDE NIC"
+          ],
+          "answer": 0,
+          "explanation": "A second network connection can provide a path that never crosses FW01."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Prepare the VM images and package tools",
+          "where": "Windows host \u00b7 Workstation Pro; Linux guest consoles during preparation",
+          "actions": [
+            "Create FW01 with 2 vCPUs, 4 GB RAM and a 40 GB virtual disk. Choose the supported FreeBSD 64-bit guest type for OPNsense; attach the DVD ISO. Disable Secure Boot if the vendor virtual-install guide requires it.",
+            "Use the Windows and AlmaLinux installation links at the top of this class. Create IIS-DMZ01 with Server 2019 Standard Desktop Experience, 4 GB RAM and 60 GB disk. In AlmaLinux Software Selection choose Minimal Install for PROXY01 (2 GB RAM, 30 GB disk) and Workstation/GNOME for TEST01 (3 GB RAM, 30 GB disk). Use fresh installs, not copied domain controllers. The AlmaLinux terminal basics link explains opening a shell and using sudo.",
+            "During preparation only, give PROXY01 and TEST01 one NAT adapter on VMnet8. On PROXY01, paste the package block below into its console. On TEST01, run these exact commands separately: sudo dnf upgrade --refresh -y; then sudo dnf install -y curl openssl open-vm-tools fuse3; then sudo systemctl enable --now vmtoolsd. The proxy-only NGINX package block is not required on TEST01.",
+            "Install VMware Tools on the Windows guest and open-vm-tools on AlmaLinux so the temporary public-certificate shared folder will work. Apply available guest updates before isolation.",
+            "Shut down the three operating-system guests. Before testing, their NAT adapters will be replaced by one named custom VMnet. FW01 will have exactly four adapters."
+          ],
+          "command": "sudo dnf upgrade --refresh -y\nsudo dnf install -y nginx openssl curl tcpdump open-vm-tools fuse3 policycoreutils-python-utils\nsudo systemctl enable --now vmtoolsd",
+          "breakdown": [
+            {
+              "term": "Prepare before isolation",
+              "meaning": "Install packages while temporary NAT access exists. The final networks deliberately have no Internet upstream."
+            }
+          ],
+          "expected": "The guests are prepared, powered off and ready to be attached to isolated networks.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-networks-screen-1",
+            "title": "Prepare the VM images and package tools",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The guests are prepared, powered off and ready to be attached to isolated networks."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Create the four isolated switches",
+          "where": "Windows host \u00b7 VMware Workstation Pro \u2192 Edit \u2192 Virtual Network Editor",
+          "actions": [
+            "Open Edit \u2192 Virtual Network Editor. Click Change Settings and approve the Windows administrator prompt.",
+            "Select VMnet2 and confirm Host-only, subnet 10.50.0.0, mask 255.255.255.0, and VMware DHCP unchecked. Preserve existing VMnet2 settings if they already match.",
+            "Click Add Network, choose VMnet3 and set Host-only, subnet 10.60.0.0 and mask 255.255.255.0. Uncheck both the host virtual adapter and local DHCP options.",
+            "Repeat for VMnet4 with subnet 10.70.0.0 and VMnet5 with subnet 10.80.0.0. Use mask 255.255.255.0, host-adapter option off and DHCP off on both. Do not choose Bridged or NAT.",
+            "Click Apply, then OK. Reopen the editor and verify the saved values rather than assuming they were kept."
+          ],
+          "breakdown": [
+            {
+              "term": "Host-only",
+              "meaning": "A VMware virtual switch separate from the physical LAN; traffic crosses to another lab network only through the configured firewall."
+            },
+            {
+              "term": "DHCP off",
+              "meaning": "Every lab address is assigned deliberately instead of being leased by VMware."
+            }
+          ],
+          "expected": "VMnet2/3/4/5 are isolated host-only /24 networks with DHCP off. Only VMnet2 has the intended host management adapter.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-networks-screen-2",
+            "title": "Create the four isolated switches",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. VMnet2/3/4/5 are isolated host-only /24 networks with DHCP off. Only VMnet2 has the intended host management adapter."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Move only the host management adapter",
+          "where": "Windows 10 host \u00b7 Run \u2192 ncpa.cpl",
+          "actions": [
+            "Press Windows+R, type ncpa.cpl and press Enter. Find VMware Network Adapter VMnet2; do not select Wi-Fi or Ethernet.",
+            "Right-click that virtual adapter \u2192 Properties \u2192 Internet Protocol Version 4 \u2192 Properties. Record its original values first.",
+            "Select Use the following IP address. Enter 10.50.0.254, mask 255.255.255.0, and leave the default gateway and DNS fields blank for this management adapter.",
+            "Click OK twice. Run ipconfig in the host\u2019s PowerShell and confirm the VMnet2 adapter now shows .254. Your physical adapter should retain its original settings.",
+            "Keep this host adapter for administration only. It already has private-network access, so it is not the outside visitor we will use to prove blocking. Keep Internet Connection Sharing and Network Bridge disabled on the lab adapters."
+          ],
+          "breakdown": [
+            {
+              "term": "Why .254?",
+              "meaning": "The host needs a private management address that does not conflict with FW01 at .1. This does not change your physical Wi-Fi or Ethernet settings."
+            }
+          ],
+          "expected": "The host VMnet2 adapter is 10.50.0.254 and does not conflict with the future FW01 .1 address.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-networks-screen-3",
+            "title": "Move only the host management adapter",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The host VMnet2 adapter is 10.50.0.254 and does not conflict with the future FW01 .1 address."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Attach the VMs and record their MAC addresses",
+          "where": "Workstation Pro \u00b7 each powered-off VM \u2192 Settings \u2192 Network Adapter",
+          "actions": [
+            "For FW01, add four adapters: adapter 1 \u2192 Custom VMnet4 (OUTSIDE), adapter 2 \u2192 Custom VMnet2 (PRIVATE/AD management), adapter 3 \u2192 Custom VMnet3 (DMZ), adapter 4 \u2192 Custom VMnet5 (APP_PRIVATE). In Advanced, record each MAC next to its zone.",
+            "For IIS-DMZ01, select its only adapter \u2192 Custom VMnet5. PROXY01 has only Custom VMnet3; TEST01 has only Custom VMnet4.",
+            "Remove or disconnect extra guest adapters. None of the four final VMs may have an attached NAT/VMnet8 or bridged NIC.",
+            "Keep Connected and Connect at power on enabled for the intended adapters. Save and re-open the settings to check them.",
+            "Only FW01 has four NICs. Your Windows host\u2019s separate VMnet2 management adapter stays at 10.50.0.254; it is not the visitor."
+          ],
+          "breakdown": [
+            {
+              "term": "MAC address",
+              "meaning": "The adapter identifier used to match an operating-system interface to the correct VMware virtual cable."
+            },
+            {
+              "term": "One NIC on each server",
+              "meaning": "Prevents an extra NAT or bridged connection from bypassing FW01."
+            }
+          ],
+          "expected": "The saved four-zone MAC/NIC inventory has four FW01 adapters and one adapter on each server/client.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-networks-screen-4",
+            "title": "Attach the VMs and record their MAC addresses",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The saved four-zone MAC/NIC inventory has four FW01 adapters and one adapter on each server/client."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dmz-firewall",
+      "title": "Install and Name Your DMZ Firewall",
+      "description": "Install OPNsense, assign the correct interfaces and create an explicit administrator rule before removing broad access.",
+      "what": "Install OPNsense, assign the correct interfaces and create an explicit administrator rule before removing broad access.",
+      "why": "The firewall decides which new conversations may start. Interface names must match the correct virtual cables, and administrator access must be preserved before a default allow rule is removed.",
+      "needs": [
+        "FW01, the four custom VMnets and the MAC inventory are ready.",
+        "Use the VMware console for recovery. Keep a private password manager available; screenshots never show your real password."
+      ],
+      "bestPractices": [
+        "Keep console recovery and a private configuration backup ready before removing broad management access."
+      ],
+      "commonMistakes": [
+        "Assuming an existing browser connection proves the new narrow management rule works."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The firewall page disappeared after the management rule change.",
+          "fix": "Keep the VMware console open. Check the LAN MAC/IP and restore the private backup if needed. Recheck the explicit ADMIN_HOST-to-LAN-443 rule before attempting lockdown again."
+        }
+      ],
+      "pass": "A private backup and screenshots show the interface mapping, administrator rule and narrow DMZ HTTPS rule in the correct order.",
+      "exercise": "Explain why the reply from IIS does not need a separate broad PRIVATE-to-DMZ allow rule.",
+      "quiz": [
+        {
+          "question": "Where is the proxy-to-IIS rule placed?",
+          "options": [
+            "The DMZ interface where that connection enters FW01",
+            "Only the outside interface",
+            "Only a Windows browser setting"
+          ],
+          "answer": 0,
+          "explanation": "Interface rules normally evaluate new traffic entering that interface. Existing allowed connection states carry the response back."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Install OPNsense on FW01",
+          "where": "FW01 VMware console \u00b7 OPNsense installer",
+          "actions": [
+            "Power on FW01 from the verified DVD ISO. At the live-system login, use the installer account and its documented initial password opnsense. These are installer defaults, not credentials to keep after installation.",
+            "Choose the correct keymap, then Install (UFS) for this simple single-disk practice VM if offered. Select only FW01\u2019s new 40 GB virtual disk and the installer\u2019s supported default partition layout. Confirm the disk identity before accepting an erase; never select a physical host disk.",
+            "Set a unique root password when prompted and store it privately. Complete installation, disconnect the ISO and reboot from the virtual disk.",
+            "Sign in at the installed console as root using your new password. Open Assign interfaces. Decline VLAN creation for this lab.",
+            "Match the detected interface MACs with your inventory: WAN = VMnet4 OUTSIDE, LAN = VMnet2 AD/management, OPT1 = VMnet3 DMZ and OPT2 = VMnet5 APP_PRIVATE. Do not assume em0/em1/em2/em3 names identify zones."
+          ],
+          "breakdown": [
+            {
+              "term": "Installer versus root",
+              "meaning": "The installer account starts installation. Your chosen root password is for the installed firewall; do not keep the published installer default."
+            }
+          ],
+          "expected": "FW01 boots from disk with WAN, LAN, OPT1 and OPT2 mapped to the correct recorded MACs.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-firewall-screen-1",
+            "title": "Install OPNsense on FW01",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. FW01 boots from disk with WAN, LAN, OPT1 and OPT2 mapped to the correct recorded MACs."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Set the firewall\u2019s four addresses",
+          "where": "FW01 console \u00b7 Set interface IP address",
+          "actions": [
+            "Choose Set interface IP address for LAN. Select static IPv4, enter 10.50.0.1, prefix 24, no upstream gateway and no DHCP server. Choose no IPv6 configuration for this isolated exercise. Keep HTTPS for the web interface.",
+            "Repeat for WAN with static 10.70.0.1/24, no upstream gateway, no DHCP and no IPv6. The outside test segment has no Internet upstream.",
+            "Repeat for OPT1 with 10.60.0.1/24 and OPT2 with 10.80.0.1/24. Both use static IPv4, no upstream gateway, no DHCP server and no IPv6 configuration for this exercise. Enable/name both interfaces in the web interface next.",
+            "Read all four addresses in the console summary and correct any swapped interface before opening a browser.",
+            "On the Windows host, open https://10.50.0.1. For the appliance\u2019s initial self-signed management certificate, confirm you are on the isolated management adapter and verify its certificate in the console/browser before accepting a lab-only exception. Use a trusted management certificate in production."
+          ],
+          "breakdown": [
+            {
+              "term": "No upstream gateway",
+              "meaning": "The isolated outside segment has no real Internet router. Internal interface gateways are not configured as upstream WAN gateways."
+            }
+          ],
+          "expected": "The host reaches FW01 on 10.50.0.1 and all four interface addresses match the diagram.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-firewall-screen-2",
+            "title": "Set the firewall\u2019s four addresses",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The host reaches FW01 on 10.50.0.1 and all four interface addresses match the diagram."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Label the interfaces and allow the lab\u2019s private outside addresses",
+          "where": "Windows host browser \u00b7 FW01 Interfaces",
+          "actions": [
+            "Sign in to the OPNsense web interface as root with your own password. Record the installed version so you can compare labels with the documentation. In System \u2192 Settings \u2192 General, set hostname fw01 and domain cloudseam.tech for this appliance; that does not join AD or create a public DNS record.",
+            "Open Interfaces \u2192 OPT1, enable it, describe it as DMZ and confirm 10.60.0.1/24. Repeat for OPT2, enable it, describe it APP_PRIVATE and confirm 10.80.0.1/24. Save and apply each. Keep LAN as private/AD management and WAN as OUTSIDE.",
+            "Open the WAN/OUTSIDE interface. For this isolated RFC1918 outside test network only, uncheck Block private networks. Uncheck Block bogon networks if it would reject this lab segment. Save and apply.",
+            "Leave those protections enabled on a real ISP-facing WAN unless its documented design requires otherwise. This exception is not advice for an Internet firewall.",
+            "In System \u2192 Settings \u2192 Administration, restrict management listening to PRIVATE/LAN when the release provides Listen Interfaces. Keep the VMware console open in case you lose the browser session."
+          ],
+          "breakdown": [
+            {
+              "term": "Private-address blocking",
+              "meaning": "A real WAN often rejects private source addresses. This lab\u2019s simulated outside uses 10.70.0.0/24, so that lab interface needs a deliberate exception."
+            }
+          ],
+          "expected": "The DMZ is enabled, the test outside interface accepts the planned private lab addresses, and management is confined to PRIVATE.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-firewall-screen-3",
+            "title": "Label the interfaces and allow the lab\u2019s private outside addresses",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The DMZ is enabled, the test outside interface accepts the planned private lab addresses, and management is confined to PRIVATE."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Keep an explicit administrator doorway",
+          "where": "Windows host browser \u00b7 Firewall \u2192 Aliases, then Rules [new] / interface rules",
+          "actions": [
+            "Create host aliases ADMIN_HOST=10.50.0.254, DMZ_PROXY=10.60.0.10, PRIVATE_IIS=10.80.0.40 and LAB_VISITOR=10.70.0.10. Use one address per host alias and Apply changes.",
+            "On the LAN/PRIVATE rules tab, add a Pass IPv4 TCP rule: source ADMIN_HOST, destination LAN/PRIVATE address (the firewall itself), destination port HTTPS/443. Enable logging and name it ADMIN_TO_FW_HTTPS. Save, move it above broad rules and apply.",
+            "Before lockdown, export a private backup and verify that you can sign in through the VMware console. Recheck the explicit rule\u2019s interface, source, destination and port. Do not assume an old browser session proves that rule: an existing state or the automatic anti-lockout rule can still be allowing it.",
+            "Disable the default LAN-to-any IPv4/IPv6 rules and, after saving the explicit administrator rule and preparing console recovery, disable the automatic anti-lockout rule. Apply. Open https://10.50.0.1 in a new private/incognito browser window to create a fresh connection, then confirm ADMIN_TO_FW_HTTPS in Live View. Check legacy/new rule views if the release has both.",
+            "If the new management connection fails, use the already-open VMware console to restore the saved configuration. Keep the explicit rule only after a fresh connection succeeds. Do not leave an any-to-any recovery rule behind."
+          ],
+          "breakdown": [
+            {
+              "term": "Existing connection state",
+              "meaning": "A browser connection that already works may continue through a state. Test a fresh connection after the narrow rule and recovery path are ready."
+            },
+            {
+              "term": "Anti-lockout",
+              "meaning": "An automatic management allow can take precedence over your rule. Preserve console recovery before removing it."
+            }
+          ],
+          "expected": "Only the explicit administrator management path is retained; the broad LAN-to-any rules are disabled.",
+          "screenshot": {
+            "status": "reference",
+            "assetId": "dmz-opnsense-rules-reference",
+            "title": "Find the interface selector, Add and Apply",
+            "instructions": "This original vendor image shows default LAN rules. Do not copy those broad allows into the final lab policy. Create and verify ADMIN_TO_FW_HTTPS first, then disable the broad LAN rules as written above."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Allow one private web service from the proxy",
+          "where": "Windows host browser \u00b7 Firewall \u2192 Rules \u2192 DMZ",
+          "actions": [
+            "Select the DMZ interface tab, not WAN. Add a Pass IPv4 TCP rule with source DMZ_PROXY, destination PRIVATE_IIS and destination port HTTPS/443. Name it DMZ_PROXY_TO_IIS_443 and enable logging.",
+            "Leave the source port as any: clients use temporary source ports. The destination port is the service we are restricting. Save and apply.",
+            "Add a logged Block IPv4 any rule below it: source DMZ net, destination any, description DMZ_DENY_OTHER. This makes the blocked tests easy to find; the firewall also has a default deny.",
+            "On APP_PRIVATE, add a logged Block IPv4 any rule: source APP_PRIVATE net, destination any, description APP_DENY_OTHER. Do not add general access from the application subnet to AD or SQL. Return packets for the approved proxy connection use its existing state.",
+            "Keep only the explicit DMZ HTTPS allow above its logged deny. Do not add source NAT between these internal networks. Export a private configuration backup; later tests must prove both DMZ-to-AD and application-to-AD blocking."
+          ],
+          "breakdown": [
+            {
+              "term": "Source port versus destination port",
+              "meaning": "The proxy chooses a temporary client source port. Destination 443 is the HTTPS service we permit."
+            },
+            {
+              "term": "Stateful replies",
+              "meaning": "A reply to an approved request uses the existing state; it does not require allowing every new connection in the reverse direction."
+            }
+          ],
+          "expected": "DMZ_PROXY_TO_IIS_443 is above DMZ_DENY_OTHER, and there is no broad DMZ-to-private allow.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-firewall-screen-5",
+            "title": "Allow one private web service from the proxy",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. DMZ_PROXY_TO_IIS_443 is above DMZ_DENY_OTHER, and there is no broad DMZ-to-private allow."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dmz-iis",
+      "title": "Build the Private IIS Application",
+      "description": "Create a disposable private IIS website with HTTPS and allow only the DMZ proxy to connect.",
+      "what": "Create a disposable private IIS website with HTTPS and allow only the DMZ proxy to connect.",
+      "why": "The application belongs behind the receptionist. We will pin its lab certificate so the proxy verifies both encryption and the backend name instead of ignoring TLS errors.",
+      "needs": [
+        "Use only the fresh IIS-DMZ01 Server 2019 guest, not existing APP01. Install VMware Tools and keep the VM console available.",
+        "Download /dmz/new-iis-backend.ps1 on the Windows host if you prefer the complete script. Review it before running; the steps show the same operations."
+      ],
+      "bestPractices": [
+        "Use the fresh dedicated IIS guest and keep its private key in the Windows certificate store."
+      ],
+      "commonMistakes": [
+        "Leaving an older broad web allow enabled alongside the new scoped firewall rule."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The page does not load inside the server.",
+          "fix": "Check the DMZ-Lab site state, its C:\\inetpub\\dmz-lab path and loopback port 8080 first. Do not change network rules until the local health check succeeds."
+        }
+      ],
+      "pass": "The site works locally, its HTTPS binding uses the expected name, the Windows firewall is scoped and only the public certificate is transferred.",
+      "exercise": "Explain the difference between a contact hostname, a TLS certificate name, and an IP address.",
+      "quiz": [
+        {
+          "question": "What may be copied to the proxy?",
+          "options": [
+            "The backend\u2019s public PEM certificate",
+            "The backend private key and Administrator password",
+            "A domain controller database"
+          ],
+          "answer": 0,
+          "explanation": "The proxy needs public trust material to verify the backend; it does not need the backend private key."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Give the new private server its address",
+          "where": "IIS-DMZ01 guest console \u00b7 Windows Server 2019 \u2192 ncpa.cpl",
+          "actions": [
+            "Start IIS-DMZ01. Confirm its only VMware NIC is VMnet5. Sign in as its local Administrator. Rename the computer IIS-DMZ01 using Server Manager \u2192 Local Server \u2192 Computer name \u2192 Change, then restart.",
+            "Press Windows+R \u2192 ncpa.cpl. Open the guest\u2019s Ethernet adapter \u2192 Properties \u2192 IPv4. Enter 10.80.0.40, mask 255.255.255.0 and default gateway 10.80.0.1.",
+            "Leave DNS blank for this standalone workgroup test VM; the proxy uses an IP upstream with an explicit TLS name. Do not change DC01/DC02 DNS or make the new server a domain controller.",
+            "Open Windows PowerShell as administrator and run ipconfig /all. Check the adapter, IP, mask and gateway against the diagram.",
+            "If .40 is already assigned in your actual lab, stop and resolve the conflict consistently rather than using two machines with the same address."
+          ],
+          "command": "hostname\nipconfig /all",
+          "breakdown": [
+            {
+              "term": "Workgroup backend",
+              "meaning": "This fresh application VM does not need domain membership for the static HTTPS demonstration. That avoids opening AD service ports."
+            }
+          ],
+          "expected": "IIS-DMZ01 is a workgroup VM at 10.80.0.40/24 with gateway 10.80.0.1 and exactly one VMnet5 NIC.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-iis-screen-1",
+            "title": "Give the new private server its address",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. IIS-DMZ01 is a workgroup VM at 10.80.0.40/24 with gateway 10.80.0.1 and exactly one VMnet5 NIC."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Install IIS and create a clearly named practice site",
+          "where": "IIS-DMZ01 \u00b7 Windows PowerShell as Administrator",
+          "actions": [
+            "Check that hostname prints IIS-DMZ01 before pasting anything. The downloaded script has the same guard and refuses an unexpected machine.",
+            "Paste the command block below into that guest\u2019s elevated PowerShell. It installs IIS and creates C:\\inetpub\\dmz-lab with a harmless training page.",
+            "The dedicated new VM\u2019s Default Web Site is stopped so we do not accidentally publish it. No existing APP01 website is touched.",
+            "Open IIS Manager \u2192 Sites and confirm DMZ-Lab is listed. Its initial HTTP health binding is loopback-only at 127.0.0.1:8080.",
+            "Run the local health check. Seeing the training page proves the application exists before we diagnose firewall or proxy problems."
+          ],
+          "command": "if ($env:COMPUTERNAME -ne 'IIS-DMZ01') { throw 'Wrong VM. Stop here.' }\nInstall-WindowsFeature Web-Server -IncludeManagementTools\nImport-Module WebAdministration\nNew-Item -ItemType Directory -Path C:\\inetpub\\dmz-lab -Force\n'<h1>CloudSeam DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\\inetpub\\dmz-lab\\index.html\nStop-Website 'Default Web Site'\nNew-Website -Name 'DMZ-Lab' -PhysicalPath C:\\inetpub\\dmz-lab -IPAddress 127.0.0.1 -Port 8080\n(Invoke-WebRequest http://127.0.0.1:8080 -UseBasicParsing).StatusCode",
+          "breakdown": [
+            {
+              "term": "Install-WindowsFeature",
+              "meaning": "Adds the IIS server role and its management tools to this dedicated Windows guest."
+            },
+            {
+              "term": "Loopback health check",
+              "meaning": "127.0.0.1:8080 can be reached only inside this server; it lets you prove the page exists before testing the network."
+            }
+          ],
+          "expected": "The local health request returns the CloudSeam training page from the DMZ-Lab site.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-iis-screen-2",
+            "title": "Install IIS and create a clearly named practice site",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The local health request returns the CloudSeam training page from the DMZ-Lab site."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Bind HTTPS and export only the public certificate",
+          "where": "IIS-DMZ01 \u00b7 elevated PowerShell, then IIS Manager \u2192 DMZ-Lab \u2192 Bindings",
+          "actions": [
+            "Run the command block once. It creates a 30-day self-signed lab server certificate for iis-backend.cloudseam.tech and attaches it to this site\u2019s HTTPS binding.",
+            "In IIS Manager, inspect DMZ-Lab \u2192 Bindings. Confirm https, IP 10.80.0.40, port 443, host name iis-backend.cloudseam.tech and SNI enabled. The selected certificate should be DMZ-Lab backend.",
+            "Open C:\\DMZ-Lab and confirm backend-public.pem contains BEGIN CERTIFICATE and END CERTIFICATE lines. This is public certificate material; it must not contain PRIVATE KEY.",
+            "The backend certificate is a pinned self-signed test certificate, not an enterprise CA hierarchy. Production uses a managed CA, renewal and trust lifecycle.",
+            "Keep the private key in the Windows certificate store. Do not export it or upload it to the academy."
+          ],
+          "command": "$cert = New-SelfSignedCertificate -DnsName 'iis-backend.cloudseam.tech' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)\nNew-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.cloudseam.tech' -SslFlags 1\n(Get-WebBinding -Name 'DMZ-Lab' -Protocol https).AddSslCertificate($cert.Thumbprint, 'My')\nNew-Item -ItemType Directory C:\\DMZ-Lab -Force\n$pem = '-----BEGIN CERTIFICATE-----' + \"`r`n\" + [Convert]::ToBase64String($cert.RawData, [System.Base64FormattingOptions]::InsertLineBreaks) + \"`r`n-----END CERTIFICATE-----`r`n\"\n$pem | Set-Content C:\\DMZ-Lab\\backend-public.pem -Encoding Ascii",
+          "breakdown": [
+            {
+              "term": "-DnsName",
+              "meaning": "Adds the expected backend name to the test certificate."
+            },
+            {
+              "term": "-SslFlags 1",
+              "meaning": "Enables SNI so IIS selects the HTTPS binding by the hostname sent during TLS."
+            },
+            {
+              "term": "Public PEM",
+              "meaning": "A text-encoded certificate used for verification. It must not include the server\u2019s private key."
+            }
+          ],
+          "expected": "The correct SNI HTTPS binding exists, and backend-public.pem contains only the backend\u2019s public certificate.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-iis-screen-3",
+            "title": "Bind HTTPS and export only the public certificate",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The correct SNI HTTPS binding exists, and backend-public.pem contains only the backend\u2019s public certificate."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Restrict the Windows firewall and stage the public certificate",
+          "where": "IIS-DMZ01 \u00b7 elevated PowerShell; Windows host \u2192 Workstation shared folder settings",
+          "actions": [
+            "On this dedicated VM, add the named inbound rule below. Then review enabled inbound allow rules for TCP 443 and 80 in Windows Defender Firewall with Advanced Security. Disable any broad web allow that would also expose this practice site. Do not disable Windows Firewall.",
+            "Confirm DMZ-Lab HTTPS accepts remote address 10.60.0.10 only. The loopback health binding stays local. Leave domain controllers and other VMs alone.",
+            "On the host create C:\\DMZ-Transfer. In this guest\u2019s VM settings \u2192 Options \u2192 Shared Folders, add that folder with share name DMZ-Transfer temporarily. Enable it only for certificate transfer.",
+            "Inside the guest, copy C:\\DMZ-Lab\\backend-public.pem to \\\\vmware-host\\Shared Folders\\DMZ-Transfer. Check that the shared folder contains no password, PFX or private key.",
+            "After the next lesson copies the public files, disable shared folders on all practice VMs. A shared folder is a transfer convenience, not the network path we are testing."
+          ],
+          "command": "New-NetFirewallRule -DisplayName 'DMZ-Lab HTTPS from proxy only' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 443 -RemoteAddress 10.60.0.10 -Profile Any\nGet-NetFirewallRule -DisplayName 'DMZ-Lab HTTPS from proxy only' | Get-NetFirewallAddressFilter\n# Inspect other inbound web allows on this dedicated VM before disabling them.\nGet-NetFirewallRule -Direction Inbound -Enabled True -Action Allow | Where-Object DisplayName -Match 'World Wide Web|HTTPS|HTTP' | Select-Object Name,DisplayName,Enabled",
+          "breakdown": [
+            {
+              "term": "-RemoteAddress 10.60.0.10",
+              "meaning": "Limits the inbound allow to the proxy. Other enabled broad allow rules must be reviewed too; adding a narrow allow does not override them."
+            }
+          ],
+          "expected": "The Windows HTTPS rule is scoped to 10.60.0.10, and only the public backend PEM is staged for the proxy.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-iis-screen-4",
+            "title": "Restrict the Windows firewall and stage the public certificate",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The Windows HTTPS rule is scoped to 10.60.0.10, and only the public backend PEM is staged for the proxy."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dmz-proxy",
+      "title": "Build the DMZ Reverse Proxy",
+      "description": "Configure AlmaLinux and NGINX to verify and forward HTTPS to the private IIS site.",
+      "what": "Configure AlmaLinux and NGINX to verify and forward HTTPS to the private IIS site.",
+      "why": "The proxy opens a new HTTPS connection to IIS. Both hops are encrypted, and the backend certificate name is verified. We do not turn off certificate checking or SELinux to make errors disappear.",
+      "needs": [
+        "PROXY01 has its packages installed from the preparation stage and one VMnet3 NIC.",
+        "The public backend PEM is in the temporary host folder. Use the dedicated VM console; public SSH is not needed."
+      ],
+      "bestPractices": [
+        "Verify the private TLS hop before debugging the complete visitor route."
+      ],
+      "commonMistakes": [
+        "Treating an HTTPS upstream URL as proof that the upstream certificate is being checked."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "NGINX starts but the backend request fails.",
+          "fix": "Run the direct --cacert/--resolve backend test from PROXY01. Match the firewall decision, certificate SAN, clock and IIS binding before changing the proxy."
+        }
+      ],
+      "pass": "The direct verified backend test succeeds and the proxy service starts with certificate checks and host protections enabled.",
+      "exercise": "Read the downloaded configuration and identify which lines control the visitor hostname, backend hostname, upstream IP, and trust certificate.",
+      "quiz": [
+        {
+          "question": "Which setting protects the proxy-to-backend HTTPS connection?",
+          "options": [
+            "proxy_ssl_verify off",
+            "proxy_ssl_verify on with the expected backend name and trust certificate",
+            "A public SQL port"
+          ],
+          "answer": 1,
+          "explanation": "Encryption and certificate/hostname verification are both required; an HTTPS URL alone does not guarantee verification."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Set PROXY01\u2019s DMZ address",
+          "where": "PROXY01 \u00b7 AlmaLinux console",
+          "actions": [
+            "Sign in on the VMware console. Run nmcli connection show and identify the single Ethernet connection name; ignore loopback. Record the exact name rather than guessing that it is eth0.",
+            "Use nmcli connection modify with that exact name, IPv4 manual, address 10.60.0.10/24 and gateway 10.60.0.1. Clear DNS; this exercise uses explicit IP and TLS names.",
+            "Apply the connection and inspect ip -4 address and ip -4 route. There should be one Ethernet interface in the DMZ and one default route through FW01.",
+            "If you see a VMnet8/NAT address, stop the VM and correct its adapter. Internet access is deliberately unavailable in the final isolated layout.",
+            "Verify the clock with timedatectl. Correct significant time errors using the host/console before diagnosing certificate dates."
+          ],
+          "command": "sudo hostnamectl set-hostname proxy01.cloudseam.tech\nnmcli connection show\n# Replace YOUR_CONNECTION with the exact Ethernet profile name above.\nsudo nmcli connection modify \"YOUR_CONNECTION\" ipv4.method manual ipv4.addresses 10.60.0.10/24 ipv4.gateway 10.60.0.1 ipv4.dns \"\" ipv6.method disabled\nsudo nmcli connection up \"YOUR_CONNECTION\"\nip -4 address\nip -4 route\ntimedatectl",
+          "breakdown": [
+            {
+              "term": "Connection profile",
+              "meaning": "nmcli modifies the named Ethernet profile. The profile name can contain spaces, so keep the quotes."
+            },
+            {
+              "term": "Default route",
+              "meaning": "10.60.0.1 is the firewall doorway for destinations outside PROXY01\u2019s own subnet."
+            }
+          ],
+          "expected": "PROXY01 has only 10.60.0.10/24 on its Ethernet NIC and uses 10.60.0.1 as gateway.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-proxy-screen-1",
+            "title": "Set PROXY01\u2019s DMZ address",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. PROXY01 has only 10.60.0.10/24 on its Ethernet NIC and uses 10.60.0.1 as gateway."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Copy the pinned backend certificate and prove the private HTTPS hop",
+          "where": "PROXY01 \u00b7 AlmaLinux console; Workstation Options \u2192 Shared Folders",
+          "actions": [
+            "Temporarily add host folder C:\\DMZ-Transfer to PROXY01 with share name DMZ-Transfer. Start vmtoolsd if it is not already running.",
+            "Run the mount and copy commands below. The only input is backend-public.pem; do not copy private keys.",
+            "Run curl with --cacert and --resolve. --resolve connects to 10.80.0.40 while using iis-backend.cloudseam.tech for the URL and TLS name. Do not add -k.",
+            "The request should return the CloudSeam training page. Check FW01\u2019s Live View for the DMZ_PROXY_TO_IIS_443 pass and the expected 10.60.0.10 source.",
+            "If this fails, fix the interface route, firewall rule, certificate name, clock or IIS binding before adding NGINX. We need a known-working backend first."
+          ],
+          "command": "sudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\nsudo cp /mnt/dmz-transfer/backend-public.pem /etc/pki/tls/certs/iis-backend.pem\ncurl --cacert /etc/pki/tls/certs/iis-backend.pem --resolve iis-backend.cloudseam.tech:443:10.80.0.40 --connect-timeout 5 https://iis-backend.cloudseam.tech/",
+          "breakdown": [
+            {
+              "term": "--cacert",
+              "meaning": "Tells curl which specific public certificate to trust for this lab connection."
+            },
+            {
+              "term": "--resolve",
+              "meaning": "Connects to the private IP while retaining the correct URL hostname for TLS and IIS SNI."
+            }
+          ],
+          "expected": "A verified curl request from PROXY01 reaches the private IIS page and a matching narrow firewall pass is logged.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-proxy-screen-2",
+            "title": "Copy the pinned backend certificate and prove the private HTTPS hop",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. A verified curl request from PROXY01 reaches the private IIS page and a matching narrow firewall pass is logged."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Create the visitor-facing lab certificate",
+          "where": "PROXY01 \u00b7 AlmaLinux console",
+          "actions": [
+            "Run the OpenSSL command below to create a 30-day self-signed front-end certificate for app-dmz.cloudseam.tech. This is separate from the IIS backend certificate.",
+            "Set the private key to mode 600. Only root should read it; nginx\u2019s root master process can load it before dropping worker privileges.",
+            "Inspect the subject, SAN and dates with the second command. The name must be app-dmz.cloudseam.tech.",
+            "Copy only dmz-front.crt into the temporary shared folder as proxy-public.crt for TEST01. Never copy dmz-front.key.",
+            "A public production site would use a trusted CA and automated renewal. This private lab pins public certificates explicitly; it does not teach users to ignore real-site warnings."
+          ],
+          "command": "sudo openssl req -x509 -nodes -newkey rsa:3072 -sha256 -days 30 -keyout /etc/pki/tls/private/dmz-front.key -out /etc/pki/tls/certs/dmz-front.crt -subj \"/CN=app-dmz.cloudseam.tech\" -addext \"subjectAltName=DNS:app-dmz.cloudseam.tech\"\nsudo chmod 600 /etc/pki/tls/private/dmz-front.key\nopenssl x509 -in /etc/pki/tls/certs/dmz-front.crt -noout -subject -dates -ext subjectAltName\nsudo cp /etc/pki/tls/certs/dmz-front.crt /mnt/dmz-transfer/proxy-public.crt",
+          "breakdown": [
+            {
+              "term": "SAN",
+              "meaning": "The certificate name must match app-dmz.cloudseam.tech, the name the visitor requests."
+            },
+            {
+              "term": "Private key",
+              "meaning": "The secret file stays on the proxy with restrictive permissions. Only the public certificate goes to TEST01."
+            }
+          ],
+          "expected": "The front certificate has the correct SAN and dates; the front private key stays root-only on PROXY01.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-proxy-screen-3",
+            "title": "Create the visitor-facing lab certificate",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The front certificate has the correct SAN and dates; the front private key stays root-only on PROXY01."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Install the exact NGINX HTTPS proxy configuration",
+          "where": "PROXY01 \u00b7 AlmaLinux console / text editor",
+          "actions": [
+            "On the Windows host, download the class file /dmz/nginx-dmz.conf into C:\\DMZ-Transfer. Read it before copying it. The private upstream is fixed to 10.80.0.40:443.",
+            "Copy it from the mounted share into /etc/nginx/conf.d/dmz.conf using the command below. This server block listens on 10.60.0.10:443 for app-dmz.cloudseam.tech.",
+            "Read the trust settings: proxy_ssl_verify on, proxy_ssl_server_name on, proxy_ssl_name iis-backend.cloudseam.tech and the pinned backend PEM. The Host header sent to IIS uses its backend binding name.",
+            "The configuration sets X-Forwarded-For to the connecting client address, replacing any visitor-supplied value. IIS must trust that header only from this proxy; it is not an authentication mechanism.",
+            "Run nginx -t. Stop and correct any syntax, path or certificate error before starting the service."
+          ],
+          "command": "sudo cp /mnt/dmz-transfer/nginx-dmz.conf /etc/nginx/conf.d/dmz.conf\nsudo nginx -t",
+          "breakdown": [
+            {
+              "term": "proxy_ssl_verify on",
+              "meaning": "Makes NGINX verify the backend certificate instead of merely encrypting to an unchecked endpoint."
+            },
+            {
+              "term": "proxy_ssl_name",
+              "meaning": "The verified TLS name is iis-backend.cloudseam.tech even though the connection uses the IP 10.80.0.40."
+            },
+            {
+              "term": "Host header",
+              "meaning": "IIS uses its backend host binding. The visitor-facing hostname does not have to be the backend binding name."
+            }
+          ],
+          "expected": "nginx -t reports a valid configuration with upstream certificate verification enabled.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-proxy-screen-4",
+            "title": "Install the exact NGINX HTTPS proxy configuration",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. nginx -t reports a valid configuration with upstream certificate verification enabled."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ],
+          "downloads": [
+            {
+              "title": "Download nginx-dmz.conf to the Windows host",
+              "href": "/dmz/nginx-dmz.conf"
+            }
+          ]
+        },
+        {
+          "title": "Start the service without disabling host protections",
+          "where": "PROXY01 \u00b7 AlmaLinux console",
+          "actions": [
+            "Run the SELinux boolean command below so the web service may make an upstream network connection. This changes one policy allowance; SELinux stays enforcing. FW01 still restricts the destination to the private IIS service.",
+            "Use firewall-cmd --get-active-zones and ensure the dedicated Ethernet interface is in the zone you are editing; the commands below assume public. If it is not, use its actual zone consistently.",
+            "Add the rich rule that accepts HTTPS only from TEST01 10.70.0.10. Review the zone and remove broad http/https service allows if they already exist on this dedicated VM. Do not turn off firewalld.",
+            "Enable and start NGINX. Check that it is active and listening on 10.60.0.10:443.",
+            "After TEST01 has copied its public certificate in the next lesson, unmount /mnt/dmz-transfer and disable the shared-folder feature on the guests. Keep only the deliberate firewall network paths."
+          ],
+          "command": "sudo setsebool -P httpd_can_network_connect 1\nsudo firewall-cmd --get-active-zones\nsudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family=\"ipv4\" source address=\"10.70.0.10/32\" service name=\"https\" accept'\nsudo firewall-cmd --reload\nsudo systemctl enable --now nginx\nsystemctl is-active nginx\ngetenforce\nsudo ss -lntp | grep ':443'",
+          "breakdown": [
+            {
+              "term": "SELinux boolean",
+              "meaning": "Allows the web-service process to make an upstream connection while SELinux remains enforcing."
+            },
+            {
+              "term": "Scoped host firewall",
+              "meaning": "The visitor HTTPS rule names TEST01. FW01 independently limits which private endpoint the proxy may reach."
+            }
+          ],
+          "expected": "SELinux is enforcing, firewalld has the scoped visitor HTTPS rule, and NGINX is active on the DMZ listener.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-proxy-screen-5",
+            "title": "Start the service without disabling host protections",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. SELinux is enforcing, firewalld has the scoped visitor HTTPS rule, and NGINX is active on the DMZ listener."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dmz-publish",
+      "title": "Publish HTTPS to the Practice Visitor",
+      "description": "Forward only outside HTTPS to the DMZ proxy and test the complete request path.",
+      "what": "Forward only outside HTTPS to the DMZ proxy and test the complete request path.",
+      "why": "Destination NAT changes where the request is delivered. It is not permission to reach every private server. The outside client remains in its own test segment.",
+      "needs": [
+        "The private IIS hop and proxy configuration already pass their local checks.",
+        "TEST01 has curl, OpenSSL and open-vm-tools installed; its only NIC is VMnet4."
+      ],
+      "bestPractices": [
+        "Publish only the one intended HTTPS listener and test from the single-NIC visitor."
+      ],
+      "commonMistakes": [
+        "Testing from the administrator host, which already has private-network access."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "My interface names or addresses differ.",
+          "fix": "Stop and compare the MAC address and VMnet assignment on each adapter. Use the VMware console to recover access; do not guess which interface is private."
+        }
+      ],
+      "pass": "A real TEST01 request, firewall records and proxy log entry all show the intended visitor-to-proxy-to-private-IIS route.",
+      "exercise": "Trace both TLS connections and explain which server presents each certificate.",
+      "quiz": [
+        {
+          "question": "Why use --resolve in this local exercise?",
+          "options": [
+            "To publish the lab in Cloudflare",
+            "To use the correct hostname/TLS name while connecting to the isolated outside IP",
+            "To turn off certificate validation"
+          ],
+          "answer": 1,
+          "explanation": "The request uses the intended hostname without changing public DNS; --cacert still verifies the certificate."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Give the visitor its isolated outside address",
+          "where": "TEST01 \u00b7 AlmaLinux 9 GNOME Settings \u2192 Network",
+          "actions": [
+            "Start TEST01 and open Settings \u2192 Network \u2192 the Wired gear \u2192 IPv4. Choose Manual.",
+            "Enter address 10.70.0.10, mask 255.255.255.0 and gateway 10.70.0.1. Leave DNS blank; turn automatic DNS off for this connection. Apply and reconnect Wired.",
+            "Open Terminal and run ip -4 route. The default gateway should be FW01\u2019s OUTSIDE address, not a VMware NAT gateway.",
+            "Do not give this visitor a private or DMZ NIC. Do not test from the Windows host, which intentionally has a private management adapter.",
+            "This visitor simulates an external user; it has no actual Internet connection in this exercise."
+          ],
+          "command": "sudo hostnamectl set-hostname test01.cloudseam.tech\nip -4 address\nip -4 route",
+          "breakdown": [
+            {
+              "term": "Outside simulator",
+              "meaning": "TEST01 sits on VMnet4 only. The host\u2019s management adapter is not an outside test machine."
+            }
+          ],
+          "expected": "TEST01 is 10.70.0.10/24 with one VMnet4 NIC and gateway 10.70.0.1.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-publish-screen-1",
+            "title": "Give the visitor its isolated outside address",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. TEST01 is 10.70.0.10/24 with one VMnet4 NIC and gateway 10.70.0.1."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Forward outside TCP 443 to the DMZ proxy",
+          "where": "Windows host browser \u00b7 FW01 \u2192 Firewall \u2192 NAT \u2192 Destination NAT / Port Forward",
+          "actions": [
+            "Add a destination-NAT/port-forward rule on WAN/OUTSIDE. Select IPv4 and TCP. Set source to LAB_VISITOR and source port any.",
+            "Set destination to WAN/OUTSIDE address and destination port HTTPS/443. Redirect target is DMZ_PROXY 10.60.0.10 and redirect port 443. Name it OUTSIDE_HTTPS_TO_PROXY.",
+            "Use the version\u2019s associated-filter-rule option to create the matching outside pass rule, or create that narrow filter explicitly as documented by the release. Save and apply.",
+            "Inspect the resulting outside pass: only LAB_VISITOR \u2192 the translated proxy HTTPS service. Add a logged Block IPv4 any rule below that pass: source LAB_VISITOR, destination any, description OUTSIDE_DENY_OTHER. There must be no outside forward to 10.80.0.40 and no published RDP, SQL or firewall administration port.",
+            "Leave reflection/hairpin features off; our visitor really is on the outside segment. Source NAT between the DMZ and private network is unnecessary. The visitor IP should remain available in proxy logs."
+          ],
+          "breakdown": [
+            {
+              "term": "Destination NAT",
+              "meaning": "Rewrites the outside HTTPS destination to the proxy\u2019s DMZ address. The accompanying firewall rule still needs to allow that specific flow."
+            },
+            {
+              "term": "No internal source NAT",
+              "meaning": "The private IIS connection should retain PROXY01\u2019s 10.60.0.10 source, which its Windows firewall expects."
+            }
+          ],
+          "expected": "One outside TCP 443 forward points to PROXY01, with its narrow pass rule; IIS has no outside forward.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-publish-screen-2",
+            "title": "Forward outside TCP 443 to the DMZ proxy",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. One outside TCP 443 forward points to PROXY01, with its narrow pass rule; IIS has no outside forward."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Give the visitor only the public trust certificate",
+          "where": "TEST01 \u00b7 AlmaLinux Terminal; temporary VMware shared folder",
+          "actions": [
+            "Temporarily enable the same DMZ-Transfer shared folder for TEST01. Use the commands below to copy proxy-public.crt into your home folder.",
+            "Inspect its SHA-256 fingerprint and compare it with the same command run against /etc/pki/tls/certs/dmz-front.crt on PROXY01. Compare the full fingerprint, not only a few characters.",
+            "Do not copy the proxy private key or any backend private key. Do not import an unknown root CA into your everyday computer.",
+            "Unmount the share on TEST01 and PROXY01. In Workstation Options \u2192 Shared Folders, disable it for TEST01, PROXY01 and IIS-DMZ01.",
+            "Keep the class downloads and public certificates in your own lab folder, not uploaded as learner evidence to this website."
+          ],
+          "command": "mkdir -p ~/dmz-lab\nsudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\ncp /mnt/dmz-transfer/proxy-public.crt ~/dmz-lab/\nopenssl x509 -in ~/dmz-lab/proxy-public.crt -noout -fingerprint -sha256\nsudo umount /mnt/dmz-transfer",
+          "breakdown": [
+            {
+              "term": "Fingerprint comparison",
+              "meaning": "Compare the complete SHA-256 fingerprint on both machines to confirm you transferred the intended public certificate."
+            }
+          ],
+          "expected": "TEST01 has the matching front public certificate and all temporary shared folders are disabled.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-publish-screen-3",
+            "title": "Give the visitor only the public trust certificate",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. TEST01 has the matching front public certificate and all temporary shared folders are disabled."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Make a real verified request through the whole path",
+          "where": "TEST01 \u00b7 AlmaLinux Terminal",
+          "actions": [
+            "Run the curl command below in TEST01. --resolve uses the lab\u2019s outside address without changing public DNS or the live academy domain.",
+            "--cacert trusts the specific front test certificate. Do not add -k or disable verification to get a green result.",
+            "Look for the CloudSeam DMZ lab page and the private backend label. This content is deliberately harmless and fictional. In production, do not reveal internal machine names on a public page.",
+            "On FW01, correlate the outside pass and the DMZ-to-IIS pass. On PROXY01, inspect the access log for the TEST01 address and matching path.",
+            "Record the request time and your observed result. The illustrated response is only a comparison example; your own command output is the evidence."
+          ],
+          "command": "curl --fail --show-error --cacert ~/dmz-lab/proxy-public.crt --resolve app-dmz.cloudseam.tech:443:10.70.0.1 --connect-timeout 5 \"https://app-dmz.cloudseam.tech/?labtrace=DMZ01\"",
+          "breakdown": [
+            {
+              "term": "Two verified TLS hops",
+              "meaning": "TEST01 verifies the front certificate; NGINX separately verifies the IIS backend certificate."
+            },
+            {
+              "term": "labtrace",
+              "meaning": "A harmless query value that helps match this request in logs. It is not a password or an authentication token."
+            }
+          ],
+          "expected": "The request succeeds with TLS verification and returns the page created on private IIS through PROXY01.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-publish-screen-4",
+            "title": "Make a real verified request through the whole path",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The request succeeds with TLS verification and returns the page created on private IIS through PROXY01."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dmz-verify",
+      "title": "Prove Private Servers Stay Private",
+      "description": "Verify allowed HTTPS and blocked direct, management, domain-controller and database paths.",
+      "what": "Verify allowed HTTPS and blocked direct, management, domain-controller and database paths.",
+      "why": "A working website is only half the test. We also need evidence that the paths we did not approve are blocked. An offline service and a firewall block can both cause a timeout, so compare the logs.",
+      "needs": [
+        "Keep the successful end-to-end request and direct backend test as baselines.",
+        "Only test the approved practice IPs and named ports. Do not scan public addresses or unrelated machines."
+      ],
+      "bestPractices": [
+        "Keep a positive baseline and correlate each failed test with its actual firewall decision."
+      ],
+      "commonMistakes": [
+        "Calling every timeout a security success without finding why the connection failed."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "My interface names or addresses differ.",
+          "fix": "Stop and compare the MAC address and VMnet assignment on each adapter. Use the VMware console to recover access; do not guess which interface is private."
+        }
+      ],
+      "pass": "The saved matrix includes successful published HTTPS plus logged blocks for direct outside access and DMZ management/domain attempts.",
+      "exercise": "Teach someone why a stateful firewall permits the HTTPS response without allowing the backend to initiate arbitrary DMZ connections.",
+      "quiz": [
+        {
+          "question": "Does a timeout alone prove the firewall blocked a connection?",
+          "options": [
+            "Yes, always",
+            "No; correlate the firewall decision and a known-working service",
+            "Only if ping also fails"
+          ],
+          "answer": 1,
+          "explanation": "A missing route, stopped listener and firewall block can look similar from the client. Correlated evidence avoids guessing."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Test direct outside access to the backend",
+          "where": "TEST01 \u00b7 AlmaLinux Terminal; FW01 Live View",
+          "actions": [
+            "Run the TCP probe below from TEST01. It checks whether a connection to the private IIS address and port can open; it does not need a certificate and does not use the proxy.",
+            "The shown command tests only TCP reachability to 10.80.0.40:443 and should time out or be rejected. It does not contact the proxy.",
+            "In FW01 \u2192 Firewall \u2192 Log Files \u2192 Live View, filter source 10.70.0.10 and destination 10.80.0.40. Find the OUTSIDE_DENY_OTHER block with the matching interface and time.",
+            "Repeat the approved proxy curl request from the previous lesson; it should still work. That distinguishes a deliberate direct-path block from a broken application.",
+            "If direct access succeeds, stop publication and look for an outside allow, a stale state or an extra NIC. Fix the bypass before continuing."
+          ],
+          "command": "timeout 5 bash -c '</dev/tcp/10.80.0.40/443'\necho \"TCP probe exit status: $?\"",
+          "breakdown": [
+            {
+              "term": "TCP probe",
+              "meaning": "The /dev/tcp check tests whether a connection can open. A timeout or rejection still needs a matching firewall decision to explain it."
+            }
+          ],
+          "expected": "Direct outside TCP 443 to the private IIS address is blocked with a matching firewall record, while the approved proxy request still succeeds.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-verify-screen-1",
+            "title": "Test direct outside access to the backend",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Direct outside TCP 443 to the private IIS address is blocked with a matching firewall record, while the approved proxy request still succeeds."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Test the DMZ\u2019s blocked management and domain paths",
+          "where": "PROXY01 \u00b7 AlmaLinux console; FW01 Live View",
+          "actions": [
+            "From PROXY01, run the two named TCP checks below. They target only your private practice server\u2019s RDP port and DC01\u2019s SMB port.",
+            "Confirm a matching DMZ_DENY_OTHER log for each source 10.60.0.10 attempt. DC01 stays at 10.50.0.10; do not change or disable its services.",
+            "If SQL01 exists in your own address inventory, repeat one probe to its recorded address and TCP 1433; do not invent a live SQL IP or assume that no listener proves a firewall block.",
+            "Repeat the verified backend curl from PROXY01; 10.80.0.40:443 must still succeed.",
+            "Also open elevated PowerShell on IIS-DMZ01 and run Test-NetConnection 10.50.0.10 -Port 445. Confirm TcpTestSucceeded is False and match an APP_DENY_OTHER record on FW01. This proves the backend cannot simply reach AD from its separate subnet.",
+            "Review that DMZ rules do not allow the entire 10.50.0.0/24 subnet. A DMZ host should not have unrestricted access to domain infrastructure."
+          ],
+          "command": "timeout 5 bash -c '</dev/tcp/10.80.0.40/3389'\ntimeout 5 bash -c '</dev/tcp/10.50.0.10/445'",
+          "breakdown": [
+            {
+              "term": "Negative test",
+              "meaning": "An intentional attempt that should be blocked. Test only your named practice addresses and confirm the rule that denied it."
+            },
+            {
+              "term": "Backend isolation",
+              "meaning": "IIS is on VMnet5, separate from AD. Its attempt to reach DC01 must cross FW01 and meet APP_DENY_OTHER."
+            }
+          ],
+          "expected": "The DMZ can reach only the intended private HTTPS service; the tested RDP/SMB paths have matching deny logs.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-verify-screen-2",
+            "title": "Test the DMZ\u2019s blocked management and domain paths",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The DMZ can reach only the intended private HTTPS service; the tested RDP/SMB paths have matching deny logs."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Check the policy and adapter inventory together",
+          "where": "Windows host browser \u00b7 FW01 Live View and Workstation settings",
+          "actions": [
+            "Open Firewall \u2192 Log Files \u2192 Live View. Filter by each test source and destination rather than reading unrelated traffic. Capture the rule description, interface, time and decision.",
+            "Compare the logs with Workstation settings: FW01 has four custom NICs; PROXY01, IIS-DMZ01 and TEST01 each have one. No shared folders or NAT/bridged bypass adapters remain enabled.",
+            "Confirm FW01 administration still works only from the intended private administrator host. Do not use the administrator host as evidence of visitor isolation.",
+            "Record the allowed and blocked matrix. Existing servers within VMnet2 can still talk locally, but IIS-DMZ01 is on separate VMnet5: its AD/database traffic must cross the firewall and is denied unless specifically approved.",
+            "Explain that a VMnet is an isolated virtual switch in this lab, not automatically a VLAN or an enterprise access-control policy."
+          ],
+          "breakdown": [
+            {
+              "term": "Same-subnet traffic",
+              "meaning": "Devices on the same virtual switch can communicate without traversing a router. Separate application and AD networks make the firewall boundary meaningful."
+            }
+          ],
+          "expected": "The connection matrix has both allowed and denied evidence, and the inventory shows no alternate route around FW01.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-verify-screen-3",
+            "title": "Check the policy and adapter inventory together",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The connection matrix has both allowed and denied evidence, and the inventory shows no alternate route around FW01."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ],
+          "downloads": [
+            {
+              "title": "Download the allowed/blocked traffic checklist",
+              "href": "/dmz/traffic-matrix.csv"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dmz-recover",
+      "title": "Troubleshoot and Recover the DMZ",
+      "description": "Use request logs, a controlled failure and a rollback to practice day-to-day operations.",
+      "what": "Use request logs, a controlled failure and a rollback to practice day-to-day operations.",
+      "why": "Work from the nearest known-good checkpoint. Keep certificate verification and firewall controls in place while you identify the failing hop.",
+      "needs": [
+        "The complete allowed/blocked matrix passes before you introduce a fault.",
+        "Save FW01 configuration privately, copy the NGINX configuration locally and keep all VM consoles available."
+      ],
+      "bestPractices": [
+        "Change one thing at a time, record a baseline and retest allowed and blocked paths after rollback."
+      ],
+      "commonMistakes": [
+        "Opening extra ports or disabling certificate verification to hide an unresolved upstream error."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "My interface names or addresses differ.",
+          "fix": "Stop and compare the MAC address and VMnet assignment on each adapter. Use the VMware console to recover access; do not guess which interface is private."
+        }
+      ],
+      "pass": "You have recovered one deliberate rule failure and recorded a repeatable rollback with passing positive and negative tests.",
+      "exercise": "Given a 502 response, list the checks in the order you would use and explain what each result rules out.",
+      "quiz": [
+        {
+          "question": "What is the safest response to an upstream certificate-name error?",
+          "options": [
+            "Turn verification off forever",
+            "Correct the expected name, certificate SAN and trust configuration",
+            "Publish the SQL port"
+          ],
+          "answer": 1,
+          "explanation": "Repair the identity/trust mismatch and retest the secure path. Disabling verification hides the problem."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Correlate the request in proxy and IIS logs",
+          "where": "PROXY01 terminal; IIS-DMZ01 \u2192 IIS Manager \u2192 DMZ-Lab \u2192 Logging",
+          "actions": [
+            "Send another TEST01 request with a unique labtrace value in its URL. Note the time on both servers; correct major clock differences first.",
+            "On PROXY01, inspect /var/log/nginx/dmz-access.log and /var/log/nginx/dmz-error.log. Match the visitor IP, request path, response code and upstream status.",
+            "On IIS-DMZ01, open IIS Manager \u2192 DMZ-Lab \u2192 Logging. Note the log directory and site ID, then inspect the newest W3SVC log. The c-ip should be the proxy address 10.60.0.10.",
+            "If you need the original client in IIS logs, choose Select Fields \u2192 Add Field, name ClientIP, source type Request Header, source X-Forwarded-For. Treat it as trustworthy only from your allowed proxy, which overwrites that header.",
+            "Use these fictional request records to practice troubleshooting; never paste tokens, passwords or real customer data into shared evidence."
+          ],
+          "command": "sudo tail -n 20 /var/log/nginx/dmz-access.log\nsudo tail -n 20 /var/log/nginx/dmz-error.log",
+          "breakdown": [
+            {
+              "term": "c-ip versus forwarded client",
+              "meaning": "IIS sees the proxy as its TCP peer. A forwarded client field is useful only when accepted from your trusted proxy."
+            },
+            {
+              "term": "Correlate records",
+              "meaning": "Match a time and request identifier across the client, firewall, proxy and IIS rather than guessing from one screen."
+            }
+          ],
+          "expected": "The same labtrace request can be matched across proxy and IIS logs with the expected proxy/client distinction.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-recover-screen-1",
+            "title": "Correlate the request in proxy and IIS logs",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The same labtrace request can be matched across proxy and IIS logs with the expected proxy/client distinction."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Create one controlled upstream failure",
+          "where": "Windows host browser \u00b7 FW01 DMZ rule list; TEST01 terminal",
+          "actions": [
+            "Record a successful baseline request first. Export the firewall backup and keep the console open.",
+            "Disable only DMZ_PROXY_TO_IIS_443, leaving DMZ_DENY_OTHER enabled. Apply changes. For a fair test, clear only connection states matching 10.60.0.10 \u2192 10.80.0.40:443 using Firewall \u2192 Diagnostics \u2192 States; existing states may otherwise keep passing.",
+            "From TEST01, request the same published HTTPS URL. NGINX should return an upstream error or timeout after its configured timeout; do not assume a particular status before reading the log.",
+            "Inspect the NGINX error log and matching firewall block. This is an upstream-path failure, not a reason to disable TLS verification or open every port.",
+            "Re-enable the one HTTPS rule, apply and make a fresh request. Confirm the allowed path and the negative tests are restored."
+          ],
+          "breakdown": [
+            {
+              "term": "Connection states",
+              "meaning": "Disabling an allow may not remove connections already admitted. Clear only the matching test states, not every management session."
+            }
+          ],
+          "expected": "A deliberately blocked upstream is diagnosed from logs and recovered by restoring the single known rule.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-recover-screen-2",
+            "title": "Create one controlled upstream failure",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. A deliberately blocked upstream is diagnosed from logs and recovered by restoring the single known rule."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Separate certificate errors from routing errors",
+          "where": "PROXY01 \u00b7 AlmaLinux console",
+          "actions": [
+            "Run nginx -t, systemctl status nginx and the verified direct backend curl. Read the actual error text.",
+            "If the certificate expired, correct your clock or renew the lab certificate and update the pinned public certificate after verifying it. Keep a backup of the old configuration and trust file.",
+            "If hostname verification fails, compare proxy_ssl_name, the IIS certificate SAN and the IIS SNI binding. They must all use iis-backend.cloudseam.tech.",
+            "If NGINX reports permission denied while connecting, check the SELinux boolean and audit log before changing policy. Keep SELinux enforcing. If the request times out, check the firewall and listener.",
+            "After an approved change, run nginx -t before reload and repeat the positive and negative matrix. Do not use proxy_ssl_verify off or curl -k as a permanent fix."
+          ],
+          "command": "sudo nginx -t\nsystemctl status nginx --no-pager\ngetsebool httpd_can_network_connect\nopenssl x509 -in /etc/pki/tls/certs/iis-backend.pem -noout -subject -dates -ext subjectAltName\nsudo tail -n 20 /var/log/nginx/dmz-error.log",
+          "breakdown": [
+            {
+              "term": "TLS identity error",
+              "meaning": "A wrong name, expired certificate or wrong public trust file is a different problem from a blocked network path. Fix the reported cause."
+            }
+          ],
+          "expected": "You can identify whether the fault is configuration, name/trust, time, service policy or a blocked network path.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-recover-screen-3",
+            "title": "Separate certificate errors from routing errors",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. You can identify whether the fault is configuration, name/trust, time, service policy or a blocked network path."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Rehearse a clean rollback",
+          "where": "Windows host \u00b7 Workstation consoles and private change notes",
+          "actions": [
+            "Before a patch or significant change, shut down and snapshot only the dedicated FW01, PROXY01 and IIS-DMZ01 lab VMs, with a timestamp and the change purpose. Record the private backup locations too.",
+            "Do not take or restore domain-controller snapshots as part of this DMZ exercise. A VM snapshot is not a substitute for a tested backup, and this class does not change AD.",
+            "On failure, stop new publication first by disabling the lab outside NAT rule. Use the VMware console to restore the last known-good firewall/configuration or the dedicated VM checkpoint.",
+            "Restore the intended single-NIC/four-NIC mappings, certificate trust files and the one allowed HTTPS rule. Then retest the baseline and the blocked paths before re-enabling the outside NAT rule.",
+            "Write down what failed, what you restored and which tests passed. That is the handover note another administrator should be able to follow."
+          ],
+          "breakdown": [
+            {
+              "term": "Snapshot versus backup",
+              "meaning": "A short-lived VM checkpoint helps a lab rollback. A separate, tested backup is still needed for recovery from lost or damaged VM files."
+            }
+          ],
+          "expected": "Your recovery notes identify the exact checkpoint, restore order and full validation matrix without touching AD.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-recover-screen-4",
+            "title": "Rehearse a clean rollback",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Your recovery notes identify the exact checkpoint, restore order and full validation matrix without touching AD."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "dmz-azure",
+      "title": "Plan the Azure Equivalent and Stop the Lab",
+      "description": "Translate the local design into an Azure ingress/private-backend plan and record cleanup costs.",
+      "what": "Translate the local design into an Azure ingress/private-backend plan and record cleanup costs.",
+      "why": "The security goal stays the same after migration, but Azure uses subnets, managed ingress, NSGs and identity controls rather than VMware VMnet names. Running a managed gateway continuously can cost far more than this local lab.",
+      "needs": [
+        "Finish the on-premises traffic and recovery tests.",
+        "This lesson is planning only. It does not ask you to deploy Azure resources or alter the live cloudseam.tech website."
+      ],
+      "bestPractices": [
+        "Cost the whole architecture and define cleanup before approving a cloud deployment."
+      ],
+      "commonMistakes": [
+        "Assuming that stopping one VM or adding a tag stops every Azure charge."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The gateway estimate exceeds the practice budget.",
+          "fix": "Keep the exercise local and save the Azure diagram/cost comparison. Do not create a paid gateway to finish this planning lesson."
+        }
+      ],
+      "pass": "A costed Azure design comparison and a clean local shutdown/handover are complete; no paid cloud resources were created.",
+      "exercise": "Explain the design to a manager: why local practice is the starting point, what changes in Azure and which costs remain after stopping a VM.",
+      "quiz": [
+        {
+          "question": "Does deallocating an Azure VM stop every charge in the architecture?",
+          "options": [
+            "Yes",
+            "No; disks, IPs, gateways and other resources may continue billing",
+            "Only if the VM has a tag"
+          ],
+          "answer": 1,
+          "explanation": "Cost management needs a resource-by-resource cleanup plan. Tags help identify ownership and expiry; they do not stop billing by themselves."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Map the design to Azure without copying VMnet settings",
+          "where": "Your notebook \u00b7 Azure architecture planning",
+          "actions": [
+            "Draw Azure Application Gateway WAF v2 in its own dedicated subnet with the public HTTPS endpoint. Place the IIS VM on a separate private backend subnet with no VM public IP.",
+            "Allow backend HTTPS only from the approved gateway subnet/addresses and approved administration path. Use NSGs and host firewall rules; do not add a general Internet-to-IIS allow.",
+            "Keep domain controllers and database tiers private, with only required application/management paths. Add private DNS and private endpoints where the chosen service requires them.",
+            "Use a new, non-overlapping Azure address range and plan VPN/ExpressRoute/DNS separately for hybrid access. A VMware host-only network does not automatically become an Azure subnet.",
+            "For the actual migration and Server 2019-to-2022 work, follow the existing Azure migration/maintenance classes. This comparison does not make the VMs migrated."
+          ],
+          "breakdown": [
+            {
+              "term": "Cloud translation",
+              "meaning": "The security goal carries over; VMware adapter names and host-only settings do not."
+            },
+            {
+              "term": "Private backend",
+              "meaning": "The application has no VM public IP. Its inbound web traffic is restricted to the approved ingress service."
+            }
+          ],
+          "expected": "The Azure diagram separates managed ingress, private application and data/domain tiers, with no public IP on the backend VM.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-azure-screen-1",
+            "title": "Map the design to Azure without copying VMnet settings",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The Azure diagram separates managed ingress, private application and data/domain tiers, with no public IP on the backend VM."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Compare the costs before choosing a hosted lab",
+          "where": "Windows host browser \u00b7 Azure pricing calculator and your budget notes",
+          "actions": [
+            "Open the Azure pricing calculator. Choose the actual region and estimate Application Gateway/WAF, VM compute, disks, public IP, backup, logging and network egress. Record the estimate date and assumptions.",
+            "Compare that estimate with local practice using hardware you already own. OPNsense Community, NGINX and AlmaLinux have no software subscription fee for this exercise; Windows evaluation terms and hardware/electricity still matter.",
+            "Do not promise an always-on enterprise WAF stack for $25/month. A short-lived single-proxy VM experiment may cost less, but it is not equivalent to a managed WAF or a highly available production design.",
+            "For a later approved Azure session, define the allowed runtime and deletion plan first. Deallocating a VM does not remove disk, public-IP or gateway charges. Azure budgets are alerts, not a guaranteed hard spending cap.",
+            "Do not click Create during this planning lesson. Keep the live academy DNS and website hosting unchanged."
+          ],
+          "breakdown": [
+            {
+              "term": "Costs that remain",
+              "meaning": "Disks, public IPs and gateways can continue billing after a VM is stopped. Estimate each resource."
+            },
+            {
+              "term": "Tags",
+              "meaning": "Tags identify the owner and expiry for reports or automation. A tag by itself does not stop a resource or reduce its rate."
+            }
+          ],
+          "expected": "Your comparison includes fixed and running costs, a runtime/deletion plan and no deployed Azure resources.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-azure-screen-2",
+            "title": "Compare the costs before choosing a hosted lab",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Your comparison includes fixed and running costs, a runtime/deletion plan and no deployed Azure resources."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        },
+        {
+          "title": "Stop and hand over the local practice lab",
+          "where": "Windows host \u00b7 Workstation Pro and lab notebook",
+          "actions": [
+            "Save your diagram, MAC inventory, firewall rule matrix, configuration versions and successful test timestamps. Keep private firewall backups outside public repositories.",
+            "Disable the outside NAT rule if you will keep any VMs running. Shut down TEST01, PROXY01, IIS-DMZ01 and FW01 cleanly when finished.",
+            "Confirm no home-router forward, public DNS record, bridged adapter or tunnel was created. Disable temporary shared folders and disconnect installer ISOs.",
+            "Retain the VM files only if you need another practice session. Remove obsolete dedicated-lab snapshots after you have a tested backup; do not delete existing DC01/DC02/APP01 data or VMnet2 used by other classes.",
+            "For real Internet publication later, require a supported patched platform, CA-issued certificates/renewal, WAF as appropriate, monitoring, tested backups, access management, availability planning and an approved deployment. The local exercise is a teaching model, not a production certification."
+          ],
+          "breakdown": [
+            {
+              "term": "Clean handover",
+              "meaning": "A second administrator should be able to rebuild and verify the design from your diagram, configuration inventory and traffic-test matrix."
+            }
+          ],
+          "expected": "The four dedicated VMs are stopped, no real Internet exposure exists, and another learner can follow the saved runbook.",
+          "screenshot": {
+            "status": "illustration",
+            "assetId": "dmz-azure-screen-3",
+            "title": "Stop and hand over the local practice lab",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The four dedicated VMs are stopped, no real Internet exposure exists, and another learner can follow the saved runbook."
+          },
+          "sources": [
+            "https://docs.opnsense.org/manual/virtuals.html",
+            "https://docs.opnsense.org/manual/install.html",
+            "https://docs.opnsense.org/manual/interfaces.html",
+            "https://docs.opnsense.org/manual/firewall.html",
+            "https://docs.opnsense.org/manual/nat.html",
+            "https://docs.nginx.com/nginx/admin-guide/web-server/reverse-proxy/",
+            "https://docs.nginx.com/nginx/admin-guide/security-controls/securing-http-traffic-upstream/",
+            "https://learn.microsoft.com/en-us/powershell/module/webadministration/new-webbinding",
+            "https://learn.microsoft.com/en-us/powershell/module/pki/new-selfsignedcertificate",
+            "https://learn.microsoft.com/en-us/azure/architecture/example-scenario/gateway/firewall-application-gateway",
+            "https://azure.microsoft.com/en-us/pricing/details/application-gateway/",
+            "https://azure.microsoft.com/en-us/pricing/calculator/"
+          ]
+        }
+      ]
+    }
+  ]
+}

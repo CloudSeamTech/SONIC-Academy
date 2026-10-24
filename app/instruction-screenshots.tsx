@@ -2,6 +2,7 @@
 /* oxlint-disable next/no-img-element */
 'use client';
 import { useRef, useState } from 'react';
+import { ScreenshotSurface } from './screenshot-surface';
 import captureRegistry from '@/content/screenshots/captures.json';
 import pictureRegistry from '@/content/screenshots/step-pictures.json';
 import references from '@/content/screenshots/interface-references.json';
@@ -64,19 +65,17 @@ export function InstructionScreenshots({ stepId }: { stepId: string }) {
           <figcaption>
             <strong>Screenshot · {capture.platform}</strong>
           </figcaption>
-          <button
-            className="guided-image-button"
-            aria-label={`Enlarge screenshot for ${stepId}`}
-            onClick={() =>
+          <ScreenshotSurface
+            src={capture.src}
+            alt={`Screenshot: ${capture.platform}`}
+            onZoom={() =>
               open({
                 src: capture.src,
-                title: capture.platform,
+                title: `Screenshot: ${capture.platform}`,
                 note: capture.provenance,
               })
             }
-          >
-            <img src={capture.src} alt={capture.platform} loading="lazy" />
-          </button>
+          />
           <p>{capture.provenance}</p>
         </figure>
       )}
@@ -90,16 +89,11 @@ export function InstructionScreenshots({ stepId }: { stepId: string }) {
               <strong>{shot.title}</strong>
               <span>Actual interface reference · {shot.platform}</span>
             </figcaption>
-            <button
-              className="guided-image-button"
-              aria-label={`Enlarge interface reference: ${shot.title}`}
-              onClick={() => open(shot)}
-            >
-              <img src={shot.src} alt={shot.title} loading="lazy" />
-              <span className="picture-zoom-label">
-                Tap to see the controls up close ↗
-              </span>
-            </button>
+            <ScreenshotSurface
+              src={shot.src}
+              alt={shot.title}
+              onZoom={() => open(shot)}
+            />
             <figcaption>
               <p>{shot.note}</p>
               <a href={shot.source} target="_blank" rel="noreferrer">
@@ -121,24 +115,17 @@ export function InstructionScreenshots({ stepId }: { stepId: string }) {
       {picture && !capture && !shots.length && (
         <section className="step-map-details">
           <h4>Illustrated action map</h4>
-          <button
-            className="guided-image-button"
-            aria-label={`Enlarge picture for ${stepId}`}
-            onClick={() =>
+          <ScreenshotSurface
+            src={picture.src}
+            alt={`${picture.title} — illustrated action map`}
+            onZoom={() =>
               open({
                 src: picture.src,
                 title: picture.title,
                 note: 'Illustrated step map, not a product screenshot or actual output.',
               })
             }
-          >
-            <img
-              src={picture.src}
-              alt={`${picture.title} — illustrated action map`}
-              loading="lazy"
-            />
-            <span className="picture-zoom-label">Enlarge action map ↗</span>
-          </button>
+          />
         </section>
       )}
       <dialog
@@ -151,7 +138,9 @@ export function InstructionScreenshots({ stepId }: { stepId: string }) {
           Swipe the picture sideways on a small screen.
         </p>
         <div className="picture-pan-canvas">
-          {enlarged && <img src={enlarged.src} alt={enlarged.title} />}
+          {enlarged && (
+            <ScreenshotSurface src={enlarged.src} alt={enlarged.title} />
+          )}
         </div>
         <p>{enlarged?.note}</p>
       </dialog>

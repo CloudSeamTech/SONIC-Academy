@@ -6,12 +6,13 @@ export const careerPathways = [
     id: 'windows-system-administration',
     title: 'Windows System Administration',
     description:
-      'Build Windows servers, manage Active Directory and DNS, then operate SQL, IIS, WSUS and MECM.',
+      'Build Windows servers, manage Active Directory and DNS, then operate SQL, IIS, a DMZ, WSUS and MECM.',
     subjects: [
       'windows',
       'active-directory',
       'sql',
       'helpdesk',
+      'dmz',
       'wsus',
       'mecm',
     ],

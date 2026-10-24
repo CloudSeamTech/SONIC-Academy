@@ -1,6 +1,7 @@
 /* Native images preserve the full-resolution instructional asset and work without a remote image optimizer. */
 /* oxlint-disable next/no-img-element, react/react-compiler -- Load saved local notes after hydration; no lab operations execute here. */
 'use client';
+import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
 
 import { useEffect, useRef, useState } from 'react';
@@ -29,6 +30,7 @@ export function GuidedLab({
   stepOffset?: number;
 }) {
   const [index, setIndex] = useState(0);
+  const [focused, setFocused] = useState(false);
   const [checked, setChecked] = useState<number[]>([]);
   const [notice, setNotice] = useState('');
   const [copied, setCopied] = useState(false);
@@ -83,7 +85,12 @@ export function GuidedLab({
     setCopied(false);
     requestAnimationFrame(() => {
       panel.current?.focus({ preventScroll: true });
-      panel.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      panel.current?.scrollIntoView({
+        block: 'start',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth',
+      });
     });
   }
   function toggle() {
@@ -99,7 +106,17 @@ export function GuidedLab({
     }
   }
   return (
-    <section className="guided-lab" aria-label="Guided lab walkthrough">
+    <section
+      className="guided-lab"
+      data-step-focus={focused}
+      aria-label="Guided lab walkthrough"
+    >
+      <FocusStepControl
+        focused={focused}
+        onChange={setFocused}
+        step={index}
+        total={guide.steps.length}
+      />
       <LabStepNav
         titles={guide.steps.map((item) => item.title)}
         current={index}
@@ -129,8 +146,12 @@ export function GuidedLab({
       <section className="lesson-preflight">
         <h3>Before you start</h3>
         <p>{guide.before}</p>
-        <p><strong>Best practice:</strong> {productionPracticeFor(lessonId)}</p>
-        <p><strong>If you need to undo this lab:</strong> {guide.rollback}</p>
+        <p>
+          <strong>Best practice:</strong> {productionPracticeFor(lessonId)}
+        </p>
+        <p>
+          <strong>If you need to undo this lab:</strong> {guide.rollback}
+        </p>
       </section>
       {purpose && !welcome && (
         <section className="guided-purpose">

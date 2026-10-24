@@ -1,4 +1,5 @@
 'use client';
+import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
 import { LabOverview } from '../lab-overview';
 
@@ -178,6 +179,7 @@ function LessonReader({
   save: (update: (current: NessusProgress) => NessusProgress) => void;
 }) {
   const [index, setIndex] = useState(0);
+  const [focused, setFocused] = useState(false);
   useEffect(() => {
     const resumeStep = () => {
       const current = JSON.parse(nessusSnapshot()) as NessusProgress;
@@ -204,11 +206,26 @@ function LessonReader({
     setIndex(next);
     requestAnimationFrame(() => {
       panel.current?.focus({ preventScroll: true });
-      panel.current?.scrollIntoView({ block: 'start', behavior: 'smooth' });
+      panel.current?.scrollIntoView({
+        block: 'start',
+        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches
+          ? 'auto'
+          : 'smooth',
+      });
     });
   };
   return (
-    <article className="nessus-lesson">
+    <article
+      className="nessus-lesson"
+      data-step-focus={focused}
+      data-final-step={index === lesson.steps.length - 1}
+    >
+      <FocusStepControl
+        focused={focused}
+        onChange={setFocused}
+        step={index}
+        total={lesson.steps.length}
+      />
       <section className="guided-lab" aria-label="Guided walkthrough">
         <LabStepNav
           titles={lesson.steps.map((item) => item.title)}
@@ -276,6 +293,13 @@ function LessonReader({
                   ))}
                 </ol>
               </section>
+              {step.downloads?.map((file) => (
+                <p key={file.href}>
+                  <a href={file.href} download>
+                    {file.title}
+                  </a>
+                </p>
+              ))}
               <CommandExample key={`${lesson.id}:${index}`} step={step} />
               <section className="guided-expected">
                 <h4>What you should see</h4>
@@ -397,12 +421,14 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
     course.id,
   );
   const isSplunk = course.id === 'splunk-core-user';
+  const isDmz = course.id === 'windows-dmz';
   const isLandingZone = course.id === 'azure-landing-zone';
   const isMaintenance = course.id === 'azure-maintenance';
   const isHelpdesk = course.id === 'iis-helpdesk';
   const isSecurity = course.id === 'budget-cloud-security';
   const relatedCourses =
     isSplunk ||
+    isDmz ||
     isEnterprise ||
     isLandingZone ||
     isMaintenance ||
@@ -456,6 +482,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
           className={
             'nessus-course-switcher' +
             (isSplunk ||
+            isDmz ||
             isEnterprise ||
             isLandingZone ||
             isMaintenance ||
@@ -465,7 +492,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
               : '')
           }
           aria-label={
-            isSplunk || isEnterprise
+            isSplunk || isEnterprise || isDmz
               ? course.title
               : isLandingZone
                 ? 'Azure landing zone course'
@@ -491,7 +518,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         </nav>
         <header className="alma-header">
           <span className="eyebrow">
-            {isSplunk || isEnterprise
+            {isSplunk || isEnterprise || isDmz
               ? course.title.toUpperCase()
               : isLandingZone
                 ? 'YOUR FIRST AZURE LANDING ZONE'
@@ -525,6 +552,32 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             self-verified
           </small>
         </header>
+        {isDmz && (
+          <section className="dmz-practice-files" aria-label="DMZ lab files">
+            <p>
+              <strong>Isolated practice:</strong> this class does not publish
+              your home network or change the live academy DNS. Screens labeled
+              illustrated are interface recreations, not live lab evidence.
+            </p>
+            <nav aria-label="DMZ practice downloads">
+              <a href="/dmz/nginx-dmz.conf" download>
+                NGINX configuration
+              </a>
+              <a href="/dmz/new-iis-backend.ps1" download>
+                Private IIS setup script
+              </a>
+              <a href="/dmz/traffic-matrix.csv" download>
+                Traffic test checklist
+              </a>
+              <a href="/?view=courses&subject=windows">
+                Windows installation prerequisites
+              </a>
+              <a href="/migration#lesson=lab-06">IIS foundation</a>
+              <a href="/alma#lesson=alma-install">AlmaLinux installation</a>
+              <a href="/alma#lesson=alma-terminal">AlmaLinux terminal basics</a>
+            </nav>
+          </section>
+        )}
         {isSplunk && (
           <section className="teaching-callout splunk-practice-files">
             <h2>Your practice files</h2>
@@ -606,7 +659,11 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             </a>
           )}
         </nav>
-        <p className="lesson-reference-link"><a href={`/references#${course.id}`}>Official references and version notes →</a></p>
+        <p className="lesson-reference-link">
+          <a href={`/references#${course.id}`}>
+            Official references and version notes →
+          </a>
+        </p>
       </main>
     </ConsoleReaderShell>
   );

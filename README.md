@@ -11,6 +11,12 @@ The dashboard uses the CloudSeamTech cream, purple and orange visual system, wit
 
 The connected Sites deployment provides Sign in with ChatGPT, learner profiles, and D1-backed progress. Guest browser progress can be imported explicitly after signing in. The separate public Vercel mirror remains available for guest learning and clearly explains that account saving needs its own provider connection. See [learner account and database details](docs/ACADEMY-ACCOUNTS.md).
 
+## Windows DMZ and private IIS publishing
+
+The Windows System Administration pathway now includes a separate [DMZ lab](https://cloudseam.tech/dmz): nine lessons and 35 step visuals covering isolated Workstation networks, OPNsense, a DMZ NGINX proxy, a separate private IIS subnet, positive/negative traffic tests, recovery and Azure cost/design comparison. Existing DC01/DC02/APP01 are left unchanged. See [the lab design and verification limits](docs/DMZ-LAB.md).
+
+The shared lesson readers include an optional **Focus on this step** control. Numbered picture guides are provided on the DMZ steps and reviewed shared interface references; image sources and recreations remain clearly distinguished.
+
 ## AlmaLinux Desktop Experience
 
 The `/alma` pathway adds 12 guided classes for day-to-day AlmaLinux 9 GNOME use: VMware installation, desktop configuration, terminal/files/permissions, DNF and Flatpak apps, Steam/Proton, peripherals, Western Digital storage, backups, troubleshooting, and real terminal setup. See [the course notes](docs/ALMALINUX-DESKTOP.md). The hosted Lab Terminal includes local setup instructions; live execution still needs the local Windows companion or the guest’s native Terminal.
