@@ -15,6 +15,7 @@ export type NessusStep = {
     instructions: string;
     assetId?: string;
   };
+  downloads?: { title: string; href: string }[];
   sources: string[];
 };
 export type NessusLesson = {

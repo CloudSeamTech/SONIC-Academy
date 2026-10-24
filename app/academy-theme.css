@@ -3377,3 +3377,46 @@ html body .academy-shell.academy-shell .reader-workspace :is(.guided-pagination,
 .reference-subject { margin: 36px 0; scroll-margin-top: 24px; }
 .reference-subject li { margin: 12px 0; }
 .references-page .information-nav { flex-wrap: wrap; }
+
+.focus-step-control { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px; padding: 16px 0; margin: 0 0 20px; }
+.focus-step-control button { background: #CDBFA9; color: #181818; border: 1px solid #88765E; border-radius: 6px; padding: 10px 16px; min-height: 44px; font-weight: 700; }
+[data-step-focus="true"] :is(.teacher-welcome, .lesson-preflight, .guided-context, .guided-purpose, .guided-step-picker, .guided-heading) { display: none !important; }
+.nessus-lesson[data-step-focus="true"][data-final-step="false"] > :is(.nessus-advice, .nessus-exercise, .nessus-quiz, .alma-verify) { display: none !important; }
+.sonic-walkthrough > ol > li[hidden] { display: none !important; }
+.annotated-screen { width: 100%; min-width: 0; }
+.annotated-screen-image { position: relative; }
+.annotated-screen-image img { display: block; max-width: 100%; width: 100%; height: auto; }
+.annotated-screen-image > .guided-image-button { display: block; position: relative; width: 100%; padding: 0; line-height: 0; }
+.annotated-screen-image .picture-zoom-label { position: absolute; right: 8px; bottom: 8px; padding: 6px 10px; line-height: 1.4; background: #EDE4D8; color: #181818; border-radius: 4px; }
+html body .academy-shell.academy-shell .reader-workspace button.screen-marker { position: absolute; transform: translate(-50%, -50%); width: 30px; min-width: 30px; height: 30px; min-height: 30px; padding: 0; border: 2px solid white !important; border-radius: 50%; color: white !important; background: #442E66 !important; box-shadow: 0 0 0 2px #181818; display: grid; place-items: center; font-size: 15px !important; font-weight: 800; line-height: 1; z-index: 2; }
+.screen-marker-key { list-style: none; display: grid; gap: 8px; padding: 12px 0 !important; margin: 0 !important; }
+.screen-marker-key li { padding: 8px 10px; margin: 0; }
+.screen-marker-key li.is-selected { background: #CDBFA9 !important; border-left: 3px solid #181818; }
+.screen-marker:focus-visible, .focus-step-control button:focus-visible { outline: 3px solid #E7975F; outline-offset: 4px; }
+@media (max-width:600px) { html body .academy-shell.academy-shell .reader-workspace button.screen-marker { width: 26px; min-width:26px; height:26px; min-height:26px; font-size:13px !important; } }
+[data-step-focus="true"] > .focus-step-control { position: sticky; top: 0; z-index: 5; background: #E3D8C4; }
+.guided-step, .sonic-action-panel { scroll-margin-top: 110px; }
+.nessus-reader:has(.nessus-lesson[data-step-focus="true"]) > :is(.teacher-welcome, .dmz-practice-files) { display: none !important; }
+.nessus-reader:has(.nessus-lesson[data-step-focus="true"]) > .alma-header small { display: none; }
+.dmz-practice-files { margin: 24px 0; }
+.dmz-practice-files nav { display: flex; flex-wrap: wrap; gap: 12px 24px; }
+/* Preserve native reference resolution; markers remain relative to the image. */
+.annotated-screen-image { width: fit-content; max-width: 100%; margin-inline: auto; }
+.annotated-screen-image img { width: auto; max-width: 100%; }
+.annotated-screen > .picture-zoom-label { display: block; position: static; margin-top: 8px; padding: 0; background: transparent; color: #292929; line-height: 1.5; }
+.picture-pan-canvas .annotated-screen { width: max-content; min-width: 100%; }
+.picture-pan-canvas .annotated-screen-image { width: max-content; max-width: none; }
+.picture-pan-canvas .annotated-screen-image img { max-width: none; }
+.picture-pan-canvas .screen-marker-key { max-width: 70vw; }
+/* Focus state must outrank the original reader's important layout rules. */
+html body .academy-shell.academy-shell .reader-workspace [data-step-focus="true"] :is(.teacher-welcome, .lesson-preflight, .guided-context, .guided-purpose, .guided-step-picker, .guided-heading) { display: none !important; }
+html body .academy-shell.academy-shell .reader-workspace .nessus-lesson[data-step-focus="true"][data-final-step="false"] > :is(.nessus-advice, .nessus-exercise, .nessus-quiz, .alma-verify) { display: none !important; }
+html body .academy-shell.academy-shell .reader-workspace .focus-step-control button { background: #CDBFA9 !important; color: #181818 !important; border: 1px solid #88765E !important; }
+.picture-source-note { margin-top: 10px; font-size: 13px; line-height: 1.5; }
+.picture-source-note p { margin: 8px 0; }
+@media (max-width:600px) {
+  .focus-step-control { gap: 8px; padding: 8px 0; }
+  .focus-step-control > span { font-size: 14px; line-height: 1.5; }
+}
+/* Keep the current step below the sticky focus controls on every viewport. */
+html body .academy-shell.academy-shell .reader-workspace [data-step-focus="true"] :is(.guided-step, .sonic-action-panel) { scroll-margin-top: 120px !important; }

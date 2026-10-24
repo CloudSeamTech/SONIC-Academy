@@ -1,0 +1,8 @@
+Source,Destination,Service,Expected,Required evidence
+10.70.0.10,10.70.0.1 translated to 10.60.0.10,TCP 443,Allow,Verified front TLS request and outside pass
+10.60.0.10,10.80.0.40,TCP 443,Allow,Verified backend TLS request and DMZ_PROXY_TO_IIS_443 log
+10.70.0.10,10.80.0.40,TCP 443,Block,Matching outside deny while published path still works
+10.60.0.10,10.80.0.40,TCP 3389,Block,Matching DMZ_DENY_OTHER decision
+10.60.0.10,10.50.0.10,TCP 445,Block,Matching DMZ_DENY_OTHER decision
+10.50.0.254,10.50.0.1,TCP 443 management,Allow,ADMIN_TO_FW_HTTPS decision and successful administrator sign-in
+10.80.0.40,10.50.0.10,TCP 445,Block,Matching APP_DENY_OTHER decision

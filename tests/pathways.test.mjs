@@ -1,5 +1,6 @@
 import {
   splunkCourse,
+  dmzCourse,
   mecmCourse,
   wsusCourse,
   landingZoneCourse,
@@ -38,6 +39,7 @@ test('pathways retain every existing lesson exactly once with its original reade
         ...mecmCourse.lessons,
         ...wsusCourse.lessons,
         ...splunkCourse.lessons,
+        ...dmzCourse.lessons,
       ].map((lesson) => lesson.id),
     ),
   );
@@ -58,6 +60,7 @@ test('core route builds the domain controllers before SQL, then Azure and migrat
       'active-directory',
       'sql',
       'helpdesk',
+      'dmz',
       'wsus',
       'mecm',
       'azure',

@@ -2,6 +2,8 @@
 /* oxlint-disable next/no-img-element */
 'use client';
 import { useRef } from 'react';
+import { ScreenshotSurface } from './screenshot-surface';
+import dmzReferences from '../content/dmz/references.json';
 import splunkReferences from '@/content/splunk/references.json';
 import azureReferences from '@/content/azure/maintenance-references.json';
 import helpdeskReferences from '@/content/helpdesk/references.json';
@@ -10,6 +12,7 @@ import landingZoneReferences from '@/content/landing-zone/references.json';
 import enterpriseReferences from '@/content/enterprise/references.json';
 import coreReferences from '@/content/screenshots/interface-references.json';
 const references = [
+  ...dmzReferences,
   ...splunkReferences,
   ...enterpriseReferences,
   ...coreReferences.assets,
@@ -55,33 +58,23 @@ export function CourseScreenshot({
         <strong>{screenshot.title}</strong>
         <p>
           {screenshot.status === 'illustration'
-            ? 'Illustrated action guide · not a screenshot'
+            ? 'Illustrated training reference · not a live capture'
             : 'Here’s the interface to look for'}{' '}
           · {asset.platform}
         </p>
       </figcaption>
-      <button
-        className="guided-image-button"
-        type="button"
-        onClick={() => dialog.current?.showModal()}
-        aria-label={`Enlarge ${screenshot.status === 'illustration' ? 'action diagram' : 'screenshot'}: ${asset.title}`}
-      >
-        <img src={asset.src} alt={asset.title} loading="lazy" />
-        <span className="picture-zoom-label">
-          Click to see it more closely ↗
-        </span>
-      </button>
-      <figcaption>
-        <p>{asset.note}</p>
-        <p>{screenshot.instructions}</p>
+      <ScreenshotSurface
+        src={asset.src}
+        alt={asset.title}
+        onZoom={() => dialog.current?.showModal()}
+      />
+      <figcaption className="picture-source-note">
+        {screenshot.status === 'reference' && <p>{screenshot.instructions}</p>}
         <a href={asset.source} target="_blank" rel="noreferrer">
-          {asset.credit} · original reference ↗
-        </a>
-        <small>
           {screenshot.status === 'illustration'
-            ? 'This diagram explains the actions. Check your own machine for the actual result.'
-            : 'This is an interface reference. Follow the written CloudSeam values; names in original images may differ.'}
-        </small>
+            ? 'Documentation used for this illustration'
+            : asset.credit}
+        </a>
       </figcaption>
       <dialog
         ref={dialog}
@@ -90,9 +83,10 @@ export function CourseScreenshot({
       >
         <button onClick={() => dialog.current?.close()}>Close picture ×</button>
         <div className="picture-pan-canvas">
-          <img src={asset.src} alt={asset.title} />
+          <ScreenshotSurface src={asset.src} alt={asset.title} />
         </div>
         <p>{asset.note}</p>
+        <p>{screenshot.instructions}</p>
       </dialog>
     </figure>
   );

@@ -1,5 +1,6 @@
 import {
   splunkCourse,
+  dmzCourse,
   mecmCourse,
   wsusCourse,
   landingZoneCourse,
@@ -416,6 +417,26 @@ export const learningPathways: LearningPathway[] = [
     ],
   },
   {
+    id: 'dmz',
+    title: 'DMZ & Private IIS Publishing',
+    prerequisite:
+      'After Windows, VMware and IIS basics · isolated local practice',
+    sections: [
+      {
+        title: '01 / Plan and Build the Network',
+        lessons: enterpriseLessons(dmzCourse, '/dmz').slice(0, 3),
+      },
+      {
+        title: '02 / Private IIS and DMZ Proxy',
+        lessons: enterpriseLessons(dmzCourse, '/dmz').slice(3, 6),
+      },
+      {
+        title: '03 / Prove Isolation, Recover and Plan Azure',
+        lessons: enterpriseLessons(dmzCourse, '/dmz').slice(6),
+      },
+    ],
+  },
+  {
     id: 'wsus',
     title: 'WSUS · Windows Updates',
     prerequisite: 'After AD · standalone WSUS01 and a disposable pilot',
@@ -669,6 +690,8 @@ export const pathwayLessons = (pathway: LearningPathway) =>
 // Core lesson pagination follows the prerequisite route. Optional extensions
 // stay within their own sequence instead of interrupting the core route.
 export function lessonSequenceFor(id: string): ConsoleLesson[] {
+  if (id.startsWith('dmz-'))
+    return pathwayLessons(learningPathways.find((path) => path.id === 'dmz')!);
   if (id.startsWith('splunk-'))
     return pathwayLessons(learningPathways.find((p) => p.id === 'splunk')!);
   if (id.startsWith('lz-'))
@@ -707,8 +730,9 @@ export function lessonSequenceFor(id: string): ConsoleLesson[] {
   const sections = learningPathways
     .filter(
       (pathway) =>
-        !['linux', 'alma', 'mecm', 'wsus', 'splunk'].includes(pathway.id) &&
-        !pathway.id.startsWith('nessus-'),
+        !['linux', 'alma', 'mecm', 'wsus', 'splunk', 'dmz'].includes(
+          pathway.id,
+        ) && !pathway.id.startsWith('nessus-'),
     )
     .flatMap((pathway) => pathway.sections)
     .filter((section) =>

@@ -8,7 +8,11 @@ to References, and makes step navigation cream with near-black labels.
 Screenshots remain inside their step, before the check and Next button.
 Verification rules, routes, lesson IDs, and stored progress keys are retained.
 
-## Recommended order
+## Implemented since this roadmap
+
+Shared readers now offer optional step focus with reversible setup/notes visibility; Linux walkthroughs also provide focused Previous/Next navigation. Numbered picture callouts are available for reviewed source assets and all 35 steps of the new DMZ class. This does not mean every legacy image has reviewed marker coordinates or that illustrated screens are live captures.
+
+## Further improvements
 
 1. **A focused step view.** Keep the action, short explanation, screenshot,
    expected result, and navigation together. Put the exercise and knowledge

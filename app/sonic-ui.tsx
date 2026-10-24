@@ -1,6 +1,7 @@
 'use client';
+import { FocusStepControl } from './focus-step-control';
 
-import { useState, type ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import { LabStepNav } from './lab-step-nav';
 import { SessionGuide } from './session-guide';
 import { smallActions } from '@/lib/beginner-directions';
@@ -247,9 +248,25 @@ export function SonicWalkthrough({
   variant?: string;
 }) {
   const [activeStep, setActiveStep] = useState(0);
+  const [focused, setFocused] = useState(false);
+  useEffect(() => {
+    setActiveStep(0);
+    setFocused(false);
+  }, [lessonId, variant]);
+  const chooseFocused = (next: number) => {
+    setActiveStep(next);
+    requestAnimationFrame(() => {
+      const target = document.getElementById(
+        `lab-step-${lessonId}-${variant}-${next}`,
+      );
+      target?.scrollIntoView({ block: 'start' });
+      target?.focus({ preventScroll: true });
+    });
+  };
   return (
     <section
       className="sonic-walkthrough"
+      data-step-focus={focused}
       aria-label="Step-by-step walkthrough"
     >
       <LabStepNav
@@ -257,22 +274,22 @@ export function SonicWalkthrough({
           readableStepTitle(step.title, step.actions, step.command),
         )}
         current={activeStep}
-        onChoose={(index) => {
-          setActiveStep(index);
-          const target = document.getElementById(
-            `lab-step-${lessonId}-${variant}-${index}`,
-          ) as HTMLElement | null;
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            target.focus({ preventScroll: true });
-          }
-        }}
+        onChoose={chooseFocused}
+      />
+      <FocusStepControl
+        focused={focused}
+        onChange={setFocused}
+        step={activeStep}
+        total={steps.length}
       />
       <h3>Lab steps</h3>
 
       <ol>
         {steps.map((step, index) => (
-          <li key={`${variant}-${index}-${step.title}`}>
+          <li
+            key={`${variant}-${index}-${step.title}`}
+            hidden={focused && index !== activeStep}
+          >
             <section
               id={`lab-step-${lessonId}-${variant}-${index}`}
               tabIndex={-1}
@@ -289,7 +306,12 @@ export function SonicWalkthrough({
                 <p className="walkthrough-location">
                   WHERE TO WORK: {step.where}
                 </p>
-                {index === 0 && <section className="sonic-action-assist"><h4>Open your workspace</h4><SessionGuide location={step.where} /></section>}
+                {index === 0 && (
+                  <section className="sonic-action-assist">
+                    <h4>Open your workspace</h4>
+                    <SessionGuide location={step.where} />
+                  </section>
+                )}
                 <StepTeachingNotes
                   lessonId={lessonId || 'linux'}
                   title={step.title}
@@ -332,6 +354,22 @@ export function SonicWalkthrough({
           </li>
         ))}
       </ol>
+      {focused && (
+        <nav className="guided-pagination" aria-label="Focused step navigation">
+          <button
+            disabled={activeStep === 0}
+            onClick={() => chooseFocused(activeStep - 1)}
+          >
+            ← Previous step
+          </button>
+          <button
+            disabled={activeStep === steps.length - 1}
+            onClick={() => chooseFocused(activeStep + 1)}
+          >
+            Next step →
+          </button>
+        </nav>
+      )}
     </section>
   );
 }

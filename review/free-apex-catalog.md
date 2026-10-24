@@ -1,6 +1,6 @@
 # Free / Apex catalog proposal
 
-42 Free foundation labs; 179 additional Apex labs. Apex includes Free. These are catalog classifications, not live access restrictions. Existing bundles and the public repository currently contain the curriculum; protected delivery and customer identity must be connected before restrictions go live.
+42 Free foundation labs; 188 additional Apex labs. Apex includes Free. These are catalog classifications, not live access restrictions. Existing bundles and the public repository currently contain the curriculum; protected delivery and customer identity must be connected before restrictions go live.
 
 Apex-only: separate enterprise troubleshooting library. Keep prerequisites, screenshots, lab-specific fixes, rollback and cloud cleanup available with every included Free project.
 
@@ -227,3 +227,17 @@ Apex-only: separate enterprise troubleshooting library. Keep prerequisites, scre
 | Nessus Scan Policies & Vulnerability Scanning | [Schedule Scans and Watch Scanner Health](https://sonic-academy-cloud-seam.vercel.app/nessus/scanning#lesson=nessus-scanning-schedule-health) | Apex | `nessus-scanning-schedule-health` |
 | Nessus Scan Policies & Vulnerability Scanning | [Connect Findings to ACAS, STIGs, RMF and POA&Ms](https://sonic-academy-cloud-seam.vercel.app/nessus/scanning#lesson=nessus-scanning-governance) | Apex | `nessus-scanning-governance` |
 | Nessus Scan Policies & Vulnerability Scanning | [Final Lab: Scan, Fix and Verify Two Targets](https://sonic-academy-cloud-seam.vercel.app/nessus/scanning#lesson=nessus-scanning-final) | Apex | `nessus-scanning-final` |
+
+## DMZ additions
+
+| Lesson ID | Title | Planned tier | URL |
+| --- | --- | --- | --- |
+| dmz-plan | Understand What Belongs in a DMZ | Apex | https://cloudseam.tech/dmz#lesson=dmz-plan |
+| dmz-networks | Build Three Isolated VMware Networks | Apex | https://cloudseam.tech/dmz#lesson=dmz-networks |
+| dmz-firewall | Install and Name Your DMZ Firewall | Apex | https://cloudseam.tech/dmz#lesson=dmz-firewall |
+| dmz-iis | Build the Private IIS Application | Apex | https://cloudseam.tech/dmz#lesson=dmz-iis |
+| dmz-proxy | Build the DMZ Reverse Proxy | Apex | https://cloudseam.tech/dmz#lesson=dmz-proxy |
+| dmz-publish | Publish HTTPS to the Practice Visitor | Apex | https://cloudseam.tech/dmz#lesson=dmz-publish |
+| dmz-verify | Prove Private Servers Stay Private | Apex | https://cloudseam.tech/dmz#lesson=dmz-verify |
+| dmz-recover | Troubleshoot and Recover the DMZ | Apex | https://cloudseam.tech/dmz#lesson=dmz-recover |
+| dmz-azure | Plan the Azure Equivalent and Stop the Lab | Apex | https://cloudseam.tech/dmz#lesson=dmz-azure |
