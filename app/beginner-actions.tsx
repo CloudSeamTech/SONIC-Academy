@@ -1,9 +1,10 @@
+import { ServerRoleText } from './server-role-text';
 import { learnerActions } from '@/lib/learner-directions';
 export function BeginnerActions({ text }: { text: string }) {
   return (
     <ol className="beginner-actions">
       {learnerActions(text).map((action, index) => (
-        <li key={`${index}-${action}`}>{action}</li>
+        <li key={`${index}-${action}`}><ServerRoleText text={action} /></li>
       ))}
     </ol>
   );

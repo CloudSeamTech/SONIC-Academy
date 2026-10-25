@@ -1,3 +1,4 @@
+import { ServerRoleText } from './server-role-text';
 import { workspaceDirections } from '../lib/learner-directions';
 export function WorkspaceStart({
   where,
@@ -9,7 +10,7 @@ export function WorkspaceStart({
   return (
     <p className="workspace-start">
       <strong>Start here: </strong>
-      {workspaceDirections(where, action)}
+      <ServerRoleText text={workspaceDirections(where, action)} />
     </p>
   );
 }

@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
-import { Manrope, JetBrains_Mono } from 'next/font/google';
+import { IBM_Plex_Mono, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import './sonic.css';
 import { AcademyProvider } from './academy-provider';
-const uiFont = Manrope({
+const uiFont = IBM_Plex_Mono({
   variable: '--font-academy-ui',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700', '800'],
+  weight: ['400', '500', '600', '700'],
 });
 
 const geistMono = JetBrains_Mono({

@@ -1,14 +1,14 @@
 {
   "id": "iis-helpdesk",
   "title": "Build a Private IT Help Desk with IIS",
-  "description": "Learn IIS by building, protecting and recovering a real osTicket help desk on APP01.",
+  "description": "Build osTicket on an application server (APP01) using Windows, IIS, PHP and MariaDB; learn what each part does.",
   "baseline": "VMware Workstation Pro · Windows Server 2019 APP01 · lab.example.test · IIS + PHP 8.4.27 minimum / newer patched 8.4 x64 NTS + maintained MariaDB 10.11 · osTicket self-hosted edition",
   "prerequisite": "Let’s give your Windows server a useful job. We’ll build a help desk where a practice user can report a problem and an IT agent can resolve it. Start after the APP01 domain-join and IIS foundation lesson; each class below adds one small piece.",
   "supplies": [
     "A prepared APP01 member VM and a private Windows client; do not install the app on DC01/DC02.",
     "Working lab.example.test AD DNS and the actual private IPs from your lab plan.",
     "Administrator rights on your own lab VMs, trusted installers and a password manager.",
-    "An your practice mailbox only if you choose the optional mail integration class.",
+    "Your practice mailbox only if you choose the optional mail integration class.",
     "A recovery plan and protected backup space outside the website folder."
   ],
   "sources": [

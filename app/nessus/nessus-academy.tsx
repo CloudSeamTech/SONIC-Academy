@@ -1,4 +1,5 @@
 'use client';
+import { ServerRoleText } from '../server-role-text';
 import { WorkspaceStart } from '../workspace-start';
 import { learnerActions } from '../../lib/learner-directions';
 import { DmzLabNotebook } from '../dmz/lab-notebook';
@@ -297,7 +298,7 @@ function LessonReader({
                 <h4>Let’s try it</h4>
                 <ol>
                   {step.actions.flatMap(learnerActions).map((action, i) => (
-                    <li key={i}>{action}</li>
+                    <li key={i}><ServerRoleText text={action} /></li>
                   ))}
                 </ol>
               </section>
