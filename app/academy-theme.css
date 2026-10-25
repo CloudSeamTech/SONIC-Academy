@@ -3563,3 +3563,4 @@ html body .academy-shell.academy-shell :is(pre,code,kbd,samp,input,textarea,[con
 }
 html body .academy-shell :is(h1,h2,h3,h4,h5,h6) { letter-spacing: -.025em !important; }
 html body .academy-shell :is(button,summary,.console-nav-label) { letter-spacing: .015em !important; }
+html body .academy-shell :is(input,textarea)::placeholder { text-transform: uppercase !important; }
