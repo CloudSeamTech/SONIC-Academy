@@ -2,7 +2,7 @@
   "id": "azure-landing-zone",
   "title": "Build Your First Azure Landing Zone",
   "description": "Prepare a small Azure practice foundation, upload pretend inventory data, test recovery and clean up.",
-  "baseline": "cloudseam.tech · Azure portal · small learning foundation, not a production Azure Landing Zones deployment · metered storage · $25 monthly training goal, not a cap",
+  "baseline": "lab.example.test · Azure portal · small learning foundation, not a production Azure Landing Zones deployment · metered storage · $25 monthly training goal, not a cap",
   "prerequisite": "Before you start, you will need an active Azure training subscription and permission to create resources there. We will build this in the Azure portal, one piece at a time. Nothing is created or charged by opening this class.",
   "supplies": [
     "An active Azure training subscription and permission to create the dedicated lab resources.",
@@ -136,7 +136,7 @@
             "Open portal.azure.com and search for Subscriptions.",
             "Select only your training subscription. Copy its name and subscription ID to your private notes.",
             "Open Access control (IAM) → View my access. Check your resource-creation permissions and whether you can assign roles at the planned storage account scope.",
-            "Keep cloudseam.tech as the Windows lab domain. Do not rename your Entra tenant or add public DNS records for this exercise."
+            "Keep lab.example.test as the Windows lab domain. Do not rename your Entra tenant or add public DNS records for this exercise."
           ],
           "expected": "Your notes identify the exact training subscription and the person who can grant the storage data role.",
           "breakdown": [],
@@ -428,7 +428,7 @@
             "Select your training subscription, rg-cloudseam-lz-lab and the same region.",
             "Use a globally unique name such as stcloudseamlab followed by your own lowercase letters and numbers. Storage names use 3–24 lowercase letters and digits; no dots or hyphens.",
             "Choose Standard performance, general-purpose v2 where offered, and Locally-redundant storage (LRS). Use Hot for this tiny active lab.",
-            "On Advanced, require secure transfer, set minimum TLS to 1.2, disable anonymous blob access and choose Microsoft Entra authorization as the portal default. Leave hierarchical namespace off.",
+            "On Advanced, require secure transfer, set minimum TLS to 1.2, disable anonymous blob access and choose Microsoft Entra authorization as the portal default. Leave hierarchical set of names off.",
             "Disable shared-key authorization using Allow storage account key access where the wizard offers that setting. Do not enable paid Defender for Storage. Add the lab tags."
           ],
           "expected": "The planned account has the correct name, Standard LRS storage and no paid optional protection selected.",

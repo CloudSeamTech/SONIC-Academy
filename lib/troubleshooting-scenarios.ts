@@ -626,7 +626,7 @@ export const additionalScenarios: Record<string, TroubleshootingTip[]> = {
         'Confirm the old application cannot keep accepting conflicting writes after the approved traffic switch.',
       ],
       command:
-        'Resolve-DnsName helpdesk.cloudseam.tech\nGet-DnsClientServerAddress',
+        'Resolve-DnsName helpdesk.lab.example.test\nGet-DnsClientServerAddress',
       expected:
         'Clients resolve the intended endpoint and a test action reaches the one authoritative application.',
       next: 'Follow the DNS cutover/runbook and recheck after caches expire. Clearing one client’s cache is not a complete migration fix.',

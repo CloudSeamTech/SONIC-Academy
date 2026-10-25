@@ -21,7 +21,8 @@
             "trouble": "Do not assume Wine or Proton runs a work app, driver, or anti-cheat game.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · lab notes and browser"
           },
           {
             "title": "Choose the baseline",
@@ -30,7 +31,8 @@
             "trouble": "Use official release notes to check CPU requirements; choose the image for your architecture.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · lab notes and browser"
           },
           {
             "title": "Protect your current machine",
@@ -39,7 +41,8 @@
             "trouble": "A VM snapshot is not a backup of the physical Windows disk.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · lab notes and browser"
           },
           {
             "title": "Size the practice VM",
@@ -48,7 +51,8 @@
             "trouble": "These are lab sizing examples, not guarantees for every app or game.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · lab notes and browser"
           },
           {
             "title": "Plan a later physical installation",
@@ -57,7 +61,8 @@
             "trouble": "This course does not automatically convert or dual-boot an existing Windows installation.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · lab notes and browser"
           }
         ],
         "pass": "Your checklist, verified backup, and VM plan are ready."
@@ -72,7 +77,7 @@
       "guide": {
         "where": "AlmaLinux 9 GNOME desktop → Activities → Terminal, unless the step names Windows or VMware Workstation Pro.",
         "before": "Finish the desktop plan and obtain the official DVD ISO and its checksum.",
-        "rollback": "Delete only this new disposable VM if rebuilding; leave host disks untouched.",
+        "rollback": "Delete only this new practice VM if rebuilding; leave host disks untouched.",
         "steps": [
           {
             "title": "Verify the downloaded ISO",
@@ -81,7 +86,8 @@
             "trouble": "Do not use a checksum from an unrelated major version or file.",
             "command": "Get-FileHash -Algorithm SHA256 \"C:\\Downloads\\AlmaLinux-9-latest-x86_64-dvd.iso\"",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · Windows PowerShell"
           },
           {
             "title": "Create a fresh VM",
@@ -90,7 +96,8 @@
             "trouble": "The VMware OS profile does not install the OS. Check Workstation compatibility if no suitable RHEL 9 profile is offered.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · VMware Workstation Pro"
           },
           {
             "title": "Attach media and networking",
@@ -99,7 +106,8 @@
             "trouble": "Do not attach a physical WD disk or choose raw-disk access for this exercise.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · VMware Workstation Pro"
           },
           {
             "title": "Start the installer",
@@ -108,16 +116,18 @@
             "trouble": "Check ISO checksum and attachment if it cannot boot; do not disable security settings at random.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "New AlmaLinux VM · installer console"
           },
           {
             "title": "Select GNOME and the correct disk",
-            "action": "Open Software Selection and choose Server with GUI. Open Installation Destination, select ONLY the new 50 GB virtual disk, and use automatic partitioning for this disposable VM. Review any pending deletion list before accepting.",
+            "action": "Open Software Selection and choose Server with GUI. Open Installation Destination, select ONLY the new 50 GB virtual disk, and use automatic partitioning for this practice VM. Review any pending deletion list before accepting.",
             "expect": "Only the new VM disk is selected and Server with GUI is the software profile.",
             "trouble": "Stop if an existing disk or unexpected capacity appears. Cancel instead of deleting unknown partitions.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "New AlmaLinux VM · installer console"
           },
           {
             "title": "Create your daily user",
@@ -126,16 +136,18 @@
             "trouble": "Do not use root as your everyday desktop login.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "New AlmaLinux VM · installer console"
           },
           {
             "title": "Boot the installed system",
-            "action": "Reboot when prompted, detach the ISO if it starts setup again, and sign in to GNOME as your normal user. Open Activities, search Terminal, and inspect the release.",
+            "action": "Reboot when prompted, detach the ISO if it starts setup again, and sign in to GNOME as your normal user. Open Activities, search Terminal, and check the release.",
             "expect": "The guest reports AlmaLinux 9 and opens a GNOME desktop.",
             "trouble": "A text-only login often means a minimal profile was installed; for this new VM, reinstall with the required GUI profile.",
             "command": "cat /etc/os-release\nprintf \"%s\\n\" \"$XDG_CURRENT_DESKTOP\"\nid",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           }
         ],
         "pass": "The VM boots from its disk into GNOME with your normal account."
@@ -159,16 +171,18 @@
             "trouble": "VM audio or resolution depends on Workstation settings and guest integration; do not install an unrelated GPU driver.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Settings"
           },
           {
             "title": "Confirm networking",
-            "action": "In Settings → Network inspect the wired connection. NAT normally supplies DHCP and DNS. Inspect addresses and routes without changing them.",
+            "action": "In Settings → Network check the wired connection. NAT normally supplies DHCP and DNS. Check addresses and routes without changing them.",
             "expect": "You have an address and default route for the VM NAT connection.",
             "trouble": "If disconnected, check Workstation Network Adapter → Connected before editing guest configuration.",
             "command": "ip -br address\nip route\nnmcli device status",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Settings"
           },
           {
             "title": "Update the guest",
@@ -177,7 +191,8 @@
             "trouble": "Check networking, free space and repositories if DNF fails; do not force-remove packages.",
             "command": "sudo dnf upgrade --refresh",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Install VMware desktop integration",
@@ -186,7 +201,8 @@
             "trouble": "Do not use random third-party VMware Tools installers when distro packages are available.",
             "command": "sudo dnf install open-vm-tools open-vm-tools-desktop",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Set lock and privacy",
@@ -195,16 +211,18 @@
             "trouble": "GNOME labels vary by minor version; search Settings for Screen Lock.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Settings"
           },
           {
             "title": "Record a clean baseline",
             "action": "Open About and note release, memory and disk. Shut down the VM, then take a named Workstation snapshot if your edition supports it; separately keep backups of important files.",
-            "expect": "You have a baseline note and a VM recovery checkpoint.",
+            "expect": "You have a starting point note and a VM recovery checkpoint.",
             "trouble": "Snapshots depend on the VM disk and do not replace external backups.",
             "command": "hostnamectl\ndf -h /",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Settings; then VMware Workstation Pro on your host"
           }
         ],
         "pass": "Your desktop is updated, readable, connected, and locks properly."
@@ -213,7 +231,7 @@
     {
       "id": "alma-terminal",
       "title": "Learn the Commands You Use Every Day",
-      "description": "Practice navigation, files, help, search, pipes, and safe command habits in a disposable folder.",
+      "description": "Practice navigation, files, help, search, pipes, and safe command habits in a practice folder.",
       "section": "02 / Everyday Skills",
       "visual": "alma-cli",
       "guide": {
@@ -223,12 +241,13 @@
         "steps": [
           {
             "title": "Know where you are",
-            "action": "Open Terminal and inspect your identity and location. Read each command and output before moving on. ~ means your home directory, not the whole filesystem.",
+            "action": "Open Terminal and check your identity and location. Read each command and output before moving on. ~ means your home directory, not the whole filesystem.",
             "expect": "You recognize your own username, host and home path.",
             "trouble": "If the account is root, close that session and return to your normal user.",
             "command": "whoami\nhostname\npwd\nls -lah",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Make a practice folder",
@@ -237,7 +256,8 @@
             "trouble": "If you are elsewhere, return with cd ~; do not practice in /etc or /usr.",
             "command": "mkdir -p ~/DesktopPractice\ncd ~/DesktopPractice\npwd",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Create, copy and rename",
@@ -246,7 +266,8 @@
             "trouble": "Spaces in paths require quotes; Linux filenames are case-sensitive.",
             "command": "cd ~/DesktopPractice\nprintf \"first line\\nsecond line\\n\" > notes.txt\ncp -i notes.txt copy.txt\nmv -i copy.txt renamed.txt\ncat renamed.txt",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Search and inspect",
@@ -255,7 +276,8 @@
             "trouble": "No grep match is not a system failure; verify the exact text.",
             "command": "cd ~/DesktopPractice\ngrep -n \"second\" notes.txt\nwc -l notes.txt\nfind . -maxdepth 1 -type f\nls -lah | less",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Learn help and interruption",
@@ -264,7 +286,8 @@
             "trouble": "If man is missing install man-db through DNF after reviewing the transaction.",
             "command": "ls --help\ncommand -v ls",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Clean only your practice copy",
@@ -273,10 +296,11 @@
             "trouble": "Do not add sudo or wildcard paths to fix a typo.",
             "command": "rm -i ~/DesktopPractice/renamed.txt\nls -lah ~/DesktopPractice",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           }
         ],
-        "pass": "You can navigate, inspect, create, copy, search and remove a practice file without sudo."
+        "pass": "You can navigate, check, create, copy, search and remove a practice file without sudo."
       }
     },
     {
@@ -297,7 +321,8 @@
             "trouble": "Hidden files often store configuration; do not delete them to tidy the home directory.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Files"
           },
           {
             "title": "Create and organize",
@@ -306,16 +331,18 @@
             "trouble": "Moving within a disk and copying to a different disk have different space effects; confirm the destination.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Files"
           },
           {
             "title": "Understand permissions",
-            "action": "Inspect a file you own. Apply mode 600 to the practice notes only: owner read/write, no access for group/others. This is not full-disk encryption.",
+            "action": "Check a file you own. Apply mode 600 to the practice notes only: owner read/write, no access for group/others. This is not full-disk encryption.",
             "expect": "ls shows owner-only read/write on that practice file.",
             "trouble": "Do not use chmod 777 or recursively change your entire home to fix one app.",
             "command": "ls -l ~/DesktopPractice/notes.txt\nchmod 600 ~/DesktopPractice/notes.txt\nls -l ~/DesktopPractice/notes.txt",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Create an archive",
@@ -324,7 +351,8 @@
             "trouble": "An archive on the same disk is convenient packaging, not an independent backup.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Files"
           },
           {
             "title": "Use removable storage",
@@ -333,7 +361,8 @@
             "trouble": "In VMware use VM → Removable Devices to intentionally connect a USB device to the guest; the host loses access while attached.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Files"
           }
         ],
         "pass": "You can find, organize, archive and move your own files and explain owner permissions."
@@ -352,57 +381,63 @@
         "steps": [
           {
             "title": "Inspect your existing software sources",
-            "action": "DNF manages system RPMs and dependencies. GNOME Software may show RPM and Flatpak sources. List enabled DNF repositories and inspect package details before installing.",
+            "action": "DNF manages system RPMs and dependencies. GNOME Software may show RPM and Flatpak sources. List enabled DNF repositories and check package details before installing.",
             "expect": "You know which repositories are currently enabled.",
             "trouble": "A missing package is not a reason to run an unknown curl-to-shell installer.",
             "command": "dnf repolist\ndnf info firefox\ndnf search libreoffice",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Install a native everyday app",
-            "action": "For an office suite use the AlmaLinux repository package libreoffice if available. Read the package source, dependencies and download size, then approve the install. Start it from Activities.",
+            "action": "For an office suite use the AlmaLinux repository package libreoffice if available. Read the package source, extra packages the app needs and download size, then approve the install. Start it from Activities.",
             "expect": "A document opens in the installed app.",
-            "trouble": "If unavailable, stop and inspect repository configuration or choose the Flatpak alternative; do not mix RPMs for another distro.",
+            "trouble": "If unavailable, stop and check repository configuration or choose the Flatpak alternative; do not mix RPMs for another distro.",
             "command": "sudo dnf install libreoffice",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Install Flatpak support",
-            "action": "Install the Flatpak client from your configured AlmaLinux repositories. Then inspect existing user remotes. System and user remotes are different scopes.",
+            "action": "Install the Flatpak client from your configured AlmaLinux repositories. Then check existing user remotes. System and user remotes are different scopes.",
             "expect": "flatpak is available and your user remote list is visible.",
             "trouble": "Restart your login session after adding desktop integration if new app launchers do not appear.",
             "command": "sudo dnf install flatpak\nflatpak --version\nflatpak remotes --user",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Add Flathub only after reviewing the source",
-            "action": "Open the official Flathub AlmaLinux setup page linked below. If you accept this third-party source, add it to your user only. Inspect its URL afterward.",
+            "action": "Open the official Flathub AlmaLinux setup page linked below. If you accept this third-party source, add it to your user only. Check its URL afterward.",
             "expect": "The user-scoped flathub remote points to the official source.",
             "trouble": "Do not disable signature checking. A store listing is not a guarantee that every publisher or permission is appropriate.",
             "command": "flatpak remote-add --user --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo\nflatpak remotes --user --show-details",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · web browser for Flathub; then GNOME Terminal"
           },
           {
             "title": "Install an app and review permissions",
-            "action": "Search for VLC, inspect the exact Flathub app ID and source, then install the user-scoped example only if you accept its publisher and permissions. Launch from Activities or Terminal.",
+            "action": "Search for VLC, check the exact Flathub app ID and source, then install the user-scoped example only if you accept its publisher and permissions. Launch from Activities or Terminal.",
             "expect": "VLC starts and opens a non-sensitive local media sample.",
             "trouble": "Codec availability and licenses vary. Do not enable every third-party repository just to make one format play.",
             "command": "flatpak search VLC\nflatpak remote-info --user flathub org.videolan.VLC\nflatpak install --user flathub org.videolan.VLC\nflatpak info --user --show-permissions org.videolan.VLC\nflatpak run org.videolan.VLC",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Update and remove deliberately",
-            "action": "Update RPMs with DNF and user Flatpaks separately. Before removing an app, review dependencies and preserve needed data. Flatpak uninstall without --delete-data normally leaves user app data.",
+            "action": "Update RPMs with DNF and user Flatpaks separately. Before removing an app, review extra packages the app needs and preserve needed data. Flatpak uninstall without --delete-data normally leaves user app data.",
             "expect": "You can explain the two update paths and identify an app’s source.",
             "trouble": "Do not accept a removal transaction that unexpectedly removes your desktop.",
             "command": "sudo dnf upgrade --refresh\nflatpak update --user\nflatpak list --user --app",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           }
         ],
         "pass": "You installed and launched an app, inspected its source and permissions, and know how it updates."
@@ -426,16 +461,18 @@
             "trouble": "A VMware virtual GPU is not your full physical GPU. Install/setup success in a VM does not prove a modern 3D game will work.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · lab notes and browser"
           },
           {
             "title": "Inspect and install Steam from Flathub",
-            "action": "Inspect the exact Steam application ID on Flathub and its permissions. The Flatpak wrapper is community maintained. Review requirements and accept the install only if it fits your system.",
+            "action": "Check the exact Steam application ID on Flathub and its permissions. The Flatpak wrapper is community maintained. Review requirements and accept the install only if it fits your system.",
             "expect": "Steam is installed in your user Flatpak scope.",
             "trouble": "If the app reports unsupported architecture or missing runtime support, stop and review current Flathub requirements.",
             "command": "flatpak remote-info --user flathub com.valvesoftware.Steam\nflatpak install --user flathub com.valvesoftware.Steam\nflatpak info --user --show-permissions com.valvesoftware.Steam",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Start and sign in",
@@ -444,25 +481,28 @@
             "trouble": "Do not install an untrusted launcher or bypass account security to work around a sign-in error.",
             "command": "flatpak run com.valvesoftware.Steam",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · Steam app"
           },
           {
             "title": "Try a native title first",
-            "action": "Choose a small Linux-native title that meets the VM or physical machine’s graphics capability. Pick the default library location, inspect required space, and download it. Launch and record the actual result.",
+            "action": "Choose a small Linux-native title that meets the VM or physical machine’s graphics capability. Pick the default library location, check required space, and download it. Launch and record the actual result.",
             "expect": "The supported test game launches, or you record the specific compatibility failure.",
             "trouble": "A driver error needs hardware-specific vendor guidance. Do not disable SELinux or install random graphics-driver scripts.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · Steam app"
           },
           {
             "title": "Test Proton separately",
-            "action": "In Steam → Settings → Compatibility inspect Steam Play/Proton options. For a compatible Windows title, use its Properties → Compatibility to choose an offered supported Proton version when needed. Test one title at a time.",
+            "action": "In Steam → Settings → Compatibility check Steam Play/Proton options. For a compatible Windows title, use its Properties → Compatibility to choose an offered supported Proton version when needed. Test one title at a time.",
             "expect": "You can distinguish native Linux execution from a Windows game using Proton.",
             "trouble": "Not every title works. Check official game/anti-cheat support; community ProtonDB reports are supporting clues, not guarantees.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · Steam app"
           },
           {
             "title": "Keep libraries and runtimes healthy",
@@ -471,7 +511,8 @@
             "trouble": "Use a Linux-native filesystem for this lab’s Steam library. NTFS permissions, compatibility layers and sandbox paths can cause failures.",
             "command": "flatpak update --user\ndf -h",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · Steam app"
           }
         ],
         "pass": "Steam opens and you can report an actual game result with its compatibility constraints."
@@ -490,21 +531,23 @@
         "steps": [
           {
             "title": "Inspect network before changing it",
-            "action": "Use Settings → Network or Wi-Fi for your connection. A VMware VM usually sees virtual Ethernet even when Windows uses Wi-Fi. Inspect active connections and addresses.",
+            "action": "Use Settings → Network or Wi-Fi for your connection. A VMware VM usually sees virtual Ethernet even when Windows uses Wi-Fi. Check active connections and addresses.",
             "expect": "You identify the right adapter and active connection.",
             "trouble": "Do not copy your physical Wi-Fi static IP into a NAT guest.",
             "command": "nmcli connection show --active\nip -br address\nip route",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Settings"
           },
           {
             "title": "Separate DNS from connectivity",
-            "action": "Resolve a known official site, then test HTTPS. If name lookup fails but your network route exists, inspect the connection’s DNS details before changing anything.",
+            "action": "Resolve a known official site, then test HTTPS. If name lookup fails but your network route exists, check the connection’s DNS details before changing anything.",
             "expect": "You can tell a name-resolution error from an HTTPS or connection error.",
             "trouble": "Do not replace required VPN/domain DNS with public DNS without understanding the network.",
             "command": "getent hosts almalinux.org\ncurl -I https://almalinux.org\nnmcli device show",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Add a printer",
@@ -513,7 +556,8 @@
             "trouble": "Discovery across NAT/VPN may not work. Use the printer’s official IPP/driver guidance; availability depends on the hardware.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Settings"
           },
           {
             "title": "Configure peripherals",
@@ -522,7 +566,8 @@
             "trouble": "A VM may have no Bluetooth adapter. Do not assume the host’s device automatically exists in the guest.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Settings"
           },
           {
             "title": "Access a known file share",
@@ -531,7 +576,8 @@
             "trouble": "A credential prompt does not mean a public share. Do not make the entire home directory world-writable to solve access.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Files"
           }
         ],
         "pass": "You verified network/DNS and tested at least one available peripheral or authorized share."
@@ -555,25 +601,28 @@
             "trouble": "A WD drive mounted in Windows is not automatically a Linux block device inside VMware. Disconnect/eject safely before switching ownership.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · VMware Workstation Pro"
           },
           {
             "title": "Match model, serial and capacity",
-            "action": "Open Activities → Disks. Select the candidate drive and record its model, serial, size and partitions. Compare with the physical device label. Inspect terminal output too; do not assume /dev/sdb is always the WD drive.",
+            "action": "Open Activities → Disks. Select the candidate drive and record its model, serial, size and partitions. Compare with the physical device label. Check terminal output too; do not assume /dev/sdb is always the WD drive.",
             "expect": "You positively distinguish the data drive from the system disk mounted at /.",
             "trouble": "Stop if USB bridge hides serial/model or the device identity is ambiguous.",
             "command": "lsblk -o NAME,SIZE,MODEL,SERIAL,FSTYPE,MOUNTPOINTS\nfindmnt /\ndf -h",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Disks"
           },
           {
             "title": "Use an existing data volume without erasing it",
-            "action": "If it contains files, select its existing partition in Disks and use Mount (play button), or open it from Files. Do NOT choose Format Disk, Format Partition or Delete. Record the actual mount path from Disks and inspect your own files.",
+            "action": "If it contains files, select its existing partition in Disks and use Mount (play button), or open it from Files. Do NOT choose Format Disk, Format Partition or Delete. Record the actual mount path from Disks and check your own files.",
             "expect": "Existing files are visible and unchanged.",
             "trouble": "If encrypted, unlock with your own key; if filesystem support is missing, follow official AlmaLinux support guidance. NTFS from hibernated/Fast Startup Windows can be unsafe to write: return to Windows for a full shutdown. Never force a read/write mount.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Disks"
           },
           {
             "title": "Prove copy access and available space",
@@ -582,16 +631,18 @@
             "trouble": "NTFS/exFAT ownership is controlled by mount options; chown is not a universal fix. Never recursively chmod a valuable drive.",
             "command": "sha256sum ~/DesktopPractice/notes.txt",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Files"
           },
           {
             "title": "Optional: prepare a NEW empty practice disk",
-            "action": "Skip this step for any drive containing data. On a separate disposable blank virtual disk, reconfirm identity in Disks, use its menu → Format Disk → GPT if a partition table is needed, then the + button → Create Partition → choose ext4 for Linux-only practice and a label such as PracticeData. Formatting ERASES selected content; review the device and deletion prompts before confirming.",
+            "action": "Skip this step for any drive containing data. On a separate practice blank virtual disk, reconfirm identity in Disks, use its menu → Format Disk → GPT if a partition table is needed, then the + button → Create Partition → choose ext4 for Linux-only practice and a label such as PracticeData. Formatting ERASES selected content; review the device and deletion prompts before confirming.",
             "expect": "Only the explicitly empty practice disk has the new Linux filesystem.",
-            "trouble": "If you cannot prove the device is empty and disposable, stop. A WD brand label is not authorization to erase it. Use the existing-volume route instead.",
+            "trouble": "If you cannot prove the device is empty and practice, stop. A WD brand label is not authorization to erase it. Use the existing-volume route instead.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Disks"
           },
           {
             "title": "Choose persistent mounting only if needed",
@@ -600,7 +651,8 @@
             "trouble": "Do not add a guessed UUID or device name to /etc/fstab. Permission options depend on the filesystem. If boot is affected, revert this data-volume mount entry using your recovery route.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Disks"
           },
           {
             "title": "Understand what space you added",
@@ -609,7 +661,8 @@
             "trouble": "Growing root or LVM is a different task requiring the actual disk/partition layout and a tested backup; do not run generic resize commands.",
             "command": "df -h\nlsblk -f",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Use it for games or disconnect it safely",
@@ -618,10 +671,11 @@
             "trouble": "Never grant all host files just for one game. Revoke the same path permission when no longer needed. A busy mount means an app still uses it.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · Steam app"
           }
         ],
-        "pass": "You identified the WD device, preserved existing files, and verified a mount and sample copy. Formatting is optional and restricted to an empty disposable disk."
+        "pass": "You identified the WD device, preserved existing files, and verified a mount and sample copy. Formatting is optional and restricted to an empty practice disk."
       }
     },
     {
@@ -642,7 +696,8 @@
             "trouble": "Never put passwords or private keys into an unencrypted shared folder.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · lab notes and browser"
           },
           {
             "title": "Make a dated sample backup",
@@ -651,7 +706,8 @@
             "trouble": "A folder on the same physical disk does not protect against that disk failing.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Files"
           },
           {
             "title": "Prove restore without overwriting",
@@ -660,16 +716,18 @@
             "trouble": "Do not overwrite the only original while learning to restore.",
             "command": "sha256sum ~/DesktopPractice/notes.txt\n# Also hash your actual restored file path; compare the full values.",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Files"
           },
           {
             "title": "Schedule a repeatable habit",
-            "action": "Choose a documented backup tool supported by your selected source or a manual schedule. Record retention, encryption/recovery-key location, and last successful restore test. Keep another copy disconnected or offsite.",
+            "action": "For this first class, use the manual Files backup you just tested. Set a weekly reminder in your calendar to copy the chosen folders into a new dated folder on your backup drive. Keep earlier copies until you check the new one. Write down when you last restored a sample, where the backup lives and who can unlock any encryption. You can choose an automated backup tool later; do not call a scheduled copy a tested backup until you have restored from it.",
             "expect": "Your plan says when to back up and how to recover.",
             "trouble": "A sync service can replicate deletion; check its version and restore behavior.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · backup notes and calendar"
           },
           {
             "title": "Keep VM snapshots separate",
@@ -678,7 +736,8 @@
             "trouble": "Do not delete VMDK files manually to clean snapshots.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · VMware Workstation Pro"
           }
         ],
         "pass": "One independent backup and a successful sample restore are documented."
@@ -692,7 +751,7 @@
       "visual": "alma-cli",
       "guide": {
         "where": "AlmaLinux 9 GNOME desktop → Activities → Terminal, unless the step names Windows or VMware Workstation Pro.",
-        "before": "Normal user terminal and a known-good baseline; no fault injection required.",
+        "before": "Normal user terminal and a known-good starting point; no fault injection required.",
         "rollback": "Restore the specific saved configuration or a known-good practice-VM backup.",
         "steps": [
           {
@@ -702,43 +761,48 @@
             "trouble": "Avoid changing network, drivers and permissions simultaneously.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · problem notes"
           },
           {
             "title": "Check resources",
-            "action": "Inspect space, memory and running processes. In top press q to exit. A full filesystem can break updates and app state.",
+            "action": "Check space, memory and running processes. In top press q to exit. A full filesystem can break updates and app state.",
             "expect": "You can identify the filesystem or process actually consuming resources.",
             "trouble": "Do not delete /var, package databases, or unknown system files to free space.",
             "command": "df -h\nfree -h\ntop",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Inspect services and recent errors",
-            "action": "Read failed units and the current boot’s warning/error journal. Journal access can require authorized sudo; inspect before changing a service.",
+            "action": "Read failed units and the current boot’s warning/error journal. Journal access can require authorized sudo; check before changing a service.",
             "expect": "You can relate an error timestamp and service to the symptom.",
             "trouble": "Failed units can be unrelated to your app. Never restart arbitrary services simply to clear the list.",
             "command": "systemctl --failed\njournalctl -b -p warning --no-pager -n 40",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Inspect one service deliberately",
             "action": "For an actual named failed service, use systemctl status SERVICE and journalctl -u SERVICE -b. Replace SERVICE with the real unit from your previous check. Research the specific error before a restart.",
-            "expect": "You know the failing dependency/configuration or what evidence is missing.",
+            "expect": "You know the failing dependency/configuration or what saved result is missing.",
             "trouble": "The word SERVICE is a placeholder. A restart changes state and may interrupt other work.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Respect SELinux and firewall boundaries",
-            "action": "Check SELinux state and active firewall policy. If an app is denied, inspect its logs and the official supported labeling/port guidance. Do not disable SELinux or firewalld as the default workaround.",
+            "action": "Check SELinux state and active firewall policy. If an app is denied, check its logs and the official supported labeling/port guidance. Do not disable SELinux or firewalld as the default workaround.",
             "expect": "You recorded current protection state without weakening it.",
             "trouble": "A Flatpak sandbox permission problem differs from an SELinux denial; check the app’s scope first.",
             "command": "getenforce\nsudo firewall-cmd --list-all",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Recover and prove the fix",
@@ -747,10 +811,11 @@
             "trouble": "Package downgrades and dnf history undo can fail when old packages are unavailable; a tested backup is the recovery plan.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           }
         ],
-        "pass": "You can work from symptom → evidence → one change → retest without disabling protections."
+        "pass": "You can work from symptom → saved result → one change → retest without disabling protections."
       }
     },
     {
@@ -771,52 +836,58 @@
             "trouble": "Real commands need an actual shell. Changing text in the dashboard does not create a terminal backend.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · lab notes and browser"
           },
           {
             "title": "Install Node.js and Git, then start the local app",
-            "action": "On your Windows host, first follow the linked terminal setup guide above this lesson. Download Node.js 24 LTS using its official Windows .msi installer; keep npm package manager and Add to PATH selected. Install Git for Windows from its official site, keeping command-line PATH access enabled. Close old PowerShell windows and open a new one. Run node --version, npm.cmd --version and git --version separately; all three must show version numbers before continuing. Then run the command block below one line at a time. Stop if a SONIC-Academy folder already exists; save its work before updating that checkout. Leave the server window open.",
+            "action": "On your Windows host, open Start, type Windows PowerShell and open it. Follow the linked terminal setup guide to install Node.js LTS (which includes npm) and Git with its PowerShell commands. Close and reopen PowerShell or use the guide’s PATH refresh command. Run node --version, npm.cmd --version and git --version before continuing. In File Explorer, open the downloaded academy project folder, click its address bar, type powershell and press Enter: that opens PowerShell in the correct project folder. Run the block below there; npm.cmd avoids a blocked npm.ps1 script without weakening your execution policy.",
             "expect": "SONIC opens on localhost, normally port 3000.",
             "trouble": "If node or git is not recognized, reopen PowerShell after installation and check the installer PATH option. npm is bundled with Node.js. Use npm.cmd if PowerShell blocks npm.ps1; do not lower the execution policy to work around it.",
             "command": "Set-Location $env:USERPROFILE\ngit clone --branch main https://github.com/CloudSeamTech/SONIC-Academy.git\nSet-Location .\\SONIC-Academy\nnpm.cmd ci\nnpm.cmd run dev",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · Windows PowerShell"
           },
           {
             "title": "Start the companion in a second Windows window",
-            "action": "From the same repository root in a second PowerShell window install the companion dependencies and start it. Keep this process open. The random pairing token is private and stays on your computer.",
+            "action": "From the same repository root in a second PowerShell window install the packages the companion needs and start it. Keep this process open. The random pairing token is private and stays on your computer.",
             "expect": "The companion prints a loopback address and pairing token.",
             "trouble": "node-pty may require Visual Studio Build Tools Desktop development with C++ and Python if no matching native binary is available. Follow the actual installation error; do not disable security software.",
             "command": "npm.cmd run companion:install\nnpm.cmd run companion:start",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · Windows PowerShell"
           },
           {
             "title": "Connect and prove a real Windows result",
             "action": "At http://localhost:3000/migration#view=terminal select Windows PowerShell. Paste the token into the local-only field and Connect locally. Run Get-Date twice. Compare with your own Windows clock.",
             "expect": "Live date/time output appears from your current Windows account.",
-            "trouble": "Do not paste the token into the hosted site, a URL or a screenshot. If unavailable, inspect companion startup/capability errors.",
+            "trouble": "Do not paste the token into the hosted site, a URL or a screenshot. If unavailable, check companion startup/capability errors.",
             "command": "Get-Date\n$env:COMPUTERNAME",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "Your Windows host · web browser at http://localhost:3000/migration#view=terminal"
           },
           {
             "title": "Optionally enable SSH inside the AlmaLinux guest",
-            "action": "For VMware access use GNOME Terminal to install/start the SSH server and inspect its address and firewall. If SSH is not already allowed, add the ssh service only to the active connection’s firewall zone after checking it. This opens private-network SSH access; NAT needs no public port-forward. In firewall-config select the active zone and check the ssh service only for that private connection, then make the reviewed change permanent if needed. Alternatively use firewall-cmd --zone=<your-active-zone> --add-service=ssh, replacing the placeholder; repeat with --permanent only after testing.",
+            "action": "For VMware access use GNOME Terminal to install/start the SSH server and check its address and firewall. If SSH is not already allowed, add the ssh service only to the active connection’s firewall zone after checking it. This opens private-network SSH access; NAT needs no public port-forward. In firewall-config select the active zone and check the ssh service only for that private connection, then make the reviewed change permanent if needed. Alternatively use firewall-cmd --zone=<your-active-zone> --add-service=ssh, replacing the placeholder; repeat with --permanent only after testing.",
             "expect": "sshd is active and you know the guest’s actual NAT address.",
             "trouble": "Do not open public port 22 or disable the firewall. If you only need local desktop commands, GNOME Terminal requires no SSH server.",
             "command": "sudo dnf install openssh-server\nsudo systemctl enable --now sshd\nip -br address\nsudo firewall-cmd --get-active-zones\nsudo firewall-cmd --list-all",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal"
           },
           {
             "title": "Verify host identity and connect from Windows",
-            "action": "In the guest inspect the ED25519 host-key fingerprint. In Windows PowerShell use ssh your-user@the-actual-guest-IP and compare the offered fingerprint before accepting. The text user/IP are placeholders; substitute your own. Use native PowerShell for a full interactive SSH session; the SONIC panel can relay basic prompts but is not a full-screen terminal emulator.",
+            "action": "In the guest check the ED25519 host-key fingerprint. In Windows PowerShell use ssh your-user@the-actual-guest-IP and compare the offered fingerprint before accepting. The text user/IP are placeholders; substitute your own. Use native PowerShell for a full interactive SSH session; the SONIC panel can relay basic prompts but is not a full-screen terminal emulator.",
             "expect": "You reach the intended AlmaLinux host and can verify its release and username.",
             "trouble": "If SSH is blocked, review the active firewall zone and Workstation NAT route. Never ignore a changed host-key warning.",
             "command": "sudo ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub\n# Above: AlmaLinux guest only. Then run ssh with your actual user/IP in Windows.\n# After SSH connects: whoami; hostname; cat /etc/os-release",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · Terminal; then Windows host · PowerShell"
           },
           {
             "title": "Use the right terminal and shut down cleanly",
@@ -825,7 +896,8 @@
             "trouble": "The risk labels are guidance, not a sandbox: commands execute with your real account permissions. Do not run destructive drive commands just to test output.",
             "command": "",
             "evidence": "Save your own screenshot or notes showing the target, action, and observed result. Exclude passwords and private information.",
-            "screenshots": []
+            "screenshots": [],
+            "where": "AlmaLinux VM · GNOME Terminal; then local academy browser on your Windows host"
           }
         ],
         "pass": "You observed real Get-Date output and can identify the Windows, WSL and VMware AlmaLinux execution contexts. SSH is optional and checked against the guest fingerprint."

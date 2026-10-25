@@ -1,3 +1,4 @@
+import { LabExamplePlan } from './lab-example-plan';
 import {
   welcomeFor,
   type LessonWelcome as Welcome,
@@ -18,6 +19,7 @@ export function LessonWelcome({
   return (
     <section className="teacher-welcome" aria-label="Let’s get ready">
       <span className="eyebrow">LET’S GET READY</span>
+      {lessonId && <LabExamplePlan lessonId={lessonId} />}
       {showIntro && <p className="teacher-intro">{welcome.welcome}</p>}
       <aside className="teaching-callout">
         <h3>Why this matters</h3>

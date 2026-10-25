@@ -1,6 +1,8 @@
 # SONIC-Academy · CloudSeamTech Training
 
 Public website: **https://cloudseam.tech/**.
+
+Beginner lessons use fictional `lab.example.test` names and explain the current machine, app, actions and expected checks. Start with the [beginner lab guide](https://cloudseam.tech/lab-guide) for tools, command locations and a small-VM resource plan. Existing learners keep their recorded names; do not rename a working AD forest to match an example. See [classroom conventions](docs/LAB-EXAMPLES.md).
 Fallback address: https://sonic-academy-cloud-seam.vercel.app/. See [custom domain setup](docs/CUSTOM-DOMAIN.md).
 
 For Google/GitHub sign-in and database setup, follow the [Supabase owner guide](docs/SUPABASE-SETUP.md). Public social sign-in is not connected yet.

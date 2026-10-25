@@ -1,14 +1,14 @@
 {
   "id": "iis-helpdesk",
-  "title": "Build the CloudSeam IT Help Desk",
+  "title": "Build a Private IT Help Desk with IIS",
   "description": "Learn IIS by building, protecting and recovering a real osTicket help desk on APP01.",
-  "baseline": "VMware Workstation Pro \u00b7 Windows Server 2019 APP01 \u00b7 cloudseam.tech \u00b7 IIS + PHP 8.4.27 minimum / newer patched 8.4 x64 NTS + maintained MariaDB 10.11 \u00b7 osTicket self-hosted edition",
-  "prerequisite": "Let\u2019s give your Windows server a useful job. We\u2019ll build a help desk where a practice user can report a problem and an IT agent can resolve it. Start after the APP01 domain-join and IIS foundation lesson; each class below adds one small piece.",
+  "baseline": "VMware Workstation Pro · Windows Server 2019 APP01 · lab.example.test · IIS + PHP 8.4.27 minimum / newer patched 8.4 x64 NTS + maintained MariaDB 10.11 · osTicket self-hosted edition",
+  "prerequisite": "Let’s give your Windows server a useful job. We’ll build a help desk where a practice user can report a problem and an IT agent can resolve it. Start after the APP01 domain-join and IIS foundation lesson; each class below adds one small piece.",
   "supplies": [
     "A prepared APP01 member VM and a private Windows client; do not install the app on DC01/DC02.",
-    "Working cloudseam.tech AD DNS and the actual private IPs from your lab plan.",
+    "Working lab.example.test AD DNS and the actual private IPs from your lab plan.",
     "Administrator rights on your own lab VMs, trusted installers and a password manager.",
-    "An approved practice mailbox only if you choose the optional mail integration class.",
+    "An your practice mailbox only if you choose the optional mail integration class.",
     "A recovery plan and protected backup space outside the website folder."
   ],
   "sources": [
@@ -40,14 +40,14 @@
   "lessons": [
     {
       "id": "helpdesk-plan",
-      "title": "Plan Your CloudSeam Help Desk",
+      "title": "Plan Your Private Help Desk",
       "description": "Record the server, domain, software versions and recovery plan before installing anything.",
-      "what": "Let\u2019s record the server, domain, software versions and recovery plan before installing anything.",
+      "what": "Let’s record the server, domain, software versions and recovery plan before installing anything.",
       "why": "A small plan helps you tell which machine and which name each setting belongs to.",
       "needs": [
-        "APP01: updated Windows Server 2019 Desktop Experience, joined to cloudseam.tech",
+        "APP01: updated Windows Server 2019 Desktop Experience, joined to lab.example.test",
         "Working DC01/DC02 DNS, a private lab client, and permission to administer your practice VMs",
-        "Suggested lab allocation: 2 vCPUs, 4\u20138 GB RAM and 60 GB disk; adjust for your host"
+        "Small lab start: 2 vCPUs, 4 GB RAM and a 60 GB growable disk for APP01. Run only the servers needed now; raise memory if the app or updates need it."
       ],
       "bestPractices": [
         "Work on APP01 in your private VMware lab. Keep DC01 and DC02 dedicated to directory services.",
@@ -56,7 +56,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -64,7 +64,7 @@
           "fix": "Check the server name and the exact step first. Record the error and use the troubleshooting class; do not disable the firewall or give Everyone full control."
         }
       ],
-      "pass": "Your plan names APP01, cloudseam.tech, helpdesk.cloudseam.tech and the software versions.",
+      "pass": "Your plan names APP01, lab.example.test, helpdesk.lab.example.test and the software versions.",
       "exercise": "Write a three-line plan with your real private addresses.",
       "quiz": [
         {
@@ -83,9 +83,12 @@
           "title": "Meet the machines",
           "where": "VMware Workstation Pro on your host",
           "actions": [
-            "Open the APP01 console. Keep the VMware network private; do not add router port forwarding.",
-            "Write down APP01\u2019s actual IPv4 address, subnet and the two domain DNS addresses. The existing course example is 10.50.0.30 for APP01; use it only if it matches your lab.",
-            "Our AD domain is cloudseam.tech. Our application address is helpdesk.cloudseam.tech. These are names, not IP addresses."
+            "In VMware Workstation Pro, double-click APP01 in Library. Sign in to its Windows Server desktop. APP01 is our fictional application server name; use your recorded name if it differs.",
+            "Write APP01 = private application server. It will host IIS, PHP and osTicket. In this small practice build, MariaDB also runs locally on APP01 and listens only to local application connections.",
+            "Write DC01 and DC02 = directory and DNS servers. They help computers sign in and find names; we do not install the ticketing website on them.",
+            "Write your actual APP01 IPv4 address, subnet and DNS addresses. The course example is APP01 at 10.50.0.30, with DC01 at 10.50.0.10. These values must match your earlier network build.",
+            "For a fresh build, use lab.example.test as the private domain and helpdesk.lab.example.test as the website name. These are made-up training names; no public DNS purchase or router port forward is needed.",
+            "Leave this application private for this class. In the later DMZ class, a separate gateway receives visitor requests and only forwards the approved web connection to private IIS. A gateway is not where the database or domain controllers belong."
           ],
           "expected": "You have a short machine and address list.",
           "command": "",
@@ -98,17 +101,17 @@
           "screenshot": {
             "status": "illustration",
             "title": "Meet the machines",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-plan-1"
           }
         },
         {
           "title": "Check APP01 before installing",
-          "where": "APP01 \u00b7 Windows PowerShell as administrator",
+          "where": "APP01 · Windows PowerShell as administrator",
           "actions": [
             "Open Start, type Windows PowerShell, right-click it and choose Run as administrator.",
-            "Run the read-only checks below. Confirm APP01, Windows Server 2019, cloudseam.tech and a healthy domain trust.",
-            "If the domain is still an older practice domain, stop. Do not rename a working AD forest or simply edit DNS to pretend it was renamed; use the updated fresh-build classes or a separately planned migration."
+            "Run the checks below in APP01’s administrator PowerShell. Confirm the example server name, Windows Server 2019, your recorded practice domain and a healthy domain trust.",
+            "If your existing lab uses another name or domain, keep those values and write them beside the examples. Do not rename a working forest or edit public DNS just to match this guide."
           ],
           "expected": "APP01 is running the intended source OS and domain; the secure-channel test is True.",
           "command": "hostname\nGet-ComputerInfo | Select-Object WindowsProductName\n(Get-CimInstance Win32_ComputerSystem).Domain\nTest-ComputerSecureChannel\nGet-DnsClientServerAddress -AddressFamily IPv4",
@@ -121,18 +124,18 @@
           "screenshot": {
             "status": "illustration",
             "title": "Check APP01 before installing",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-plan-2"
           }
         },
         {
           "title": "Collect the installers and recovery point",
-          "where": "APP01 \u00b7 browser and your backup notes",
+          "where": "APP01 · browser and your backup notes",
           "actions": [
-            "Get the free self-hosted osTicket package from osticket.com/download. For PHP, open https://www.php.net/downloads.php \u2192 Windows downloads \u2192 PHP 8.4 \u2192 x64 Non Thread Safe \u2192 Zip. Require PHP 8.4.27 or a newer security-patched 8.4 release; older 8.4 builds do not contain the October 21, 2026 fixes for CVE-2026-109618 and CVE-2026-109619. Also obtain a maintained MariaDB 10.11 x64 Windows MSI from mariadb.org.",
+            "Get the free self-hosted osTicket package from osticket.com/download. For PHP, open https://www.php.net/downloads.php → Windows downloads → PHP 8.4 → x64 Non Thread Safe → Zip. Require PHP 8.4.27 or a newer security-patched 8.4 release; older 8.4 builds do not contain the October 21, 2026 fixes for CVE-2026-109618 and CVE-2026-109619. Also obtain a maintained MariaDB 10.11 x64 Windows MSI from mariadb.org.",
             "Choose the runtime ZIP, not the source, debug pack or development SDK. Check the ZIP filename/version and compare its SHA-256 with the value on the official download page. Save the trusted ZIP and version record outside the website folder.",
-            "Also obtain Microsoft Visual C++ 2015\u20132022 x64 Redistributable and Microsoft IIS URL Rewrite 2.1 from their official sites. Avoid old all-in-one tutorial bundles and retired Web Platform Installer.",
-            "Record the exact versions. Back up APP01 before changes; a short-lived VMware checkpoint of this disposable member VM is a convenience, not a database backup and never an AD recovery recipe."
+            "Also obtain Microsoft Visual C++ 2015–2022 x64 Redistributable and Microsoft IIS URL Rewrite 2.1 from their official sites. Avoid old all-in-one tutorial bundles and retired Web Platform Installer.",
+            "Record the exact versions. Back up APP01 before changes; a short-lived VMware checkpoint of this practice member VM is a convenience, not a database backup and never an AD recovery recipe."
           ],
           "expected": "You have trusted installers, version notes and a recovery plan.",
           "command": "",
@@ -147,7 +150,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Collect the installers and recovery point",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-plan-3"
           }
         }
@@ -157,8 +160,8 @@
       "id": "helpdesk-iis",
       "title": "Install and Explore IIS",
       "description": "Install IIS and CGI, then find websites, application pools and bindings.",
-      "what": "Let\u2019s install IIS and CGI, then find websites, application pools and bindings.",
-      "why": "IIS receives a browser request and chooses the right website. We\u2019ll learn those pieces before adding PHP.",
+      "what": "Let’s install IIS and CGI, then find websites, application pools and bindings.",
+      "why": "IIS receives a browser request and chooses the right website. We’ll learn those pieces before adding PHP.",
       "needs": [
         "Completed Help Desk Plan",
         "Local administrator access on APP01"
@@ -170,7 +173,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -195,7 +198,7 @@
       "steps": [
         {
           "title": "Install the web server role",
-          "where": "APP01 \u00b7 elevated Windows PowerShell",
+          "where": "APP01 · elevated Windows PowerShell",
           "actions": [
             "Run the command below on APP01, not DC01. It adds IIS, its management console and CGI support for PHP.",
             "Read Success and Restart Needed. If a restart is requested, restart this member VM and sign in again."
@@ -211,13 +214,13 @@
           "screenshot": {
             "status": "reference",
             "title": "Install the web server role",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "iis-fastcgi"
           }
         },
         {
           "title": "Explore IIS Manager",
-          "where": "APP01 \u00b7 Start \u2192 Windows Administrative Tools \u2192 IIS Manager",
+          "where": "APP01 · Start → Windows Administrative Tools → IIS Manager",
           "actions": [
             "You can also press Win+R, type inetmgr and press Enter.",
             "Expand APP01 on the left. Select Application Pools, then Sites. A site holds the address and files; its pool runs the application.",
@@ -234,13 +237,13 @@
           "screenshot": {
             "status": "reference",
             "title": "Explore IIS Manager",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "iis-bindings"
           }
         },
         {
           "title": "Check the basic website",
-          "where": "APP01 \u00b7 browser",
+          "where": "APP01 · browser",
           "actions": [
             "Open http://localhost/index.html if you created the earlier APP01 test page, or http://localhost for the default IIS page.",
             "If the browser cannot connect, check W3SVC using the command below. Fix the role/service before adding osTicket.",
@@ -257,7 +260,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Check the basic website",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-iis-3"
           }
         }
@@ -267,7 +270,7 @@
       "id": "helpdesk-php",
       "title": "Connect PHP to IIS",
       "description": "Install supported PHP and make IIS execute a small PHP test.",
-      "what": "Let\u2019s install supported PHP and make IIS execute a small PHP test.",
+      "what": "Let’s install supported PHP and make IIS execute a small PHP test.",
       "why": "osTicket is written in PHP. IIS passes PHP files to FastCGI so they run instead of downloading.",
       "needs": [
         "IIS and CGI installed",
@@ -280,7 +283,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -305,9 +308,9 @@
       "steps": [
         {
           "title": "Unpack and configure PHP",
-          "where": "APP01 \u00b7 File Explorer and Notepad as administrator",
+          "where": "APP01 · File Explorer and Notepad as administrator",
           "actions": [
-            "For a fresh install, use the official PHP 8.4 x64 Non Thread Safe runtime ZIP, version 8.4.27 or a newer patched 8.4 release. Install Microsoft Visual C++ x64 Redistributable. Right-click the ZIP \u2192 Extract All; put its contents directly in C:\\PHP, so C:\\PHP\\php-cgi.exe exists. If C:\\PHP already contains a working runtime, do not overwrite it: use the later Update PHP and Recover Safely class instead.",
+            "For a fresh install, use the official PHP 8.4 x64 Non Thread Safe runtime ZIP, version 8.4.27 or a newer patched 8.4 release. Install Microsoft Visual C++ x64 Redistributable. Right-click the ZIP → Extract All; put its contents directly in C:\\PHP, so C:\\PHP\\php-cgi.exe exists. If C:\\PHP already contains a working runtime, do not overwrite it: use the later Update PHP and Recover Safely class instead.",
             "Copy php.ini-production to php.ini. Open php.ini and set extension_dir=\"C:\\PHP\\ext\". Enable the supplied mysqli, mbstring, intl, gd and fileinfo extensions by removing their leading semicolons. Enable openssl if supplied and needed for TLS mail. Do not download random extension DLLs.",
             "Set date.timezone=\"UTC\", log_errors=On, display_errors=Off and cgi.fix_pathinfo=1. Keep PHP files outside the website root. Save and run the checks.",
             "Also set session.save_path=\"C:\\Sites\\HelpdeskRuntime\\sessions\", upload_tmp_dir=\"C:\\Sites\\HelpdeskRuntime\\uploads\" and error_log=\"C:\\Sites\\HelpdeskRuntime\\php-errors.log\". We will create and permission those private runtime folders when we create the pool."
@@ -325,13 +328,13 @@
           "screenshot": {
             "status": "illustration",
             "title": "Unpack and configure PHP",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-php-1"
           }
         },
         {
           "title": "Add the FastCGI handler",
-          "where": "APP01 \u00b7 IIS Manager \u2192 APP01 \u2192 Handler Mappings",
+          "where": "APP01 · IIS Manager → APP01 → Handler Mappings",
           "actions": [
             "Choose Add Module Mapping. Request path: *.php. Module: FastCgiModule. Executable: C:\\PHP\\php-cgi.exe. Name: PHP-FastCGI.",
             "Choose OK and Yes when asked to create a FastCGI application. If FastCgiModule is absent, return to the CGI role check.",
@@ -348,13 +351,13 @@
           "screenshot": {
             "status": "reference",
             "title": "Add the FastCGI handler",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "iis-handler"
           }
         },
         {
           "title": "Prove PHP runs and remove the test",
-          "where": "APP01 \u00b7 elevated PowerShell and browser",
+          "where": "APP01 · elevated PowerShell and browser",
           "actions": [
             "Write the temporary page below into the existing IIS root. It prints the PHP version and server interface actually serving the browser request; it does not publish a phpinfo dump.",
             "Open http://localhost/php-check.php on APP01. Check that the browser shows PHP 8.4.27 or a newer patched 8.4 release, followed by cgi-fcgi. If it shows an older version, a different runtime is still mapped in IIS. If PHP downloads or appears as source text, stop and fix the handler.",
@@ -371,7 +374,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Prove PHP runs and remove the test",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-php-3"
           }
         }
@@ -381,7 +384,7 @@
       "id": "helpdesk-database",
       "title": "Create the Help Desk Database",
       "description": "Install MariaDB and give osTicket its own database and account.",
-      "what": "Let\u2019s install MariaDB and give osTicket its own database and account.",
+      "what": "Let’s install MariaDB and give osTicket its own database and account.",
       "why": "Tickets and settings live in a database. A separate account limits the application to its own data.",
       "needs": [
         "Verified PHP installation",
@@ -394,7 +397,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -419,7 +422,7 @@
       "steps": [
         {
           "title": "Install MariaDB locally",
-          "where": "APP01 \u00b7 MariaDB Windows installer",
+          "where": "APP01 · MariaDB Windows installer",
           "actions": [
             "Run the signed MariaDB MSI. Keep the database server and client features; choose a Windows service and TCP port 3306.",
             "Choose a strong root password and save it privately. Leave remote root access disabled.",
@@ -436,13 +439,13 @@
           "screenshot": {
             "status": "illustration",
             "title": "Install MariaDB locally",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-database-1"
           }
         },
         {
           "title": "Create the application database",
-          "where": "APP01 \u00b7 MariaDB command prompt from Start",
+          "where": "APP01 · MariaDB command prompt from Start",
           "actions": [
             "Open the MariaDB command prompt and connect with mariadb -u root -p. Type the password at the prompt.",
             "Run the SQL below one statement at a time. Replace REPLACE_WITH_UNIQUE_SECRET locally with a new unique password; do not submit that placeholder or upload your real password.",
@@ -459,13 +462,13 @@
           "screenshot": {
             "status": "illustration",
             "title": "Create the application database",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-database-2"
           }
         },
         {
           "title": "Test the application login",
-          "where": "APP01 \u00b7 MariaDB command prompt",
+          "where": "APP01 · MariaDB command prompt",
           "actions": [
             "Exit the root session with exit. Connect as the new user with the command below, using the app password when prompted.",
             "Run SELECT DATABASE(); and SHOW TABLES;. Empty tables are expected before the installer runs.",
@@ -482,7 +485,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Test the application login",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-database-3"
           }
         }
@@ -490,9 +493,9 @@
     },
     {
       "id": "helpdesk-site",
-      "title": "Create the CloudSeam IIS Website",
+      "title": "Create the Practice IIS Website",
       "description": "Create a dedicated osTicket folder, application pool and hostname binding.",
-      "what": "Let\u2019s create a dedicated osTicket folder, application pool and hostname binding.",
+      "what": "Let’s create a dedicated osTicket folder, application pool and hostname binding.",
       "why": "A separate pool and folder let you change the help desk without replacing the original APP01 test website.",
       "needs": [
         "IIS and PHP tested",
@@ -505,7 +508,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -514,7 +517,7 @@
         }
       ],
       "pass": "The site has an isolated pool and narrowly scoped file permissions.",
-      "exercise": "Show the site\u2019s physical path and its application pool.",
+      "exercise": "Show the site’s physical path and its application pool.",
       "quiz": [
         {
           "question": "What should be temporarily writable during setup?",
@@ -530,10 +533,10 @@
       "steps": [
         {
           "title": "Copy the application files",
-          "where": "APP01 \u00b7 File Explorer",
+          "where": "APP01 · File Explorer",
           "actions": [
-            "Create C:\\Sites\\CloudSeamHelpdesk. Extract the osTicket download into a temporary folder.",
-            "Copy the CONTENTS of its upload folder into C:\\Sites\\CloudSeamHelpdesk. The destination should contain index.php, include, scp and setup directly.",
+            "Create C:\\Sites\\PracticeHelpdesk. Extract the osTicket download into a temporary folder.",
+            "Copy the CONTENTS of its upload folder into C:\\Sites\\PracticeHelpdesk. The destination should contain index.php, include, scp and setup directly.",
             "Inside include, copy ost-sampleconfig.php to ost-config.php. Keep the ZIP and SQL backup outside the public website folder."
           ],
           "expected": "The website root contains index.php and include\\ost-config.php.",
@@ -547,17 +550,17 @@
           "screenshot": {
             "status": "illustration",
             "title": "Copy the application files",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-site-1"
           }
         },
         {
           "title": "Create the pool and site",
-          "where": "APP01 \u00b7 IIS Manager",
+          "where": "APP01 · IIS Manager",
           "actions": [
-            "In Application Pools choose Add Application Pool. Name it CloudSeamHelpdesk, select No Managed Code and Integrated. Its identity stays ApplicationPoolIdentity.",
-            "Right-click Sites \u2192 Add Website. Site name: CloudSeamHelpdesk. Select the matching pool. Physical path: C:\\Sites\\CloudSeamHelpdesk.",
-            "For the temporary local HTTP binding use port 80 and hostname helpdesk.cloudseam.tech. Leave your existing Default Web Site and its files intact."
+            "In Application Pools choose Add Application Pool. Name it PracticeHelpdesk, select No Managed Code and Integrated. Its identity stays ApplicationPoolIdentity.",
+            "Right-click Sites → Add Website. Site name: PracticeHelpdesk. Select the matching pool. Physical path: C:\\Sites\\PracticeHelpdesk.",
+            "For the temporary local HTTP binding use port 80 and hostname helpdesk.lab.example.test. Leave your existing Default Web Site and its files intact."
           ],
           "expected": "The new site uses its own pool, folder and hostname binding.",
           "command": "",
@@ -570,21 +573,21 @@
           "screenshot": {
             "status": "reference",
             "title": "Create the pool and site",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "iis-add-binding"
           }
         },
         {
           "title": "Grant limited file access",
-          "where": "APP01 \u00b7 elevated Windows PowerShell",
+          "where": "APP01 · elevated Windows PowerShell",
           "actions": [
             "Grant the pool Read and Execute on the website folder. Grant Modify on ost-config.php only for the installer. Run the commands below.",
-            "In IIS Manager select CloudSeamHelpdesk \u2192 Authentication \u2192 Anonymous Authentication \u2192 Edit \u2192 Application pool identity. This makes anonymous requests use the named pool\u2019s file rights.",
+            "In IIS Manager select PracticeHelpdesk → Authentication → Anonymous Authentication → Edit → Application pool identity. This makes anonymous requests use the named pool’s file rights.",
             "In Default Document ensure index.php is present, adding it if necessary. Do not grant Everyone Full Control or make the whole site writable.",
             "Create the private runtime folders in the command below and grant Modify only there to this pool. These folders stay outside the website root; they hold temporary uploads, sessions and the PHP error log."
           ],
           "expected": "The pool can read the app and temporarily write its configuration file.",
-          "command": "icacls C:\\Sites\\CloudSeamHelpdesk /grant \"IIS AppPool\\CloudSeamHelpdesk:(OI)(CI)(RX)\"\nicacls C:\\Sites\\CloudSeamHelpdesk\\include\\ost-config.php /grant \"IIS AppPool\\CloudSeamHelpdesk:(M)\"\nNew-Item -ItemType Directory -Force -Path C:\\Sites\\HelpdeskRuntime\\sessions,C:\\Sites\\HelpdeskRuntime\\uploads\nicacls C:\\Sites\\HelpdeskRuntime /grant \"IIS AppPool\\CloudSeamHelpdesk:(OI)(CI)(M)\"",
+          "command": "icacls C:\\Sites\\PracticeHelpdesk /grant \"IIS AppPool\\PracticeHelpdesk:(OI)(CI)(RX)\"\nicacls C:\\Sites\\PracticeHelpdesk\\include\\ost-config.php /grant \"IIS AppPool\\PracticeHelpdesk:(M)\"\nNew-Item -ItemType Directory -Force -Path C:\\Sites\\HelpdeskRuntime\\sessions,C:\\Sites\\HelpdeskRuntime\\uploads\nicacls C:\\Sites\\HelpdeskRuntime /grant \"IIS AppPool\\PracticeHelpdesk:(OI)(CI)(M)\"",
           "breakdown": [],
           "sources": [
             "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
@@ -594,7 +597,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Grant limited file access",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-site-3"
           }
         }
@@ -604,11 +607,11 @@
       "id": "helpdesk-dns",
       "title": "Give the Help Desk Its Name",
       "description": "Create the private DNS record and verify that a lab client reaches APP01.",
-      "what": "Let\u2019s create the private DNS record and verify that a lab client reaches APP01.",
-      "why": "DNS turns helpdesk.cloudseam.tech into APP01\u2019s address; it does not install IIS or make a website public.",
+      "what": "Let’s create the private DNS record and verify that a lab client reaches APP01.",
+      "why": "DNS turns helpdesk.lab.example.test into APP01’s address; it does not install IIS or make a website public.",
       "needs": [
-        "APP01\u2019s recorded private IP",
-        "DNS administration rights on the cloudseam.tech lab DC"
+        "APP01’s recorded private IP",
+        "DNS administration rights on the lab.example.test lab DC"
       ],
       "bestPractices": [
         "Work on APP01 in your private VMware lab. Keep DC01 and DC02 dedicated to directory services.",
@@ -617,7 +620,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -631,24 +634,24 @@
         {
           "question": "Where does the helpdesk A record go for this lab?",
           "options": [
-            "The existing private cloudseam.tech DNS zone",
+            "The existing private lab.example.test DNS zone",
             "The database tables",
             "The osTicket admin password field"
           ],
           "answer": 0,
-          "explanation": "The existing private cloudseam.tech DNS zone is the result this class is designed to teach."
+          "explanation": "The existing private lab.example.test DNS zone is the result this class is designed to teach."
         }
       ],
       "steps": [
         {
           "title": "Create the private DNS record",
-          "where": "DC01 \u00b7 Server Manager \u2192 Tools \u2192 DNS",
+          "where": "DC01 · Server Manager → Tools → DNS",
           "actions": [
-            "Expand your DC \u2192 Forward Lookup Zones \u2192 cloudseam.tech. This should already be your AD-integrated zone from the domain build.",
-            "Right-click the zone \u2192 New Host (A or AAAA). Name: helpdesk. IP address: APP01\u2019s recorded private IPv4 address. Choose Add Host.",
-            "Do not change the root cloudseam.tech record, registrar nameservers, MX records, or public DNS. Internal AD DNS must separately resolve any public CloudSeam services your clients need."
+            "Expand your DC → Forward Lookup Zones → lab.example.test. This should already be your AD-integrated zone from the domain build.",
+            "Right-click the zone → New Host (A or AAAA). Name: helpdesk. IP address: APP01’s recorded private IPv4 address. Choose Add Host.",
+            "Do not change the root lab.example.test record, registrar nameservers, MX records, or public DNS. Internal AD DNS must separately resolve any public services your clients need."
           ],
-          "expected": "Private DNS maps helpdesk.cloudseam.tech to APP01, without changing public records.",
+          "expected": "Private DNS maps helpdesk.lab.example.test to APP01, without changing public records.",
           "command": "",
           "breakdown": [],
           "sources": [
@@ -659,20 +662,20 @@
           "screenshot": {
             "status": "illustration",
             "title": "Create the private DNS record",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-dns-1"
           }
         },
         {
           "title": "Test the name from a client",
-          "where": "Private Windows lab client \u00b7 PowerShell",
+          "where": "Private Windows lab client · PowerShell",
           "actions": [
             "Confirm this client uses your AD DNS servers. Run Resolve-DnsName below and compare the returned IP to APP01.",
             "A wrong answer usually means a stale record, wrong client DNS server or mismatched subnet. Correct that before opening the app.",
             "Use the exact hostname in IIS bindings. Browsing by IP can select a different IIS site."
           ],
           "expected": "The private client resolves the intended APP01 address.",
-          "command": "Resolve-DnsName helpdesk.cloudseam.tech",
+          "command": "Resolve-DnsName helpdesk.lab.example.test",
           "breakdown": [],
           "sources": [
             "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
@@ -682,7 +685,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Test the name from a client",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-dns-2"
           }
         },
@@ -690,13 +693,13 @@
           "title": "Scope the web firewall access",
           "where": "APP01 and your private lab client",
           "actions": [
-            "On APP01 open Windows Defender Firewall with Advanced Security. Inspect existing IIS inbound rules before adding another.",
-            "If no suitable rule exists: Inbound Rules \u2192 New Rule \u2192 Port \u2192 TCP \u2192 Specific local ports: 443 \u2192 Allow the connection \u2192 Domain profile \u2192 name CloudSeam Helpdesk HTTPS. Open the new rule \u2192 Scope \u2192 Remote IP addresses \u2192 These IP addresses \u2192 Add your recorded lab subnet. Inspect other enabled 443 rules too; a broad allow rule can defeat this scope.",
-            "Allow TCP 443 only from your recorded lab subnet. If your disposable setup needs HTTP temporarily, scope TCP 80 to that same subnet and remove the temporary allowance when HTTPS is ready. Do not open database port 3306.",
+            "On APP01 open Windows Defender Firewall with Advanced Security. Check existing IIS inbound rules before adding another.",
+            "If no suitable rule exists: Inbound Rules → New Rule → Port → TCP → Specific local ports: 443 → Allow the connection → Domain profile → name Practice Helpdesk HTTPS. Open the new rule → Scope → Remote IP addresses → These IP addresses → Add your recorded lab subnet. Check other enabled 443 rules too; a broad allow rule can defeat this scope.",
+            "Allow TCP 443 only from your recorded lab subnet. If your practice setup needs HTTP temporarily, scope TCP 80 to that same subnet and remove the temporary allowance when HTTPS is ready. Do not open database port 3306.",
             "From the client, test 443 after the next HTTPS lesson; before its binding exists, failure is expected. No router forwarding or public inbound RDP is needed."
           ],
           "expected": "You have a private-only web access plan; DNS resolution works.",
-          "command": "# Run on the private client after HTTPS is configured:\nTest-NetConnection helpdesk.cloudseam.tech -Port 443",
+          "command": "# Run on the private client after HTTPS is configured:\nTest-NetConnection helpdesk.lab.example.test -Port 443",
           "breakdown": [],
           "sources": [
             "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
@@ -706,7 +709,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Scope the web firewall access",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-dns-3"
           }
         }
@@ -716,11 +719,11 @@
       "id": "helpdesk-https",
       "title": "Protect the Help Desk with HTTPS",
       "description": "Create a lab certificate, bind HTTPS and trust it on one practice client.",
-      "what": "Let\u2019s create a lab certificate, bind HTTPS and trust it on one practice client.",
+      "what": "Let’s create a lab certificate, bind HTTPS and trust it on one practice client.",
       "why": "HTTPS protects passwords in transit. The certificate must match the name in your browser.",
       "needs": [
         "Working private DNS",
-        "APP01 administrator and one disposable lab client"
+        "APP01 administrator and one practice lab client"
       ],
       "bestPractices": [
         "Work on APP01 in your private VMware lab. Keep DC01 and DC02 dedicated to directory services.",
@@ -729,7 +732,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -743,25 +746,25 @@
         {
           "question": "What certificate name matches this site?",
           "options": [
-            "helpdesk.cloudseam.tech",
+            "helpdesk.lab.example.test",
             "localhost only",
-            "migrate.cloudseam.tech"
+            "migrate.lab.example.test"
           ],
           "answer": 0,
-          "explanation": "helpdesk.cloudseam.tech is the result this class is designed to teach."
+          "explanation": "helpdesk.lab.example.test is the result this class is designed to teach."
         }
       ],
       "steps": [
         {
           "title": "Create a named lab certificate",
-          "where": "APP01 \u00b7 elevated Windows PowerShell",
+          "where": "APP01 · elevated Windows PowerShell",
           "actions": [
-            "Run the command below to create a short-lived certificate for helpdesk.cloudseam.tech in the local computer Personal store.",
+            "Run the command below to create a short-lived certificate for helpdesk.lab.example.test in the local computer Personal store.",
             "A self-signed certificate is for this private exercise. It is not publicly trusted. For a real deployment, use an approved CA and renewal process.",
             "Record its thumbprint and expiry. Export only its public certificate for the client, never the private key."
           ],
-          "expected": "The certificate contains helpdesk.cloudseam.tech and a recorded expiry.",
-          "command": "New-SelfSignedCertificate -DnsName 'helpdesk.cloudseam.tech' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'CloudSeam Helpdesk Lab' -NotAfter (Get-Date).AddMonths(3)",
+          "expected": "The certificate contains helpdesk.lab.example.test and a recorded expiry.",
+          "command": "New-SelfSignedCertificate -DnsName 'helpdesk.lab.example.test' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'Practice Helpdesk Lab' -NotAfter (Get-Date).AddMonths(3)",
           "breakdown": [],
           "sources": [
             "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
@@ -771,17 +774,17 @@
           "screenshot": {
             "status": "reference",
             "title": "Create a named lab certificate",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "iis-certificates"
           }
         },
         {
           "title": "Bind the site to HTTPS",
-          "where": "APP01 \u00b7 IIS Manager \u2192 Sites \u2192 CloudSeamHelpdesk \u2192 Bindings",
+          "where": "APP01 · IIS Manager → Sites → PracticeHelpdesk → Bindings",
           "actions": [
-            "Choose Add. Type: https. Port: 443. Hostname: helpdesk.cloudseam.tech. Enable Require Server Name Indication.",
-            "Choose the CloudSeam Helpdesk Lab certificate and select OK. If it is missing, check Local Computer \u2192 Personal and confirm it has a private key.",
-            "Once HTTPS is verified, remove the help desk\u2019s temporary HTTP binding. Do not turn off unrelated sites. Install Microsoft IIS URL Rewrite 2.1 and confirm its feature is visible; osTicket requires it."
+            "Choose Add. Type: https. Port: 443. Hostname: helpdesk.lab.example.test. Enable Require Server Name Indication.",
+            "Choose the Practice Helpdesk Lab certificate and select OK. If it is missing, check Local Computer → Personal and confirm it has a private key.",
+            "Once HTTPS is verified, remove the help desk’s temporary HTTP binding. Do not turn off unrelated sites. Install Microsoft IIS URL Rewrite 2.1 and confirm its feature is visible; osTicket requires it."
           ],
           "expected": "The site has the intended HTTPS/SNI certificate binding.",
           "command": "",
@@ -794,7 +797,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Bind the site to HTTPS",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "iis-https"
           }
         },
@@ -802,9 +805,9 @@
           "title": "Trust and test on the practice client",
           "where": "APP01 certlm.msc, then your disposable private Windows client",
           "actions": [
-            "On APP01 press Win+R \u2192 certlm.msc \u2192 Personal \u2192 Certificates. Open your certificate, check its name and thumbprint, then All Tasks \u2192 Export \u2192 No, do not export the private key \u2192 DER encoded .CER.",
-            "Transfer that public .CER to your lab client. Compare the thumbprint out of band, then import it into that client\u2019s Local Computer \u2192 Trusted Root Certification Authorities. Do this only for your own disposable client.",
-            "Open https://helpdesk.cloudseam.tech. Check the certificate name and trust. Do not simply click through warnings. Never copy a PFX/private key into website files."
+            "On APP01 press Win+R → certlm.msc → Personal → Certificates. Open your certificate, check its name and thumbprint, then All Tasks → Export → No, do not export the private key → DER encoded .CER.",
+            "Transfer that public .CER to your lab client. Compare the thumbprint out of band, then import it into that client’s Local Computer → Trusted Root Certification Authorities. Do this only for your own practice client.",
+            "Open https://helpdesk.lab.example.test. Check the certificate name and trust. Do not simply click through warnings. Never copy a PFX/private key into website files."
           ],
           "expected": "The client establishes trusted HTTPS to the exact help desk hostname.",
           "command": "",
@@ -817,7 +820,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Trust and test on the practice client",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "iis-https"
           }
         }
@@ -827,7 +830,7 @@
       "id": "helpdesk-install",
       "title": "Install osTicket and Lock Down Setup",
       "description": "Complete the osTicket installer and remove its temporary setup permissions.",
-      "what": "Let\u2019s complete the osTicket installer and remove its temporary setup permissions.",
+      "what": "Let’s complete the osTicket installer and remove its temporary setup permissions.",
       "why": "The installer joins the website and database. Finishing includes taking away the extra access used during installation.",
       "needs": [
         "Trusted HTTPS",
@@ -840,7 +843,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -865,13 +868,13 @@
       "steps": [
         {
           "title": "Check the web installer",
-          "where": "Private client \u00b7 https://helpdesk.cloudseam.tech/setup/",
+          "where": "Private client · https://helpdesk.lab.example.test/setup/",
           "actions": [
-            "Open the installer over HTTPS. Read its prerequisite checks before continuing.",
-            "Fix missing PHP extensions, URL Rewrite or config permissions on APP01. Recycle only the CloudSeamHelpdesk application pool after php.ini changes, then check again.",
+            "Open the installer over HTTPS. Read its setup checks before continuing.",
+            "Fix missing PHP extensions, URL Rewrite or config permissions on APP01. Recycle only the PracticeHelpdesk application pool after php.ini changes, then check again.",
             "If a required component is missing, stop here rather than bypassing the check. Use current osTicket requirements for your downloaded release."
           ],
-          "expected": "The installer\u2019s required checks pass.",
+          "expected": "The installer’s required checks pass.",
           "command": "",
           "breakdown": [],
           "sources": [
@@ -882,15 +885,15 @@
           "screenshot": {
             "status": "illustration",
             "title": "Check the web installer",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-install-1"
           }
         },
         {
           "title": "Create the help desk and administrator",
-          "where": "Private client \u00b7 osTicket installer",
+          "where": "Private client · osTicket installer",
           "actions": [
-            "Helpdesk Name: CloudSeam IT Help Desk. Helpdesk URL: https://helpdesk.cloudseam.tech/. Use a real mailbox you control for required email fields; do not assume support@cloudseam.tech already exists.",
+            "Helpdesk Name: Practice IT Help Desk. Helpdesk URL: https://helpdesk.lab.example.test/. For this no-mail practice build, use a clearly fictional address such as learner@example.test and keep outgoing mail disabled. It will not receive email. In the optional mail lesson, replace it with a real mailbox you control.",
             "Create a unique osTicket administrator username and password. This is an application account; do not reuse your Windows domain Administrator password.",
             "Database: osticket. Username: osticket_app. Password: your stored app secret. Host: localhost. Complete installation and record the result. Entering an email address does not configure SMTP or IMAP."
           ],
@@ -905,20 +908,20 @@
           "screenshot": {
             "status": "illustration",
             "title": "Create the help desk and administrator",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-install-2"
           }
         },
         {
           "title": "Remove the installer and write permission",
-          "where": "APP01 \u00b7 elevated PowerShell, then osTicket admin panel",
+          "where": "APP01 · elevated PowerShell, then osTicket admin panel",
           "actions": [
-            "After a successful install, delete only C:\\Sites\\CloudSeamHelpdesk\\setup. The command below removes that installer folder.",
-            "Remove the pool\u2019s temporary ost-config.php grant; its inherited Read/Execute rights from the site folder remain. Confirm effective permissions in Properties \u2192 Security \u2192 Advanced.",
-            "In osTicket Admin Panel \u2192 Settings \u2192 System check the help desk URL and put the desk Online when ready. Verify /setup/ no longer launches installation."
+            "After a successful install, delete only C:\\Sites\\PracticeHelpdesk\\setup. The command below removes that installer folder.",
+            "Remove the pool’s temporary ost-config.php grant; its inherited Read/Execute rights from the site folder remain. Confirm effective permissions in Properties → Security → Advanced.",
+            "In osTicket Admin Panel → Settings → System check the help desk URL and put the desk Online when ready. Verify /setup/ no longer launches installation."
           ],
           "expected": "The desk is online, the installer is gone and the config file is read-only to the pool.",
-          "command": "Remove-Item -LiteralPath C:\\Sites\\CloudSeamHelpdesk\\setup -Recurse\nicacls C:\\Sites\\CloudSeamHelpdesk\\include\\ost-config.php /remove:g \"IIS AppPool\\CloudSeamHelpdesk\"",
+          "command": "Remove-Item -LiteralPath C:\\Sites\\PracticeHelpdesk\\setup -Recurse\nicacls C:\\Sites\\PracticeHelpdesk\\include\\ost-config.php /remove:g \"IIS AppPool\\PracticeHelpdesk\"",
           "breakdown": [],
           "sources": [
             "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
@@ -928,7 +931,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Remove the installer and write permission",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "ost-settings"
           }
         }
@@ -938,8 +941,8 @@
       "id": "helpdesk-tickets",
       "title": "Run Your First Help Desk Ticket",
       "description": "Create a practice agent and move a fake support ticket from open to resolved.",
-      "what": "Let\u2019s create a practice agent and move a fake support ticket from open to resolved.",
-      "why": "A working enterprise app needs a usable workflow, not just a successful install page.",
+      "what": "Let’s create a practice agent and move a fake support ticket from open to resolved.",
+      "why": "A working enterprise app needs a usable steps, not just a successful install page.",
       "needs": [
         "Installed help desk",
         "Two browser sessions and fake practice data"
@@ -951,7 +954,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -959,7 +962,7 @@
           "fix": "Check the server name and the exact step first. Record the error and use the troubleshooting class; do not disable the firewall or give Everyone full control."
         }
       ],
-      "pass": "A test ticket completes the support workflow and its history remains visible.",
+      "pass": "A test ticket completes the support steps and its history remains visible.",
       "exercise": "Create and resolve a second ticket using a different fictional problem.",
       "quiz": [
         {
@@ -976,10 +979,10 @@
       "steps": [
         {
           "title": "Create a limited agent",
-          "where": "osTicket \u00b7 /scp/ \u2192 Admin Panel",
+          "where": "osTicket · /scp/ → Admin Panel",
           "actions": [
             "Open Agents and add a practice agent. Choose the Support department and a role with only the ticket permissions needed for the exercise.",
-            "Use an email address you control for required fields. Arrange the initial password with the available admin workflow; if activation email is required, finish the optional mail lesson before expecting delivery.",
+            "Use an email address you control for required fields. Arrange the initial password with the available admin steps; if activation email is required, finish the optional mail lesson before expecting delivery.",
             "Keep the admin account for administration and the agent account for daily ticket work. Local osTicket accounts do not automatically enable AD single sign-on."
           ],
           "expected": "You have a separate Support agent and a documented activation method.",
@@ -993,16 +996,16 @@
           "screenshot": {
             "status": "reference",
             "title": "Create a limited agent",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "ost-settings"
           }
         },
         {
           "title": "Submit a practice ticket",
-          "where": "Private client \u00b7 https://helpdesk.cloudseam.tech/",
+          "where": "Private client · https://helpdesk.lab.example.test/",
           "actions": [
             "Open a private/incognito browser window so you are not acting as staff. Choose Open a New Ticket.",
-            "Use a mailbox you control, subject: Practice \u2014 cannot reach shared drive, and a short fictional description. Do not attach passwords or real customer information.",
+            "Use a mailbox you control, subject: Practice — cannot reach shared drive, and a short fictional description. Do not attach passwords or real customer information.",
             "Submit and record the ticket number shown. The ticket can exist even if outbound email has not yet been configured."
           ],
           "expected": "A numbered test ticket appears in the staff queue.",
@@ -1016,13 +1019,13 @@
           "screenshot": {
             "status": "reference",
             "title": "Submit a practice ticket",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "ost-new-ticket"
           }
         },
         {
           "title": "Assign, reply and resolve",
-          "where": "osTicket staff panel \u00b7 /scp/",
+          "where": "osTicket staff panel · /scp/",
           "actions": [
             "Open the ticket, assign it to the Support agent, and add an internal note describing your planned checks. A note is for staff; a reply is for the requester.",
             "Add a helpful reply explaining the fictional fix. Close the ticket when the problem is resolved and check the status in the staff panel.",
@@ -1039,7 +1042,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Assign, reply and resolve",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "ost-ticket-status"
           }
         }
@@ -1049,10 +1052,10 @@
       "id": "helpdesk-mail",
       "title": "Connect a Real Practice Mailbox",
       "description": "Configure authenticated mail only when you have an approved mailbox.",
-      "what": "Let\u2019s configure authenticated mail only when you have an approved mailbox.",
-      "why": "Creating a domain or typing an email address does not create a mailbox. We\u2019ll keep ticket testing honest until delivery is verified.",
+      "what": "Let’s configure authenticated mail only when you have an approved mailbox.",
+      "why": "Creating a domain or typing an email address does not create a mailbox. We’ll keep ticket testing honest until delivery is verified.",
       "needs": [
-        "Optional: a mailbox you control and its provider\u2019s SMTP/OAuth instructions",
+        "Optional: a mailbox you control and its provider’s SMTP/OAuth instructions",
         "A maintained osTicket release and the matching provider-supported auth plugin if required"
       ],
       "bestPractices": [
@@ -1062,7 +1065,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -1104,17 +1107,17 @@
           "screenshot": {
             "status": "reference",
             "title": "Collect the provider settings",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "ost-settings"
           }
         },
         {
           "title": "Configure outgoing mail",
-          "where": "osTicket Admin Panel \u2192 Emails \u2192 select or add your approved address",
+          "where": "osTicket Admin Panel → Emails → select or add your approved address",
           "actions": [
-            "Open the selected email\u2019s outgoing SMTP settings. Enter the provider\u2019s exact host, port, encryption and supported authentication details. UI labels vary by release.",
+            "Open the selected email’s outgoing SMTP settings. Enter the provider’s exact host, port, encryption and supported authentication details. UI labels vary by release.",
             "Save and use the built-in email diagnostic/test function. Check the recipient mailbox and provider message trace if available.",
-            "Changing the display address alone does not authorize sending. If authentication fails, use the provider\u2019s error and plugin documentation."
+            "Changing the display address alone does not authorize sending. If authentication fails, use the provider’s error and plugin documentation."
           ],
           "expected": "A test email is actually delivered, or the unresolved provider error is recorded.",
           "command": "",
@@ -1127,7 +1130,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Configure outgoing mail",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "ost-settings"
           }
         },
@@ -1150,7 +1153,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Test notifications and record the boundary",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "ost-new-ticket"
           }
         }
@@ -1160,7 +1163,7 @@
       "id": "helpdesk-recovery",
       "title": "Back Up and Restore the Help Desk",
       "description": "Back up the database and files, then prove recovery on an isolated copy.",
-      "what": "Let\u2019s back up the database and files, then prove recovery on an isolated copy.",
+      "what": "Let’s back up the database and files, then prove recovery on an isolated copy.",
       "why": "A website folder alone is not the help desk. Tickets, configuration and any attachments must all be recoverable.",
       "needs": [
         "A working practice ticket",
@@ -1173,7 +1176,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -1198,10 +1201,10 @@
       "steps": [
         {
           "title": "Freeze changes and take a logical backup",
-          "where": "APP01 \u00b7 osTicket Admin Panel, IIS Manager and MariaDB command prompt",
+          "where": "APP01 · osTicket Admin Panel, IIS Manager and MariaDB command prompt",
           "actions": [
-            "Tell practice users the desk is offline, set Helpdesk Status to Offline, then stop only the CloudSeamHelpdesk pool so no web writes occur during the backup.",
-            "Create a protected folder such as D:\\LabBackups only if D: exists; otherwise choose another protected non-web folder. Run mariadb-dump from the installed MariaDB bin folder using --result-file. Never redirect binary or dump data through Windows PowerShell\u2019s default text encoding.",
+            "Tell practice users the desk is offline, set Helpdesk Status to Offline, then stop only the PracticeHelpdesk pool so no web writes occur during the backup.",
+            "Create a protected folder such as D:\\LabBackups only if D: exists; otherwise choose another protected non-web folder. Run mariadb-dump from the installed MariaDB bin folder using --result-file. Never redirect binary or dump data through Windows PowerShell’s default text encoding.",
             "The command prompts for the database administrator password. Confirm exit code 0, a nonempty SQL file and a backup record. Keep database access local."
           ],
           "expected": "A consistent logical SQL dump exists outside the website folder.",
@@ -1215,15 +1218,15 @@
           "screenshot": {
             "status": "illustration",
             "title": "Freeze changes and take a logical backup",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-recovery-1"
           }
         },
         {
           "title": "Save files and restart the desk",
-          "where": "APP01 \u00b7 protected backup storage and IIS Manager",
+          "where": "APP01 · protected backup storage and IIS Manager",
           "actions": [
-            "While the pool is stopped, back up C:\\Sites\\CloudSeamHelpdesk, PHP configuration, IIS site/pool/bindings, osTicket version, and any external attachment storage or plugins. ost-config.php contains database secrets; protect it.",
+            "While the pool is stopped, back up C:\\Sites\\PracticeHelpdesk, PHP configuration, IIS site/pool/bindings, osTicket version, and any external attachment storage or plugins. ost-config.php contains database secrets; protect it.",
             "If an attachments plugin stores files outside the database, include that exact location. Keep certificate private-key backups only in protected storage with a separate recovery process.",
             "Restart the pool, return the desk Online, and submit a small test ticket. Copy backups to protected storage outside APP01; a backup only on the VM can be lost with it."
           ],
@@ -1238,17 +1241,17 @@
           "screenshot": {
             "status": "illustration",
             "title": "Save files and restart the desk",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-recovery-2"
           }
         },
         {
           "title": "Prove restore without replacing the original",
-          "where": "Separate recovery VM \u00b7 isolated network",
+          "where": "Separate recovery VM · isolated network",
           "actions": [
-            "Build the same supported IIS/PHP/database baseline on an isolated copy, not on DC01 or over your only working APP01. Keep outgoing mail disabled to avoid duplicate notifications.",
+            "Build the same supported IIS/PHP/database starting point on an isolated copy, not on DC01 or over your only working APP01. Keep outgoing mail disabled to avoid duplicate notifications.",
             "Restore the site files and import the SQL dump using the MariaDB client SOURCE command. Recreate the dedicated database account and adjust the protected configuration to this recovery VM.",
-            "Use an isolated client\u2019s hosts entry for helpdesk.cloudseam.tech pointing only to the recovery IP; do not change shared DNS. Verify login, the known ticket and its attachment. Remove that temporary hosts entry afterward. Record recovery time, then retire or isolate the restored copy."
+            "Use an isolated client’s hosts entry for helpdesk.lab.example.test pointing only to the recovery IP; do not change shared DNS. Verify login, the known ticket and its attachment. Remove that temporary hosts entry afterward. Record recovery time, then retire or isolate the restored copy."
           ],
           "expected": "A known ticket and attachment are readable on the isolated restored application.",
           "command": "# Inside the MariaDB client on the isolated recovery VM:\nSOURCE D:/LabBackups/osticket.sql;",
@@ -1261,7 +1264,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Prove restore without replacing the original",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-recovery-3"
           }
         }
@@ -1271,17 +1274,17 @@
       "id": "helpdesk-php-update",
       "title": "Update PHP and Recover Safely",
       "description": "Stage a patched PHP runtime, test it on a restored copy, switch IIS and recover safely if a check fails.",
-      "what": "Let\u2019s practise a real PHP security update without overwriting the only working copy. We\u2019ll keep a recovery record, test first and make one controlled switch.",
+      "what": "Let’s practise a real PHP security update without overwriting the only working copy. We’ll keep a recovery record, test first and make one controlled switch.",
       "why": "An application can keep working on a vulnerable runtime. We need to prove both that the security fix is active in IIS and that the help desk still works.",
       "needs": [
         "Complete Back Up and Restore the Help Desk first, including the isolated recovery test.",
         "A verified PHP 8.4.27 or newer patched 8.4 x64 NTS ZIP, administrator access and a protected backup location.",
-        "A private test client, a disposable restored APP01 copy and your actual ticket/attachment/mail acceptance checks."
+        "A private test client, a practice restored APP01 copy and your actual ticket/attachment/mail acceptance checks."
       ],
       "bestPractices": [
         "Keep old and candidate PHP folders separate; verify hashes and matching extension builds.",
         "Keep vulnerable PHP out of service even if the patched application needs troubleshooting.",
-        "Change only the target site/pool. Record shared FastCGI or environment dependencies before touching them."
+        "Change only the target site/pool. Record shared FastCGI or environment required connections and services before touching them."
       ],
       "commonMistakes": [
         "Checking php.exe on PATH while IIS continues using another php-cgi.exe.",
@@ -1292,7 +1295,7 @@
       "troubleshooting": [
         {
           "problem": "The browser still shows the old version.",
-          "fix": "Inspect this site\u2019s PHP handler, the corresponding FastCGI full path/Arguments, PHPRC and the loaded php.ini. Stop and start the target pool; do not assume the CLI runtime is the web runtime."
+          "fix": "Check this site’s PHP handler, the corresponding FastCGI full path/Arguments, PHPRC and the loaded php.ini. Stop and start the target pool; do not assume the CLI runtime is the web runtime."
         },
         {
           "problem": "The new runtime cannot load an extension.",
@@ -1326,12 +1329,12 @@
       "steps": [
         {
           "title": "Record what IIS is really using",
-          "where": "APP01 \u00b7 IIS Manager and a private browser",
+          "where": "APP01 · IIS Manager and a private browser",
           "actions": [
             "Finish the Backup and Restore class first. Tell practice users that you are planning maintenance. This PHP-only update does not include an osTicket upgrade or database schema change.",
-            "In IIS Manager select Sites \u2192 CloudSeamHelpdesk \u2192 Handler Mappings \u2192 PHP-FastCGI \u2192 Edit. Record the exact php-cgi.exe path. At the server node open FastCGI Settings and record that same executable, its Arguments and Environment Variables. Check PHPRC or PHP_INI_SCAN_DIR if present: either can load configuration from another folder.",
+            "In IIS Manager select Sites → PracticeHelpdesk → Handler Mappings → PHP-FastCGI → Edit. Record the exact php-cgi.exe path. At the server node open FastCGI Settings and record that same executable, its Arguments and Environment Variables. Check PHPRC or PHP_INI_SCAN_DIR if present: either can load configuration from another folder.",
             "Use a short-lived PHP version page in this private site to record PHP_VERSION, PHP_SAPI and php_ini_loaded_file(). Remove it after checking. Also record the ticket number, attachment and mail test you will repeat after the change.",
-            "If the running version is below the fixed minimum, stop the CloudSeamHelpdesk pool now and keep it unavailable until patched. A private address, HTTPS or IIS does not patch PHP."
+            "If the running version is below the fixed minimum, stop the PracticeHelpdesk pool now and keep it unavailable until patched. A private address, HTTPS or IIS does not patch PHP."
           ],
           "command": "",
           "breakdown": [],
@@ -1350,13 +1353,13 @@
         },
         {
           "title": "Protect the app before changing PHP",
-          "where": "APP01 \u00b7 protected backups and elevated Windows PowerShell",
+          "where": "APP01 · protected backups and elevated Windows PowerShell",
           "actions": [
             "Create the tested database/files backup from Backup and Restore the Help Desk. Copy the current PHP folder, php.ini and any additional INI files to protected storage outside the web root. Record extensions, VC++ runtime, pool identity, runtime-folder ACLs and the existing handler/FastCGI settings.",
-            "Run the IIS configuration backup below. Record its generated name. This backup covers server configuration; restoring it blindly can change other websites. Our first rollback choice will be restoring only this site\u2019s recorded PHP mapping.",
-            "Set the help desk Offline, stop CloudSeamHelpdesk and keep new tickets paused. If you use a temporary VMware checkpoint on this disposable member server, record it as an additional recovery aid, not a substitute for the tested database/files backup. Never use this as a domain-controller recovery method."
+            "Run the IIS configuration backup below. Record its generated name. This backup covers server configuration; restoring it blindly can change other websites. Our first rollback choice will be restoring only this site’s recorded PHP mapping.",
+            "Set the help desk Offline, stop PracticeHelpdesk and keep new tickets paused. If you use a temporary VMware checkpoint on this practice member server, record it as an additional recovery aid, not a substitute for the tested database/files backup. Never use this as a domain-controller recovery method."
           ],
-          "command": "Import-Module WebAdministration\n$phpChangeTag = Get-Date -Format 'yyyyMMdd-HHmmss'\n& \"$env:windir\\System32\\inetsrv\\appcmd.exe\" add backup \"CloudSeam-PHP-$phpChangeTag\"\nStop-WebAppPool -Name 'CloudSeamHelpdesk'\nGet-WebAppPoolState -Name 'CloudSeamHelpdesk' ",
+          "command": "Import-Module WebAdministration\n$phpChangeTag = Get-Date -Format 'yyyyMMdd-HHmmss'\n& \"$env:windir\\System32\\inetsrv\\appcmd.exe\" add backup \"Practice-PHP-$phpChangeTag\"\nStop-WebAppPool -Name 'PracticeHelpdesk'\nGet-WebAppPoolState -Name 'PracticeHelpdesk' ",
           "breakdown": [],
           "expected": "A tested recovery package and exact pre-change mapping exist, with writes paused and the pool stopped.",
           "screenshot": {
@@ -1373,12 +1376,12 @@
         },
         {
           "title": "Download and stage the fixed runtime",
-          "where": "APP01 \u00b7 browser, File Explorer and PowerShell",
+          "where": "APP01 · browser, File Explorer and PowerShell",
           "actions": [
-            "Open https://www.php.net/downloads.php \u2192 Windows downloads \u2192 PHP 8.4 \u2192 x64 Non Thread Safe \u2192 Zip. The October 21 fixes begin at 8.4.27. Use a newer patched 8.4 release if one is available and compatible; do not switch major/minor branches merely to get a larger number.",
-            "Compare Get-FileHash -Algorithm SHA256 on the actual downloaded ZIP with its official published SHA-256 before extracting. A matching filename alone does not validate a download.",
+            "Open https://www.php.net/downloads.php → Windows downloads → PHP 8.4 → x64 Non Thread Safe → Zip. The October 21 fixes begin at 8.4.27. Use a newer patched 8.4 release if one is available and compatible; do not switch major/minor branches merely to get a larger number.",
+            "Compare Get-FileHash -Algorithm SHA256 on the actual downloaded ZIP with its official published SHA-256 before extracting. A matching filename alone does not check a download.",
             "Extract into a NEW folder, for example C:\\PHP-8.4.27. If your downloaded version is newer, use that version in the folder name and in every following path. Keep the previous runtime intact.",
-            "Start from the new package\u2019s php.ini-production. Reapply the recorded settings deliberately. Point extension_dir to this new folder\u2019s ext directory and keep session/upload/log paths on the existing protected runtime folders. Use only matching x64 NTS extensions built for this PHP branch; do not copy old DLLs wholesale.",
+            "Start from the new package’s php.ini-production. Reapply the recorded settings deliberately. Point extension_dir to this new folder’s ext directory and keep session/upload/log paths on the existing protected runtime folders. Use only matching x64 NTS extensions built for this PHP branch; do not copy old DLLs wholesale.",
             "Run the candidate checks below. Read any missing-runtime or extension warnings before proceeding."
           ],
           "command": "& 'C:\\PHP-8.4.27\\php-cgi.exe' -v\n& 'C:\\PHP-8.4.27\\php.exe' --ini\n& 'C:\\PHP-8.4.27\\php.exe' -m",
@@ -1400,10 +1403,10 @@
           "title": "Try the update on an isolated copy first",
           "where": "Isolated restored APP01 copy and a private test client",
           "actions": [
-            "Use your tested restore to build a separate copy. Keep the original APP01 protected, outgoing mail disabled on the copy and shared DNS unchanged. Use an isolated client\u2019s temporary hosts entry for helpdesk.cloudseam.tech to reach only this test copy.",
-            "On the copy, map this site\u2019s PHP handler and corresponding FastCGI application to the staged candidate, as described in the next step. Adjust PHPRC/PHP_INI_SCAN_DIR only for this app if they point to an old configuration. A shared global variable requires a separate impact review; do not change other apps silently.",
-            "Start the copy\u2019s pool. Verify the web-served version, staff login, a fake ticket, a reply, attachment upload/download and the PHP/IIS error logs. Keep real outgoing mail disabled; record that mail still needs its live acceptance check.",
-            "If any test fails, stop here. Fix the candidate configuration or obtain a supported fix. Remove the isolated client\u2019s temporary hosts entry after the pilot."
+            "Use your tested restore to build a separate copy. Keep the original APP01 protected, outgoing mail disabled on the copy and shared DNS unchanged. Use an isolated client’s temporary hosts entry for helpdesk.lab.example.test to reach only this test copy.",
+            "On the copy, map this site’s PHP handler and corresponding FastCGI application to the staged candidate, as described in the next step. Adjust PHPRC/PHP_INI_SCAN_DIR only for this app if they point to an old configuration. A shared global variable requires a separate impact review; do not change other apps silently.",
+            "Start the copy’s pool. Verify the web-served version, staff login, a fake ticket, a reply, attachment upload/download and the PHP/IIS error logs. Keep real outgoing mail disabled; record that mail still needs its live acceptance check.",
+            "If any test fails, stop here. Fix the candidate configuration or obtain a supported fix. Remove the isolated client’s temporary hosts entry after the pilot."
           ],
           "command": "",
           "breakdown": [],
@@ -1421,20 +1424,20 @@
           ]
         },
         {
-          "title": "Switch only the CloudSeam PHP mapping",
-          "where": "APP01 \u00b7 IIS Manager with CloudSeamHelpdesk stopped",
+          "title": "Switch only the Practice PHP mapping",
+          "where": "APP01 · IIS Manager with PracticeHelpdesk stopped",
           "actions": [
-            "At the server node open FastCGI Settings \u2192 Add Application. Full Path: C:\\PHP-8.4.27\\php-cgi.exe, or your recorded newer candidate. Reapply necessary non-secret FastCGI settings and app-specific environment variables to that candidate entry. Leave an old entry intact if another application still uses it.",
-            "Select Sites \u2192 CloudSeamHelpdesk \u2192 Handler Mappings \u2192 PHP-FastCGI \u2192 Edit. Change Executable to the same candidate php-cgi.exe path, leaving FastCgiModule and *.php unchanged. Confirm any creation prompt, and inspect FastCGI Settings again so the full path and Arguments match.",
+            "At the server node open FastCGI Settings → Add Application. Full Path: C:\\PHP-8.4.27\\php-cgi.exe, or your recorded newer candidate. Reapply necessary non-secret FastCGI settings and app-specific environment variables to that candidate entry. Leave an old entry intact if another application still uses it.",
+            "Select Sites → PracticeHelpdesk → Handler Mappings → PHP-FastCGI → Edit. Change Executable to the same candidate php-cgi.exe path, leaving FastCgiModule and *.php unchanged. Confirm any creation prompt, and check FastCGI Settings again so the full path and Arguments match.",
             "If PHPRC was configured, verify this app now loads the intended new php.ini. Ensure the pool identity has Read/Execute on the candidate folder, and retains Modify only on the private session/upload/log folders. Do not grant write access to all PHP binaries.",
-            "Start only CloudSeamHelpdesk using the command below. Stopping and starting the pool retires its old PHP workers. Do not use a server-wide iisreset for this single-app exercise."
+            "Start only PracticeHelpdesk using the command below. Stopping and starting the pool retires its old PHP workers. Do not use a server-wide iisreset for this single-app exercise."
           ],
-          "command": "Import-Module WebAdministration\nStart-WebAppPool -Name 'CloudSeamHelpdesk'\nGet-WebAppPoolState -Name 'CloudSeamHelpdesk'",
+          "command": "Import-Module WebAdministration\nStart-WebAppPool -Name 'PracticeHelpdesk'\nGet-WebAppPoolState -Name 'PracticeHelpdesk'",
           "breakdown": [],
           "expected": "Only the intended site points to the candidate, and its pool has restarted.",
           "screenshot": {
             "status": "reference",
-            "title": "Switch only the CloudSeam PHP mapping",
+            "title": "Switch only the Practice PHP mapping",
             "instructions": "Compare the written actions with your own practice machine. Diagrams are not screenshots or evidence of success.",
             "assetId": "iis-handler"
           },
@@ -1446,14 +1449,14 @@
         },
         {
           "title": "Check the web runtime and reopen carefully",
-          "where": "Private client \u2192 helpdesk.cloudseam.tech; APP01 logs",
+          "where": "Private client → helpdesk.lab.example.test; APP01 logs",
           "actions": [
-            "On APP01 create the temporary version-check file below in this site\u2019s physical root. From your private client open https://helpdesk.cloudseam.tech/php-version-check.php. Compare its version, cgi-fcgi SAPI and loaded php.ini path with your candidate. CLI output alone is not enough.",
-            "Require at least 8.4.27 on the supported 8.4 branch and review current PHP advisories for any newer security floor. If the page still reports the old runtime or wrong configuration, keep the site unavailable and inspect the site mapping, candidate FastCGI entry and environment variables.",
+            "On APP01 create the temporary version-check file below in this site’s physical root. From your private client open https://helpdesk.lab.example.test/php-version-check.php. Compare its version, cgi-fcgi SAPI and loaded php.ini path with your candidate. CLI output alone is not enough.",
+            "Require at least 8.4.27 on the supported 8.4 branch and review current PHP advisories for any newer security floor. If the page still reports the old runtime or wrong configuration, keep the site unavailable and check the site mapping, candidate FastCGI entry and environment variables.",
             "Remove the temporary file, set the help desk Online for your practice client and repeat login, known ticket lookup, new ticket, reply, attachment and configured mail checks. Review new IIS/PHP errors. If an acceptance check fails, stop the pool and follow the rollback decision; do not leave a broken or vulnerable site serving.",
-            "Record the new runtime, test results and time. If the checks pass, reopen normal practice access, monitor errors and retain the protected previous configuration until the agreed retention period ends."
+            "Record the new runtime, test results and time. If the checks pass, reopen normal practice access, monitor errors and keep the protected previous configuration until the agreed retention period ends."
           ],
-          "command": "Set-Content -LiteralPath 'C:\\Sites\\CloudSeamHelpdesk\\php-version-check.php' -Value '<?php echo PHP_VERSION . \" / \" . PHP_SAPI . \" / \" . php_ini_loaded_file(); ?>' -Encoding ASCII\n# After verifying in the private browser, remove the temporary page:\nRemove-Item -LiteralPath 'C:\\Sites\\CloudSeamHelpdesk\\php-version-check.php' ",
+          "command": "Set-Content -LiteralPath 'C:\\Sites\\PracticeHelpdesk\\php-version-check.php' -Value '<?php echo PHP_VERSION . \" / \" . PHP_SAPI . \" / \" . php_ini_loaded_file(); ?>' -Encoding ASCII\n# After verifying in the private browser, remove the temporary page:\nRemove-Item -LiteralPath 'C:\\Sites\\PracticeHelpdesk\\php-version-check.php' ",
           "breakdown": [],
           "expected": "The actual website uses the patched candidate, acceptance checks pass and the temporary page is gone.",
           "screenshot": {
@@ -1470,11 +1473,11 @@
         },
         {
           "title": "Roll back safely when a check fails",
-          "where": "APP01 \u00b7 IIS Manager, recovery record and isolated lab",
+          "where": "APP01 · IIS Manager, recovery record and isolated lab",
           "actions": [
-            "Stop CloudSeamHelpdesk first and record the failed check and new errors. Keep the candidate folder/logs for investigation. Do not restore a whole-VM checkpoint or overwrite the database as the first response to a PHP mapping problem.",
+            "Stop PracticeHelpdesk first and record the failed check and new errors. Keep the candidate folder/logs for investigation. Do not restore a whole-VM checkpoint or overwrite the database as the first response to a PHP mapping problem.",
             "Check the previous runtime against the security advisory BEFORE putting it back into service. If it is older than the fixed minimum or otherwise vulnerable, leave the live pool stopped. Investigate that old runtime only on an isolated copy with no user traffic, or repair the patched candidate. Availability is not permission to reopen vulnerable PHP.",
-            "If the previous runtime is still security-approved, select this site \u2192 Handler Mappings \u2192 PHP-FastCGI \u2192 Edit and restore its recorded previous executable. Restore only its recorded candidate-specific FastCGI/environment settings and the previous protected php.ini if those were changed. Do not remove an entry used by another website.",
+            "If the previous runtime is still security-approved, select this site → Handler Mappings → PHP-FastCGI → Edit and restore its recorded previous executable. Restore only its recorded candidate-specific FastCGI/environment settings and the previous protected php.ini if those were changed. Do not remove an entry used by another website.",
             "Restart only this pool and repeat the web-served version and every acceptance check. Reopen only when the old runtime remains patched and the application passes. Otherwise stop it again and keep a maintenance notice or unavailable service.",
             "A PHP-only mapping rollback normally does not need a database restore. If application/schema/data changes also occurred, stop and use a separately approved application-consistent restore plan; restoring an older database can erase new tickets. Restore server-wide IIS configuration only after checking the effect on every site.",
             "Record the rollback decision, exact runtime/configuration restored, ticket/data checks and next corrective action. Never mark a failed patch successful merely because you rolled back."
@@ -1499,11 +1502,11 @@
     {
       "id": "helpdesk-operations",
       "title": "Troubleshoot, Scan and Prepare for Azure",
-      "description": "Find IIS errors, scan your approved lab target and record a migration baseline.",
-      "what": "Let\u2019s find IIS errors, scan your approved lab target and record a migration baseline.",
-      "why": "We\u2019ll use the application to practise the everyday checks an enterprise administrator needs.",
+      "description": "Find IIS errors, scan your practice lab target and record a migration baseline.",
+      "what": "Let’s find IIS errors, scan your practice lab target and record a migration baseline.",
+      "why": "We’ll use the application to practise the everyday checks an enterprise administrator needs.",
       "needs": [
-        "Working osTicket baseline",
+        "Working osTicket starting point",
         "Approved private Nessus scanner and a protected backup"
       ],
       "bestPractices": [
@@ -1513,7 +1516,7 @@
       ],
       "commonMistakes": [
         "Using public DNS for an AD client instead of the lab domain controllers.",
-        "Treating a sample picture or a checked box as evidence that the app works."
+        "Treating a sample picture or a checked box as saved result that the app works."
       ],
       "troubleshooting": [
         {
@@ -1521,24 +1524,24 @@
           "fix": "Check the server name and the exact step first. Record the error and use the troubleshooting class; do not disable the firewall or give Everyone full control."
         }
       ],
-      "pass": "You can troubleshoot by evidence and have a private scan and migration plan.",
+      "pass": "You can troubleshoot by saved result and have a private scan and migration plan.",
       "exercise": "Write a short before/after checklist covering HTTPS, tickets, attachments, mail and recovery.",
       "quiz": [
         {
           "question": "Which target belongs in the practice scan?",
           "options": [
-            "APP01\u2019s approved private IP",
-            "Any public cloudseam.tech address",
+            "APP01’s approved private IP",
+            "Any public lab.example.test address",
             "The entire internet"
           ],
           "answer": 0,
-          "explanation": "APP01\u2019s approved private IP is the result this class is designed to teach."
+          "explanation": "APP01’s approved private IP is the result this class is designed to teach."
         }
       ],
       "steps": [
         {
           "title": "Follow the error to the right component",
-          "where": "APP01 \u00b7 IIS Manager \u2192 CloudSeamHelpdesk \u2192 Logging",
+          "where": "APP01 · IIS Manager → PracticeHelpdesk → Logging",
           "actions": [
             "Find the site ID and its log folder, normally C:\\inetpub\\logs\\LogFiles\\W3SVC<site-id>. Make one failed request and match its timestamp, path, status and substatus.",
             "For 404, check URL, physical path and index.php. For 403, check default document, authorization and file permissions. For 500, check PHP configuration and logs; 500.19 often points to invalid configuration or a missing module.",
@@ -1555,15 +1558,15 @@
           "screenshot": {
             "status": "illustration",
             "title": "Follow the error to the right component",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-operations-1"
           }
         },
         {
           "title": "Scan only the approved practice app",
-          "where": "Your existing Nessus scanner \u00b7 private VMware network",
+          "where": "Your existing Nessus scanner · private VMware network",
           "actions": [
-            "Use the Nessus classes to create a scan scoped only to APP01\u2019s recorded private address. Resolve helpdesk.cloudseam.tech through your lab DNS; do not scan the public cloudseam.tech address by accident.",
+            "Use the Nessus classes to create a scan scoped only to APP01’s recorded private address. Resolve helpdesk.lab.example.test through your lab DNS; do not scan the public lab.example.test address by accident.",
             "Set a light practice scan, record permission/scope, and compare findings with the installed versions and actual settings. Keep availability checks and backup ready.",
             "Fix one verified issue, repeat the same scan and test ticket creation. A clean scan alone does not prove the application is secure. Nessus on Windows uses its own service, not IIS."
           ],
@@ -1578,19 +1581,19 @@
           "screenshot": {
             "status": "illustration",
             "title": "Scan only the approved practice app",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-operations-2"
           }
         },
         {
           "title": "Record the Azure migration baseline",
-          "where": "APP01 and private client \u00b7 your migration notes",
+          "where": "APP01 and private client · your migration notes",
           "actions": [
             "Record the Server 2019 version, PHP/osTicket/MariaDB versions, help desk URL, ticket ID, attachment test, certificate expiry, backup path and database size.",
-            "Follow the existing Azure migration lessons to move the VMware workload to a supported private Azure network and validate it before the Server 2022 upgrade. Use a supported migration/upgrade procedure for the exact VM and OS; keep rollback available.",
-            "At cutover, point the PRIVATE helpdesk.cloudseam.tech A record at the validated Azure private address reachable from your lab/client network. Do not edit a guest\u2019s static IP as though it were an Azure NIC setting. Re-test HTTPS, login, a ticket, attachment, mail and backup."
+            "Follow the existing Azure migration lessons to move the VMware workload to a supported private Azure network and check it before the Server 2022 upgrade. Use a supported migration/upgrade procedure for the exact VM and OS; keep rollback available.",
+            "At cutover, point the PRIVATE helpdesk.lab.example.test A record at the validated Azure private address reachable from your lab/client network. Do not edit a guest’s static IP as though it were an Azure NIC setting. Re-test HTTPS, login, a ticket, attachment, mail and backup."
           ],
-          "expected": "A documented baseline exists for migration, with separate checks for cutover and later OS upgrade.",
+          "expected": "A documented starting point exists for migration, with separate checks for cutover and later OS upgrade.",
           "command": "",
           "breakdown": [],
           "sources": [
@@ -1601,7 +1604,7 @@
           "screenshot": {
             "status": "illustration",
             "title": "Record the Azure migration baseline",
-            "instructions": "Compare the named controls with your screen. Use the CloudSeam values in the written actions.",
+            "instructions": "Compare the named controls with your screen. Use the fictional practice values in the written actions.",
             "assetId": "helpdesk-operations-3"
           }
         }

@@ -69,7 +69,7 @@
     "alt": "Microsoft Server Manager reference: roles",
     "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-a-new-windows-server-2012-active-directory-forest--level-200-",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation screenshot",
-    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s cloudseam.tech, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
+    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s lab.example.test, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
   },
   {
     "id": "ad-features",
@@ -77,7 +77,7 @@
     "alt": "Microsoft Server Manager reference: features",
     "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-a-new-windows-server-2012-active-directory-forest--level-200-",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation screenshot",
-    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s cloudseam.tech, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
+    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s lab.example.test, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
   },
   {
     "id": "ad-promote",
@@ -85,7 +85,7 @@
     "alt": "Microsoft Server Manager reference: promote",
     "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-a-new-windows-server-2012-active-directory-forest--level-200-",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation screenshot",
-    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s cloudseam.tech, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
+    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s lab.example.test, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
   },
   {
     "id": "ad-forest",
@@ -93,7 +93,7 @@
     "alt": "Microsoft Server Manager reference: forest",
     "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-a-new-windows-server-2012-active-directory-forest--level-200-",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation screenshot",
-    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s cloudseam.tech, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
+    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s lab.example.test, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
   },
   {
     "id": "ad-dc-options",
@@ -101,7 +101,7 @@
     "alt": "Microsoft Server Manager reference: dc-options",
     "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-a-new-windows-server-2012-active-directory-forest--level-200-",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation screenshot",
-    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s cloudseam.tech, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
+    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s lab.example.test, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
   },
   {
     "id": "ad-paths",
@@ -109,7 +109,7 @@
     "alt": "Microsoft Server Manager reference: paths",
     "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-a-new-windows-server-2012-active-directory-forest--level-200-",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation screenshot",
-    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s cloudseam.tech, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
+    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s lab.example.test, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
   },
   {
     "id": "ad-review",
@@ -117,7 +117,7 @@
     "alt": "Microsoft Server Manager reference: review",
     "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-a-new-windows-server-2012-active-directory-forest--level-200-",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation screenshot",
-    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s cloudseam.tech, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
+    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s lab.example.test, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
   },
   {
     "id": "ad-prerequisites",
@@ -125,6 +125,6 @@
     "alt": "Microsoft Server Manager reference: prerequisites",
     "source": "https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/install-a-new-windows-server-2012-active-directory-forest--level-200-",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation screenshot",
-    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s cloudseam.tech, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
+    "note": "Authentic Microsoft reference image from the Server 2012 guide, not a capture of your Server 2019 lab. The wizard layout is similar; use this lab\u2019s lab.example.test, AG-DC01, and Windows Server 2016 functional levels, not the source image\u2019s example values."
   }
 ]

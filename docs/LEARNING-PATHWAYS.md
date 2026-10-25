@@ -3,7 +3,7 @@
 The dashboard and both lesson readers use `app/learning-pathways.ts` as their navigation map. Every existing lesson remains accessible using its original ID and route. The source workbook and generated catalog are retained unchanged.
 
 1. **Windows Server & Active Directory:** choose the lab, understand the network, prepare downloads, build a private VMware network, install DC01 with AD DS/DNS, create users and policy, add DC02 and verify replication, then join APP01 and test IIS.
-2. **SQL Server:** choose supported installers, build SQL01 in cloudseam.tech, install SQL Server, create practice data with SSMS, and prove backup and restore.
+2. **SQL Server:** choose supported installers, build SQL01 in lab.example.test, install SQL Server, create practice data with SSMS, and prove backup and restore.
 3. **Microsoft Azure:** set the budget, plan the destination, build AZ-DC01, and prove private connectivity.
 4. **Cloud Migrations:** review the project, choose a migration method and identity plan, build DEST-DC01, configure cross-forest DNS, transfer policy, move APP01 and rehearse rollback, check tool support, rehearse cutover, move a member server and practice SQL database to Azure, troubleshoot, and close the lab.
 5. **Linux Administration:** a separate RHEL/Wazuh track containing the original 40 lessons: two-host build, secure access, file transfer, baseline and rollback, Wazuh installation, event verification, failure diagnosis, and recovery.

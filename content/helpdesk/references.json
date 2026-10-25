@@ -7,7 +7,7 @@
     "source": "https://learn.microsoft.com/en-us/iis/configuration/system.applicationhost/sites/site/bindings/",
     "original": "https://learn.microsoft.com/en-us/iis/configuration/system.applicationhost/sites/site/bindings/index/_static/image1.png",
     "credit": "Microsoft Learn · Microsoft documentation contributors",
-    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.",
+    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.",
     "sha256": "b6db94129a3204bbddc3a28d90abd7fa60a614c724967356aff623eae7f76921"
   },
   {
@@ -18,7 +18,7 @@
     "source": "https://learn.microsoft.com/en-us/iis/configuration/system.applicationhost/sites/site/bindings/",
     "original": "https://learn.microsoft.com/en-us/iis/configuration/system.applicationhost/sites/site/bindings/index/_static/image3.png",
     "credit": "Microsoft Learn · Microsoft documentation contributors",
-    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.",
+    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.",
     "sha256": "f54729a7727a1de196811c934ecf83ca4df6d79f599eda359dd482e64d7d97a8"
   },
   {
@@ -29,7 +29,7 @@
     "source": "https://learn.microsoft.com/en-us/iis/configuration/system.webserver/fastcgi/",
     "original": "https://learn.microsoft.com/en-us/iis/configuration/system.webserver/fastcgi/index/_static/image1.png",
     "credit": "Microsoft Learn · Microsoft documentation contributors",
-    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.",
+    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.",
     "sha256": "ef6748da9008d4c989984c66f24650aa328254104cb184c7bef940696766dbd3"
   },
   {
@@ -40,7 +40,7 @@
     "source": "https://learn.microsoft.com/en-us/iis/configuration/system.webserver/fastcgi/",
     "original": "https://learn.microsoft.com/en-us/iis/configuration/system.webserver/fastcgi/index/_static/image11.png",
     "credit": "Microsoft Learn · Microsoft documentation contributors",
-    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.",
+    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.",
     "sha256": "3ba92280d0554219cdf4b7b1a59c8838c1b2d099161f210436a2c526f1d1968b"
   },
   {
@@ -51,7 +51,7 @@
     "source": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis/",
     "original": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis/_static/image3.jpg",
     "credit": "Microsoft Learn · Microsoft documentation contributors",
-    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.",
+    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.",
     "sha256": "483eb50b321898eead3463961033c3801c28892a8e12a1e513ae84772856bf0a"
   },
   {
@@ -62,7 +62,7 @@
     "source": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis/",
     "original": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis/_static/image12.jpg",
     "credit": "Microsoft Learn · Microsoft documentation contributors",
-    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.",
+    "note": "Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.",
     "sha256": "4ca9645170edb1ae4d6f03f63005767c572a5dac8e0d1a51cc5423d43afbb593"
   },
   {
@@ -106,7 +106,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "c0fd0e8ee1d259a4056f9fa39a8564852c96b8d5b6d642df5dcd46aaa1da05be"
+    "sha256": "e6131249573799b1a2fe3dcc5d72aaf3ed308b913b3c53f74d60b0e841393cf4"
   },
   {
     "id": "helpdesk-plan-2",
@@ -116,7 +116,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "6160e4f8dd175383041c0332292f0bd6764fa19ee7c36278e82eabc3e4052aeb"
+    "sha256": "172309482fe7d95be670120d2b6fcfdd798fc805fe8b83974c01bb5252153e1a"
   },
   {
     "id": "helpdesk-plan-3",
@@ -196,7 +196,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "dd140763ff0766cb0ab1b88f8bb681585a1dfd4570d592dcfea2f3689d7b84c1"
+    "sha256": "339f4fd062249dfe2a1bfd5af0b3e05b0719932ba24357ddf36db02ca16c09da"
   },
   {
     "id": "helpdesk-site-3",
@@ -206,7 +206,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "695b7682c58e9cdcc03810b6e46b2945bea81b50599d8f513e7302bcf112646e"
+    "sha256": "0bd61cd697b2da0a2edfbef6efb9142cc86b4a5e3f59d93a55535d426ffa7a4a"
   },
   {
     "id": "helpdesk-dns-1",
@@ -216,7 +216,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "6d8455bbda2faf46f7751a3d9a695bb10122915bb6575308e1a760222c932b3f"
+    "sha256": "123f07ef1b6bcf619761078f9587e64611fc778747ff06fc104bc8166007d38d"
   },
   {
     "id": "helpdesk-dns-2",
@@ -236,7 +236,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "e7dfd0e92c7bcbc59a6a25bd2108225c96b69fbaac5d338e29e8d63b561de425"
+    "sha256": "42298add796a55e7c426f7e2aa1746deb1b0eddfd59e76695bc910d4e989899e"
   },
   {
     "id": "helpdesk-install-1",
@@ -246,7 +246,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "927afd6be138c02c2d4f50840ae462fd3a88ab90a8fc1086fdce6f91cfa634d2"
+    "sha256": "56d8a93f3e70574f014e8aa41fa1cd039f8554e1a735e91032efa1da066b74a3"
   },
   {
     "id": "helpdesk-install-2",
@@ -256,7 +256,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "90b8d4f38e932cde4c0d8d0d31a0d6c17279b1cc21221c3811ed6238faad3055"
+    "sha256": "75bb969b61ce9547ffe9c6c6576fb78c07c484848006d91b630e6db27d1f070c"
   },
   {
     "id": "helpdesk-recovery-1",
@@ -266,7 +266,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "c5f1bde21c6329e3653b75f41796c2b7551b6d795464de35d4d8d3ff5e9f13fc"
+    "sha256": "b045a5e000a78708b161d2707a08bc2cfd297e3630501283cc09c0c1ad7bc97e"
   },
   {
     "id": "helpdesk-recovery-2",
@@ -276,7 +276,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "47bcaa5c0f0c4a2560c938b3b0bdda6607938d98cb0c25048f1accdaca390717"
+    "sha256": "63cab1816c7c214d44d47bb6d431e8169e28cb4063c1a9ee8361e1e1c7a5aace"
   },
   {
     "id": "helpdesk-recovery-3",
@@ -286,7 +286,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "ad45c818e5eaeaff2869c5437a1569b7319eaf833d54619e21fe50466e26c320"
+    "sha256": "4b762b2218b6efd006646231d2c545bbb4002c2178e5d7618f023b10f23fcea3"
   },
   {
     "id": "helpdesk-operations-1",
@@ -296,7 +296,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "d91950a57c75d856c4a2b39c782bc25ceb1f56fbda36ce486d85529bafcac391"
+    "sha256": "4d5a876acf237a90821ed55d2e7f90d44d20a43ea3091b991b3c65db4af5a913"
   },
   {
     "id": "helpdesk-operations-2",
@@ -306,7 +306,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "cfef55164d996de86cb593d7d835a068e4e08988e6a9f3aecb1686f6dc4ed62d"
+    "sha256": "aa7c85ef76c206bc04898c4b72b1b631be5d50d51d04c6e64908d52c446a98e4"
   },
   {
     "id": "helpdesk-operations-3",
@@ -316,7 +316,7 @@
     "source": "https://docs.osticket.com/en/latest/Getting%20Started/Installation.html",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "An original diagram of this step, not a software screenshot or proof of success. Follow the written directions and check your actual machine.",
-    "sha256": "ce836fbd5ca6c4566369b179e5a09ff6e6f0ffdad8277dc45d57c41215c0186f"
+    "sha256": "16b294254cc7b2cdc5acab5c680ebb38ce02812a575528c495f960f97a440342"
   },
   {
     "id": "helpdesk-php-update-2",
@@ -326,7 +326,7 @@
     "source": "https://www.php.net/archive/2026.php#2026-10-21-1",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot or proof of a live PHP update. Check the actual private machine and current vendor advisories.",
-    "sha256": "16b1c290608b0ab8b1343181269b87f9fe0bc01fbf2bc682d9ab2529ead3bdf3"
+    "sha256": "6e6fdb024b1fbad8432f48e1bb9ecaa3134ccb68be110db03d27244939841195"
   },
   {
     "id": "helpdesk-php-update-3",
@@ -346,7 +346,7 @@
     "source": "https://www.php.net/archive/2026.php#2026-10-21-1",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot or proof of a live PHP update. Check the actual private machine and current vendor advisories.",
-    "sha256": "bf39257b9781c63f8ef17ee9be70345491f6d6eed1a36d3a47483f0576c225ea"
+    "sha256": "6ac1dcc6b7f848a8c1d75654fcdc825e38d66aa41f2e5ad6234ddeddecedab1d"
   },
   {
     "id": "helpdesk-php-update-6",
@@ -356,7 +356,7 @@
     "source": "https://www.php.net/archive/2026.php#2026-10-21-1",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot or proof of a live PHP update. Check the actual private machine and current vendor advisories.",
-    "sha256": "6dca1f290ee3c47190f33918932e7c59208aff958978d2556cd50a324dda1bed"
+    "sha256": "43d8dd100a4ef02743589ab667436700f4d5525ca27522da35a8f8ac0aeda983"
   },
   {
     "id": "helpdesk-php-update-7",
@@ -366,6 +366,6 @@
     "source": "https://www.php.net/archive/2026.php#2026-10-21-1",
     "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot or proof of a live PHP update. Check the actual private machine and current vendor advisories.",
-    "sha256": "e062d058bf68e8add2c1421751100a1732fbffc01e70eca0552139c7792db9a7"
+    "sha256": "12f60e95d8212adcbabcdae34ddf8473f01e34a429109e47d03e55b89da9d965"
   }
 ]

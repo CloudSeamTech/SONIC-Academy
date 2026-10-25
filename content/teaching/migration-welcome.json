@@ -44,7 +44,7 @@
     "reassurance": "If VMnet2 is already in use, stop and check what depends on it. Keep this class on one consistent VMnet2 address plan instead of mixing networks."
   },
   "lab-04": {
-    "welcome": "We’re going to build DC01, the first server that keeps track of our lab’s users and computers. Once Windows is ready, we’ll give it the Active Directory job and create our practice domain, cloudseam.tech.",
+    "welcome": "We’re going to build DC01, the first server that keeps track of our lab’s users and computers. Once Windows is ready, we’ll give it the Active Directory job and create our practice domain, lab.example.test.",
     "why": "A domain gives several computers one shared place to check who can sign in and which rules to use.",
     "needs": [
       "Have VMware Workstation Pro and your Windows Server 2019 Desktop Experience ISO ready.",
@@ -55,10 +55,10 @@
     "reassurance": "If your Windows edition doesn’t say Desktop Experience, stop before installing it. That is the option with the desktop screens we’ll use."
   },
   "lab-05": {
-    "welcome": "Now that cloudseam.tech works, let’s give it a few pretend people and a simple sign-in message. We’ll make a user, a group, and a folder-like container for keeping them organized.",
+    "welcome": "Now that lab.example.test works, let’s give it a few pretend people and a simple sign-in message. We’ll make a user, a group, and a folder-like container for keeping them organized.",
     "why": "These small practice objects give us something recognizable to manage and move later.",
     "needs": [
-      "Start DC01 and make sure you can sign in as your lab’s cloudseam.tech administrator.",
+      "Start DC01 and make sure you can sign in as your lab’s lab.example.test administrator.",
       "Have the Create the Domain lesson’s checks completed first.",
       "Use made-up names and a private temporary password; we don’t need real employee information."
     ],
@@ -66,29 +66,29 @@
     "reassurance": "OU means an organizational unit, which is a container for organizing domain objects. GPO means a saved set of rules. We’ll show you where both live."
   },
   "lab-06": {
-    "welcome": "Let’s build APP01, the practice server we’ll move later. We’ll join it to cloudseam.tech and put a tiny website on it so we have a real thing to test before and after the move.",
+    "welcome": "Let’s build APP01, the practice server we’ll move later. We’ll join it to lab.example.test and put a tiny website on it so we have a real thing to test before and after the move.",
     "why": "A working test page gives us a simple way to notice whether a migration changed the application.",
     "needs": [
       "Have your Windows Server 2019 Desktop Experience ISO and private VMware network ready.",
-      "Keep DC01 running and confirm cloudseam.tech name lookup works.",
+      "Keep DC01 running and confirm lab.example.test name lookup works.",
       "Reserve APP01’s address in your network notes and have a domain account allowed to join a lab computer."
     ],
     "firstMove": "Open Workstation Pro → File → New Virtual Machine and name the new machine APP01 when asked.",
     "reassurance": "We’ll keep the website small. You don’t need to know web development to create and check this test page."
   },
   "lab-07": {
-    "welcome": "Let’s add DC02 as a second keeper of the same cloudseam.tech directory. It will copy the directory from DC01 instead of starting another domain.",
+    "welcome": "Let’s add DC02 as a second keeper of the same lab.example.test directory. It will copy the directory from DC01 instead of starting another domain.",
     "why": "A second domain controller helps the domain keep working when one controller is unavailable.",
     "needs": [
       "Have a new Server 2019 Desktop Experience VM plan for DC02.",
       "Keep DC01 running, healthy, and reachable through the private VMware network.",
-      "Have the reserved address for DC02 and an cloudseam.tech account allowed to add a domain controller."
+      "Have the reserved address for DC02 and an lab.example.test account allowed to add a domain controller."
     ],
     "firstMove": "Start the DC02 build in Workstation Pro → File → New Virtual Machine.",
     "reassurance": "The important choice later is to add a controller to the existing domain. If the wizard offers to create a new forest, we’ll use the existing-domain option instead."
   },
   "lab-08": {
-    "welcome": "This time we’ll build a different organization’s directory on DEST-DC01. Its domain is migrate.cloudseam.tech, and we’ll keep it separate from cloudseam.tech.",
+    "welcome": "This time we’ll build a different organization’s directory on DEST-DC01. Its domain is migrate.lab.example.test, and we’ll keep it separate from lab.example.test.",
     "why": "Moving to another organization is different from adding another controller to the same domain.",
     "needs": [
       "Have your Server 2019 Desktop Experience ISO and enough spare PC resources for another VM.",
@@ -121,7 +121,7 @@
     "reassurance": "If the import asks for account or path mappings, stop and read what it needs. Our simple banner should not require guessing production account names."
   },
   "lab-11": {
-    "welcome": "We’re ready to move APP01 from cloudseam.tech to migrate.cloudseam.tech. We’ll keep checking its website along the way so we can tell whether the move worked.",
+    "welcome": "We’re ready to move APP01 from lab.example.test to migrate.lab.example.test. We’ll keep checking its website along the way so we can tell whether the move worked.",
     "why": "Changing a computer’s domain can affect sign-in and application access, even when the server name stays the same.",
     "needs": [
       "Have APP01’s test website working before you begin.",
@@ -132,11 +132,11 @@
     "reassurance": "A local sign-in such as APP01\\Administrator is different from a domain sign-in. Testing it now gives you a way back in during the move."
   },
   "lab-12": {
-    "welcome": "A recovery plan is more useful after you have tried it. Let’s rehearse bringing our disposable APP01 member server back to its recorded state and check its website again.",
+    "welcome": "A recovery plan is more useful after you have tried it. Let’s practice bringing our practice APP01 member server back to its recorded state and check its website again.",
     "why": "This practice helps you find missing recovery steps before a real outage puts you under pressure.",
     "needs": [
-      "Have APP01’s before-and-after evidence from the domain-move lesson.",
-      "Use the named pre-cutover recovery point for this disposable member VM, plus the old domain’s working DNS and sign-in information.",
+      "Have APP01’s before-and-after saved result from the domain-move lesson.",
+      "Use the named pre-cutover recovery point for this practice member VM, plus the old domain’s working DNS and sign-in information.",
       "Keep this exercise away from domain controllers, SQL servers, and real data; their recovery needs are different."
     ],
     "firstMove": "On APP01, record the current domain, address settings, policy, and website result before you simulate a failed move.",
@@ -146,7 +146,7 @@
     "welcome": "Let’s build WSUS01, a separate Windows server that can help organize Windows updates for our lab. We’ll start small instead of downloading every update Microsoft offers.",
     "why": "An update server gives administrators a way to choose which updates reach which computers.",
     "needs": [
-      "Have a new Server 2019 Desktop Experience VM for WSUS01 on the private cloudseam.tech network.",
+      "Have a new Server 2019 Desktop Experience VM for WSUS01 on the private lab.example.test network.",
       "Keep DC01 working so WSUS01 can join the domain.",
       "Plan space for update files and check your internet and storage limits before choosing products to download."
     ],
@@ -165,11 +165,11 @@
     "reassurance": "You don’t have to download every optional tool today. Choose the core SQL path first, then add the management extensions when you need them."
   },
   "sql-02": {
-    "welcome": "Let’s give the database its own Windows server, SQL01. First we’ll get Windows and its network ready, then join it to cloudseam.tech.",
+    "welcome": "Let’s give the database its own Windows server, SQL01. First we’ll get Windows and its network ready, then join it to lab.example.test.",
     "why": "Separating SQL from the domain controller makes each computer’s job easier to understand and troubleshoot.",
     "needs": [
       "Have the Server 2019 Desktop Experience ISO and private VMware network ready.",
-      "Keep DC01 running and have an account allowed to join SQL01 to cloudseam.tech.",
+      "Keep DC01 running and have an account allowed to join SQL01 to lab.example.test.",
       "Review the SQL sizing plan from the previous lesson; the database server may need more spare RAM and disk space than the basic domain-controller VM."
     ],
     "firstMove": "Open Workstation Pro → File → New Virtual Machine and start the SQL01 build.",
@@ -179,7 +179,7 @@
     "welcome": "Now we’ll install the SQL Server database engine on SQL01. We’ll take the setup pages one at a time and choose settings that also fit our later Configuration Manager exercise.",
     "why": "A database engine is the service that stores and answers questions about data. Setup choices affect which applications can use it.",
     "needs": [
-      "Have SQL01 joined to cloudseam.tech with working DNS and time.",
+      "Have SQL01 joined to lab.example.test with working DNS and time.",
       "Copy the verified SQL Server 2022 installer to SQL01 and use an account allowed to install it.",
       "Keep your version, memory, and storage plan nearby. The required collation is the database’s text-sorting rule, so copy it exactly from the steps."
     ],
@@ -212,7 +212,7 @@
     "welcome": "Let’s prepare MECM01 for Microsoft Configuration Manager, the tool that can manage software and updates across many computers. We’ll get the Windows roles and folders ready before its main installer.",
     "why": "Configuration Manager depends on several other pieces, so preparing them in order makes setup easier to understand.",
     "needs": [
-      "Have a separate Server 2019 VM for MECM01 on the cloudseam.tech network.",
+      "Have a separate Server 2019 VM for MECM01 on the lab.example.test network.",
       "Keep DC01 and SQL01 available, and have permission to join the domain and install Windows roles.",
       "Use the Windows ADK and Windows PE add-on versions supported by your chosen Configuration Manager release; leave enough RAM and storage for this optional extension."
     ],
@@ -223,7 +223,7 @@
     "welcome": "MECM01 needs a few carefully chosen permissions before setup will work. We’ll visit the directory server and SQL server and give only the lab access the installer needs.",
     "why": "Permissions are like keys to specific doors. Giving the right access is safer and easier to explain than making every account an administrator everywhere.",
     "needs": [
-      "Have MECM01 prepared and joined to cloudseam.tech, with SQL01 and DC01 working.",
+      "Have MECM01 prepared and joined to lab.example.test, with SQL01 and DC01 working.",
       "Keep the Configuration Manager installer files and the exact setup-account name ready.",
       "Have the lab’s directory and SQL administrators help with their respective permissions; keep passwords and storage keys out of notes."
     ],
@@ -232,7 +232,7 @@
   },
   "mecm-03": {
     "welcome": "We’re ready to install our small Configuration Manager site. A site is the group of management services and settings that will look after our lab clients.",
-    "why": "Following the server names and prerequisite checks carefully gives the console a working database and management point.",
+    "why": "Following the server names and setup checks carefully gives the console a working database and management point.",
     "needs": [
       "Have MECM01, SQL01, and DC01 healthy, with the earlier roles and permissions checked.",
       "Use the official Configuration Manager evaluation media and its downloaded prerequisite files.",
@@ -247,7 +247,7 @@
     "needs": [
       "Have the Configuration Manager site installed on MECM01 and its SQL database available on SQL01.",
       "Use APP01 as the named practice client, with working private DNS and domain access.",
-      "Have a recovery plan and a quiet lab window before the optional dependency interruption; don’t stop a database that other work needs."
+      "Have a recovery plan and a quiet lab window before the optional required connection or service interruption; don’t stop a database that other work needs."
     ],
     "firstMove": "On MECM01, open the Configuration Manager console → Administration.",
     "reassurance": "A boundary tells Configuration Manager which network a client belongs to. We’ll create a small one for this lab instead of copying a large workplace setup."
@@ -300,12 +300,12 @@
     "welcome": "Let’s look at what really changes when a server joins another organization’s domain. We’ll follow the people, permissions, DNS settings, and application connections—not just the computer name.",
     "why": "The same username written in two domains can represent two different identities with different access.",
     "needs": [
-      "Have the cloudseam.tech and migrate.cloudseam.tech inventories and working DNS checks.",
+      "Have the lab.example.test and migrate.lab.example.test inventories and working DNS checks.",
       "Use APP01’s completed migration notes as your small pilot example.",
       "List the accounts and services used by SQL and any optional Configuration Manager work, with the people who own those settings."
     ],
     "firstMove": "Write the source domain and destination domain at the top of a new comparison page.",
-    "reassurance": "You don’t need to move every account at once. We’ll identify the few dependencies our test application actually uses first."
+    "reassurance": "You don’t need to move every account at once. We’ll identify the few required connections and services our test application actually uses first."
   },
   "lab-14": {
     "welcome": "Let’s plan the Azure side before we rent a cloud computer. We’ll choose the correct account, set a budget reminder, and make a private network for the destination lab.",
@@ -313,7 +313,7 @@
     "needs": [
       "Have permission to use an Azure subscription and know who pays for it.",
       "Choose a monthly lab limit and an email address for cost alerts.",
-      "Keep your local VMware address range handy so the Azure network can use a different, non-overlapping range."
+      "Keep your local VMware address range handy so the Azure network can use a different, different, non-overlapping range."
     ],
     "firstMove": "Open portal.azure.com and check the directory and subscription shown for your lab.",
     "reassurance": "A budget sends warnings; it does not automatically turn VMs off. We’ll keep checking costs and shutting down resources deliberately."
@@ -374,7 +374,7 @@
     "reassurance": "If full-VM migration is not supported for your source, that’s useful information. We can choose the supported workload-and-data route instead of forcing a conversion."
   },
   "az-03": {
-    "welcome": "Let’s rehearse the day we would switch users to the new server. We’ll decide who checks the application, when to stop, and when to return to the old service.",
+    "welcome": "Let’s practice the day we would switch users to the new server. We’ll decide who checks the application, when to stop, and when to return to the old service.",
     "why": "A cutover is the moment users start using the new service. Practicing the decisions makes that moment less confusing.",
     "needs": [
       "Have the source and Azure test results from the completed migration lessons.",
@@ -470,18 +470,18 @@
       "Make sure you can reach the VM console before considering a network or sign-in change."
     ],
     "firstMove": "Write down what you tried and what actually happened, then find the matching symptom in the troubleshooting table.",
-    "reassurance": "An error is information, not a failed class. We’ll start with a read-only check and change one thing only when the evidence points to it."
+    "reassurance": "An error is information, not a failed class. We’ll start with a read-only check and change one thing only when the saved result points to it."
   },
   "lab-20": {
-    "welcome": "Let’s leave the lab in a state you can understand tomorrow. We’ll save useful evidence, stop what we don’t need running, and review anything Azure still charges for.",
+    "welcome": "Let’s leave the lab in a state you can understand tomorrow. We’ll save useful saved result, stop what we don’t need running, and review anything Azure still charges for.",
     "why": "Shutting down and deleting are different actions. Tidying up carefully protects both your work and your budget.",
     "needs": [
       "Have your notes and screenshots saved somewhere outside any resource you intend to delete.",
       "List the VMware and Azure resources you created, including disks, snapshots, networking, and backups.",
       "Decide whether you are pausing the lab or finishing it permanently before using a Delete button."
     ],
-    "firstMove": "Open your evidence folder and check that your notes and the files you want to keep are saved.",
-    "reassurance": "If you’re not sure whether a disk or backup is still needed, keep it and review its dependency and cost. Don’t use deletion to find out."
+    "firstMove": "Open your saved result folder and check that your notes and the files you want to keep are saved.",
+    "reassurance": "If you’re not sure whether a disk or backup is still needed, keep it and review its required connection or service and cost. Don’t use deletion to find out."
   },
   "field-01": {
     "welcome": "Imagine you’ve just joined a migration that is already under way. Let’s practice the questions that help you understand the work before you touch a server.",

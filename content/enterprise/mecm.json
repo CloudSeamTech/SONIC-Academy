@@ -1,12 +1,12 @@
 {
   "id": "mecm-operations",
-  "title": "MECM \u00b7 Client and Enterprise Operations",
+  "title": "MECM · Client and Enterprise Operations",
   "description": "Manage test clients, collections, software, heartbeat discovery, health and compliance.",
-  "baseline": "Configuration Manager current branch \u00b7 MECM01 \u00b7 cloudseam.tech",
-  "prerequisite": "Finish the MECM install and site configuration labs first. Keep DC01, SQL01, MECM01 and one disposable member-server client ready. Check the supported OS/SQL matrix for your evaluation release.",
+  "baseline": "Configuration Manager current branch · MECM01 · lab.example.test",
+  "prerequisite": "Finish the MECM install and site configuration labs first. Keep DC01, SQL01, MECM01 and one practice member-server client ready. Check the supported OS/SQL matrix for your evaluation release.",
   "supplies": [
     "A working evaluation primary site and console with the required management/distribution roles.",
-    "An approved cloudseam.tech test client; do not use a domain controller as the pilot.",
+    "An approved lab.example.test test client; do not use a domain controller as the pilot.",
     "A trusted, licensed test MSI and administrative permission inside your private lab."
   ],
   "sources": [
@@ -23,12 +23,12 @@
     {
       "id": "mecm-ops-test-client",
       "title": "Build and Enroll a MECM Test Client",
-      "description": "Connect one disposable cloudseam.tech member server to your lab site and prove that its client is managed.",
-      "what": "Connect one disposable cloudseam.tech member server to your lab site and prove that its client is managed.",
+      "description": "Connect one practice lab.example.test member server to your lab site and prove that its client is managed.",
+      "what": "Connect one practice lab.example.test member server to your lab site and prove that its client is managed.",
       "why": "A test client lets you try deployments without targeting DC01 or DC02.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -69,11 +69,11 @@
       "steps": [
         {
           "title": "Check the site before adding a client",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Open the Configuration Manager console on MECM01. Select Administration \u2192 Site Configuration \u2192 Sites.",
+            "Open the Configuration Manager console on MECM01. Select Administration → Site Configuration → Sites.",
             "Write down the actual three-character site code shown for your primary site; use that value wherever this class says your site code.",
-            "Select Monitoring \u2192 System Status \u2192 Site Status. Resolve critical role failures before continuing."
+            "Select Monitoring → System Status → Site Status. Resolve critical role failures before continuing."
           ],
           "expected": "The intended primary site is listed and its management point and distribution point are available.",
           "breakdown": [
@@ -87,18 +87,18 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Configuration Manager \u00b7 console workspace navigation",
+            "title": "Interface reference: Configuration Manager · console workspace navigation",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "mecm-workspaces"
           }
         },
         {
           "title": "Prepare the practice client",
-          "where": "APP01 \u00b7 Windows test member server",
+          "where": "APP01 · Windows test member server",
           "actions": [
-            "Use APP01 only if it is a disposable member server and you can change it safely. Do not use either domain controller as your first client.",
-            "Open Start \u2192 Windows PowerShell. Run hostname, then open System \u2192 About and confirm the device is joined to cloudseam.tech.",
-            "Check that APP01 uses the lab DNS server and can resolve MECM01.cloudseam.tech. Confirm the ports required by your site design rather than disabling the firewall."
+            "Use APP01 only if it is a practice member server and you can change it safely. Do not use either domain controller as your first client.",
+            "Open Start → Windows PowerShell. Run hostname, then open System → About and confirm the device is joined to lab.example.test.",
+            "Check that APP01 uses the lab DNS server and can resolve MECM01.lab.example.test. Confirm the ports required by your site design rather than disabling the firewall."
           ],
           "expected": "APP01 is a domain member, its name is recorded, and MECM01 resolves to the intended private address.",
           "breakdown": [
@@ -112,18 +112,18 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Windows Terminal \u00b7 PowerShell profile and prompt",
+            "title": "Interface reference: Windows Terminal · PowerShell profile and prompt",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "win-powershell-tabs"
           }
         },
         {
           "title": "Install the client from the site share",
-          "where": "APP01 \u00b7 Windows test member server",
+          "where": "APP01 · Windows test member server",
           "actions": [
-            "Open File Explorer. In its address bar enter \\\\MECM01.cloudseam.tech\\SMS_<your site code>\\Client, replacing the entire <your site code> text with the code you recorded.",
+            "Open File Explorer. In its address bar enter \\\\MECM01.lab.example.test\\SMS_<your site code>\\Client, replacing the entire <your site code> text with the code you recorded.",
             "Copy that Client folder to C:\\Lab\\CMClient on APP01. Open Windows PowerShell as administrator on APP01.",
-            "Run C:\\Lab\\CMClient\\ccmsetup.exe /mp:MECM01.cloudseam.tech SMSSITECODE=<your site code>, replacing the placeholder before pressing Enter. Use this only for the lab site configured for HTTP/enhanced HTTP; a PKI HTTPS site needs its documented certificate options.",
+            "Run C:\\Lab\\CMClient\\ccmsetup.exe /mp:MECM01.lab.example.test SMSSITECODE=<your site code>, replacing the placeholder before pressing Enter. Use this only for the lab site configured for HTTP/enhanced HTTP; a PKI HTTPS site needs its documented certificate options.",
             "Open C:\\Windows\\ccmsetup\\Logs\\ccmsetup.log with CMTrace from the site tools, or Notepad. Wait for ccmsetup to finish; a return code of 0 indicates successful setup."
           ],
           "expected": "The client installation finishes successfully and Control Panel includes Configuration Manager.",
@@ -138,18 +138,18 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Windows Terminal \u00b7 PowerShell profile and prompt",
+            "title": "Interface reference: Windows Terminal · PowerShell profile and prompt",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "win-powershell-tabs"
           }
         },
         {
           "title": "Confirm the client reports to the console",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Select Assets and Compliance \u2192 Devices. Find APP01. Allow time for registration and discovery; refresh the view.",
+            "Select Assets and Compliance → Devices. Find APP01. Allow time for registration and discovery; refresh the view.",
             "Check the Client column and site assignment. If the device needs approval under your site policy, review its identity and approve only this known lab device.",
-            "On APP01 open Control Panel \u2192 Configuration Manager \u2192 Actions. Select Machine Policy Retrieval & Evaluation Cycle \u2192 Run Now."
+            "On APP01 open Control Panel → Configuration Manager → Actions. Select Machine Policy Retrieval & Evaluation Cycle → Run Now."
           ],
           "expected": "APP01 appears with Client = Yes and the intended site code. A policy request is visible in its PolicyAgent.log.",
           "breakdown": [
@@ -163,7 +163,7 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Configuration Manager \u00b7 console workspace navigation",
+            "title": "Interface reference: Configuration Manager · console workspace navigation",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "mecm-workspaces"
           }
@@ -178,7 +178,7 @@
       "why": "A collection is your target list. Keeping pilot and rollout lists separate helps prevent accidental broad deployments.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -219,11 +219,11 @@
       "steps": [
         {
           "title": "Create the pilot collection",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Select Assets and Compliance \u2192 Device Collections. Right-click Device Collections \u2192 Create Device Collection.",
+            "Select Assets and Compliance → Device Collections. Right-click Device Collections → Create Device Collection.",
             "Enter LAB-Pilot-Devices. Select Browse beside Limiting collection, choose All Systems, then select Next.",
-            "On Membership Rules select Add Rule \u2192 Direct Rule. Follow the wizard, search Name for APP01, and select only the verified APP01 device.",
+            "On Membership Rules select Add Rule → Direct Rule. Follow the wizard, search Name for APP01, and select only the verified APP01 device.",
             "Finish both wizards. Leave recurring schedules at the lab default; do not enable frequent incremental updates for every collection."
           ],
           "expected": "LAB-Pilot-Devices exists with a direct membership rule for APP01.",
@@ -245,13 +245,13 @@
         },
         {
           "title": "Check the actual members",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Right-click LAB-Pilot-Devices \u2192 Update Membership. Wait for evaluation, then select Refresh.",
-            "Right-click the collection \u2192 Show Members. Check every row.",
+            "Right-click LAB-Pilot-Devices → Update Membership. Wait for evaluation, then select Refresh.",
+            "Right-click the collection → Show Members. Check every row.",
             "Confirm APP01 is present and DC01/DC02 are absent. If an unexpected device appears, fix the membership rule before creating any deployment."
           ],
-          "expected": "Only the intended disposable pilot device is a member.",
+          "expected": "Only the intended practice pilot device is a member.",
           "breakdown": [
             {
               "term": "Membership evaluation",
@@ -270,11 +270,11 @@
         },
         {
           "title": "Create a rollout collection without deploying yet",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
             "Create another device collection named LAB-Rollout-Devices, also limited by All Systems.",
-            "Keep it empty until you have another approved disposable client. Do not add domain controllers to make the lab look complete.",
-            "Open each collection\u2019s Properties \u2192 Membership Rules and record which devices each rule selects."
+            "Keep it empty until you have another approved practice client. Do not add domain controllers to make the lab look complete.",
+            "Open each collection’s Properties → Membership Rules and record which devices each rule selects."
           ],
           "expected": "Two separately named collections exist; the rollout collection is empty or contains only approved additional test devices.",
           "breakdown": [
@@ -303,7 +303,7 @@
       "why": "This is the full delivery path: source files, distribution point, client policy, installation, and a real result.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -344,10 +344,10 @@
       "steps": [
         {
           "title": "Stage a small, trusted MSI",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
             "Download a currently supported Windows MSI from its software publisher, such as the enterprise MSI for a free editor. Check its license and published checksum or signature.",
-            "Create a read-only application source share for this lab, for example \\\\MECM01.cloudseam.tech\\LabSources\\Apps\\Editor. Store the MSI there.",
+            "Create a read-only application source share for this lab, for example \\\\MECM01.lab.example.test\\LabSources\\Apps\\Editor. Store the MSI there.",
             "Grant the site server computer account read access to the source, plus the administrators who maintain it. Keep ordinary client users from changing installer files."
           ],
           "expected": "The verified MSI is reachable by the site server through its UNC path.",
@@ -369,11 +369,11 @@
         },
         {
           "title": "Create the MSI application and inspect detection",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Select Software Library \u2192 Application Management \u2192 Applications. Right-click Applications \u2192 Create Application.",
+            "Select Software Library → Application Management → Applications. Right-click Applications → Create Application.",
             "Choose Automatically detect information about this application from installation files. Select Windows Installer (*.msi file), then browse to the UNC path of your MSI.",
-            "Review the imported application name and version. Complete the wizard. Open the application\u2019s Deployment Types, then its MSI deployment type \u2192 Properties.",
+            "Review the imported application name and version. Complete the wizard. Open the application’s Deployment Types, then its MSI deployment type → Properties.",
             "Review Programs for install/uninstall commands, Detection Method for the MSI product code, and User Experience for the intended install context. Do not copy a product code from another application."
           ],
           "expected": "One application exists with the actual MSI identity, install/uninstall commands and detection rule.",
@@ -395,10 +395,10 @@
         },
         {
           "title": "Send content to the distribution point",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Right-click the application \u2192 Distribute Content. Select the lab distribution point and finish.",
-            "Open Monitoring \u2192 Distribution Status \u2192 Content Status. Select the application and open View Status.",
+            "Right-click the application → Distribute Content. Select the lab distribution point and finish.",
+            "Open Monitoring → Distribution Status → Content Status. Select the application and open View Status.",
             "Wait until content is successfully distributed. Investigate errors before deploying."
           ],
           "expected": "Content Status shows success for the intended lab distribution point.",
@@ -420,11 +420,11 @@
         },
         {
           "title": "Offer the application only to the pilot",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Right-click the application \u2192 Deploy. Choose LAB-Pilot-Devices and verify its membership before selecting Next.",
+            "Right-click the application → Deploy. Choose LAB-Pilot-Devices and verify its membership before selecting Next.",
             "Select the lab distribution point. Set Action = Install and Purpose = Available. Complete the remaining wizard pages after reviewing the settings.",
-            "On APP01 request machine policy from Control Panel \u2192 Configuration Manager \u2192 Actions. Open Start \u2192 Software Center \u2192 Applications. Select the test application \u2192 Install."
+            "On APP01 request machine policy from Control Panel → Configuration Manager → Actions. Open Start → Software Center → Applications. Select the test application → Install."
           ],
           "expected": "The application appears in Software Center on APP01 and installs successfully; it was not assigned to All Systems.",
           "breakdown": [
@@ -445,11 +445,11 @@
         },
         {
           "title": "Verify installation, then test removal",
-          "where": "APP01 \u00b7 Windows test member server",
+          "where": "APP01 · Windows test member server",
           "actions": [
-            "Open the application and check its version. In MECM Monitoring \u2192 Deployments, select the deployment and review its client status.",
-            "On APP01 open Software Center \u2192 Applications \u2192 the test application. Select Uninstall when offered, then confirm it is removed. If unavailable, review the application\u2019s configured uninstall command and deployment rules before retrying.",
-            "For failures inspect C:\\Windows\\CCM\\Logs\\AppDiscovery.log, AppIntentEval.log and AppEnforce.log. Remove or retire the pilot deployment when your exercise is complete."
+            "Open the application and check its version. In MECM Monitoring → Deployments, select the deployment and review its client status.",
+            "On APP01 open Software Center → Applications → the test application. Select Uninstall when offered, then confirm it is removed. If unavailable, review the application’s configured uninstall command and deployment rules before retrying.",
+            "For failures check C:\\Windows\\CCM\\Logs\\AppDiscovery.log, AppIntentEval.log and AppEnforce.log. Remove or retire the pilot deployment when your exercise is complete."
           ],
           "expected": "The application installs, opens, and uninstalls on APP01, with matching client logs and deployment status.",
           "breakdown": [
@@ -478,7 +478,7 @@
       "why": "Heartbeat discovery refreshes a device record. It is not a live ping and does not prove that applications or Windows are healthy.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -492,8 +492,8 @@
           "fix": "Check the target computer, its DNS and network access, then the matching client/server log named in the step. Stop before expanding the change."
         }
       ],
-      "pass": "You have evidence of a heartbeat cycle, a health evaluation and recovery from the brief client-service stop.",
-      "exercise": "Write a three-line incident note: symptom, evidence, and recovery verification.",
+      "pass": "You have saved result of a heartbeat cycle, a health evaluation and recovery from the brief client-service stop.",
+      "exercise": "Write a three-line incident note: symptom, saved result, and recovery verification.",
       "quiz": [
         {
           "question": "Where should you test this change first?",
@@ -519,10 +519,10 @@
       "steps": [
         {
           "title": "Review the heartbeat schedule",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Select Administration \u2192 Hierarchy Configuration \u2192 Discovery Methods.",
-            "Open Heartbeat Discovery \u2192 Properties. Check whether it is enabled and record the schedule already configured.",
+            "Select Administration → Hierarchy Configuration → Discovery Methods.",
+            "Open Heartbeat Discovery → Properties. Check whether it is enabled and record the schedule already configured.",
             "Keep the existing lab schedule unless you have a specific reason to change it. Do not confuse Heartbeat Discovery with Active Directory System Discovery."
           ],
           "expected": "You can identify the enabled state and actual heartbeat schedule.",
@@ -537,18 +537,18 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Configuration Manager \u00b7 console workspace navigation",
+            "title": "Interface reference: Configuration Manager · console workspace navigation",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "mecm-workspaces"
           }
         },
         {
           "title": "Request one heartbeat on APP01",
-          "where": "APP01 \u00b7 Windows test member server",
+          "where": "APP01 · Windows test member server",
           "actions": [
-            "Open Control Panel \u2192 Configuration Manager \u2192 Actions. Select Discovery Data Collection Cycle \u2192 Run Now.",
+            "Open Control Panel → Configuration Manager → Actions. Select Discovery Data Collection Cycle → Run Now.",
             "Open C:\\Windows\\CCM\\Logs\\InventoryAgent.log with CMTrace. Find entries for the discovery cycle you just requested.",
-            "Back in the console, open APP01\u2019s discovery information and compare its latest discovery time after processing. Allow time for the site to update."
+            "Back in the console, open APP01’s discovery information and compare its latest discovery time after processing. Allow time for the site to update."
           ],
           "expected": "The client log records the requested cycle and the discovery record later refreshes.",
           "breakdown": [
@@ -562,18 +562,18 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Windows Terminal \u00b7 PowerShell profile and prompt",
+            "title": "Interface reference: Windows Terminal · PowerShell profile and prompt",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "win-powershell-tabs"
           }
         },
         {
           "title": "Read the client health checks",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Select Monitoring \u2192 Client Status \u2192 Client Check, then review Client Activity. Limit investigation to your pilot devices.",
+            "Select Monitoring → Client Status → Client Check, then review Client Activity. Limit investigation to your pilot devices.",
             "On APP01 check that the SMS Agent Host service (CcmExec) is running. Open C:\\Windows\\CCM\\Logs\\CcmEval.log and review the latest client evaluation.",
-            "If policy or health fails, also inspect ClientIDManagerStartup.log, CcmMessaging.log and PolicyAgent.log for the matching time. Check DNS, service state and the configured management point before considering a repair."
+            "If policy or health fails, also check ClientIDManagerStartup.log, CcmMessaging.log and PolicyAgent.log for the matching time. Check DNS, service state and the configured management point before considering a repair."
           ],
           "expected": "You can distinguish a recent heartbeat, an active client, and a passed or failed client evaluation.",
           "breakdown": [
@@ -594,13 +594,13 @@
         },
         {
           "title": "Rehearse a brief client outage safely",
-          "where": "APP01 \u00b7 Windows test member server",
+          "where": "APP01 · Windows test member server",
           "actions": [
-            "Use only the disposable APP01 client. Record its service state, then open Services and stop SMS Agent Host briefly. Do not stop the management services on MECM01.",
+            "Use only the practice APP01 client. Record its service state, then open Services and stop SMS Agent Host briefly. Do not stop the management services on MECM01.",
             "Observe that an immediate green console status can be stale. Record the time; do not wait days for inactivity thresholds just to finish the lab.",
             "Start SMS Agent Host again. Request machine policy and confirm new entries in PolicyAgent.log. Compare the next client health evaluation."
           ],
-          "expected": "APP01\u2019s client service is restored and requests policy again; you can explain why a green console icon was not a live health probe.",
+          "expected": "APP01’s client service is restored and requests policy again; you can explain why a green console icon was not a live health probe.",
           "breakdown": [
             {
               "term": "Health probe",
@@ -624,10 +624,10 @@
       "title": "Build a Read-Only Compliance Baseline",
       "description": "Check that a harmless lab registry value exists, deploy the check to the pilot, and observe compliant and noncompliant results.",
       "what": "Check that a harmless lab registry value exists, deploy the check to the pilot, and observe compliant and noncompliant results.",
-      "why": "A compliance baseline compares a device with a rule. Start with a check-only rule before enabling automatic changes.",
+      "why": "A compliance starting point compares a device with a rule. Start with a check-only rule before enabling automatic changes.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -642,7 +642,7 @@
         }
       ],
       "pass": "The pilot reports both the deliberate mismatch and the restored compliant state, with remediation off.",
-      "exercise": "Save the two baseline results and explain why checking and fixing are separate actions.",
+      "exercise": "Save the two starting point results and explain why checking and fixing are separate actions.",
       "quiz": [
         {
           "question": "Where should you test this change first?",
@@ -668,13 +668,13 @@
       "steps": [
         {
           "title": "Create a harmless setting on the pilot",
-          "where": "APP01 \u00b7 Windows test member server",
+          "where": "APP01 · Windows test member server",
           "actions": [
             "Open Windows PowerShell as administrator on APP01. Run New-Item -Path HKLM:\\SOFTWARE\\CloudSeamLab -Force.",
             "Run New-ItemProperty -Path HKLM:\\SOFTWARE\\CloudSeamLab -Name LabReady -PropertyType String -Value Yes -Force.",
             "Open Registry Editor and verify HKEY_LOCAL_MACHINE\\SOFTWARE\\CloudSeamLab contains the LabReady string set to Yes. Do not change other keys."
           ],
-          "expected": "The disposable lab value exists on APP01.",
+          "expected": "The practice lab value exists on APP01.",
           "breakdown": [
             {
               "term": "Lab-only setting",
@@ -686,16 +686,16 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Windows Terminal \u00b7 PowerShell profile and prompt",
+            "title": "Interface reference: Windows Terminal · PowerShell profile and prompt",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "win-powershell-tabs"
           }
         },
         {
           "title": "Define the configuration item",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Select Assets and Compliance \u2192 Compliance Settings \u2192 Configuration Items \u2192 Create Configuration Item.",
+            "Select Assets and Compliance → Compliance Settings → Configuration Items → Create Configuration Item.",
             "Name it LAB-Registry-Readiness and choose a Windows desktop/server custom configuration item. Select the Windows versions used by your client.",
             "Add a Registry value setting with data type String: hive HKEY_LOCAL_MACHINE, key SOFTWARE\\CloudSeamLab, value LabReady. Choose the 64-bit registry view for this x64 lab client.",
             "Add a compliance rule that the value Equals Yes, and report noncompliance if the value is missing. Leave remediation disabled."
@@ -719,17 +719,17 @@
         },
         {
           "title": "Deploy the baseline to the pilot",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Select Compliance Settings \u2192 Configuration Baselines \u2192 Create Configuration Baseline. Name it LAB-Pilot-Readiness.",
-            "Add the configuration item you just created. Deploy the baseline only to LAB-Pilot-Devices. Leave remediation unchecked and choose a reasonable lab evaluation schedule.",
-            "On APP01 request machine policy. Open Control Panel \u2192 Configuration Manager \u2192 Configurations. When the baseline arrives, select it and choose Evaluate, then View Report."
+            "Select Compliance Settings → Configuration Baselines → Create Configuration Baseline. Name it LAB-Pilot-Readiness.",
+            "Add the configuration item you just created. Deploy the starting point only to LAB-Pilot-Devices. Leave remediation unchecked and choose a reasonable lab evaluation schedule.",
+            "On APP01 request machine policy. Open Control Panel → Configuration Manager → Configurations. When the starting point arrives, select it and choose Evaluate, then View Report."
           ],
-          "expected": "The pilot evaluates the baseline as compliant while LabReady equals Yes.",
+          "expected": "The pilot evaluates the starting point as compliant while LabReady equals Yes.",
           "breakdown": [
             {
               "term": "Configuration baseline",
-              "meaning": "A baseline bundles the checks you want a target collection to evaluate."
+              "meaning": "A starting point bundles the checks you want a target collection to evaluate."
             }
           ],
           "sources": [
@@ -744,13 +744,13 @@
         },
         {
           "title": "Prove the rule detects a mismatch",
-          "where": "APP01 \u00b7 Windows test member server",
+          "where": "APP01 · Windows test member server",
           "actions": [
-            "On APP01 change only the practice LabReady string from Yes to No. Evaluate the baseline again and view its report.",
-            "Confirm the baseline reports noncompliance. Change LabReady back to Yes, evaluate again, and confirm compliance.",
-            "Record both results. When finished, remove the lab baseline deployment before deleting the practice registry key; leave unrelated settings alone."
+            "On APP01 change only the practice LabReady string from Yes to No. Evaluate the starting point again and view its report.",
+            "Confirm the starting point reports noncompliance. Change LabReady back to Yes, evaluate again, and confirm compliance.",
+            "Record both results. When finished, remove the lab starting point deployment before deleting the practice registry key; leave unrelated settings alone."
           ],
-          "expected": "The same baseline reports noncompliance for No and compliance for Yes, without remediation.",
+          "expected": "The same starting point reports noncompliance for No and compliance for Yes, without remediation.",
           "breakdown": [
             {
               "term": "Noncompliant",
@@ -772,12 +772,12 @@
     {
       "id": "mecm-ops-maintenance",
       "title": "Run a MECM Daily Health and Maintenance Check",
-      "description": "Review site roles, deployment failures, content distribution and recovery evidence without changing production settings.",
-      "what": "Review site roles, deployment failures, content distribution and recovery evidence without changing production settings.",
+      "description": "Review site roles, deployment failures, content distribution and recovery saved result without changing production settings.",
+      "what": "Review site roles, deployment failures, content distribution and recovery saved result without changing production settings.",
       "why": "Daily checks help you find failed client actions and site problems before you schedule more work.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -818,17 +818,17 @@
       "steps": [
         {
           "title": "Review site and component health",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Open Monitoring \u2192 System Status \u2192 Site Status and Component Status.",
-            "For a warning or critical component, right-click it \u2192 Show Messages and choose the matching severity and time range.",
+            "Open Monitoring → System Status → Site Status and Component Status.",
+            "For a warning or critical component, right-click it → Show Messages and choose the matching severity and time range.",
             "Record the component, time and message ID. Do not reset counts merely to make the display green."
           ],
           "expected": "Your daily note identifies real current warnings or states that none were observed.",
           "breakdown": [
             {
               "term": "Status message",
-              "meaning": "A message gives evidence about a component; its timestamp matters when deciding whether the issue is current."
+              "meaning": "A message gives saved result about a component; its timestamp matters when deciding whether the issue is current."
             }
           ],
           "sources": [
@@ -836,18 +836,18 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Configuration Manager \u00b7 console workspace navigation",
+            "title": "Interface reference: Configuration Manager · console workspace navigation",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "mecm-workspaces"
           }
         },
         {
           "title": "Check content and deployment failures",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Open Monitoring \u2192 Distribution Status \u2192 Content Status. Investigate failed or in-progress pilot content.",
-            "Open Monitoring \u2192 Deployments. Select your pilot deployment and compare success, in-progress and error states with APP01 client logs.",
-            "Open Monitoring \u2192 Client Status and record inactive or failed client checks. Keep hardware inventory and software inventory separate from compliance results."
+            "Open Monitoring → Distribution Status → Content Status. Investigate failed or in-progress pilot content.",
+            "Open Monitoring → Deployments. Select your pilot deployment and compare success, in-progress and error states with APP01 client logs.",
+            "Open Monitoring → Client Status and record inactive or failed client checks. Keep hardware inventory and software inventory separate from compliance results."
           ],
           "expected": "The daily note separates content delivery, application results and client health.",
           "breakdown": [
@@ -868,13 +868,13 @@
         },
         {
           "title": "Review maintenance and recovery safely",
-          "where": "MECM01 \u00b7 Configuration Manager console",
+          "where": "MECM01 · Configuration Manager console",
           "actions": [
-            "Select Administration \u2192 Site Configuration \u2192 Sites. Open Site Maintenance and review the existing tasks without changing retention values blindly.",
-            "Review whether Backup Site Server is configured and where it writes. Check its latest success evidence and the independent SQL/site recovery plan.",
+            "Select Administration → Site Configuration → Sites. Open Site Maintenance and review the existing tasks without changing retention values blindly.",
+            "Review whether Backup Site Server is configured and where it writes. Check its latest success saved result and the independent SQL/site recovery plan.",
             "Document the recovery location and a planned restore-test date. Do not restore or revert a domain-joined site server just to test a daily checklist."
           ],
-          "expected": "You can name the backup evidence and recovery owner, plus any unresolved health issue.",
+          "expected": "You can name the backup saved result and recovery owner, plus any unresolved health issue.",
           "breakdown": [
             {
               "term": "Recovery evidence",
@@ -886,7 +886,7 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Configuration Manager \u00b7 console workspace navigation",
+            "title": "Interface reference: Configuration Manager · console workspace navigation",
             "instructions": "Orientation reference for the named application, not a capture of every action in this step. Follow the written instructions and expected result; original example values and versions may differ.",
             "assetId": "mecm-workspaces"
           }

@@ -48,7 +48,7 @@ Do NOT say “configure DNS” or “install the role” without telling the lea
 
 Map the existing complete `SONIC_MIGRATION_WORKBOOK_FULL_SOURCE_v3.md` into authored lessons, following its real order and terminology:
 
-**Foundation and domains:** LAB 00..12 — plan, isolated VMware Workstation VMnet, DC01, second agency DC DC02, source `cloudseam.tech` users/OUs/GPO/DNS, APP01/IIS, new independent destination `migrate.cloudseam.tech`, name resolution/trust decision, GPO backup/import, member-server rejoin and rollback.
+**Foundation and domains:** LAB 00..12 — plan, isolated VMware Workstation VMnet, DC01, second agency DC DC02, source `lab.example.test` users/OUs/GPO/DNS, APP01/IIS, new independent destination `migrate.lab.example.test`, name resolution/trust decision, GPO backup/import, member-server rejoin and rollback.
 
 **Patching and SQL:** LAB 13 WSUS01, then SQL-01..05 — compatible SQL version/edition decision, SQL01 joined to the source domain, SQL Server eval prerequisites, service accounts, storage/collation, SQL Server Management Studio, `PracticeDB`, real data query, `.bak` backup, file move, restore on another instance, login/job/permission checks.
 

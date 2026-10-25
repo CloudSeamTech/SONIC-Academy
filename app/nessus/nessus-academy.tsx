@@ -1,4 +1,6 @@
 'use client';
+import { WorkspaceStart } from '../workspace-start';
+import { learnerActions } from '../../lib/learner-directions';
 import { DmzLabNotebook } from '../dmz/lab-notebook';
 import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
@@ -287,10 +289,14 @@ function LessonReader({
                 <b>WHERE TO WORK</b>
                 <p>{step.where}</p>
               </div>
+              <WorkspaceStart
+                where={step.where}
+                action={step.actions.join(' ')}
+              />
               <section className="guided-action">
                 <h4>Let’s try it</h4>
                 <ol>
-                  {step.actions.map((action, i) => (
+                  {step.actions.flatMap(learnerActions).map((action, i) => (
                     <li key={i}>{action}</li>
                   ))}
                 </ol>
@@ -614,6 +620,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
           outcome={lesson.pass}
         />
         <LessonWelcome
+          lessonId={lesson.id}
           showIntro={false}
           content={{
             welcome: index === 0 ? course.prerequisite : lesson.what,

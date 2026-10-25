@@ -235,7 +235,7 @@
             "Windows user accounts"
           ],
           "answer": 0,
-          "explanation": "Plugins tell Nessus what to inspect and how to report it."
+          "explanation": "Plugins tell Nessus what to check and how to report it."
         },
         {
           "question": "What changed for manual plugin updates in 10.12.5?",
@@ -303,7 +303,7 @@
       "what": "A template is a recipe Tenable provides. A policy is a recipe you save with the settings you chose. A scan adds the target computers and the time to run.",
       "why": "Knowing these three pieces makes the next pages less confusing. You don’t have to guess what every advanced switch does before making a useful first scan.",
       "bestPractices": [
-        "Start with Basic Network Scan for the first agreed baseline. A baseline is the result we keep for comparison later."
+        "Start with Basic Network Scan for the first agreed baseline. A starting point is the result we keep for comparison later."
       ],
       "commonMistakes": [
         "Finding a live host is useful, but a discovery result is not a full vulnerability assessment.",
@@ -366,7 +366,7 @@
           "actions": [
             "Return to Scans and click Policies on the left. This is where we look for saved scan recipes, not the actual scan results.",
             "Look at any existing policies without changing them. A policy you save can appear under User Defined when you create a scan.",
-            "Try saying the parts aloud: “My lab baseline policy, plus the Alma target address and an agreed time, makes a scan job.”"
+            "Try saying the parts aloud: “My lab starting point policy, plus the Alma target address and an agreed time, makes a scan job.”"
           ],
           "command": "",
           "breakdown": [],
@@ -383,7 +383,7 @@
         }
       ],
       "needs": [
-        "Open the Nessus console with plugins ready. We will inspect choices here without launching a scan."
+        "Open the Nessus console with plugins ready. We will check choices here without launching a scan."
       ]
     },
     {
@@ -427,7 +427,7 @@
             "To disable plugins"
           ],
           "answer": 0,
-          "explanation": "Saving gives you a chance to inspect the job before it sends traffic."
+          "explanation": "Saving gives you a chance to check the job before it sends traffic."
         }
       ],
       "steps": [
@@ -489,7 +489,7 @@
         "After a permitted settings change, add a short revision note to the policy description so you can tell versions apart."
       ],
       "commonMistakes": [
-        "Keep the baseline policy steady while comparing a before-and-after result. If it changes, record the difference.",
+        "Keep the starting point policy steady while comparing a before-and-after result. If it changes, record the difference.",
         "A scan that uses a linked policy inherits some settings. Edit those in the policy rather than assuming the job can override them."
       ],
       "troubleshooting": [
@@ -503,7 +503,11 @@
       "quiz": [
         {
           "question": "Where do saved custom policies appear when making a scan?",
-          "options": ["User Defined", "Windows Services", "VMware snapshots"],
+          "options": [
+            "User Defined",
+            "Windows Services",
+            "VMware snapshots"
+          ],
           "answer": 0,
           "explanation": "User Defined contains available saved policies."
         },
@@ -525,7 +529,7 @@
           "actions": [
             "Click Scans → Policies → New Policy. Choose Advanced Scan if your edition offers it. If that choice is missing, follow the limited-license branch below rather than trying another product’s instructions.",
             "In Basic settings, call the policy SONIC-Approved-Server-Policy. Add a description explaining that it is for the two agreed targets on this private lab network.",
-            "Keep the initial defaults and save. We’ll inspect discovery, ports, safe checks and plugins next. If your license does not offer custom policies, record that limit and keep using your saved Basic Network Scan."
+            "Keep the initial defaults and save. We’ll check discovery, ports, safe checks and plugins next. If your license does not offer custom policies, record that limit and keep using your saved Basic Network Scan."
           ],
           "command": "",
           "breakdown": [],
@@ -620,7 +624,7 @@
           "actions": [
             "First, choose the route your license supports. If custom policies are unavailable, edit your saved Basic Network Scan and use only its visible settings. Write down any missing control; don’t pretend a locked setting changed.",
             "Open the saved policy’s Settings → Discovery → Host Discovery. For these exact VMware guest targets, follow Tenable’s guidance to set Ping the remote host Off. A guest may not answer the ping method even when we can reach it.",
-            "Under Discovery → Port Scanning, inspect Port Scan Range. Keep the documented default for the broad baseline. Guessing a short list can miss services.",
+            "Under Discovery → Port Scanning, check Port Scan Range. Keep the documented default for the broad baseline. Guessing a short list can miss services.",
             "For a separately agreed focused follow-up, a comma list such as 22,80,443,445 is valid. Explain that it covers only those ports. Authenticated local port discovery can also affect what is actually covered."
           ],
           "command": "",
@@ -640,7 +644,7 @@
           "where": "Your workstation browser · verified Nessus HTTPS console",
           "actions": [
             "Open Settings → Advanced → General Settings and leave Enable Safe Checks enabled. We’re leaving denial-of-service, brute-force and fragile-device testing out of this beginner lab.",
-            "If you are using an Advanced Scan policy, open Plugins and inspect the enabled families. Keep the normal baseline coverage; don’t enable risky tests or remove checks just to make the results look better.",
+            "If you are using an Advanced Scan policy, open Plugins and check the enabled families. Keep the normal starting point coverage; don’t enable risky tests or remove checks just to make the results look better.",
             "Save and note the policy revision. Safe checks reduce harmful testing, but they do not promise zero impact. Stop if the target becomes unstable."
           ],
           "command": "",
@@ -687,7 +691,7 @@
       "id": "nessus-scanning-linux-credentials",
       "title": "Configure an Authenticated AlmaLinux Scan",
       "description": "Give Nessus a permitted Linux login and check what that login can really inspect.",
-      "what": "An outside-only scan looks through the windows. An authenticated scan uses a permitted login to inspect installed software and settings inside the target.",
+      "what": "An outside-only scan looks through the windows. An authenticated scan uses a permitted login to check installed software and settings inside the target.",
       "why": "The inside view can reveal missing updates that a network-only scan misses. Signing in successfully still does not guarantee permission to read every needed item.",
       "bestPractices": [
         "When practical, use a dedicated SSH key and protect its private half.",
@@ -707,8 +711,8 @@
           "fix": "Read the permission messages and plugin evidence. Agree on only the needed sudo permissions; don’t disable SELinux or grant unrestricted root access to silence the error."
         }
       ],
-      "pass": "You can show redacted login-check evidence and explain whether limited permissions left some checks incomplete.",
-      "exercise": "Use the actual login and permission results to explain one access gap. If more access is needed, request only the change that the evidence justifies.",
+      "pass": "You can show redacted login-check saved result and explain whether limited permissions left some checks incomplete.",
+      "exercise": "Use the actual login and permission results to explain one access gap. If more access is needed, request only the change that the saved result justifies.",
       "quiz": [
         {
           "question": "Where should scan passwords be entered?",
@@ -799,9 +803,9 @@
           "title": "Check credentials before a full scan",
           "where": "Your workstation browser · verified Nessus HTTPS console",
           "actions": [
-            "If your license offers Credential Validation, create a one-target job using the same permitted SSH credentials. Save it and launch it only during the agreed time. If it is unavailable, use the controlled baseline in the launch lesson instead.",
+            "If your license offers Credential Validation, create a one-target job using the same permitted SSH credentials. Save it and launch it only during the agreed time. If it is unavailable, use the controlled starting point in the launch lesson instead.",
             "When the check finishes, open the host’s informational results and Nessus Scan Information, plugin 19506. Read the credentialed-check status and any local-check or permission messages.",
-            "A working login is one checkpoint, not proof that every needed check ran. Read the least-privilege diagnostics and agree on only the permissions the evidence shows are necessary."
+            "A working login is one checkpoint, not proof that every needed check ran. Read the least-privilege diagnostics and agree on only the permissions the saved result shows are necessary."
           ],
           "command": "",
           "breakdown": [],
@@ -827,7 +831,7 @@
       "title": "Configure an Authenticated Windows Scan",
       "description": "Set up a Windows target login without giving the scanner control of the whole domain.",
       "what": "We’ll give Nessus a dedicated account for the Server 2022 target. Windows checks may need to read files, registry settings and management information on that target.",
-      "why": "An open network port is not the same as permission to inspect Windows. We need both a connection and the right target-scoped access.",
+      "why": "An open network port is not the same as permission to check Windows. We need both a connection and the right target-scoped access.",
       "bestPractices": [
         "Use a named account whose rights are limited to the intended member target.",
         "Remove temporary target access when the agreed practice window ends."
@@ -835,7 +839,7 @@
       "commonMistakes": [
         "Domain Admin is far more access than this target needs. Don’t use it to skip the permissions lesson.",
         "Keep SMB and RPC access limited to the scanner, not every address.",
-        "The browser uses 8834 to reach Nessus. The scanner uses different Windows protocols to inspect the target."
+        "The browser uses 8834 to reach Nessus. The scanner uses different Windows protocols to check the target."
       ],
       "troubleshooting": [
         {
@@ -847,8 +851,8 @@
           "fix": "Review the administrative shares, registry access and required WMI/RPC network paths with the target owner. Look for a relevant endpoint-policy event before changing anything."
         }
       ],
-      "pass": "You have real credential-check evidence, or a clearly recorded failure, and an access plan limited to the intended member server.",
-      "exercise": "Explain the difference between opening Nessus’s web page and letting Nessus inspect the Windows target. Show a redacted credential-check result for the latter.",
+      "pass": "You have real credential-check saved result, or a clearly recorded failure, and an access plan limited to the intended member server.",
+      "exercise": "Explain the difference between opening Nessus’s web page and letting Nessus check the Windows target. Show a redacted credential-check result for the latter.",
       "quiz": [
         {
           "question": "Which account fits this member-server lab best?",
@@ -862,7 +866,11 @@
         },
         {
           "question": "Does TCP 8834 replace SMB/WMI requirements?",
-          "options": ["No", "Yes", "Only on Server 2022"],
+          "options": [
+            "No",
+            "Yes",
+            "Only on Server 2022"
+          ],
           "answer": 0,
           "explanation": "8834 serves the scanner’s HTTPS UI; target checks use their own protocols."
         }
@@ -874,7 +882,7 @@
           "actions": [
             "Use your separate Server 2022 member target, not a domain controller. For this route, we need a dedicated domain account that is an administrator only on this target—not Domain Admin. Finish the earlier Windows/AD and domain-join lessons first.",
             "On the target, open Computer Management → Local Users and Groups → Groups → Administrators → Add. Under Locations, select the intended domain. Enter the dedicated scan username, click Check Names and confirm the exact identity before OK. Keep these rights limited to this target. If the account is missing, prepare it with the domain owner using the earlier Create Users & Policy lesson.",
-            "Work through the official Windows credentialed-scan prerequisites with the owner: rules for network sign-in, the administrative shares, Remote Registry and SMB/WMI access. These affect what Nessus can read inside Windows.",
+            "Work through the official Windows credentialed-scan things to prepare with the owner: rules for network sign-in, the administrative shares, Remote Registry and SMB/WMI access. These affect what Nessus can read inside Windows.",
             "Using a standalone local account instead? Pause and follow Tenable’s separate local-account/UAC procedure with the owner. Don’t disable UAC everywhere or add an unreviewed registry workaround."
           ],
           "command": "Get-LocalGroupMember -SID 'S-1-5-32-544'\nGet-Service -Name RemoteRegistry\nGet-SmbShare -Name 'ADMIN$','C$'",
@@ -972,7 +980,7 @@
       "troubleshooting": [
         {
           "problem": "I shared a secret by mistake",
-          "fix": "Stop sharing the file and tell its owner. Revoke or rotate the exposed secret, then replace the evidence with a version that hides it."
+          "fix": "Stop sharing the file and tell its owner. Revoke or rotate the exposed secret, then replace the saved result with a version that hides it."
         }
       ],
       "pass": "Your shared class notes contain no secrets, and someone is responsible for removing or rotating temporary access after the lab.",
@@ -986,7 +994,7 @@
             "A redacted status and account-owner reference"
           ],
           "answer": 2,
-          "explanation": "Evidence should prove the task without disclosing secrets."
+          "explanation": "Saved result should prove the task without disclosing secrets."
         },
         {
           "question": "When should temporary scan access be removed?",
@@ -1027,8 +1035,8 @@
           "where": "Your workstation browser · verified Nessus HTTPS console",
           "actions": [
             "Open each scan’s Credentials tab without revealing the stored values. Check that the account and sign-in method match your plan.",
-            "Ask the target owner to confirm that permissions cover only the agreed computers and checks. For SSH, use the least-privilege diagnostic evidence instead of simply allowing every command.",
-            "When the lab ends, remove temporary stored credentials from the scan jobs and revoke or rotate the temporary target access with its owner. Keep only evidence with secrets hidden."
+            "Ask the target owner to confirm that permissions cover only the agreed computers and checks. For SSH, use the least-privilege diagnostic saved result instead of simply allowing every command.",
+            "When the lab ends, remove temporary stored credentials from the scan jobs and revoke or rotate the temporary target access with its owner. Keep only saved result with secrets hidden."
           ],
           "command": "",
           "breakdown": [],
@@ -1053,7 +1061,7 @@
       "title": "Add Only Authorized Targets",
       "description": "Double-check the target addresses against the computers in front of you.",
       "what": "We’ll compare each scan’s target field with the address shown on that target’s own console. This is a small check with a big payoff.",
-      "why": "An old note or DNS record can point to the wrong computer. We don’t want last week’s address to decide what we inspect today.",
+      "why": "An old note or DNS record can point to the wrong computer. We don’t want last week’s address to decide what we check today.",
       "bestPractices": [
         "Recheck target identities after automatic-address, DNS or network changes. Addresses can move even when your saved job stays the same."
       ],
@@ -1121,7 +1129,9 @@
             "title": "Confirm each target at its console",
             "instructions": "When you reach this point in your own lab, take a screenshot showing confirm each target at its console. Keep the relevant controls and computer context visible so you can explain the check. Hide credentials, activation details and private information first. This is your capture checklist; a genuine screenshot is still needed here."
           },
-          "sources": ["https://docs.tenable.com/nessus/Content/ScanTargets.htm"]
+          "sources": [
+            "https://docs.tenable.com/nessus/Content/ScanTargets.htm"
+          ]
         },
         {
           "title": "Review both saved target fields",
@@ -1157,7 +1167,7 @@
       "why": "The job may finish while some checks failed. We need to know whether it reached the right host and successfully performed the checks we expected.",
       "bestPractices": [
         "Watch both the target and scanner during the first run.",
-        "Keep the original baseline settings and evidence so a later comparison has a reliable starting point."
+        "Keep the original starting point settings and saved result so a later comparison has a reliable starting point."
       ],
       "commonMistakes": [
         "Completed means the job ended. It does not guarantee every host and credentialed check succeeded.",
@@ -1246,7 +1256,7 @@
           "actions": [
             "If no host appears, check that the target is on, then compare its real IP, route and VMware discovery setting. A computer can reject ping and still answer other traffic.",
             "If login failed, compare the account format, password or key, permitted logon and SSH/SMB path. Read the target logs. If login worked but local checks failed, look at permissions and the services those checks need.",
-            "For a slow or failed job, inspect scanner load, storage, plugin preparation and simultaneous work. Try one permitted setting based on what you found. Don’t turn off firewalls or SELinux to make the symptom disappear."
+            "For a slow or failed job, check scanner load, storage, plugin preparation and simultaneous work. Try one permitted setting based on what you found. Don’t turn off firewalls or SELinux to make the symptom disappear."
           ],
           "command": "",
           "breakdown": [],
@@ -1270,12 +1280,12 @@
     {
       "id": "nessus-scanning-findings",
       "title": "Read CVEs, CVSS and Plugin Evidence",
-      "description": "Read one result carefully and explain the evidence behind its warning.",
+      "description": "Read one result carefully and explain the saved result behind its warning.",
       "what": "A finding is a warning with supporting details. A CVE names a publicly tracked vulnerability, while a plugin ID names Tenable’s check. They are different labels.",
-      "why": "A severity color is a starting point, not the whole story. Reading the evidence helps us avoid mistaking an old-looking version or a missing permission for a proven problem.",
+      "why": "A severity color is a starting point, not the whole story. Reading the saved result helps us avoid mistaking an old-looking version or a missing permission for a proven problem.",
       "bestPractices": [
         "Keep the actual plugin output and assessment time with your notes about a finding.",
-        "Ask the target owner to help check evidence that looks inconsistent with the installed system."
+        "Ask the target owner to help check saved result that looks inconsistent with the installed system."
       ],
       "commonMistakes": [
         "A plugin ID identifies a Tenable check. It is not automatically a CVE number.",
@@ -1289,11 +1299,15 @@
         }
       ],
       "pass": "You can explain a real finding without inventing a CVE or a score. If no applicable issue was observed, you can record that honestly too.",
-      "exercise": "Write three sentences about a real result: what Nessus detected, what evidence supports it, and what you still need to check.",
+      "exercise": "Write three sentences about a real result: what Nessus detected, what saved result supports it, and what you still need to check.",
       "quiz": [
         {
           "question": "Must every informational finding have a CVE?",
-          "options": ["Yes", "No", "Only on Windows"],
+          "options": [
+            "Yes",
+            "No",
+            "Only on Windows"
+          ],
           "answer": 1,
           "explanation": "Information and configuration findings can exist without a CVE."
         },
@@ -1305,7 +1319,7 @@
             "Plugin output, affected target and solution"
           ],
           "answer": 2,
-          "explanation": "The actual evidence and vendor context guide the remediation."
+          "explanation": "The actual saved result and vendor context guide the remediation."
         }
       ],
       "steps": [
@@ -1319,7 +1333,7 @@
           ],
           "command": "",
           "breakdown": [],
-          "expected": "Your note identifies the actual plugin, target and supporting evidence, with a CVE only if one is present.",
+          "expected": "Your note identifies the actual plugin, target and supporting saved result, with a CVE only if one is present.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Open one finding",
@@ -1373,21 +1387,29 @@
       "troubleshooting": [
         {
           "problem": "The PDF cannot be generated",
-          "fix": "Check the official prerequisites, including the supported Java/OpenJDK requirements where they apply. If needed, agree on another report format that your license permits."
+          "fix": "Check the official things to prepare, including the supported Java/OpenJDK requirements where they apply. If needed, agree on another report format that your license permits."
         }
       ],
       "pass": "Your handoff clearly identifies its format, scope, date, coverage limits and private storage location.",
-      "exercise": "Give your redacted report or clearly labeled manual worksheet to a partner. Ask them to find the target, evidence and suggested next action.",
+      "exercise": "Give your redacted report or clearly labeled manual worksheet to a partner. Ask them to find the target, saved result and suggested next action.",
       "quiz": [
         {
           "question": "Can current Nessus Essentials export reports according to the 10.12 guide?",
-          "options": ["Yes, every format", "No", "Only SQL reports"],
+          "options": [
+            "Yes, every format",
+            "No",
+            "Only SQL reports"
+          ],
           "answer": 1,
           "explanation": "The current guide explicitly limits exports/reports; check your edition."
         },
         {
           "question": "Can report filters change what appears in a report?",
-          "options": ["Yes", "No", "Only if the firewall is off"],
+          "options": [
+            "Yes",
+            "No",
+            "Only if the firewall is off"
+          ],
           "answer": 0,
           "explanation": "Check the visible results and selections before generating the report."
         }
@@ -1419,8 +1441,8 @@
           "where": "Your workstation browser · verified Nessus HTTPS console",
           "actions": [
             "If reports are included, open the completed scan and click Report. Choose an available format and template; for CSV, select the columns you need. Then click Generate Report.",
-            "Open the downloaded file privately. Check the target, date, plugin IDs, severity, evidence and solution. Include the scanner/plugin date and any login or coverage limits in your handoff notes.",
-            "Save the results in the agreed private evidence folder. Keep reports, target lists, licenses and secrets out of GitHub. If your license lacks CSV or PDF, use a permitted alternative or your clearly labeled worksheet."
+            "Open the downloaded file privately. Check the target, date, plugin IDs, severity, saved result and solution. Include the scanner/plugin date and any login or coverage limits in your handoff notes.",
+            "Save the results in the agreed private saved result folder. Keep reports, target lists, licenses and secrets out of GitHub. If your license lacks CSV or PDF, use a permitted alternative or your clearly labeled worksheet."
           ],
           "command": "",
           "breakdown": [],
@@ -1445,7 +1467,7 @@
       "title": "Prioritize and Fix One Finding",
       "description": "Choose a real issue to fix and make a plan before changing the server.",
       "what": "Remediation means fixing the cause of a finding. Let’s choose one real issue, agree on a supported remedy and protect a way back before we touch the target.",
-      "why": "The highest score is not always the first job. Exposure, business importance and evidence help the owner decide what needs attention first.",
+      "why": "The highest score is not always the first job. Exposure, business importance and saved result help the owner decide what needs attention first.",
       "bestPractices": [
         "Make one planned change at a time and keep a way to recover.",
         "Use the vendor’s advisory to identify the actual fixed package or build, not a guessed version."
@@ -1461,7 +1483,7 @@
         }
       ],
       "pass": "The owner has agreed to the chosen fix, and your notes show the change that actually happened. We still need a rescan before calling the issue verified fixed.",
-      "exercise": "Explain why you chose this issue first. Include the evidence, the server’s purpose and the approved recovery plan.",
+      "exercise": "Explain why you chose this issue first. Include the saved result, the server’s purpose and the approved recovery plan.",
       "quiz": [
         {
           "question": "Which action is real remediation?",
@@ -1481,7 +1503,7 @@
             "Record the result and request an approved exercise"
           ],
           "answer": 2,
-          "explanation": "An honest result is better than fabricated evidence or unnecessary exposure."
+          "explanation": "An honest result is better than fabricated saved result or unnecessary exposure."
         }
       ],
       "steps": [
@@ -1489,8 +1511,8 @@
           "title": "Choose and plan a real fix",
           "where": "Private finding worksheet · target owner review",
           "actions": [
-            "Choose one real finding that has a supported fix from the vendor. Write down the plugin or CVE if present, the affected target, evidence, owner, proposed change and due date.",
-            "Talk through why this issue comes first: who can reach it, evidence of exploitation, how important the server is and which protections already exist. The biggest color or score is not the only reason.",
+            "Choose one real finding that has a supported fix from the vendor. Write down the plugin or CVE if present, the affected target, saved result, owner, proposed change and due date.",
+            "Talk through why this issue comes first: who can reach it, saved result of exploitation, how important the server is and which protections already exist. The biggest color or score is not the only reason.",
             "Write down the backup, rebuild or rollback path, the permitted maintenance time and your application checks. If there is no suitable real finding, tell the instructor and ask for an approved exercise. Don’t weaken a system or invent a vulnerability."
           ],
           "command": "",
@@ -1536,10 +1558,10 @@
       "id": "nessus-scanning-rescan",
       "title": "Rescan and Prove the Fix",
       "description": "Check the same target again and see whether the fix really worked.",
-      "what": "We’ll ask Nessus to inspect the affected computer again using equivalent coverage. Then we’ll compare the evidence before and after the change.",
+      "what": "We’ll ask Nessus to check the affected computer again using equivalent coverage. Then we’ll compare the saved result before and after the change.",
       "why": "A warning disappearing only helps if the new scan actually checked the same thing. Failed credentials can make results look better while giving us less information.",
       "bestPractices": [
-        "Keep both sets of evidence and record changes to the policy, plugin date or access."
+        "Keep both sets of saved result and record changes to the policy, plugin date or access."
       ],
       "commonMistakes": [
         "Fewer findings from a scan that could not sign in are not proof of a fix.",
@@ -1551,7 +1573,7 @@
           "fix": "Confirm that you changed the intended host, completed any needed restart and installed the supported package, build or setting from the vendor remedy."
         }
       ],
-      "pass": "You can explain why the evidence supports a fix, why the issue remains, or why there is not enough evidence to decide yet.",
+      "pass": "You can explain why the saved result supports a fix, why the issue remains, or why there is not enough saved result to decide yet.",
       "exercise": "Write a short before-and-after explanation. Use your real results and explain any difference in settings, plugins or access.",
       "quiz": [
         {
@@ -1566,7 +1588,11 @@
         },
         {
           "question": "Should you keep the original baseline?",
-          "options": ["Yes", "No", "Only if the scan failed"],
+          "options": [
+            "Yes",
+            "No",
+            "Only if the scan failed"
+          ],
           "answer": 0,
           "explanation": "It shows what was observed before the change and supports comparison."
         }
@@ -1578,7 +1604,7 @@
           "actions": [
             "Check that the verification job uses the same target, equivalent policy and port coverage, working credentials and ready plugins. Note any plugin date or setting changes that affect the comparison.",
             "Launch the verification job during the permitted time. Keep the original scan and report so you can compare them; don’t delete the baseline.",
-            "When it finishes, confirm the host identity, credentialed-check success and relevant plugin evidence before comparing the warning."
+            "When it finishes, confirm the host identity, credentialed-check success and relevant plugin saved result before comparing the warning."
           ],
           "command": "",
           "breakdown": [],
@@ -1599,12 +1625,12 @@
           "where": "Nessus results and private remediation worksheet",
           "actions": [
             "Compare the same host and plugin in the old and new results. Also check the real installed package, build or setting against the vendor’s fix.",
-            "If the warning disappears but login failed or coverage changed, record “inconclusive”—we don’t yet know. If it remains, review the evidence, any required reboot and patch applicability with the owner.",
-            "Close the item only when the evidence is good enough and the owner agrees. Record the fix date, verification date, rescan ID and any remaining risk."
+            "If the warning disappears but login failed or coverage changed, record “inconclusive”—we don’t yet know. If it remains, review the saved result, any required reboot and patch applicability with the owner.",
+            "Close the item only when the saved result is good enough and the owner agrees. Record the fix date, verification date, rescan ID and any remaining risk."
           ],
           "command": "",
           "breakdown": [],
-          "expected": "Your decision is supported by evidence: fixed, still present, or not enough information yet.",
+          "expected": "Your decision is supported by saved result: fixed, still present, or not enough information yet.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Record the verification decision",
@@ -1730,15 +1756,19 @@
       "troubleshooting": [
         {
           "problem": "The scan report and compliance checklist disagree",
-          "fix": "Review which systems and checks were included, account permissions, the audit version and the applicable requirements with the assessor. Keep both kinds of evidence while resolving the difference."
+          "fix": "Review which systems and checks were included, account permissions, the audit version and the applicable requirements with the assessor. Keep both kinds of saved result while resolving the difference."
         }
       ],
-      "pass": "You can explain what your scan evidence supports and what still needs a separate compliance, risk or authorization decision.",
+      "pass": "You can explain what your scan saved result supports and what still needs a separate compliance, risk or authorization decision.",
       "exercise": "Make one clearly labeled training POA&M-style row. Explain who would own the fix and which real role would decide whether remaining risk can be accepted.",
       "quiz": [
         {
           "question": "Does a clean vulnerability scan prove STIG compliance?",
-          "options": ["Yes", "No", "Only on Server 2022"],
+          "options": [
+            "Yes",
+            "No",
+            "Only on Server 2022"
+          ],
           "answer": 1,
           "explanation": "Configuration audits and manual requirements are separate evidence."
         },
@@ -1764,7 +1794,7 @@
           ],
           "command": "",
           "breakdown": [],
-          "expected": "You can distinguish vulnerability evidence, compliance evidence and the separate decision to accept risk.",
+          "expected": "You can distinguish vulnerability saved result, compliance saved result and the separate decision to accept risk.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Separate the products and evidence types",
@@ -1780,9 +1810,9 @@
           "title": "Create a practice POA&M-style record",
           "where": "Private lab notes · no scan launched",
           "actions": [
-            "Make one practice record for a reviewed real finding. Include the asset, plugin or CVE when it has one, what is wrong, evidence date, why it matters, who owns the fix, milestones, due date and how you plan to check the fix.",
+            "Make one practice record for a reviewed real finding. Include the asset, plugin or CVE when it has one, what is wrong, saved result date, why it matters, who owns the fix, milestones, due date and how you plan to check the fix.",
             "Label the row a training worksheet, not an official agency POA&M. Real organizations set their own required format, deadlines and approval process.",
-            "Think of RMF as the wider risk-management process. Scan evidence can help assessment and continuing monitoring, but designated officials decide risk acceptance and authorization. A clean scan or changed color does not grant an authorization to operate."
+            "Think of RMF as the wider risk-management process. Scan saved result can help assessment and continuing monitoring, but designated officials decide risk acceptance and authorization. A clean scan or changed color does not grant an authorization to operate."
           ],
           "command": "",
           "breakdown": [],
@@ -1806,24 +1836,24 @@
       "id": "nessus-scanning-final",
       "title": "Final Lab: Scan, Fix and Verify Two Targets",
       "description": "Put the whole process together: scan two targets, explain a result, fix one issue and check again.",
-      "what": "This is your chance to lead the work. We’ll start with permission and target identity, run the agreed checks, review real evidence, make one supported fix and verify it.",
+      "what": "This is your chance to lead the work. We’ll start with permission and target identity, run the agreed checks, review real saved result, make one supported fix and verify it.",
       "why": "A careful, explainable process is more useful than a dramatic result. Someone else should be able to see how you reached your conclusion.",
       "bestPractices": [
-        "Ask your instructor to review the final evidence pack with you.",
+        "Ask your instructor to review the final saved result pack with you.",
         "Keep detailed reports, passwords, license files and private keys out of the repository."
       ],
       "commonMistakes": [
         "A simulated picture or capture reminder is not a real scan result.",
-        "Call a fix verified only after an equivalent, successful rescan and the relevant evidence checks."
+        "Call a fix verified only after an equivalent, successful rescan and the relevant saved result checks."
       ],
       "troubleshooting": [
         {
           "problem": "A required part of the lab is unavailable",
-          "fix": "Keep the practical marked unfinished. Save the plan and the evidence you really collected, then resume when the permitted systems, files or license are available."
+          "fix": "Keep the practical marked unfinished. Save the plan and the saved result you really collected, then resume when the permitted systems, files or license are available."
         }
       ],
       "pass": "Your instructor can follow permission → target identity → useful scan coverage → finding → approved fix → valid rescan → cleanup. If real scanning or fixing was not possible, the practical remains unfinished.",
-      "exercise": "Present your redacted evidence pack and explain one limitation or remaining question out loud. Let your instructor trace the work from permission through cleanup.",
+      "exercise": "Present your redacted saved result pack and explain one limitation or remaining question out loud. Let your instructor trace the work from permission through cleanup.",
       "quiz": [
         {
           "question": "How many machines does the final lab require?",
@@ -1853,7 +1883,7 @@
           "actions": [
             "Bring up three separate consoles: the scanner, AlmaLinux 9 target and Windows Server 2022 member target. Read back their identities and the exact two target IPs. The scanner is not one of the vulnerability targets.",
             "Check the scope agreement, private network, license, account owner, safe settings, recovery plan, scan time and stop contact. Leave the scanner and all unrelated devices out of the target fields.",
-            "Make two named saved jobs, one for each target. Where your license supports it, use the reviewed baseline policy for both. Add the right permitted SSH or Windows credentials and finish the credential checks."
+            "Make two named saved jobs, one for each target. Where your license supports it, use the reviewed starting point policy for both. Add the right permitted SSH or Windows credentials and finish the credential checks."
           ],
           "command": "",
           "breakdown": [],
@@ -1875,7 +1905,7 @@
           "actions": [
             "Launch the Alma job first and watch it. Check the expected host and credentialed-check coverage when it finishes. Run the Windows job when your resources and license allow it.",
             "For each target, record the actual date, plugin set, coverage and one meaningful result. An informational result is fine; never invent a vulnerability or a target finding count.",
-            "With your instructor, select a real finding and explain its plugin evidence, CVE/CVSS information when present, exposure and fix priority. Make the licensed report or a clearly labeled manual worksheet."
+            "With your instructor, select a real finding and explain its plugin saved result, CVE/CVSS information when present, exposure and fix priority. Make the licensed report or a clearly labeled manual worksheet."
           ],
           "command": "",
           "breakdown": [],
@@ -1899,11 +1929,11 @@
           "actions": [
             "With the owner’s agreement, apply one supported fix to a real issue and record the application and recovery checks. If there is no suitable issue, explain that to the instructor instead of weakening the target to make one appear.",
             "Rescan the affected target with equivalent coverage and working credentials. Compare the real before-and-after evidence. Mark the issue fixed, still present or inconclusive according to what the checks support.",
-            "Present the scope note, redacted scan evidence, change worksheet and verification decision. Remove temporary access and turn off practice schedules when the exercise ends."
+            "Present the scope note, redacted scan saved result, change worksheet and verification decision. Remove temporary access and turn off practice schedules when the exercise ends."
           ],
           "command": "",
           "breakdown": [],
-          "expected": "Your evidence pack shows the fix and valid rescan, or clearly explains which real-world checks remain unfinished.",
+          "expected": "Your saved result pack shows the fix and valid rescan, or clearly explains which real-world checks remain unfinished.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Remediate one issue and prove the result",

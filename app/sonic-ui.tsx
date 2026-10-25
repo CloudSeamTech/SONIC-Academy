@@ -1,10 +1,10 @@
 'use client';
+import { WorkspaceStart } from './workspace-start';
+import { learnerActions } from '../lib/learner-directions';
 import { FocusStepControl } from './focus-step-control';
 
 import { useEffect, useState, type ReactNode } from 'react';
 import { LabStepNav } from './lab-step-nav';
-import { SessionGuide } from './session-guide';
-import { smallActions } from '@/lib/beginner-directions';
 import { InstructionScreenshots } from './instruction-screenshots';
 import { StepTeachingNotes } from './step-teaching-notes';
 import { readableStepTitle } from '@/lib/lesson-headings';
@@ -306,11 +306,11 @@ export function SonicWalkthrough({
                 <p className="walkthrough-location">
                   WHERE TO WORK: {step.where}
                 </p>
-                {index === 0 && (
-                  <section className="sonic-action-assist">
-                    <h4>Open your workspace</h4>
-                    <SessionGuide location={step.where} />
-                  </section>
+                {(index === 0 || step.where !== steps[index - 1].where) && (
+                  <WorkspaceStart
+                    where={step.where}
+                    action={step.actions.join(' ')}
+                  />
                 )}
                 <StepTeachingNotes
                   lessonId={lessonId || 'linux'}
@@ -319,22 +319,14 @@ export function SonicWalkthrough({
                   command={step.command}
                   expected={step.expected}
                 />
-                <b className="sonic-action-label">DO THIS NOW · IN YOUR LAB</b>
-                <ol>
+                <b className="sonic-action-label">Let’s try it</b>
+                <ul className="learner-action-list">
                   {step.actions
-                    .flatMap(smallActions)
+                    .flatMap(learnerActions)
                     .map((action, actionIndex) => (
                       <li key={`${actionIndex}-${action}`}>{action}</li>
                     ))}
-                </ol>
-                {lessonId && (
-                  <section className="sonic-action-visual">
-                    <h4>See it on screen</h4>
-                    <InstructionScreenshots
-                      stepId={`${lessonId}:${variant}:${index + 1}`}
-                    />
-                  </section>
-                )}
+                </ul>
                 {step.command && (
                   <SonicTerminal
                     shell={step.where}
@@ -348,6 +340,14 @@ export function SonicWalkthrough({
                     <br />
                     {step.expected}
                   </p>
+                )}
+                {lessonId && (
+                  <section className="sonic-action-visual">
+                    <h4>See it on screen</h4>
+                    <InstructionScreenshots
+                      stepId={`${lessonId}:${variant}:${index + 1}`}
+                    />
+                  </section>
                 )}
               </div>
             </section>

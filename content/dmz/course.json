@@ -85,7 +85,7 @@
           "fix": "Stop and compare the MAC address and VMnet assignment on each adapter. Use the VMware console to recover access; do not guess which interface is private."
         }
       ],
-      "pass": "A saved diagram, resource budget and non-overlapping address inventory are complete.",
+      "pass": "A saved diagram, resource budget and different, non-overlapping address inventory are complete.",
       "exercise": "Explain the request route to someone who has never configured a firewall. Point out why a reverse proxy is not a WAF or a replacement for patching.",
       "quiz": [
         {
@@ -108,7 +108,7 @@
             "Picture someone opening your help desk in a browser. They ask for a page; they do not need access to your server’s desktop or database.",
             "Write this route in your notes: TEST01 visitor → FW01 firewall → PROXY01 gateway in the DMZ → IIS-DMZ01 private website.",
             "The DMZ contains PROXY01 only. IIS-DMZ01 stays on its own private application network. DC01, DC02 and SQL stay out of the DMZ.",
-            "Use app-dmz.cloudseam.tech as the visitor’s practice website name. This does not create a public DNS record or change cloudseam.tech.",
+            "Use app-dmz.lab.example.test as the visitor’s practice website name. This does not create a public DNS record or change lab.example.test.",
             "In this class we build a harmless test page, not another osTicket installation. A real help desk would use the same approved web route, with its own application and database connections reviewed separately."
           ],
           "breakdown": [
@@ -559,7 +559,7 @@
           "where": "Windows host browser · FW01 Interfaces",
           "actions": [
             "Sign in to the firewall web page as root with your own password. Write the installed OPNsense version in your notebook.",
-            "Open System → Settings → General. Set Hostname to fw01 and Domain to cloudseam.tech. Save. This names the firewall; it does not join a Windows domain or change public DNS.",
+            "Open System → Settings → General. Set Hostname to fw01 and Domain to lab.example.test. Save. This names the firewall; it does not join a Windows domain or change public DNS.",
             "Open Interfaces → OPT1. Check Enable, set Description to DMZ and confirm 10.60.0.1/24. Save and apply.",
             "Open Interfaces → OPT2. Check Enable, set Description to APP_PRIVATE and confirm 10.80.0.1/24. Save and apply. LAN remains private management; WAN is our pretend OUTSIDE.",
             "Open Interfaces → WAN. For this isolated practice network only, clear Block private networks. Also clear Block bogon networks if it blocks this lab range. Save and apply.",
@@ -772,7 +772,7 @@
             "Open IIS Manager → Sites. Look for DMZ-Lab. Its first test address is 127.0.0.1:8080, which works only from IIS-DMZ01 itself.",
             "Run the local health check in the block. You should see the practice page. If it fails here, fix IIS before moving on to firewall or gateway testing."
           ],
-          "command": "if ($env:COMPUTERNAME -ne 'IIS-DMZ01') { throw 'Wrong VM. Stop here.' }\nInstall-WindowsFeature Web-Server -IncludeManagementTools\nImport-Module WebAdministration\nNew-Item -ItemType Directory -Path C:\\inetpub\\dmz-lab -Force\n'<h1>CloudSeam DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\\inetpub\\dmz-lab\\index.html\nStop-Website 'Default Web Site'\nNew-Website -Name 'DMZ-Lab' -PhysicalPath C:\\inetpub\\dmz-lab -IPAddress 127.0.0.1 -Port 8080\n(Invoke-WebRequest http://127.0.0.1:8080 -UseBasicParsing).StatusCode",
+          "command": "if ($env:COMPUTERNAME -ne 'IIS-DMZ01') { throw 'Wrong VM. Stop here.' }\nInstall-WindowsFeature Web-Server -IncludeManagementTools\nImport-Module WebAdministration\nNew-Item -ItemType Directory -Path C:\\inetpub\\dmz-lab -Force\n'<h1>Practice DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\\inetpub\\dmz-lab\\index.html\nStop-Website 'Default Web Site'\nNew-Website -Name 'DMZ-Lab' -PhysicalPath C:\\inetpub\\dmz-lab -IPAddress 127.0.0.1 -Port 8080\n(Invoke-WebRequest http://127.0.0.1:8080 -UseBasicParsing).StatusCode",
           "breakdown": [
             {
               "term": "Install-WindowsFeature",
@@ -788,7 +788,7 @@
             "status": "illustration",
             "assetId": "dmz-iis-screen-2",
             "title": "Install IIS and open your test page",
-            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The local health request returns the CloudSeam training page from the DMZ-Lab site."
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The local health request returns the practice help desk test page from the DMZ-Lab site."
           },
           "sources": [
             "https://docs.opnsense.org/manual/virtuals.html",
@@ -810,13 +810,13 @@
           "where": "IIS-DMZ01 · elevated PowerShell, then IIS Manager → DMZ-Lab → Bindings",
           "actions": [
             "Stay in IIS-DMZ01’s administrator PowerShell. Run the command block below once. It creates a 30-day test certificate and adds HTTPS to DMZ-Lab.",
-            "A certificate helps the gateway check that it has reached the right website. Our private HTTPS name is iis-backend.cloudseam.tech.",
-            "Open IIS Manager → Sites → DMZ-Lab → Bindings. Check Type https, IP 10.80.0.40, Port 443 and Host name iis-backend.cloudseam.tech.",
+            "A certificate helps the gateway check that it has reached the right website. Our private HTTPS name is iis-backend.lab.example.test.",
+            "Open IIS Manager → Sites → DMZ-Lab → Bindings. Check Type https, IP 10.80.0.40, Port 443 and Host name iis-backend.lab.example.test.",
             "Check that SNI is enabled and the selected certificate is DMZ-Lab backend. SNI tells IIS which named HTTPS site the request wants.",
             "Open C:\\DMZ-Lab\\backend-public.pem. It should have BEGIN CERTIFICATE and END CERTIFICATE lines. It must not contain PRIVATE KEY.",
             "Keep the private key in Windows. Only copy the public PEM file later. This short-lived self-signed certificate is for our lab; real sites need managed trust and renewal."
           ],
-          "command": "$cert = New-SelfSignedCertificate -DnsName 'iis-backend.cloudseam.tech' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)\nNew-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.cloudseam.tech' -SslFlags 1\n(Get-WebBinding -Name 'DMZ-Lab' -Protocol https).AddSslCertificate($cert.Thumbprint, 'My')\nNew-Item -ItemType Directory C:\\DMZ-Lab -Force\n$pem = '-----BEGIN CERTIFICATE-----' + \"`r`n\" + [Convert]::ToBase64String($cert.RawData, [System.Base64FormattingOptions]::InsertLineBreaks) + \"`r`n-----END CERTIFICATE-----`r`n\"\n$pem | Set-Content C:\\DMZ-Lab\\backend-public.pem -Encoding Ascii",
+          "command": "$cert = New-SelfSignedCertificate -DnsName 'iis-backend.lab.example.test' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)\nNew-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.lab.example.test' -SslFlags 1\n(Get-WebBinding -Name 'DMZ-Lab' -Protocol https).AddSslCertificate($cert.Thumbprint, 'My')\nNew-Item -ItemType Directory C:\\DMZ-Lab -Force\n$pem = '-----BEGIN CERTIFICATE-----' + \"`r`n\" + [Convert]::ToBase64String($cert.RawData, [System.Base64FormattingOptions]::InsertLineBreaks) + \"`r`n-----END CERTIFICATE-----`r`n\"\n$pem | Set-Content C:\\DMZ-Lab\\backend-public.pem -Encoding Ascii",
           "breakdown": [
             {
               "term": "-DnsName",
@@ -831,7 +831,7 @@
               "meaning": "A text-encoded certificate used for verification. It must not include the server’s private key."
             }
           ],
-          "expected": "IIS has the HTTPS binding for iis-backend.cloudseam.tech. backend-public.pem contains the public certificate, with no private key.",
+          "expected": "IIS has the HTTPS binding for iis-backend.lab.example.test. backend-public.pem contains the public certificate, with no private key.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-iis-screen-3",
@@ -943,7 +943,7 @@
             "If you still see a VMnet8/NAT address, shut down PROXY01 and fix its VMware adapter before continuing.",
             "Run timedatectl. Check the date and time. A badly wrong clock can make a valid certificate appear expired."
           ],
-          "command": "sudo hostnamectl set-hostname proxy01.cloudseam.tech\nnmcli connection show\n# Replace YOUR_CONNECTION with the exact Ethernet profile name above.\nsudo nmcli connection modify \"YOUR_CONNECTION\" ipv4.method manual ipv4.addresses 10.60.0.10/24 ipv4.gateway 10.60.0.1 ipv4.dns \"\" ipv6.method disabled\nsudo nmcli connection up \"YOUR_CONNECTION\"\nip -4 address\nip -4 route\ntimedatectl",
+          "command": "sudo hostnamectl set-hostname proxy01.lab.example.test\nnmcli connection show\n# Replace YOUR_CONNECTION with the exact Ethernet profile name above.\nsudo nmcli connection modify \"YOUR_CONNECTION\" ipv4.method manual ipv4.addresses 10.60.0.10/24 ipv4.gateway 10.60.0.1 ipv4.dns \"\" ipv6.method disabled\nsudo nmcli connection up \"YOUR_CONNECTION\"\nip -4 address\nip -4 route\ntimedatectl",
           "breakdown": [
             {
               "term": "Connection profile",
@@ -987,7 +987,7 @@
             "On FW01, open Firewall → Log Files → Live View. Find a Pass for source 10.60.0.10 and rule DMZ_PROXY_TO_IIS_443.",
             "If the request fails, check the address, rule, IIS binding, certificate name and clock. Get this direct gateway-to-IIS test working before adding the gateway service."
           ],
-          "command": "sudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\nsudo cp /mnt/dmz-transfer/backend-public.pem /etc/pki/tls/certs/iis-backend.pem\ncurl --cacert /etc/pki/tls/certs/iis-backend.pem --resolve iis-backend.cloudseam.tech:443:10.80.0.40 --connect-timeout 5 https://iis-backend.cloudseam.tech/",
+          "command": "sudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\nsudo cp /mnt/dmz-transfer/backend-public.pem /etc/pki/tls/certs/iis-backend.pem\ncurl --cacert /etc/pki/tls/certs/iis-backend.pem --resolve iis-backend.lab.example.test:443:10.80.0.40 --connect-timeout 5 https://iis-backend.lab.example.test/",
           "breakdown": [
             {
               "term": "--cacert",
@@ -1024,24 +1024,24 @@
           "title": "Create the gateway’s test certificate",
           "where": "PROXY01 · AlmaLinux console",
           "actions": [
-            "Stay on PROXY01. Run the OpenSSL block below to make a second, 30-day test certificate. This one belongs to app-dmz.cloudseam.tech, the name visitors use.",
+            "Stay on PROXY01. Run the OpenSSL block below to make a second, 30-day test certificate. This one belongs to app-dmz.lab.example.test, the name visitors use.",
             "The command sets the private key to permission 600. That means only its owner, root, can read or change it.",
-            "Run the inspection command in the block. Check the certificate name and dates. SAN lists the names that the certificate covers; it must include app-dmz.cloudseam.tech.",
+            "Run the inspection command in the block. Check the certificate name and dates. SAN lists the names that the certificate covers; it must include app-dmz.lab.example.test.",
             "Copy only dmz-front.crt into the shared folder, with filename proxy-public.crt. TEST01 needs this public file to check the gateway’s identity.",
             "Never copy dmz-front.key. A real public website would use a trusted certificate service and renewal, not this temporary test certificate."
           ],
-          "command": "sudo openssl req -x509 -nodes -newkey rsa:3072 -sha256 -days 30 -keyout /etc/pki/tls/private/dmz-front.key -out /etc/pki/tls/certs/dmz-front.crt -subj \"/CN=app-dmz.cloudseam.tech\" -addext \"subjectAltName=DNS:app-dmz.cloudseam.tech\"\nsudo chmod 600 /etc/pki/tls/private/dmz-front.key\nopenssl x509 -in /etc/pki/tls/certs/dmz-front.crt -noout -subject -dates -ext subjectAltName\nsudo cp /etc/pki/tls/certs/dmz-front.crt /mnt/dmz-transfer/proxy-public.crt",
+          "command": "sudo openssl req -x509 -nodes -newkey rsa:3072 -sha256 -days 30 -keyout /etc/pki/tls/private/dmz-front.key -out /etc/pki/tls/certs/dmz-front.crt -subj \"/CN=app-dmz.lab.example.test\" -addext \"subjectAltName=DNS:app-dmz.lab.example.test\"\nsudo chmod 600 /etc/pki/tls/private/dmz-front.key\nopenssl x509 -in /etc/pki/tls/certs/dmz-front.crt -noout -subject -dates -ext subjectAltName\nsudo cp /etc/pki/tls/certs/dmz-front.crt /mnt/dmz-transfer/proxy-public.crt",
           "breakdown": [
             {
               "term": "SAN",
-              "meaning": "The certificate name must match app-dmz.cloudseam.tech, the name the visitor requests."
+              "meaning": "The certificate name must match app-dmz.lab.example.test, the name the visitor requests."
             },
             {
               "term": "Private key",
               "meaning": "The secret file stays on the proxy with restrictive permissions. Only the public certificate goes to TEST01."
             }
           ],
-          "expected": "The gateway certificate covers app-dmz.cloudseam.tech and has the expected dates. Only root can read its private key.",
+          "expected": "The gateway certificate covers app-dmz.lab.example.test and has the expected dates. Only root can read its private key.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-proxy-screen-3",
@@ -1069,8 +1069,8 @@
           "actions": [
             "On the Windows host, click NGINX configuration in this step’s downloads. Save nginx-dmz.conf in C:\\DMZ-Transfer.",
             "Open the file and read it first. It sends requests to private IIS at 10.80.0.40:443. It does not point at APP01.",
-            "On PROXY01, run the copy command below. It places the file at /etc/nginx/conf.d/dmz.conf. The gateway listens at 10.60.0.10:443 for app-dmz.cloudseam.tech.",
-            "Keep proxy_ssl_verify on. Keep proxy_ssl_name set to iis-backend.cloudseam.tech and keep the backend PEM trust file. These settings check the private IIS certificate instead of blindly trusting any server.",
+            "On PROXY01, run the copy command below. It places the file at /etc/nginx/conf.d/dmz.conf. The gateway listens at 10.60.0.10:443 for app-dmz.lab.example.test.",
+            "Keep proxy_ssl_verify on. Keep proxy_ssl_name set to iis-backend.lab.example.test and keep the backend PEM trust file. These settings check the private IIS certificate instead of blindly trusting any server.",
             "The file replaces X-Forwarded-For with the visitor’s actual connection address. That header carries a client address; it is not proof that a user is signed in.",
             "Run nginx -t. Look for a successful configuration test. Fix any reported file path, certificate or syntax error before starting NGINX."
           ],
@@ -1082,7 +1082,7 @@
             },
             {
               "term": "proxy_ssl_name",
-              "meaning": "The verified TLS name is iis-backend.cloudseam.tech even though the connection uses the IP 10.80.0.40."
+              "meaning": "The verified TLS name is iis-backend.lab.example.test even though the connection uses the IP 10.80.0.40."
             },
             {
               "term": "Host header",
@@ -1211,7 +1211,7 @@
             "Check VMware Settings: TEST01 must have just one adapter, Custom VMnet4. It should have no private or DMZ adapter.",
             "Use TEST01 for visitor tests. It acts like an outside user while staying inside this isolated lab."
           ],
-          "command": "sudo hostnamectl set-hostname test01.cloudseam.tech\nip -4 address\nip -4 route",
+          "command": "sudo hostnamectl set-hostname test01.lab.example.test\nip -4 address\nip -4 route",
           "breakdown": [
             {
               "term": "Outside simulator",
@@ -1259,7 +1259,7 @@
             },
             {
               "term": "No internal source NAT",
-              "meaning": "The private IIS connection should retain PROXY01’s 10.60.0.10 source, which its Windows firewall expects."
+              "meaning": "The private IIS connection should keep PROXY01’s 10.60.0.10 source, which its Windows firewall expects."
             }
           ],
           "expected": "One HTTPS forwarding rule sends the practice visitor to PROXY01. There is no direct outside forward to IIS.",
@@ -1328,14 +1328,14 @@
           "title": "Open the page through the full route",
           "where": "TEST01 · AlmaLinux Terminal",
           "actions": [
-            "In TEST01 Terminal, run the curl command below. It asks for app-dmz.cloudseam.tech through FW01’s outside address, 10.70.0.1.",
+            "In TEST01 Terminal, run the curl command below. It asks for app-dmz.lab.example.test through FW01’s outside address, 10.70.0.1.",
             "--resolve supplies a local address for this one request, so no public DNS change is needed. --cacert checks the gateway against the public certificate you copied.",
-            "Look for the CloudSeam DMZ practice page. Do not add -k if the certificate check fails.",
+            "Look for the Practice DMZ practice page. Do not add -k if the certificate check fails.",
             "On FW01, open Live View and find the outside allow followed by the DMZ-to-IIS allow. On PROXY01, check the access log for TEST01’s address and request path.",
             "Save the request time and what you actually saw in My lab notebook. The illustrated output is an example, not proof that your own test worked.",
             "The example page identifies the backend to help you learn. Real public pages should not reveal internal server names."
           ],
-          "command": "curl --fail --show-error --cacert ~/dmz-lab/proxy-public.crt --resolve app-dmz.cloudseam.tech:443:10.70.0.1 --connect-timeout 5 \"https://app-dmz.cloudseam.tech/?labtrace=DMZ01\"",
+          "command": "curl --fail --show-error --cacert ~/dmz-lab/proxy-public.crt --resolve app-dmz.lab.example.test:443:10.70.0.1 --connect-timeout 5 \"https://app-dmz.lab.example.test/?labtrace=DMZ01\"",
           "breakdown": [
             {
               "term": "Two verified TLS hops",
@@ -1378,10 +1378,10 @@
       "why": "A working page is only half the test. We also need to show that unwanted connections fail for the right reason. A matching firewall log tells us which rule blocked the request.",
       "needs": [
         "Keep the successful end-to-end request and direct backend test as baselines.",
-        "Only test the approved practice IPs and named ports. Do not scan public addresses or unrelated machines."
+        "Only test the your practice IPs and named ports. Do not scan public addresses or unrelated machines."
       ],
       "bestPractices": [
-        "Keep a positive baseline and correlate each failed test with its actual firewall decision."
+        "Keep a positive starting point and match each failed test with its actual firewall decision."
       ],
       "commonMistakes": [
         "Calling every timeout a security success without finding why the connection failed."
@@ -1403,7 +1403,7 @@
             "Only if ping also fails"
           ],
           "answer": 1,
-          "explanation": "A missing route, stopped listener and firewall block can look similar from the client. Correlated evidence avoids guessing."
+          "explanation": "A missing route, stopped listener and firewall block can look similar from the client. Correlated saved result avoids guessing."
         }
       ],
       "steps": [
@@ -1495,7 +1495,7 @@
           "where": "Windows host browser · FW01 Live View and Workstation settings",
           "actions": [
             "On FW01, open Firewall → Log Files → Live View. For each test, filter by its source and destination. Record the time, interface, rule name and Pass or Block result.",
-            "Download Traffic test checklist below. Fill in your observed results; the planned result is not evidence until you test it.",
+            "Download Traffic test checklist below. Fill in your observed results; the planned result is not saved result until you test it.",
             "In VMware Settings, check FW01’s four custom adapters. Check that PROXY01, IIS-DMZ01 and TEST01 each have only one.",
             "Confirm temporary Shared Folders are off and no NAT or bridged bypass adapter remains.",
             "Check that firewall administration still works from your Windows host’s private management adapter. Do not use that host as your outside visitor test.",
@@ -1549,7 +1549,7 @@
         "Save FW01 configuration privately, copy the NGINX configuration locally and keep all VM consoles available."
       ],
       "bestPractices": [
-        "Change one thing at a time, record a baseline and retest allowed and blocked paths after rollback."
+        "Change one thing at a time, record a starting point and retest allowed and blocked paths after rollback."
       ],
       "commonMistakes": [
         "Opening extra ports or disabling certificate verification to hide an unresolved upstream error."
@@ -1664,7 +1664,7 @@
           "actions": [
             "On PROXY01, run nginx -t and systemctl status nginx. Then run the verified direct backend curl test. Read the exact error before changing anything.",
             "If the certificate is expired, check the clock first. If it really expired, renew the lab certificate and verify the replacement public file before updating the trust file. Keep the old configuration and certificate backed up.",
-            "If the error says the name does not match, compare proxy_ssl_name in NGINX, the certificate SAN and the IIS SNI binding. All must use iis-backend.cloudseam.tech.",
+            "If the error says the name does not match, compare proxy_ssl_name in NGINX, the certificate SAN and the IIS SNI binding. All must use iis-backend.lab.example.test.",
             "If the error says permission denied, check the SELinux setting and audit log. Leave SELinux enforcing. If the request times out, check the firewall rule and whether IIS is listening.",
             "After your fix, run nginx -t before reloading NGINX. Repeat the allowed and blocked tests. Do not turn off certificate verification as a shortcut."
           ],
@@ -1746,7 +1746,7 @@
       "why": "The same idea works in Azure: a public web doorway in front of a private application. The services and bills are different, so this lesson is a plan. It does not create paid Azure resources.",
       "needs": [
         "Finish the on-premises traffic and recovery tests.",
-        "This lesson is planning only. It does not ask you to deploy Azure resources or alter the live cloudseam.tech website."
+        "This lesson is planning only. It does not ask you to deploy Azure resources or alter the live academy website."
       ],
       "bestPractices": [
         "Cost the whole architecture and define cleanup before approving a cloud deployment."
@@ -1779,7 +1779,7 @@
           "title": "Draw the same design in Azure",
           "where": "Your notebook · Azure architecture planning",
           "actions": [
-            "Draw an Azure version of the same route: visitor → Application Gateway WAF v2 → private IIS VM. WAF means web application firewall; it can inspect web requests for common attacks.",
+            "Draw an Azure version of the same route: visitor → Application Gateway WAF v2 → private IIS VM. WAF means web application firewall; it can check web requests for common attacks.",
             "Give Application Gateway its own dedicated subnet. Put IIS in a separate private subnet with no public IP on the VM.",
             "Plan to allow backend HTTPS only from the approved gateway and approved administration path. Use Azure Network Security Groups, or NSGs, plus the Windows firewall. Do not allow all Internet traffic to IIS.",
             "Keep AD and databases private. Add only the application and management connections they really require; plan private DNS and private endpoints where needed.",
@@ -1793,7 +1793,7 @@
             },
             {
               "term": "Private backend",
-              "meaning": "The application has no VM public IP. Its inbound web traffic is restricted to the approved ingress service."
+              "meaning": "The application has no VM public IP. Its inbound web traffic is restricted to the approved incoming traffic service."
             }
           ],
           "expected": "Your Azure drawing puts the public gateway and private IIS in separate subnets. The IIS VM has no public IP.",

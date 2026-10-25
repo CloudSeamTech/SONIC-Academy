@@ -278,7 +278,7 @@
     "id": "splunk-security-data-1",
     "src": "/splunk/splunk-security-data-1.svg",
     "original": "Original SONIC-Academy training illustration",
-    "sha256": "d33a921289bb47f1fb4b81540125803aab94e4c88c26ab662df62bd90fea0100",
+    "sha256": "7907e4adba24877b7a12e43e23481816432bbda424e6c229115042c3261664ed",
     "title": "Upload the security CSV once — illustrated interface with CloudSeam values",
     "platform": "Splunk-style training mockup",
     "source": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views",

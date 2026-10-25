@@ -1,8 +1,8 @@
-import { everydayWords, smallActions } from '@/lib/beginner-directions';
+import { learnerActions } from '@/lib/learner-directions';
 export function BeginnerActions({ text }: { text: string }) {
   return (
     <ol className="beginner-actions">
-      {smallActions(text).map((action, index) => (
+      {learnerActions(text).map((action, index) => (
         <li key={`${index}-${action}`}>{action}</li>
       ))}
     </ol>
@@ -10,16 +10,10 @@ export function BeginnerActions({ text }: { text: string }) {
 }
 export function BeginnerWords() {
   return (
-    <details className="beginner-words">
-      <summary>New to computers? Start with these words</summary>
-      <dl>
-        {everydayWords.map(([word, meaning]) => (
-          <div key={word}>
-            <dt>{word}</dt>
-            <dd>{meaning}</dd>
-          </div>
-        ))}
-      </dl>
-    </details>
+    <p className="beginner-words-link">
+      <a href="/lab-guide#words">
+        New to an IT term? Open the plain-English word guide →
+      </a>
+    </p>
   );
 }

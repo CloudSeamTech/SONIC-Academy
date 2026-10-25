@@ -34,7 +34,7 @@
   },
   "alma-terminal": {
     "welcome": "Let’s get comfortable with the terminal one small task at a time. We’ll make a practice folder, create a tiny file, and learn how to find help when a command is unfamiliar.",
-    "why": "The terminal is another way to tell your computer what to do. Practicing in your own disposable folder makes the results easier to understand.",
+    "why": "The terminal is another way to tell your computer what to do. Practicing in your own practice folder makes the results easier to understand.",
     "needs": [
       "You’ll need your AlmaLinux GNOME desktop, signed in as your normal user.",
       "We’ll use only a practice folder inside your home folder; no valuable files need to be changed.",
@@ -84,7 +84,7 @@
       "For printing, have a supported printer and its confirmed name or address.",
       "For file sharing, have the exact permitted share address and an account allowed to open it; don’t enter secrets into the class page."
     ],
-    "firstMove": "Open Settings → Network and inspect the active connection. In VMware, virtual Ethernet is normal even if Windows is on Wi-Fi.",
+    "firstMove": "Open Settings → Network and check the active connection. In VMware, virtual Ethernet is normal even if Windows is on Wi-Fi.",
     "reassurance": "If the printer or Bluetooth device isn’t visible inside the VM, check whether it has been connected to the guest. Don’t reset the whole network first."
   },
   "alma-wd-drive": {
@@ -114,7 +114,7 @@
     "why": "Changing one thing at a time makes it easier to tell which action actually helped and how to undo it if needed.",
     "needs": [
       "You’ll need your normal AlmaLinux terminal and notes about the last working state.",
-      "Pick a real, harmless problem to inspect; you do not need to break anything for this class.",
+      "Pick a real, harmless problem to check; you do not need to break anything for this class.",
       "Have administrator access available only when a log or check requires it, and keep SELinux and the firewall enabled."
     ],
     "firstMove": "Write down what failed, when it started, the exact error, and the last change you remember.",

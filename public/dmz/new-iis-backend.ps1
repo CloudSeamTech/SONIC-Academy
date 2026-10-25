@@ -9,13 +9,13 @@ if ($env:COMPUTERNAME -ne 'IIS-DMZ01') { throw 'Wrong VM. Stop here.' }
 Install-WindowsFeature Web-Server -IncludeManagementTools
 Import-Module WebAdministration
 New-Item -ItemType Directory -Path C:\inetpub\dmz-lab -Force
-'<h1>CloudSeam DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\inetpub\dmz-lab\index.html
+'<h1>Practice DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\inetpub\dmz-lab\index.html
 Stop-Website 'Default Web Site'
 New-Website -Name 'DMZ-Lab' -PhysicalPath C:\inetpub\dmz-lab -IPAddress 127.0.0.1 -Port 8080
 (Invoke-WebRequest http://127.0.0.1:8080 -UseBasicParsing).StatusCode
 
-$cert = New-SelfSignedCertificate -DnsName 'iis-backend.cloudseam.tech' -CertStoreLocation 'Cert:\LocalMachine\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)
-New-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.cloudseam.tech' -SslFlags 1
+$cert = New-SelfSignedCertificate -DnsName 'iis-backend.lab.example.test' -CertStoreLocation 'Cert:\LocalMachine\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)
+New-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.lab.example.test' -SslFlags 1
 (Get-WebBinding -Name 'DMZ-Lab' -Protocol https).AddSslCertificate($cert.Thumbprint, 'My')
 New-Item -ItemType Directory C:\DMZ-Lab -Force
 $pem = '-----BEGIN CERTIFICATE-----' + "`r`n" + [Convert]::ToBase64String($cert.RawData, [System.Base64FormattingOptions]::InsertLineBreaks) + "`r`n-----END CERTIFICATE-----`r`n"

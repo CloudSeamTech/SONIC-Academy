@@ -20,9 +20,6 @@ export function StepTeachingNotes({
       <p>
         <strong>Why this matters:</strong> {note.reason}
       </p>
-      <p>
-        <strong>What this does:</strong> {note.impact}
-      </p>
       {note.commandNotes.length > 0 && (
         <section className="coaching-command">
           <h4>What the command means</h4>

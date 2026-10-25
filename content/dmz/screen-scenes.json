@@ -345,7 +345,7 @@
     "title": "Install IIS and open your test page",
     "where": "IIS-DMZ01 · Windows PowerShell as Administrator",
     "fields": [],
-    "command": "if ($env:COMPUTERNAME -ne 'IIS-DMZ01') { throw 'Wrong VM. Stop here.' }\nInstall-WindowsFeature Web-Server -IncludeManagementTools\nImport-Module WebAdministration\nNew-Item -ItemType Directory -Path C:\\inetpub\\dmz-lab -Force\n'<h1>CloudSeam DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\\inetpub\\dmz-lab\\index.html\nStop-Website 'Default Web Site'\nNew-Website -Name 'DMZ-Lab' -PhysicalPath C:\\inetpub\\dmz-lab -IPAddress 127.0.0.1 -Port 8080\n(Invoke-WebRequest http://127.0.0.1:8080 -UseBasicParsing).StatusCode",
+    "command": "if ($env:COMPUTERNAME -ne 'IIS-DMZ01') { throw 'Wrong VM. Stop here.' }\nInstall-WindowsFeature Web-Server -IncludeManagementTools\nImport-Module WebAdministration\nNew-Item -ItemType Directory -Path C:\\inetpub\\dmz-lab -Force\n'<h1>Practice DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\\inetpub\\dmz-lab\\index.html\nStop-Website 'Default Web Site'\nNew-Website -Name 'DMZ-Lab' -PhysicalPath C:\\inetpub\\dmz-lab -IPAddress 127.0.0.1 -Port 8080\n(Invoke-WebRequest http://127.0.0.1:8080 -UseBasicParsing).StatusCode",
     "expected": "The local test on IIS-DMZ01 returns your small practice webpage. DMZ-Lab appears in IIS Manager."
   },
   {
@@ -361,15 +361,15 @@
       ],
       [
         "Host name / SNI",
-        "iis-backend.cloudseam.tech · enabled"
+        "iis-backend.lab.example.test · enabled"
       ],
       [
         "SSL certificate",
         "DMZ-Lab backend"
       ]
     ],
-    "command": "$cert = New-SelfSignedCertificate -DnsName 'iis-backend.cloudseam.tech' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)\nNew-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.cloudseam.tech' -SslFlags 1\n(Get-WebBinding -Name 'DMZ-Lab' -Protocol https).AddSslCertificate($cert.Thumbprint, 'My')\nNew-Item -ItemType Directory C:\\DMZ-Lab -Force\n$pem = '-----BEGIN CERTIFICATE-----' + \"`r`n\" + [Convert]::ToBase64String($cert.RawData, [System.Base64FormattingOptions]::InsertLineBreaks) + \"`r`n-----END CERTIFICATE-----`r`n\"\n$pem | Set-Content C:\\DMZ-Lab\\backend-public.pem -Encoding Ascii",
-    "expected": "IIS has the HTTPS binding for iis-backend.cloudseam.tech. backend-public.pem contains the public certificate, with no private key."
+    "command": "$cert = New-SelfSignedCertificate -DnsName 'iis-backend.lab.example.test' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)\nNew-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.lab.example.test' -SslFlags 1\n(Get-WebBinding -Name 'DMZ-Lab' -Protocol https).AddSslCertificate($cert.Thumbprint, 'My')\nNew-Item -ItemType Directory C:\\DMZ-Lab -Force\n$pem = '-----BEGIN CERTIFICATE-----' + \"`r`n\" + [Convert]::ToBase64String($cert.RawData, [System.Base64FormattingOptions]::InsertLineBreaks) + \"`r`n-----END CERTIFICATE-----`r`n\"\n$pem | Set-Content C:\\DMZ-Lab\\backend-public.pem -Encoding Ascii",
+    "expected": "IIS has the HTTPS binding for iis-backend.lab.example.test. backend-public.pem contains the public certificate, with no private key."
   },
   {
     "id": "dmz-iis-screen-4",
@@ -388,7 +388,7 @@
     "title": "Set the gateway’s DMZ address",
     "where": "PROXY01 · AlmaLinux console",
     "fields": [],
-    "command": "sudo hostnamectl set-hostname proxy01.cloudseam.tech\nnmcli connection show\n# Replace YOUR_CONNECTION with the exact Ethernet profile name above.\nsudo nmcli connection modify \"YOUR_CONNECTION\" ipv4.method manual ipv4.addresses 10.60.0.10/24 ipv4.gateway 10.60.0.1 ipv4.dns \"\" ipv6.method disabled\nsudo nmcli connection up \"YOUR_CONNECTION\"\nip -4 address\nip -4 route\ntimedatectl",
+    "command": "sudo hostnamectl set-hostname proxy01.lab.example.test\nnmcli connection show\n# Replace YOUR_CONNECTION with the exact Ethernet profile name above.\nsudo nmcli connection modify \"YOUR_CONNECTION\" ipv4.method manual ipv4.addresses 10.60.0.10/24 ipv4.gateway 10.60.0.1 ipv4.dns \"\" ipv6.method disabled\nsudo nmcli connection up \"YOUR_CONNECTION\"\nip -4 address\nip -4 route\ntimedatectl",
     "expected": "PROXY01 shows 10.60.0.10/24 and default gateway 10.60.0.1. No temporary NAT adapter remains."
   },
   {
@@ -398,7 +398,7 @@
     "title": "Test the gateway’s connection to IIS",
     "where": "PROXY01 · AlmaLinux console; Workstation Options → Shared Folders",
     "fields": [],
-    "command": "sudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\nsudo cp /mnt/dmz-transfer/backend-public.pem /etc/pki/tls/certs/iis-backend.pem\ncurl --cacert /etc/pki/tls/certs/iis-backend.pem --resolve iis-backend.cloudseam.tech:443:10.80.0.40 --connect-timeout 5 https://iis-backend.cloudseam.tech/",
+    "command": "sudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\nsudo cp /mnt/dmz-transfer/backend-public.pem /etc/pki/tls/certs/iis-backend.pem\ncurl --cacert /etc/pki/tls/certs/iis-backend.pem --resolve iis-backend.lab.example.test:443:10.80.0.40 --connect-timeout 5 https://iis-backend.lab.example.test/",
     "expected": "The gateway receives the IIS practice page with the certificate check enabled. FW01 logs the matching allowed request."
   },
   {
@@ -408,8 +408,8 @@
     "title": "Create the gateway’s test certificate",
     "where": "PROXY01 · AlmaLinux console",
     "fields": [],
-    "command": "sudo openssl req -x509 -nodes -newkey rsa:3072 -sha256 -days 30 -keyout /etc/pki/tls/private/dmz-front.key -out /etc/pki/tls/certs/dmz-front.crt -subj \"/CN=app-dmz.cloudseam.tech\" -addext \"subjectAltName=DNS:app-dmz.cloudseam.tech\"\nsudo chmod 600 /etc/pki/tls/private/dmz-front.key\nopenssl x509 -in /etc/pki/tls/certs/dmz-front.crt -noout -subject -dates -ext subjectAltName\nsudo cp /etc/pki/tls/certs/dmz-front.crt /mnt/dmz-transfer/proxy-public.crt",
-    "expected": "The gateway certificate covers app-dmz.cloudseam.tech and has the expected dates. Only root can read its private key."
+    "command": "sudo openssl req -x509 -nodes -newkey rsa:3072 -sha256 -days 30 -keyout /etc/pki/tls/private/dmz-front.key -out /etc/pki/tls/certs/dmz-front.crt -subj \"/CN=app-dmz.lab.example.test\" -addext \"subjectAltName=DNS:app-dmz.lab.example.test\"\nsudo chmod 600 /etc/pki/tls/private/dmz-front.key\nopenssl x509 -in /etc/pki/tls/certs/dmz-front.crt -noout -subject -dates -ext subjectAltName\nsudo cp /etc/pki/tls/certs/dmz-front.crt /mnt/dmz-transfer/proxy-public.crt",
+    "expected": "The gateway certificate covers app-dmz.lab.example.test and has the expected dates. Only root can read its private key."
   },
   {
     "id": "dmz-proxy-screen-4",
@@ -420,7 +420,7 @@
     "fields": [
       [
         "Front listener",
-        "10.60.0.10:443 · app-dmz.cloudseam.tech"
+        "10.60.0.10:443 · app-dmz.lab.example.test"
       ],
       [
         "Private upstream",
@@ -428,7 +428,7 @@
       ],
       [
         "TLS name / verify",
-        "iis-backend.cloudseam.tech · on"
+        "iis-backend.lab.example.test · on"
       ]
     ],
     "command": "sudo cp /mnt/dmz-transfer/nginx-dmz.conf /etc/nginx/conf.d/dmz.conf\nsudo nginx -t",
@@ -468,7 +468,7 @@
         "Automatic off · blank"
       ]
     ],
-    "command": "sudo hostnamectl set-hostname test01.cloudseam.tech\nip -4 address\nip -4 route",
+    "command": "sudo hostnamectl set-hostname test01.lab.example.test\nip -4 address\nip -4 route",
     "expected": "TEST01 shows 10.70.0.10/24 and gateway 10.70.0.1. Its only VMware adapter is VMnet4."
   },
   {
@@ -515,7 +515,7 @@
     "title": "Open the page through the full route",
     "where": "TEST01 · AlmaLinux Terminal",
     "fields": [],
-    "command": "curl --fail --show-error --cacert ~/dmz-lab/proxy-public.crt --resolve app-dmz.cloudseam.tech:443:10.70.0.1 --connect-timeout 5 \"https://app-dmz.cloudseam.tech/?labtrace=DMZ01\"",
+    "command": "curl --fail --show-error --cacert ~/dmz-lab/proxy-public.crt --resolve app-dmz.lab.example.test:443:10.70.0.1 --connect-timeout 5 \"https://app-dmz.lab.example.test/?labtrace=DMZ01\"",
     "expected": "TEST01 receives the private IIS practice page through PROXY01, with certificate checking enabled."
   },
   {

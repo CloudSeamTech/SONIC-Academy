@@ -40,10 +40,10 @@ export const migrationCurriculum: CurriculumLesson[] = catalog.lessons.flatMap((
       where: `${machine} guest · Windows Server 2019 administrative tools`,
       before: `Complete “Install Windows Server 2019 on ${machine}” first. VMware VM creation and Windows installation are separate earlier lessons.`,
       pass: header.match(/\*\*PASS\*\* ([^\n]+)/)?.[1] ?? '',
-      description: lesson.id === 'lab-04' ? 'Install AD DS and DNS on the prepared DC01 server and create cloudseam.tech.'
+      description: lesson.id === 'lab-04' ? 'Install AD DS and DNS on the prepared DC01 server and create lab.example.test.'
         : lesson.id === 'lab-07' ? 'Promote the prepared DC02 server and verify replication with DC01.'
-        : lesson.id === 'lab-08' ? 'Install AD DS on the prepared DEST-DC01 server and create migrate.cloudseam.tech.'
-        : `Join the prepared ${machine} server to cloudseam.tech${lesson.id === 'lab-06' ? ' and install the IIS test website' : ''}.` },
+        : lesson.id === 'lab-08' ? 'Install AD DS on the prepared DEST-DC01 server and create migrate.lab.example.test.'
+        : `Join the prepared ${machine} server to lab.example.test${lesson.id === 'lab-06' ? ' and install the IIS test website' : ''}.` },
   ];
   return slices.map((part) => {
     const scopedHeader = header
