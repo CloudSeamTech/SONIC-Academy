@@ -1,5 +1,6 @@
 /* CloudSeamTech training academy: dark cream, charcoal, purple and warm orange. */
 :root {
+  --academy-brand-purple: #7040a8;
   --academy-cream: #e3d8c4;
   --academy-card: #f6f0e6;
   --academy-ink: #211b2d;
@@ -92,7 +93,7 @@ html body .academy-shell .console-sidebar {
   border: 0;
   border-radius: 18px !important;
   padding: 24px 16px 18px;
-  background: #211a31 !important;
+  background: var(--academy-brand-purple) !important;
   color: #e7e0ed;
   overflow: hidden;
   box-shadow: 0 6px 26px #33284a16 !important;
@@ -148,7 +149,7 @@ html body .academy-shell .academy-secondary-nav a {
   color: #e5dfee;
 }
 html body .academy-shell .academy-primary-nav a.active {
-  background: linear-gradient(100deg, #7137c6, #6227bb) !important;
+  background: var(--academy-brand-purple) !important;
   color: white;
   box-shadow: 0 3px 12px #100a2360 !important;
 }
@@ -188,7 +189,7 @@ html body .academy-shell .reader-course > summary svg {
   flex-shrink: 0;
 }
 html body .academy-shell .reader-course[open] > summary {
-  background: #382849;
+  background: var(--academy-brand-purple);
   color: #fff;
 }
 html body .academy-shell .reader-course[open] > summary > svg:last-child {
@@ -211,7 +212,7 @@ html body .academy-shell .reader-lesson-link {
 }
 html body .academy-shell .reader-lesson-link.active {
   color: #fff;
-  background: #674199 !important;
+  background: var(--academy-brand-purple) !important;
   border-left: 2px solid #e7975f;
   border-radius: 5px !important;
 }
@@ -432,7 +433,7 @@ html body .academy-shell .secondary-button {
   text-decoration: none;
 }
 html body .academy-shell .primary-button {
-  background: linear-gradient(105deg, #7b3bdb, #5e26b2) !important;
+  background: var(--academy-brand-purple) !important;
   color: #fff !important;
   border-color: transparent;
   box-shadow: 0 4px 12px #6d32c51c !important;
@@ -1364,7 +1365,7 @@ html
   .nessus-course-switcher
   a[aria-current] {
   color: #fff !important;
-  background: #7040a8 !important;
+  background: var(--academy-brand-purple) !important;
   border-bottom: 0;
 }
 html
@@ -2614,21 +2615,21 @@ html body .academy-shell .lab-step-nav > details > summary {
 
 /* Keep the cream teaching surfaces while restoring the purple brand chrome. */
 html body .academy-shell.academy-shell .console-sidebar {
-  background: #211a31 !important;
+  background: var(--academy-brand-purple) !important;
 }
 html
   body
   .academy-shell.academy-shell
   .console-sidebar
   :is(.active, .reader-lesson-link.active, .reader-course[open] > summary) {
-  background: #674199 !important;
+  background: var(--academy-brand-purple) !important;
   border-left-color: #e7975f !important;
 }
 html body .academy-shell.academy-shell .console-sidebar .academy-nav a.active {
-  background: linear-gradient(100deg, #7137c6, #6227bb) !important;
+  background: var(--academy-brand-purple) !important;
 }
 html body .academy-shell.academy-shell .reader-workspace .profile-link {
-  background: #603294 !important;
+  background: var(--academy-brand-purple) !important;
   padding: 8px 12px;
   border-radius: 12px;
 }
@@ -2641,7 +2642,7 @@ html
   color: #fff !important;
 }
 html body .academy-shell.academy-shell .reader-workspace .profile-avatar {
-  background: #783dd0 !important;
+  background: var(--academy-brand-purple) !important;
   color: #fff !important;
 }
 html body .academy-shell .academy-hero {
@@ -2795,7 +2796,7 @@ html body .academy-shell.academy-shell .reader-workspace .picture-zoom-label {
   transform: translateY(-1px);
 }
 .academy-shell .brand-cloud {
-  background: #603294;
+  background: var(--academy-brand-purple);
   color: #ffffff;
   border-radius: 14px;
   padding: 8px;
@@ -2889,7 +2890,7 @@ html body .academy-shell.academy-shell .reader-workspace .picture-zoom-label {
   margin: 28px 0 18px;
 }
 .cyber-map {
-  background: #211a31;
+  background: var(--academy-brand-purple);
   color: #f7f1e8;
   padding: 28px;
   border-radius: 18px;
@@ -2971,7 +2972,7 @@ html
   outline-offset: 3px;
 }
 html body .academy-shell .brand-cloud {
-  background: #603294 !important;
+  background: var(--academy-brand-purple) !important;
   color: #fff !important;
 }
 html body .academy-shell .brand-cloud > span {
@@ -3029,7 +3030,7 @@ html
   .console-sidebar
   .academy-primary-nav
   a:not(.active):hover {
-  background: #352746 !important;
+  background: var(--academy-brand-purple) !important;
 }
 html
   body
@@ -3212,7 +3213,7 @@ html body .academy-shell .information-tabs a {
   line-height: 1.4;
 }
 html body .academy-shell .console-sidebar .plan-badge {
-  background: #443453;
+  background: var(--academy-brand-purple);
   color: #fff !important;
   margin-left: auto;
   font-size: 9px !important;
@@ -3388,7 +3389,7 @@ html body .academy-shell.academy-shell .reader-workspace :is(.guided-pagination,
 .annotated-screen-image img { display: block; max-width: 100%; width: 100%; height: auto; }
 .annotated-screen-image > .guided-image-button { display: block; position: relative; width: 100%; padding: 0; line-height: 0; }
 .annotated-screen-image .picture-zoom-label { position: absolute; right: 8px; bottom: 8px; padding: 6px 10px; line-height: 1.4; background: #EDE4D8; color: #181818; border-radius: 4px; }
-html body .academy-shell.academy-shell .reader-workspace button.screen-marker { position: absolute; transform: translate(-50%, -50%); width: 30px; min-width: 30px; height: 30px; min-height: 30px; padding: 0; border: 2px solid white !important; border-radius: 50%; color: white !important; background: #442E66 !important; box-shadow: 0 0 0 2px #181818; display: grid; place-items: center; font-size: 15px !important; font-weight: 800; line-height: 1; z-index: 2; }
+html body .academy-shell.academy-shell .reader-workspace button.screen-marker { position: absolute; transform: translate(-50%, -50%); width: 30px; min-width: 30px; height: 30px; min-height: 30px; padding: 0; border: 2px solid white !important; border-radius: 50%; color: white !important; background: var(--academy-brand-purple) !important; box-shadow: 0 0 0 2px #181818; display: grid; place-items: center; font-size: 15px !important; font-weight: 800; line-height: 1; z-index: 2; }
 .screen-marker-key { list-style: none; display: grid; gap: 8px; padding: 12px 0 !important; margin: 0 !important; }
 .screen-marker-key li { padding: 8px 10px; margin: 0; }
 .screen-marker-key li.is-selected { background: #CDBFA9 !important; border-left: 3px solid #181818; }
