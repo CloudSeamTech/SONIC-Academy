@@ -64,6 +64,15 @@ export function workspaceDirections(where: string, action = ''): string {
     return 'Inside the AlmaLinux desktop, click Activities, type Steam and open it. Use Steam’s own menu or Settings page named below; these clicks do not go into Terminal.';
   if (/notebook|paper|planning|diagram|your notes|lab notes/i.test(where))
     return 'Use your lab notes on your own computer. This is a planning step; nothing is installed or changed yet.';
+  if (/Run Command|RunCommand|RunShellScript|RunPowerShellScript/i.test(where))
+    return 'On your Windows host, open https://portal.azure.com → Virtual machines and select the VM named in this lesson. Open Run command and choose the script type named in the step. Paste the block into that portal box and select Run. It executes on the selected Azure VM, not on your Windows host.';
+  if (/Nessus.*InstallShield/i.test(where))
+    return 'Open the Windows Server practice VM’s VMware console and sign in there. Inside that guest, open the folder where you saved the Nessus installer and run it. Stay in the InstallShield wizard for the selections below; the web console comes after installation.';
+  if (
+    /Nessus|:8834/i.test(where) &&
+    !/terminal|bash|PowerShell|InstallShield/i.test(where)
+  )
+    return 'On your Windows host, open a browser and enter the private HTTPS scanner address recorded during installation, usually port 8834. Sign in to that Nessus web console and use the page named below. The Linux scanner can remain at its text console; you do not need a browser installed on it.';
   if (/sftp.*prompt/i.test(where))
     return 'Return to the file-transfer tab you opened earlier. Its prompt must say sftp>. Paste SFTP commands there, not into PowerShell or Bash.';
   if (/FW01|OPNsense/i.test(where) && /console|installer/i.test(where))

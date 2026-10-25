@@ -65,3 +65,22 @@ test('Explanations stay with their action instead of becoming extra numbered tas
     ['Open Files. This is the visual file manager.', 'Choose Home.'],
   );
 });
+
+test('Azure Run Command and Nessus web instructions open their browser interfaces rather than a local shell', () => {
+  assert.match(
+    workspaceDirections('Azure VM · Run Command → RunShellScript'),
+    /portal box/,
+  );
+  assert.match(
+    workspaceDirections(
+      'Your workstation browser · verified Nessus HTTPS console',
+    ),
+    /Windows host.*browser/,
+  );
+  assert.match(
+    workspaceDirections(
+      'Windows Server 2022 guest · Nessus InstallShield Wizard',
+    ),
+    /Inside that guest/,
+  );
+});
