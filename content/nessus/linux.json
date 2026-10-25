@@ -68,7 +68,7 @@
       "title": "Meet Your Vulnerability Scanner",
       "description": "First, let’s see what Nessus does and choose the practice computers you’ll use.",
       "what": "Think of Nessus as a building inspector for computers. It looks for known weak spots and gives us clues to investigate. It does not repair every problem for us.",
-      "why": "When you understand what the scanner can and cannot tell you, you can make better decisions about what to fix. We’ll also make sure we inspect only the machines in your practice lab.",
+      "why": "When you understand what the scanner can and cannot tell you, you can make better decisions about what to fix. We’ll also make sure we check only the machines in your practice lab.",
       "bestPractices": [
         "Write down the two target VMs you own or have permission to test, who is responsible for them, their addresses, the allowed scan time and who to contact if something goes wrong.",
         "Keep the names straight: Nessus does the scanning. Tenable Security Center is a separate product for managing scanners and their results; we are not installing it here."
@@ -93,7 +93,7 @@
             "You may scan its whole network."
           ],
           "answer": 0,
-          "explanation": "A finding contains evidence to assess; it does not prove a breach or grant permission."
+          "explanation": "A finding contains saved result to assess; it does not prove a breach or grant permission."
         },
         {
           "question": "What is Tenable Security Center?",
@@ -675,7 +675,7 @@
             "At the scanner’s VM console, use the commands below to check the SSH service. SSH lets us securely sign in and transfer files.",
             "If openssh-server is missing, install it from the lab’s approved AlmaLinux repositories, then start sshd as shown.",
             "Keep SSH access limited to your Windows management address through the private-lab firewall plan. We do not need to expose SSH to the public internet.",
-            "Use the VM console to display the scanner’s SSH public host-key fingerprint. If the first SCP prompt says ED25519, compare its SHA-256 fingerprint with that ED25519 public host key. If it names another algorithm, inspect that matching public host key. Stop on a mismatch you cannot explain."
+            "Use the VM console to display the scanner’s SSH public host-key fingerprint. If the first SCP prompt says ED25519, compare its SHA-256 fingerprint with that ED25519 public host key. If it names another algorithm, check that matching public host key. Stop on a mismatch you cannot explain."
           ],
           "command": "sudo dnf install openssh-server\nsudo systemctl enable --now sshd\nsudo systemctl status sshd --no-pager\nsudo ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub",
           "breakdown": [
@@ -796,7 +796,7 @@
       "why": "Using the package manager lets us check the installed version later and see any missing supporting packages before we continue.",
       "bestPractices": [
         "Use the verified EL9 x86_64 scanner RPM from our earlier check. A similarly named Nessus Agent package does a different job.",
-        "Keep /opt/nessus as a real supported directory, not a symbolic link pointing somewhere else. Read any signature or dependency error before proceeding."
+        "Keep /opt/nessus as a real supported directory, not a symbolic link pointing somewhere else. Read any signature or required connection or service error before proceeding."
       ],
       "commonMistakes": [
         "Do not force the install with --nogpgcheck, --nodeps or an installer from a random mirror. Those shortcuts hide checks we need.",
@@ -804,7 +804,7 @@
       ],
       "troubleshooting": [
         {
-          "problem": "dnf reports a signature or dependency error.",
+          "problem": "dnf reports a signature or required connection or service error.",
           "fix": "Read the whole error with your instructor. Recheck the file’s trusted source and the configured AlmaLinux repositories, then resolve the correct package or trusted-key requirement. Do not bypass the failed check."
         }
       ],
@@ -885,7 +885,7 @@
             },
             {
               "term": "dnf install",
-              "meaning": "Installs software and resolves dependencies through configured repositories."
+              "meaning": "Installs software and resolves required connections and services through configured repositories."
             },
             {
               "term": "./Nessus-10.12.5-el9.x86_64.rpm",
@@ -939,7 +939,7 @@
       "pass": "The package record identifies Nessus 10.12.5 for the intended architecture, and the Nessus administration tool exists at its installed path.",
       "needs": [
         "Finish the file-transfer lesson so the verified RPM is in your Linux home folder.",
-        "Open Terminal on NESSUS-ALMA09 using an account that may run sudo. Have access to the approved package repositories or offline dependency plan."
+        "Open Terminal on NESSUS-ALMA09 using an account that may run sudo. Have access to the approved package repositories or offline required connection or service plan."
       ]
     },
     {
@@ -1029,7 +1029,7 @@
           "actions": [
             "Read the service summary from systemctl status. Look for its current state and any error message.",
             "Run the ss command to check whether an application is listening locally on TCP port 8834. A listening port is a place where the service can accept connections.",
-            "If no listener appears yet, give startup a little time and inspect the logs. Opening more firewall ports cannot fix a service that is not listening."
+            "If no listener appears yet, give startup a little time and check the logs. Opening more firewall ports cannot fix a service that is not listening."
           ],
           "command": "sudo systemctl status nessusd --no-pager\nsudo ss -lntp 'sport = :8834'",
           "breakdown": [
@@ -1148,7 +1148,7 @@
           "breakdown": [
             {
               "term": "firewall-cmd",
-              "meaning": "The Terminal tool we use to inspect or change firewalld, AlmaLinux’s network door guard."
+              "meaning": "The Terminal tool we use to check or change firewalld, AlmaLinux’s network door guard."
             },
             {
               "term": "--state",
@@ -1420,7 +1420,7 @@
             "Only if you install IIS."
           ],
           "answer": 1,
-          "explanation": "Check entitlement before choosing an offline build."
+          "explanation": "Check license or evaluation permission before choosing an offline build."
         }
       ],
       "steps": [
@@ -1835,9 +1835,9 @@
           ]
         }
       ],
-      "pass": "You can identify where the failure is happening and collect a small useful set of evidence while keeping protections enabled.",
+      "pass": "You can identify where the failure is happening and collect a small useful set of saved result while keeping protections enabled.",
       "needs": [
-        "Keep the scanner’s VMware console available so you can inspect it even if the browser or SSH connection fails.",
+        "Keep the scanner’s VMware console available so you can check it even if the browser or SSH connection fails.",
         "Have the exact error or a message supplied by your instructor, plus your current address, firewall and update-route notes.",
         "Use a permitted administrator account and a private place to save useful log excerpts."
       ]
@@ -1849,7 +1849,7 @@
       "what": "We’ll check several parts of the setup: the installed package, the running service, browser access, activation and plugins. One green light is useful; the full chain is more convincing.",
       "why": "It is easy to mistake an open welcome page for a finished installation. These checks help us spot anything still missing before the scanning class.",
       "bestPractices": [
-        "Record what your own screen shows and when you checked it. An example in a course is not evidence from your VM.",
+        "Record what your own screen shows and when you checked it. An example in a course is not saved result from your VM.",
         "A ready scanner still needs a permitted target list, a reviewed scan policy and a credential plan before it scans anything."
       ],
       "commonMistakes": [
@@ -1960,7 +1960,7 @@
           ]
         }
       ],
-      "pass": "You have your own evidence for the installed version, running service, restricted browser access, valid activation and loaded plugins.",
+      "pass": "You have your own saved result for the installed version, running service, restricted browser access, valid activation and loaded plugins.",
       "needs": [
         "Have the installed scanner running, with its configured license route and plugins ready.",
         "Open Linux Terminal and your Windows browser, and keep your installation and firewall notes nearby. We’ll compare several checks together."
@@ -1997,7 +1997,7 @@
             "Your own sanitized version, service, firewall, console and plugin checks."
           ],
           "answer": 2,
-          "explanation": "Evidence comes from the actual lab and excludes secrets."
+          "explanation": "Saved result comes from the actual lab and excludes secrets."
         },
         {
           "question": "What comes before scanning the target VMs?",
@@ -2055,7 +2055,7 @@
           "title": "Prepare the handoff to scan administration",
           "where": "Windows host · approved lab plan",
           "actions": [
-            "Keep this scanner separate from the AlmaLinux 9 target and the Windows Server 2022 target. Those are the two computers it will inspect later.",
+            "Keep this scanner separate from the AlmaLinux 9 target and the Windows Server 2022 target. Those are the two computers it will check later.",
             "Record their private addresses, owners and allowed test window, and confirm neither is a production system.",
             "Open Class 03, Nessus Configuration, Scan Policies & Vulnerability Scanning. We’ll review targets, policies and credentials there before clicking Launch."
           ],
@@ -2072,9 +2072,9 @@
           ]
         }
       ],
-      "pass": "You have completed the installation and knowledge checks using real private evidence, and you have a permitted two-target plan ready for the scanning class.",
+      "pass": "You have completed the installation and knowledge checks using real private saved result, and you have a permitted two-target plan ready for the scanning class.",
       "needs": [
-        "Bring your working NESSUS-ALMA09 scanner and the real evidence collected in earlier lessons.",
+        "Bring your working NESSUS-ALMA09 scanner and the real saved result collected in earlier lessons.",
         "Have your permitted two-target plan ready for the next class; the scanner itself must remain separate from those target VMs.",
         "Keep the license, private keys and passwords protected while you demonstrate the non-secret checks."
       ]

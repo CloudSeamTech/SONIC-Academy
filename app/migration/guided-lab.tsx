@@ -1,6 +1,7 @@
 /* Native images preserve the full-resolution instructional asset and work without a remote image optimizer. */
 /* oxlint-disable next/no-img-element, react/react-compiler -- Load saved local notes after hydration; no lab operations execute here. */
 'use client';
+import { WorkspaceStart } from '../workspace-start';
 import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
 
@@ -142,7 +143,7 @@ export function GuidedLab({
         max={guide.steps.length}
         aria-label="Lab step completion"
       />
-      <LessonWelcome content={welcome} showIntro={false} />
+      <LessonWelcome lessonId={lessonId} content={welcome} showIntro={false} />
       <section className="lesson-preflight">
         <h3>Before you start</h3>
         <p>{guide.before}</p>
@@ -163,7 +164,7 @@ export function GuidedLab({
       <dl className="guided-context">
         <div>
           <dt>WHERE TO WORK</dt>
-          <dd>{guide.where}</dd>
+          <dd>{step.where ?? guide.where}</dd>
         </div>
       </dl>
       <label className="guided-step-picker">
@@ -195,13 +196,14 @@ export function GuidedLab({
             <p className="coaching-why">
               <strong>Why this matters:</strong> {coaching.reason}
             </p>
+            <WorkspaceStart
+              where={step.where ?? guide.where}
+              action={currentAction}
+            />
             <div className="guided-action">
               <b>Follow these actions in order</b>
               <BeginnerActions text={currentAction} />
             </div>
-            <p className="coaching-effect">
-              <strong>What this does:</strong> {coaching.impact}
-            </p>
             {step.command && (
               <section className="guided-command">
                 <header>

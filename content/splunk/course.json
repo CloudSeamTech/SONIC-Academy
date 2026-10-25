@@ -2,7 +2,7 @@
   "id": "splunk-core-user",
   "title": "Splunk Core User",
   "description": "Learn Splunk from your first search to security investigations and dashboards with working filters, using small fictional CloudSeam datasets.",
-  "baseline": "Splunk Enterprise 10.4+ · supported Windows Server guest · cloudseam.tech dummy data · SPL (not SPL2)",
+  "baseline": "Splunk Enterprise 10.4+ · supported Windows Server guest · lab.example.test dummy data · SPL (not SPL2)",
   "prerequisite": "Before you start, have a supported Windows Server practice VM ready in VMware Workstation Pro, an administrator account for setup, and an eligible Splunk Enterprise trial or license. Start with the Windows Server & VMware class if you have not built a guest yet. Later lessons use the Splunk Search bar, not PowerShell. Your Windows 10 machine remains the host.",
   "supplies": [
     "A supported x86-64 Windows Server guest called SPLUNK01, with resources checked against the selected release’s official requirements.",
@@ -97,7 +97,7 @@
           "where": "Your Windows host → VMware Workstation Pro → Windows Server guest",
           "actions": [
             "Use a separate Windows Server 2019 or 2022 practice VM from the Windows Server & VMware pathway. Your Windows 10 computer stays the VMware host; do not install an unsupported Splunk release on it.",
-            "Call the practice server SPLUNK01. If it is joined to the class domain, its full name is SPLUNK01.cloudseam.tech. A domain join is not required for local Splunk searches.",
+            "Call the practice server SPLUNK01. If it is joined to the class domain, its full name is SPLUNK01.lab.example.test. A domain join is not required for local Splunk searches.",
             "Keep enough free resources for your chosen release; compare the linked official requirements with your VM before downloading. A tiny CSV lab is not a production sizing recommendation."
           ],
           "expected": "You can identify the guest VM, supported OS and available resources.",
@@ -360,7 +360,7 @@
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
             "In the preview, check that each row is one event. Use timestamp as the timestamp field and %Y-%m-%dT%H:%M:%SZ as the format if automatic timestamp recognition is incorrect; the Z means UTC. The dates are 15 January 2026.",
-            "Continue to Input Settings. Use Constant value for Host and enter SPLUNK01.cloudseam.tech. The CSV server field separately identifies the fictional application server. Do not copy the path-segment/regex host settings from the ZIP reference screenshot.",
+            "Continue to Input Settings. Use Constant value for Host and enter SPLUNK01.lab.example.test. The CSV server field separately identifies the fictional application server. Do not copy the path-segment/regex host settings from the ZIP reference screenshot.",
             "For Index, choose Create a new index and name it sonic_lab; keep the default event index settings for this tiny practice file. If it already exists, select it. An administrator must create the index or grant your practice role access."
           ],
           "expected": "Review shows source cloudseam-web.csv, CSV parsing, the intended host and index sonic_lab.",
@@ -392,7 +392,7 @@
           "breakdown": [
             {
               "term": "Why this step matters",
-              "meaning": "A known count is your first evidence that the upload and search scope are correct."
+              "meaning": "A known count is your first saved result that the upload and search scope are correct."
             }
           ],
           "screenshot": {
@@ -482,7 +482,7 @@
           "actions": [
             "Change the time picker to Last 24 hours and run the same search. The fixed January 2026 dataset should return no events when that range excludes its date.",
             "Switch back to All time. Drag across the timeline around part of the sample activity to narrow it, then restore All time.",
-            "Event dates may display in your account’s timezone. Open your username → Preferences to inspect the timezone and use UTC for this lab if your role/version exposes that option."
+            "Event dates may display in your account’s timezone. Open your username → Preferences to check the timezone and use UTC for this lab if your role/version exposes that option."
           ],
           "expected": "You can deliberately change the time scope and return to 12 events.",
           "breakdown": [
@@ -506,7 +506,7 @@
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
             "Run the search again. Locate the search-job controls near the timeline. Identify pause, stop and job details; a stopped search may return incomplete results.",
-            "This tiny search may finish before you can pause it. Inspect the completed job details instead of pretending you paused it.",
+            "This tiny search may finish before you can pause it. Check the completed job details instead of pretending you paused it.",
             "Use the Export results control (download icon in supported versions) to save the dummy events as CSV. Keep the file private and note that exported results are a point-in-time copy, not a saved report definition."
           ],
           "expected": "You have inspected a search job and can explain an export versus a report.",
@@ -575,7 +575,7 @@
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
             "Open a new Search view, choose All time and paste the SPL below.",
-            "Click Search and inspect the raw events. The dataset contains four 401 login responses.",
+            "Click Search and check the raw events. The dataset contains four 401 login responses.",
             "Change 401 to 503 and rerun; that should return two application errors. Return to 401 afterward."
           ],
           "expected": "The 401 search returns four events; the 503 search returns two.",
@@ -600,7 +600,7 @@
           "title": "Use AND, OR and NOT deliberately",
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
-            "Run the parenthesized search below. The two status filters are joined by OR; index and source still scope the data.",
+            "Run the parenthesized search below. The two status filters are joined by OR; index and source still limit the data.",
             "Expect six events: four 401 plus two 503. Add NOT user=bob and rerun; the two dan events should remain.",
             "Keep parentheses when mixing Boolean conditions. Confirm the raw events match your intended question."
           ],
@@ -627,7 +627,7 @@
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
             "Run the search below. The wildcard matches paths beginning with /log, such as /login.",
-            "Count six login-path events. Inspect their user and status fields; not every login-path event failed.",
+            "Count six login-path events. Check their user and status fields; not every login-path event failed.",
             "Save the useful search text in your private notes along with the index and All time setting."
           ],
           "expected": "The path wildcard returns six login-path events, including both successes and failures.",
@@ -697,8 +697,8 @@
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
             "Run the base search with All time. Switch to Verbose mode if the fields you need are not visible.",
-            "Click user in the Fields sidebar or All Fields. Inspect its values and select bob to add a filter.",
-            "Confirm bob has four events. If a field is absent, open an event and inspect whether the CSV columns were parsed correctly."
+            "Click user in the Fields sidebar or All Fields. Check its values and select bob to add a filter.",
+            "Confirm bob has four events. If a field is absent, open an event and check whether the CSV columns were parsed correctly."
           ],
           "expected": "A user=bob filter returns four events.",
           "breakdown": [
@@ -723,7 +723,7 @@
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
             "Open one event and compare host, source, sourcetype, index and _time with server, user and status.",
-            "host is the upload metadata SPLUNK01.cloudseam.tech in this lab. server is APP01.cloudseam.tech or WEB02.cloudseam.tech from the fictional activity.",
+            "host is the upload metadata SPLUNK01.lab.example.test in this lab. server is APP01.lab.example.test or WEB02.lab.example.test from the fictional activity.",
             "Use the table search below to see these fields together. _time can display in your chosen timezone."
           ],
           "expected": "You can explain where the data came from and which fictional server produced the activity.",
@@ -750,7 +750,7 @@
           "actions": [
             "Run the summary below and open Statistics.",
             "Expect 12 events, 12 with a user value and five distinct users. Count(user) excludes events without that field; count counts all matching events.",
-            "If these differ, inspect missing fields before using user counts in a report."
+            "If these differ, check missing fields before using user counts in a report."
           ],
           "expected": "Statistics shows events=12, with_user=12 and unique_users=5.",
           "breakdown": [
@@ -872,7 +872,7 @@
           "actions": [
             "Run the base search, then add | stats count by status and rerun.",
             "The first query gives individual events. The second gives one summary row per status, on Statistics.",
-            "Go back to the base query when you need to inspect raw event details."
+            "Go back to the base query when you need to check raw event details."
           ],
           "expected": "You can tell an event list from a transformed summary.",
           "breakdown": [
@@ -1088,7 +1088,7 @@
           "title": "Find a rare value",
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
-            "Run rare and inspect the least frequent user.",
+            "Run rare and check the least frequent user.",
             "erin appears once in this dataset. Tied values elsewhere can appear in a different order; compare counts instead of memorizing row positions.",
             "Open erin’s original event to connect the statistic to the underlying activity."
           ],
@@ -1236,7 +1236,7 @@
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
             "Click Reports in the Search & Reporting app bar, find your report and open it.",
-            "Use its Edit menu to inspect the search, time range, description and permissions available to your role. Do not share it globally for this exercise.",
+            "Use its Edit menu to check the search, time range, description and permissions available to your role. Do not share it globally for this exercise.",
             "Confirm that reopening runs or displays the report according to its definition; an exported CSV does not automatically update this way."
           ],
           "expected": "The saved report can be found and still shows the intended scope.",
@@ -1296,7 +1296,7 @@
             "It deletes each panel’s time range"
           ],
           "answer": 0,
-          "explanation": "Inspect the panel’s search configuration to confirm its time source."
+          "explanation": "Check the panel’s search configuration to confirm its time source."
         }
       ],
       "steps": [
@@ -1355,7 +1355,7 @@
           "title": "Check time controls and the underlying search",
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
-            "Open the dashboard’s Edit mode and inspect the search/time setting for each panel.",
+            "Open the dashboard’s Edit mode and check the search/time setting for each panel.",
             "Keep All time for both fixed-date dataset panels. If you add a shared Time input, connect each intended panel to that shared picker explicitly; adding an input alone does not connect it.",
             "Save, reopen the dashboard, then open a panel’s search to confirm its scope and totals."
           ],
@@ -1501,8 +1501,8 @@
           "where": "Splunk Web → Search & Reporting, on your own practice instance",
           "actions": [
             "In Settings → Lookups → Automatic lookups → Add new, choose app search and name cloudseam_status_auto. Select lookup table cloudseam_status.",
-            "For this single-instance exercise, apply to host named SPLUNK01.cloudseam.tech, exactly as set during upload. Set input status = status and output meaning = meaning. Leave Overwrite field values unchecked and Save.",
-            "Run a new base search followed by | table status meaning, with no explicit lookup command. Verify that meaning is populated, and inspect your actual host if it is not."
+            "For this single-instance exercise, apply to host named SPLUNK01.lab.example.test, exactly as set during upload. Set input status = status and output meaning = meaning. Leave Overwrite field values unchecked and Save.",
+            "Run a new base search followed by | table status meaning, with no explicit lookup command. Verify that meaning is populated, and check your actual host if it is not."
           ],
           "expected": "New searches get the meaning field automatically for the scoped practice host.",
           "breakdown": [
@@ -1551,7 +1551,7 @@
         }
       ],
       "pass": "A scheduled report completed, one test alert fired, and both practice schedules were disabled.",
-      "exercise": "Record the run time, fired-alert evidence and disabled schedule states.",
+      "exercise": "Record the run time, fired-alert saved result and disabled schedule states.",
       "quiz": [
         {
           "question": "Why do we disable this All time practice alert?",
@@ -1693,11 +1693,11 @@
             "Find the user with failed logins, count the 401 and 503 responses, and identify the two fictional server names.",
             "Write each finding beside its exact SPL and All time scope. Compare your totals with the known 12 events."
           ],
-          "expected": "Your evidence identifies bob=4 failed logins and two 503 responses.",
+          "expected": "Your saved result identifies bob=4 failed logins and two 503 responses.",
           "breakdown": [
             {
               "term": "Why this step matters",
-              "meaning": "The evidence must support the statement, including its time and dataset limits."
+              "meaning": "The saved result must support the statement, including its time and dataset limits."
             }
           ],
           "screenshot": {
@@ -1768,7 +1768,7 @@
       "title": "Load Your Cyber Analyst Practice Logs",
       "description": "Upload 16 fictional security events and learn which fields tell you who connected, where they went and what happened.",
       "what": "Upload 16 fictional security events and learn which fields tell you who connected, where they went and what happened.",
-      "why": "Think of a log as a receipt: it records an action, but you still need to understand the context. We will read prepared evidence without sending attacks or exposing a server.",
+      "why": "Think of a log as a receipt: it records an action, but you still need to understand the context. We will read prepared saved result without sending attacks or exposing a server.",
       "needs": [
         "Finish the basic CSV upload and search lessons first.",
         "Download cloudseam-security.csv inside your practice VM."
@@ -1807,7 +1807,7 @@
             "Download cloudseam-security.csv using the practice-files link above. In Splunk Web, click Settings → Add Data → Upload → Select File. Select the downloaded security CSV.",
             "On Set Source Type choose csv. Check the preview columns: timestamp, server, src_ip, dest_ip, dest_port, user, event_type, action, status, request.",
             "Use timestamp for event time. If needed, set its format to %Y-%m-%dT%H:%M:%SZ. These records are dated 16 January 2026 UTC.",
-            "Click Next → Input Settings. Set Host to SPLUNK01.cloudseam.tech and Index to the existing sonic_lab. Review, then click Submit once."
+            "Click Next → Input Settings. Set Host to SPLUNK01.lab.example.test and Index to the existing sonic_lab. Review, then click Submit once."
           ],
           "expected": "Review shows the security CSV, the existing sonic_lab index and the correct timestamp field.",
           "breakdown": [
@@ -1974,7 +1974,7 @@
           "actions": [
             "Run the query below. In Statistics, find the single decoded request containing <script>.",
             "Record its time, source, action and status. It is a blocked request from 203.0.113.51.",
-            "Write: “One script-like request was blocked. These logs do not show that a browser executed a script.” In a real case, ask for WAF, application and endpoint evidence before escalating."
+            "Write: “One script-like request was blocked. These logs do not show that a browser executed a script.” In a real case, ask for WAF, application and endpoint saved result before escalating."
           ],
           "expected": "One script-like request, blocked with 403; no claim of confirmed execution.",
           "breakdown": [
@@ -2039,7 +2039,7 @@
           "actions": [
             "In Splunk Search, choose All time. Paste the query below, run it and open Statistics.",
             "cidrmatch asks whether an IP belongs to 10.50.0.0/24. NOT keeps the authentication records outside that subnet.",
-            "Read the five returned rows. All use 198.51.100.77, labadmin and destination port 3389. This is fictional remote-desktop-style evidence, not a live RDP connection."
+            "Read the five returned rows. All use 198.51.100.77, labadmin and destination port 3389. This is fictional remote-desktop-style saved result, not a live RDP connection."
           ],
           "expected": "Five external authentication rows: four failures and one success.",
           "breakdown": [
@@ -2093,7 +2093,7 @@
             "Add your saved query and event-table screenshot. Write: “Four failures followed by one recorded success. Verify with the account owner, approved access list and Windows sign-in logs.”",
             "In a real organization, follow the incident playbook and ask the authorized responder about containment. Do not block a country, disable an account or erase logs based on this exercise."
           ],
-          "expected": "A short handoff separates facts, uncertainty and the next evidence to request.",
+          "expected": "A short handoff separates facts, uncertainty and the next saved result to request.",
           "breakdown": [
             {
               "term": "Why we do this",
@@ -2233,7 +2233,7 @@
             "Select All sources. If needed, click Submit. Expect failure=5 and success=3.",
             "Select External login source. Expect failure=4 and success=1. Select Internal workstation. Expect success=1 and no failure row.",
             "Change Time range to Last 15 minutes. The fixed January events should disappear. Restore All time so they return. Save, reload the dashboard and repeat the external-source check.",
-            "If the totals never change, inspect the inline search for $src_filter$ and the selected shared time picker. Do not re-upload data to repair a dashboard input."
+            "If the totals never change, check the inline search for $src_filter$ and the selected shared time picker. Do not re-upload data to repair a dashboard input."
           ],
           "expected": "The input changes the results: all=8, external=5, internal workstation=1. Recent time hides the fixed-date events.",
           "breakdown": [

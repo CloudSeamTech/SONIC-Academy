@@ -37,7 +37,7 @@ test('Splunk practice evidence matches the downloadable synthetic dataset', () =
     rows.every(
       (r) =>
         Number.isFinite(Date.parse(r.timestamp)) &&
-        r.server.endsWith('.cloudseam.tech'),
+        r.server.endsWith('.lab.example.test'),
     ),
   );
   const lookup = readFileSync(

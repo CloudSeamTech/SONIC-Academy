@@ -66,7 +66,7 @@ test('Published proxy configuration keeps both TLS hops verified and does not tr
     'proxy_pass https://10.80.0.40:443',
     'proxy_ssl_verify on',
     'proxy_ssl_server_name on',
-    'proxy_ssl_name iis-backend.cloudseam.tech',
+    'proxy_ssl_name iis-backend.lab.example.test',
     'proxy_set_header X-Forwarded-For $remote_addr',
   ])
     assert.ok(conf.includes(value), value);

@@ -11,7 +11,7 @@ export const clarifiedChecks: Record<string, { title: string; action: string }> 
   },
   'lab-10:10': {
     title: 'Verify the destination GPO exists in the correct domain',
-    action: 'On DEST-DC01 open Windows PowerShell with the appropriate domain permissions. Run Get-GPO using the destination GPO name and -Domain migrate.cloudseam.tech, then open Group Policy Management to confirm the linked OU and banner setting. A GPO existing without a link does not mean it applies to clients.',
+    action: 'On DEST-DC01 open Windows PowerShell with the appropriate domain permissions. Run Get-GPO using the destination GPO name and -Domain migrate.lab.example.test, then open Group Policy Management to confirm the linked OU and banner setting. A GPO existing without a link does not mean it applies to clients.',
   },
   'lab-11:10': {
     title: 'Verify APP01 joined the destination domain and still serves IIS',
@@ -31,11 +31,11 @@ export const clarifiedChecks: Record<string, { title: string; action: string }> 
   },
   'mecm-01:7': {
     title: 'Prove MECM01 has a domain identity and can reach SQL01',
-    action: 'On MECM01 run PowerShell. Check the hostname and joined Windows domain, resolve SQL01.cloudseam.tech to an address, and probe SQL Server TCP port 1433. Compare the result to the lab’s documented server name and address; a successful TCP port check does not prove SQL permissions.',
+    action: 'On MECM01 run PowerShell. Check the hostname and joined Windows domain, resolve SQL01.lab.example.test to an address, and probe SQL Server TCP port 1433. Compare the result to the lab’s documented server name and address; a successful TCP port check does not prove SQL permissions.',
   },
   'mecm-02:9': {
     title: 'Check MECM01 network access and its SQL login separately',
-    action: 'On MECM01 run only the Test-NetConnection PowerShell command to check SQL01 port 1433. The following line is a comment reminding you to open SSMS on SQL01 and inspect Security > Logins for the CLOUDSEAM\\MECM01$ computer identity. The network check and SQL permission check are separate; confirm both rather than assuming open TCP means authorized SQL access.',
+    action: 'On MECM01 run only the Test-NetConnection PowerShell command to check SQL01 port 1433. The following line is a comment reminding you to open SSMS on SQL01 and inspect Security > Logins for the LAB\\MECM01$ computer identity. The network check and SQL permission check are separate; confirm both rather than assuming open TCP means authorized SQL access.',
   },
   'mecm-04:8': {
     title: 'Confirm SQL and the managed client service are healthy',

@@ -7,7 +7,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/collections/create-collections",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/collections/media/7380401-preview-collection-query.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "d7bd65e2df439f391d7f346d1c103acd1a77e9863f1350db6cb4e38d9135dac1"
   },
   {
@@ -18,7 +18,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/create-and-deploy-an-application",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/media/create-app-wizard-general.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "843402d26baae7091505217a39e84519d64c608d72d6ac907d2ba1c7a30bdbd7"
   },
   {
@@ -29,7 +29,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/create-and-deploy-an-application",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/media/create-app-wizard-general-information.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "2f3428b14011aec2cbe6273b4e6748e97090ef2baa4c0211889581f010f4f77f"
   },
   {
@@ -40,7 +40,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/create-and-deploy-an-application",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/media/app-list-cmpivot.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "f1054a22102ad02d1c80a2b29f51aa9e26fdf3f9f31d250caafc975a5429d39a"
   },
   {
@@ -51,7 +51,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/create-and-deploy-an-application",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/media/cmpivot-app-deployment-type-properties.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "28bec66cb61051abb1844bad65ead54a064905dceaed480e65521449b7b6827b"
   },
   {
@@ -62,7 +62,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/create-and-deploy-an-application",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/apps/get-started/media/create-requirement-windows-11.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "8f2e36e2658f1c9931e6d1231f8c8a19c3a5c76f7e4a823fa811673f5c7dc1bd"
   },
   {
@@ -73,7 +73,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/compliance/deploy-use/create-configuration-baselines",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/compliance/deploy-use/media/3608345-configuration-baseline-properties.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "c5ed87e1619c2fa73c559e35b6cae34c54d9bf2dd431a7cb0ef820cb2417fe2e"
   },
   {
@@ -84,7 +84,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/compliance/deploy-use/create-configuration-baselines",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/compliance/deploy-use/media/3608345-create-compliance-policy-rule.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "0a6aedb4a425620194c8255cb9977816acb1ed342a36dbeb4992848189e8f4d1"
   },
   {
@@ -95,7 +95,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/client-health-dashboard",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/media/5728069-client-health-dashboard-small.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "1ea8d16ebac1a22de8b3f813d5276e5cf28fdf843fa9cc0bbe1756d4d95c5c49"
   },
   {
@@ -106,7 +106,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/client-health-dashboard",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/media/client-status-settings-properties.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "f7b2fe35a991a9bbcdb6200214df1362a987d3683f860c1925fa050de727cf0e"
   },
   {
@@ -117,7 +117,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/client-health-dashboard",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/media/client-health-dashboard-any-failure.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "567d90152357e057a5bb5bb1adeaee5efb95b57d37ae4d64e7524f46b877e14d"
   },
   {
@@ -128,7 +128,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/client-health-dashboard",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/media/client-health-dashboard-scenarios.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "53f5aa17d50de17739685f99e6e6777a37b4bcaa2ec283b6d425fb53cea7e6e6"
   },
   {
@@ -139,7 +139,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/client-health-dashboard",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/core/clients/manage/media/client-health-dashboard-top-ten.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "ea79fae93433b09119f3a7a5ade15a497d0df5b3707c1dc320eb7bd25d5afe5b"
   },
   {
@@ -150,7 +150,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/apps/deploy-use/monitor-applications-from-the-console",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/apps/deploy-use/media/monitor-app-deployments.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "7420aa8243610b315b7591b0902485e77b350f23916230b7b733ff33c2c24fed"
   },
   {
@@ -161,7 +161,7 @@
     "source": "https://learn.microsoft.com/en-us/intune/configmgr/apps/deploy-use/monitor-applications-from-the-console",
     "original": "https://learn.microsoft.com/en-us/intune/configmgr/apps/deploy-use/media/7079837-deployment-status-client-notification.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values.",
     "sha256": "becc6d46e2a46dfd94c994b94bd0ba9cbf84eda77fea3bed339ca5df81e11fd9"
   },
   {
@@ -172,7 +172,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig3.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "2a18bca7cae5803a00779a9f00e9a9019a59f5433df5831fc30e915721d445ff"
   },
   {
@@ -183,7 +183,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig4.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "d5567f99944da4d38bcfaa598c73555918f178122e4ca0ed21de208ca4a090ad"
   },
   {
@@ -194,7 +194,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig6.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "aa5510a39c969d6b7a66304430e718568c5add66ffc36c76dfb6f1064b9adeed"
   },
   {
@@ -205,7 +205,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig7.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "2df45a3037ae7fdf2ecc9258c0a2b545fb635c3bf219c196b40efe18de79db9e"
   },
   {
@@ -216,7 +216,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig8.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "d06e2d092c3613558613f1f539cbffa59bafa20d679911c6de0481a1a187c754"
   },
   {
@@ -227,7 +227,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig10.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "fe60387407cc3dca3b649e894fec8463ec343416e5baa14bfbeafef5c7c508bf"
   },
   {
@@ -238,7 +238,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig17.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "94096618f817ad32067024823c8bb10d6912ead45aa5071ac1ed2d0dce32cf4e"
   },
   {
@@ -249,7 +249,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig18.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "dd3da4dfd13b0dae7956e6f290de5e7b202581e8d135b242ad8484d7a6b1dd83"
   },
   {
@@ -260,7 +260,7 @@
     "source": "https://learn.microsoft.com/en-us/windows/deployment/update/waas-manage-updates-wsus",
     "original": "https://learn.microsoft.com/en-us/windows/deployment/update/images/waas-wsus-fig20.png",
     "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
-    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written cloudseam.tech values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
+    "note": "Unaltered Microsoft documentation screenshot. It shows the named controls, not your lab results. Names, counts and versions in the original image may differ; use this lesson\u2019s written lab.example.test values. This documentation uses a Windows 10 update example; the lab targets only the written supported server update.",
     "sha256": "74b4d9d55c45207bbd9e44d10d5ab27067154c5883a7c892448bc0141baacc9b"
   }
 ]

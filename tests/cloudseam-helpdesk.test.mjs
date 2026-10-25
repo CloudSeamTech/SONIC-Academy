@@ -30,14 +30,14 @@ test('help desk verification needs evidence checks and the correct quiz, retaini
  assert.equal(canVerifyNessusLesson(l.id,progress),true);
  progress.checked.pop();assert.equal(canVerifyNessusLesson(l.id,progress),false);
 });
-test('active course commands use authoritative CloudSeam primary and migration namespaces',()=>{
+test('active course commands use reserved fictional primary and migration namespaces',()=>{
  for(const file of ['content/migration/migration-lessons.generated.json','app/migration-curriculum.ts','lib/reference-check-teaching.ts','app/lab-terminal/lab-terminal.tsx']){
   const s=fs.readFileSync(file,'utf8');assert.doesNotMatch(s,/agency\.test|destination\.test|cloudscene\.tech|DC=agency,DC=test/i,file);
  }
  const c=JSON.parse(fs.readFileSync('content/migration/migration-lessons.generated.json'));
- assert.match(c.lessons.find(l=>l.id==='lab-04').body,/cloudseam\.tech/);
- assert.match(c.lessons.find(l=>l.id==='lab-08').body,/migrate\.cloudseam\.tech/);
- assert.match(c.lessons.find(l=>l.id==='mecm-02').body,/DC=cloudseam,DC=tech/);
+ assert.match(c.lessons.find(l=>l.id==='lab-04').body,/lab\.example\.test/);
+ assert.match(c.lessons.find(l=>l.id==='lab-08').body,/migrate\.lab\.example\.test/);
+ assert.match(c.lessons.find(l=>l.id==='mecm-02').body,/DC=lab,DC=example,DC=test/);
 });
 
 test('PHP update teaches the patched minimum, web runtime validation and a safe failed-update decision',()=>{

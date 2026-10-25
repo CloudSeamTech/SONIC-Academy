@@ -4,10 +4,10 @@
   "assets": [
     {
       "id": "ad",
-      "title": "Create the cloudseam.tech forest",
+      "title": "Create the lab.example.test forest",
       "src": "/lab-screenshots/illustrated-ad.png",
       "kind": "illustrated",
-      "note": "Example: AG-DC01 creates cloudseam.tech. Replica DCs join the existing domain; DEST-DC01 creates its separate forest. Never choose a new forest for AG-DC02.",
+      "note": "Example: AG-DC01 creates lab.example.test. Replica DCs join the existing domain; DEST-DC01 creates its separate forest. Never choose a new forest for AG-DC02.",
       "provenance": "AI-adapted Microsoft AD DS wizard reference, with lab-specific domain and server labels. Not a Server 2019 capture."
     },
     {
@@ -238,11 +238,11 @@
     },
     {
       "lessonId": "sql-02",
-      "title": "Create SQL01 and join cloudseam.tech",
+      "title": "Create SQL01 and join lab.example.test",
       "guideIds": [
         "sql"
       ],
-      "focus": "Create SQL01 and join cloudseam.tech"
+      "focus": "Create SQL01 and join lab.example.test"
     },
     {
       "lessonId": "sql-03",

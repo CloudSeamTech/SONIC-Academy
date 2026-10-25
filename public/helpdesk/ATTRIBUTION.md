@@ -8,7 +8,7 @@ Microsoft Learn · Microsoft documentation contributors
 
 Source: https://learn.microsoft.com/en-us/iis/configuration/system.applicationhost/sites/site/bindings/
 
-Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.
+Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.
 
 ## iis-add-binding
 
@@ -16,7 +16,7 @@ Microsoft Learn · Microsoft documentation contributors
 
 Source: https://learn.microsoft.com/en-us/iis/configuration/system.applicationhost/sites/site/bindings/
 
-Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.
+Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.
 
 ## iis-fastcgi
 
@@ -24,7 +24,7 @@ Microsoft Learn · Microsoft documentation contributors
 
 Source: https://learn.microsoft.com/en-us/iis/configuration/system.webserver/fastcgi/
 
-Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.
+Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.
 
 ## iis-handler
 
@@ -32,7 +32,7 @@ Microsoft Learn · Microsoft documentation contributors
 
 Source: https://learn.microsoft.com/en-us/iis/configuration/system.webserver/fastcgi/
 
-Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.
+Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.
 
 ## iis-certificates
 
@@ -40,7 +40,7 @@ Microsoft Learn · Microsoft documentation contributors
 
 Source: https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis/
 
-Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.
+Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.
 
 ## iis-https
 
@@ -48,7 +48,7 @@ Microsoft Learn · Microsoft documentation contributors
 
 Source: https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis/
 
-Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use cloudseam.tech and the written values in this lesson.
+Original documentation image. It shows IIS controls, not a completed CloudSeam lab. Older IIS styling and example names may differ; use lab.example.test and the written values in this lesson.
 
 ## ost-settings
 

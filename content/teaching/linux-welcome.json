@@ -107,7 +107,7 @@
       "Have a password manager or other approved private place ready for your key’s passphrase."
     ],
     "firstMove": "In PowerShell, check the planned private and public filenames with Test-Path before running ssh-keygen.",
-    "reassurance": "If either file already exists, stop. We can inspect the existing key or choose a new filename; we don’t have to replace it."
+    "reassurance": "If either file already exists, stop. We can check the existing key or choose a new filename; we don’t have to replace it."
   },
   "vm-provision-v2": {
     "welcome": "You’re ready to create the endpoint Linux computer. We’ll build rhel9-lab-01 in Azure and give the rexuser account your public key.",
@@ -253,7 +253,7 @@
     "reassurance": "If SCP says it cannot find the file, check the Windows folder first. Recreating your SSH key will not fix a missing local file."
   },
   "verify-transfer-v3": {
-    "welcome": "The copy finished, but let’s make sure the right file arrived. We’ll inspect it on Linux and compare its checksum with the one recorded on Windows.",
+    "welcome": "The copy finished, but let’s make sure the right file arrived. We’ll check it on Linux and compare its checksum with the one recorded on Windows.",
     "why": "A matching filename alone does not prove the contents are right. Comparing checksums gives us a stronger check.",
     "needs": [
       "You’ll need the practice file already copied to rhel9-lab-01.",
@@ -304,14 +304,14 @@
       "Have the earlier software and storage notes available.",
       "Keep the account’s configured password private if sudo asks for it."
     ],
-    "firstMove": "In the endpoint SSH tab, check that the SSH service is active before moving to the other baseline checks.",
+    "firstMove": "In the endpoint SSH tab, check that the SSH service is active before moving to the other starting point checks.",
     "reassurance": "If a starting check fails, it’s useful that we found it now. Resolve it before adding more software."
   },
   "rollback-gate-v3": {
     "welcome": "Let’s decide how to get back to a working computer before the next change. We’ll write down what needs protection, how to restore it, and when we would stop.",
     "why": "A snapshot is a point-in-time disk copy, not a complete recovery plan. We also need the right disks, a way to sign in, and checks that prove recovery worked.",
     "needs": [
-      "You’ll need the working baseline and the names of both lab VMs.",
+      "You’ll need the working starting point and the names of both lab VMs.",
       "Have access to the chosen backup or snapshot controls and know which disks hold the files you need.",
       "Write down a restore method and stop condition before changing the computer; protect important data independently."
     ],
@@ -335,7 +335,7 @@
     "needs": [
       "You’ll need rhel9-manager-01 and rhel9-lab-01 running, with their four public/private addresses recorded separately.",
       "The manager needs at least 4 virtual CPU cores, 8 GiB of memory, and 50 GB of storage, or the image’s larger minimum.",
-      "Have your working baseline, retained recovery copies, and official release notes ready; this course’s Wazuh release checkpoint is 4.14.7."
+      "Have your working starting point, retained recovery copies, and official release notes ready; this course’s Wazuh release checkpoint is 4.14.7."
     ],
     "firstMove": "Open Virtual machines in Azure and check the name, resource group, and Running status of rhel9-manager-01.",
     "reassurance": "If current release guidance differs from the course checkpoint, pause and compare it before installing. Don’t mix instructions from different releases."
@@ -359,7 +359,7 @@
       "Keep its SSH tab and the Windows browser available, along with the private dashboard credentials.",
       "Know the manager’s public address for browser access and your current home public address for the restricted dashboard rule."
     ],
-    "firstMove": "Select the manager SSH tab, confirm its name, and inspect the installed service information before opening the browser.",
+    "firstMove": "Select the manager SSH tab, confirm its name, and check the installed service information before opening the browser.",
     "reassurance": "If the page doesn’t load, work from the service to the listening port and then the network rule. Reinstalling everything is not our first move."
   },
   "wazuh-artifact-v4": {
@@ -403,12 +403,12 @@
       "Use the verified rexuser endpoint session and the dedicated sonic-fim practice folder.",
       "Keep a backup of the agent configuration before adding the reviewed file-monitoring setting."
     ],
-    "firstMove": "Confirm you are on rhel9-lab-01, then create the harmless practice folder and baseline text file from the lesson.",
+    "firstMove": "Confirm you are on rhel9-lab-01, then create the harmless practice folder and starting point text file from the lesson.",
     "reassurance": "If the event doesn’t appear, check the monitored path, configuration, time, and dashboard filter before making a second change."
   },
   "wazuh-fault-v4": {
-    "welcome": "Let’s practice solving one small, known problem. On the disposable endpoint only, we’ll briefly give the agent a wrong manager address and follow its error messages.",
-    "why": "This teaches us to find a connection problem from evidence instead of restarting everything and hoping it works.",
+    "welcome": "Let’s practice solving one small, known problem. On the practice endpoint only, we’ll briefly give the agent a wrong manager address and follow its error messages.",
+    "why": "This teaches us to find a connection problem from saved result instead of restarting everything and hoping it works.",
     "needs": [
       "You’ll need a working, connected rhel9-lab-01 endpoint and its verified configuration backup.",
       "Keep the real manager private address written down and your SSH access working.",
@@ -421,7 +421,7 @@
     "welcome": "Let’s bring the endpoint back using the recovery method we chose earlier. We’ll check what remains afterward and prove the computer still works.",
     "why": "Uninstalling software and restoring a disk do different things. A restore can also remove newer files, so we choose the branch deliberately.",
     "needs": [
-      "You’ll need the endpoint’s working baseline and the agreed recovery branch from your notes.",
+      "You’ll need the endpoint’s working starting point and the agreed recovery branch from your notes.",
       "Keep your recovery copy and another way to reach the VM available before making changes.",
       "Preserve any files you need and confirm whether the final goal is agent removal or restoration to the pre-install state."
     ],
@@ -429,7 +429,7 @@
     "reassurance": "If your plan calls for disk restoration, don’t also run uninstall steps just because they are shown. Follow the branch that matches the recorded goal."
   },
   "wazuh-close-v4": {
-    "welcome": "You’ve worked through the change. Let’s collect the useful evidence, say clearly what is still unfinished, and stop both lab VMs when you’re done.",
+    "welcome": "You’ve worked through the change. Let’s collect the useful saved result, say clearly what is still unfinished, and stop both lab VMs when you’re done.",
     "why": "Good handoff notes help the next administrator understand the result. Checking both power states also helps prevent unnecessary running costs.",
     "needs": [
       "You’ll need the endpoint and manager results, including your event, fault, and recovery notes.",

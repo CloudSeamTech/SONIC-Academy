@@ -59,7 +59,7 @@ const groups: { title: string; intro: string; source: string; tips: Tip[] }[] =
       source: 'https://learn.microsoft.com/en-us/troubleshoot/windows-server/',
       tips: [
         {
-          title: 'A computer cannot join cloudseam.tech',
+          title: 'A computer cannot join lab.example.test',
           symptom: 'Windows says it cannot find the domain.',
           where:
             'PowerShell on the practice member server. Run these read-only checks there.',
@@ -69,7 +69,7 @@ const groups: { title: string; intro: string; source: string; tips: Tip[] }[] =
             'Use the command below to look for domain controller service records. Also compare the member server and DC clocks.',
           ],
           command:
-            'Resolve-DnsName -Type SRV _ldap._tcp.dc._msdcs.cloudseam.tech',
+            'Resolve-DnsName -Type SRV _ldap._tcp.dc._msdcs.lab.example.test',
           expected:
             'DNS returns service records for your domain controllers. A ping reply by itself does not prove AD or DNS is healthy.',
           next: 'Correct the lab adapter or DNS setting first, then retry the join. Save the exact join error if it still fails.',
@@ -178,7 +178,7 @@ const groups: { title: string; intro: string; source: string; tips: Tip[] }[] =
             'Check that the SQL Server service is running and TCP/IP is enabled for the intended instance.',
             'Check DNS, the SQL firewall rule and the application connection string.',
           ],
-          command: 'Test-NetConnection SQL01.cloudseam.tech -Port 1433',
+          command: 'Test-NetConnection SQL01.lab.example.test -Port 1433',
           expected:
             'TcpTestSucceeded is True for the configured port. That confirms a network connection, not a successful SQL login.',
           next: 'If the port works, test the approved login in SQL Server Management Studio (SSMS) and inspect the SQL error log.',
@@ -308,12 +308,12 @@ const groups: { title: string; intro: string; source: string; tips: Tip[] }[] =
           where:
             'A client browser and PowerShell, then IIS Manager and the application logs on APP01.',
           checks: [
-            'For this lab, confirm helpdesk.cloudseam.tech resolves to APP01’s planned address. The AD domain remains cloudseam.tech.',
+            'For this lab, confirm helpdesk.lab.example.test resolves to APP01’s planned address. The AD domain remains lab.example.test.',
             'In IIS Bindings, check the hostname, HTTPS port and certificate. Check the certificate expiry, matching name and client trust.',
             'If the page loads but its data does not, inspect the application log and its configured database connection without sharing passwords. osTicket uses MySQL or MariaDB: check that service and its configured port (often 3306). Use the SQL Server checks above only for an application that actually uses SQL Server.',
           ],
           command:
-            'Resolve-DnsName helpdesk.cloudseam.tech\nTest-NetConnection helpdesk.cloudseam.tech -Port 443',
+            'Resolve-DnsName helpdesk.lab.example.test\nTest-NetConnection helpdesk.lab.example.test -Port 443',
           expected:
             'The hostname resolves correctly, the HTTPS connection is trusted, and a test ticket can be created and read.',
           next: 'Fix the failing layer and retest from a client. Do not bypass certificate validation as the permanent solution.',

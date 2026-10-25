@@ -61,27 +61,27 @@ const titles: Record<string, [string, string]> = {
   ],
   'lab-04': [
     'Set Up Active Directory and DNS on DC01',
-    'Install Windows Server on DC01, configure its address, and create cloudseam.tech with AD DS and DNS.',
+    'Install Windows Server on DC01, configure its address, and create lab.example.test with AD DS and DNS.',
   ],
   'lab-07': [
     'Add DC02 and Check Active Directory Replication',
-    'Build DC02 in cloudseam.tech and verify Active Directory replication.',
+    'Build DC02 in lab.example.test and verify Active Directory replication.',
   ],
   'lab-05': [
     'Create Users & Policy',
-    'Create test users, organizational units, and a Group Policy in cloudseam.tech.',
+    'Create test users, organizational units, and a Group Policy in lab.example.test.',
   ],
   'lab-06': [
     'Build and Join APP01',
-    'Join APP01 to cloudseam.tech and install an IIS test website.',
+    'Join APP01 to lab.example.test and install an IIS test website.',
   ],
   'lab-08': [
     'Build the Destination Domain',
-    'Create DEST-DC01 and a separate migrate.cloudseam.tech forest.',
+    'Create DEST-DC01 and a separate migrate.lab.example.test forest.',
   ],
   'lab-09': [
     'Connect Two Domains with DNS Forwarders',
-    'Configure DNS resolution between cloudseam.tech and migrate.cloudseam.tech.',
+    'Configure DNS resolution between lab.example.test and migrate.lab.example.test.',
   ],
   'lab-10': [
     'Move a Group Policy',
@@ -89,7 +89,7 @@ const titles: Record<string, [string, string]> = {
   ],
   'lab-11': [
     'Move APP01 to the New Domain',
-    'Move APP01 to migrate.cloudseam.tech and verify its application and policies.',
+    'Move APP01 to migrate.lab.example.test and verify its application and policies.',
   ],
   'lab-12': [
     'Test the Rollback Plan',
@@ -101,7 +101,7 @@ const titles: Record<string, [string, string]> = {
   ],
   'sql-02': [
     'Build SQL01',
-    'Create the SQL01 Windows server and join it to cloudseam.tech.',
+    'Create the SQL01 Windows server and join it to lab.example.test.',
   ],
   'sql-03': [
     'Install SQL Server',
@@ -379,7 +379,7 @@ export const learningPathways: LearningPathway[] = [
   {
     id: 'sql',
     title: 'SQL Server',
-    prerequisite: 'After Windows / AD · SQL01 needs cloudseam.tech',
+    prerequisite: 'After Windows / AD · SQL01 needs lab.example.test',
     sections: [
       {
         title: '01 / Install and Recover SQL',

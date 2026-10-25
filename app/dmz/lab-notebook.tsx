@@ -16,14 +16,14 @@ const fields = [
   [
     'public-name',
     'Name visitors will use',
-    'Example: app-dmz.cloudseam.tech',
+    'Example: app-dmz.lab.example.test',
     'dmz-plan',
   ],
   ['iis-name', 'Private IIS server name', 'Example: IIS-DMZ01', 'dmz-plan'],
   [
     'backend-name',
     'Private HTTPS name on IIS',
-    'Example: iis-backend.cloudseam.tech',
+    'Example: iis-backend.lab.example.test',
     'dmz-iis',
   ],
   ['proxy-name', 'Gateway server name', 'Example: PROXY01', 'dmz-plan'],

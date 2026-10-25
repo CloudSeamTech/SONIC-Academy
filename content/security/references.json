@@ -2,107 +2,107 @@
   {
     "id": "security-servers-on",
     "src": "/security/security-servers-on.png",
-    "title": "Defender for Cloud \u00b7 Servers plan switch",
-    "platform": "Microsoft Azure / Defender \u00b7 official interface reference",
+    "title": "Defender for Cloud · Servers plan switch",
+    "platform": "Microsoft Azure / Defender · official interface reference",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan",
     "original": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/media/tutorial-enable-servers-plan/enable-servers-plan.png",
-    "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
+    "credit": "Microsoft Learn · Microsoft documentation contributors",
     "note": "Original Microsoft documentation screenshot. Example names, default plan selections, dates and prices are not this lab. Use the written scope and Plan 1 choice; never copy a displayed Plan 2 selection without a separate cost decision. Your portal layout may differ.",
     "sha256": "209de0ac43c6fdb290041e7c9daf534c74bd2a8f70e76000c5f4775bbb7075e8"
   },
   {
     "id": "security-change-plan",
     "src": "/security/security-change-plan.png",
-    "title": "Defender for Servers \u00b7 Change plans",
-    "platform": "Microsoft Azure / Defender \u00b7 official interface reference",
+    "title": "Defender for Servers · Change plans",
+    "platform": "Microsoft Azure / Defender · official interface reference",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan",
     "original": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/media/tutorial-enable-servers-plan/servers-change-plan.png",
-    "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
+    "credit": "Microsoft Learn · Microsoft documentation contributors",
     "note": "Original Microsoft documentation screenshot. Example names, default plan selections, dates and prices are not this lab. Use the written scope and Plan 1 choice; never copy a displayed Plan 2 selection without a separate cost decision. Your portal layout may differ.",
     "sha256": "cb71d36779483f0d2efefb98e668dd7e0b1c8648388ad6e694e607e83b09856d"
   },
   {
     "id": "security-plan-one",
     "src": "/security/security-plan-one.png",
-    "title": "Defender for Servers \u00b7 Plan selection",
-    "platform": "Microsoft Azure / Defender \u00b7 official interface reference",
+    "title": "Defender for Servers · Plan selection",
+    "platform": "Microsoft Azure / Defender · official interface reference",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-servers-plan",
     "original": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/media/tutorial-enable-servers-plan/servers-plan-selection.png",
-    "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
+    "credit": "Microsoft Learn · Microsoft documentation contributors",
     "note": "Original Microsoft documentation screenshot. Example names, default plan selections, dates and prices are not this lab. Use the written scope and Plan 1 choice; never copy a displayed Plan 2 selection without a separate cost decision. Your portal layout may differ. This original image has Plan 2 selected: choose Plan 1 for this lesson before confirming. Older feature labels, including Qualys, and blank price fields are not current product/pricing guidance.",
     "sha256": "be6f495c214be553d39009d88b0f097a33c13c21ec347f62bd00b2e045aef484"
   },
   {
     "id": "security-arc-connected",
     "src": "/security/security-arc-connected.png",
-    "title": "Azure Arc \u00b7 connected machine",
-    "platform": "Microsoft Azure / Defender \u00b7 official interface reference",
+    "title": "Azure Arc · connected machine",
+    "platform": "Microsoft Azure / Defender · official interface reference",
     "source": "https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-portal",
     "original": "https://learn.microsoft.com/en-us/azure/azure-arc/servers/media/quick-enable-hybrid-vm/enabled-machine.png",
-    "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
+    "credit": "Microsoft Learn · Microsoft documentation contributors",
     "note": "Original Microsoft documentation screenshot. Example names, default plan selections, dates and prices are not this lab. Use the written scope and Plan 1 choice; never copy a displayed Plan 2 selection without a separate cost decision. Your portal layout may differ.",
     "sha256": "5b1b25a1139afe5cd54e4f22c380f5c972caee2686c62aa359c47105e52ce51e"
   },
   {
     "id": "security-budget",
     "src": "/security/security-budget.png",
-    "title": "Cost Management \u00b7 monthly budget",
-    "platform": "Microsoft Azure / Defender \u00b7 official interface reference",
+    "title": "Cost Management · monthly budget",
+    "platform": "Microsoft Azure / Defender · official interface reference",
     "source": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets",
     "original": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/media/tutorial-acm-create-budgets/create-monthly-budget.png",
-    "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
+    "credit": "Microsoft Learn · Microsoft documentation contributors",
     "note": "Original Microsoft documentation screenshot. Example names, default plan selections, dates and prices are not this lab. Use the written scope and Plan 1 choice; never copy a displayed Plan 2 selection without a separate cost decision. Your portal layout may differ.",
     "sha256": "b4fcad187f33a527fa19328656229fece61f950802c8b2f363bacaeb31270b4a"
   },
   {
     "id": "security-budget-alert",
     "src": "/security/security-budget-alert.png",
-    "title": "Cost Management \u00b7 budget alerts",
-    "platform": "Microsoft Azure / Defender \u00b7 official interface reference",
+    "title": "Cost Management · budget alerts",
+    "platform": "Microsoft Azure / Defender · official interface reference",
     "source": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets",
     "original": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/media/tutorial-acm-create-budgets/budget-set-alert.png",
-    "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
+    "credit": "Microsoft Learn · Microsoft documentation contributors",
     "note": "Original Microsoft documentation screenshot. Example names, default plan selections, dates and prices are not this lab. Use the written scope and Plan 1 choice; never copy a displayed Plan 2 selection without a separate cost decision. Your portal layout may differ.",
     "sha256": "9965d6e2d916b9912750117670e8e116c972cf1a0519a11a69f816c87dac2a24"
   },
   {
     "id": "security-alert-tree",
     "src": "/security/security-alert-tree.png",
-    "title": "Microsoft Defender \u00b7 alert evidence tree",
-    "platform": "Microsoft Azure / Defender \u00b7 official interface reference",
+    "title": "Microsoft Defender · alert evidence tree",
+    "platform": "Microsoft Azure / Defender · official interface reference",
     "source": "https://learn.microsoft.com/en-us/defender-endpoint/investigate-alerts",
     "original": "https://learn.microsoft.com/en-us/defender-endpoint/media/alert-story-tree.png",
-    "credit": "Microsoft Learn \u00b7 Microsoft documentation contributors",
+    "credit": "Microsoft Learn · Microsoft documentation contributors",
     "note": "Original Microsoft documentation screenshot. Example names, default plan selections, dates and prices are not this lab. Use the written scope and Plan 1 choice; never copy a displayed Plan 2 selection without a separate cost decision. Your portal layout may differ.",
     "sha256": "b2ed6f888236fed49eecb0dc028117a83da29cd3cd5e21b5c45420cc6221364d"
   },
   {
     "id": "security-wazuh-agents",
     "src": "/interface-screenshots/wazuh-agents.png",
-    "title": "Wazuh dashboard \u00b7 agents list",
+    "title": "Wazuh dashboard · agents list",
     "platform": "Wazuh dashboard / official documentation reference",
     "source": "https://documentation.wazuh.com/current/user-manual/agent/agent-management/listing/wazuh-dashboard.html",
-    "credit": "Wazuh documentation contributors \u00b7 Copyright Wazuh",
+    "credit": "Wazuh documentation contributors · Copyright Wazuh",
     "note": "Actual Wazuh interface reference. Source agent names, operating systems, paths, timestamps, counts and example alerts are not your lab results. Use your enrolled RHEL host and the written task; menu labels can differ by release. Original interface reference; not proof that your lab is reporting.",
     "sha256": "f82919478c32c4b02ff7bf6a54f3c02447319f95170cb6b0992faaa62137774a"
   },
   {
     "id": "security-wazuh-fim-events",
     "src": "/interface-screenshots/wazuh-fim-events.png",
-    "title": "Wazuh dashboard \u00b7 file integrity events",
+    "title": "Wazuh dashboard · file integrity events",
     "platform": "Wazuh dashboard / official documentation reference",
     "source": "https://documentation.wazuh.com/current/proof-of-concept-guide/poc-file-integrity-monitoring.html",
-    "credit": "Wazuh documentation contributors \u00b7 Copyright Wazuh",
+    "credit": "Wazuh documentation contributors · Copyright Wazuh",
     "note": "Actual Wazuh interface reference. Source agent names, operating systems, paths, timestamps, counts and example alerts are not your lab results. Use your enrolled RHEL host and the written task; menu labels can differ by release. Original interface reference; not proof that your lab is reporting.",
     "sha256": "18648e405d8f42b03f677272f7c2e0011f840cea693ac18afd3d3d08d702b630"
   },
   {
     "id": "security-wazuh-settings",
     "src": "/interface-screenshots/wazuh-settings.png",
-    "title": "Wazuh dashboard \u00b7 settings",
+    "title": "Wazuh dashboard · settings",
     "platform": "Wazuh dashboard / official documentation reference",
     "source": "https://documentation.wazuh.com/current/user-manual/wazuh-dashboard/navigating-the-wazuh-dashboard.html",
-    "credit": "Wazuh documentation contributors \u00b7 Copyright Wazuh",
+    "credit": "Wazuh documentation contributors · Copyright Wazuh",
     "note": "Actual Wazuh interface reference. Source agent names, operating systems, paths, timestamps, counts and example alerts are not your lab results. Use your enrolled RHEL host and the written task; menu labels can differ by release. Original interface reference; not proof that your lab is reporting.",
     "sha256": "d67a6b736d6d30a30d74439712577d447a44ffa412446d92dba86df1e5a6de9e"
   },
@@ -112,7 +112,7 @@
     "title": "Separate the three products",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/plan-defender-for-servers-select-plan",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "43b4df07ec41a6d6d275c68fd95bb7eae8883159f62c4a168bf299f665922aef"
   },
@@ -122,7 +122,7 @@
     "title": "Write a spending stop rule",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "cb58d140477e58924aa74e9481bda1c70ad282ffa5b7183dbd4fd4062ad12488"
   },
@@ -132,9 +132,9 @@
     "title": "Record names and recovery access",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-portal",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
-    "sha256": "7b20b9790220522e972702f4a17c6083ab14fc3bb3c7fd30758fc6f9da5a1dc4"
+    "sha256": "3382bce057f7f5d7ad60ed6b1d927d47f33539ceacc73b63cd84e734d3e36dad"
   },
   {
     "id": "sec-identity-1",
@@ -142,7 +142,7 @@
     "title": "Find the right directory and subscription",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/plan-defender-for-servers-select-plan",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "7747d12adf50687af0c028ce8283b44d3bdc7da0ffe6a641ba32aa4c1787144e"
   },
@@ -152,9 +152,9 @@
     "title": "Protect sign-in and reduce routine privileges",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/azure-arc/servers/onboard-portal",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
-    "sha256": "2350b5aeeee1dd8a4a696f633f51d6e246ce7f75368f18210a533720cabc0e74"
+    "sha256": "c4d8417a7656df11a8c3de73b171827c868d539a3d528a3dd5c1a69285198d39"
   },
   {
     "id": "sec-identity-3",
@@ -162,7 +162,7 @@
     "title": "Create only the lab resource group",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "73802b7ab529f1bdef829667efee246e20cabd1340fc629fcf2f0378feef7cab"
   },
@@ -172,7 +172,7 @@
     "title": "Tag the resources you can identify",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/tag-resources",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "a15407f2c491949850ba4ddb02e98c94da36f7446a068e1f93c150d22e18ca9a"
   },
@@ -182,7 +182,7 @@
     "title": "Download and import the official appliance",
     "platform": "Illustrated action guide",
     "source": "https://documentation.wazuh.com/current/deployment-options/virtual-machine/virtual-machine.html",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "29a467e8f3f9b424a663144e8391b48db9312713092214d91bd5a541e03910a5"
   },
@@ -192,17 +192,17 @@
     "title": "Check basic protection before testing alerts",
     "platform": "Illustrated action guide",
     "source": "https://documentation.wazuh.com/current/installation-guide/wazuh-agent/index.html",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "a5eb01202e54991eb2ee4bb5db033535cb736930b19b0ab4b3fbd5c508c842f7"
   },
   {
     "id": "sec-endpoint-2",
     "src": "/security/sec-endpoint-2.svg",
-    "title": "Run Microsoft\u2019s documented safe onboarding test",
+    "title": "Run Microsoft’s documented safe onboarding test",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/defender-endpoint/run-detection-test",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "e4b54f40571f5c09fdc445245cc4b1b3eba1de8b404d2848d677fd4fe3f2c3ec"
   },
@@ -212,7 +212,7 @@
     "title": "Practise containment with a recovery path",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/defender-endpoint/respond-machine-alerts",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "e0c1dd77892ac8a6bd935f37006d25225aeeed95c01ad8cfe0e9b0c60d46053b"
   },
@@ -222,7 +222,7 @@
     "title": "Release, verify and close the practice case",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/defender-endpoint/respond-machine-alerts",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "b45922be968890196859e1a17f7a718dbf891351e69df834bc04377ae2e6970d"
   },
@@ -232,7 +232,7 @@
     "title": "Choose a small, evidence-based fix",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/integration-defender-for-endpoint",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "f62a50901e753e05fb9285201ceb2c3259408b9989b7077312b33f428875cc5b"
   },
@@ -242,7 +242,7 @@
     "title": "Apply on the pilot and check the application",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/integration-defender-for-endpoint",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "561e5faecac6bff2fd3fe695e22fa76b5370f20f5fbf4ac4e7c0cc04f81724f8"
   },
@@ -252,7 +252,7 @@
     "title": "Verify improvement and recover on failure",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/tutorial-enable-cspm-plan",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "97c991d5a3b5a6676a05a0aa70659f0b6f997ed3b2e2b9968a9ec27c2eb43d2f"
   },
@@ -262,7 +262,7 @@
     "title": "Offboard intentionally and preserve basic protection",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/disable-plans",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "c7b731de2f2bb14d130afe7ec1a7ffabf24f21746253fba34ad2e0c6c97d042f"
   },
@@ -272,7 +272,7 @@
     "title": "Separate VDI from the free VMware lab",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/prerequisites",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "cc5eaca36bb4f58a247fbfc3320ba5218115793b5cf4beff9951a29f7f039ee8"
   },
@@ -282,7 +282,7 @@
     "title": "Check the actual entitlement and trial terms",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/prerequisites",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "779e10a2565d239c10de8233aca18712a0149bfb083e2e0e9f7e418be8280f78"
   },
@@ -292,7 +292,7 @@
     "title": "Re-price the complete desktop before continuing",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/prerequisites",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "1e8abacda1ba5999868456a5f9ea8bfe4ff97e3c96519b36353522ba65e8a48e"
   },
@@ -302,7 +302,7 @@
     "title": "Create the host pool basics",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/deploy-azure-virtual-desktop",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "b237ca74b1cc458ea4de2c688d7d04a994471695529d86ff9161fb92db5b794f"
   },
@@ -312,7 +312,7 @@
     "title": "Choose exactly one supported session host",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/deploy-azure-virtual-desktop",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "e4941ca49c05db1a5ff4b83e7a595aedd8e4c67a07e5e0cb4f03b4f5e6476f1c"
   },
@@ -322,9 +322,9 @@
     "title": "Set network and identity deliberately",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/deploy-azure-virtual-desktop",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
-    "sha256": "b6d4b48bf83f68d7567dd92adcf9d6a05fe7f6d55d4192f22ae5b5749afb3aaf"
+    "sha256": "03a695a459e0a5ac3da6c3464265eb95bcefad8af55f3e551d432874c2a63884"
   },
   {
     "id": "sec-vdi-build-4",
@@ -332,7 +332,7 @@
     "title": "Register the desktop and finish the deployment",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/deploy-azure-virtual-desktop",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "b58033bb0fcb77c15d6089f6b7fff11e81a1ff8a1a748dbfa3cc79fc454875c8"
   },
@@ -342,7 +342,7 @@
     "title": "Assign the learner and test sign-in",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/deploy-azure-virtual-desktop",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "12c97fcad8194fcf28fb17cce911de7e40c3c48eecac0e54e858107f85acd230"
   },
@@ -352,7 +352,7 @@
     "title": "Record the security and cost baseline",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/prerequisites",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "a206af34392ea87e95abb7c044b9f2ec9dc1aa5c0d288b0cf2377129cc1e7bd1"
   },
@@ -362,7 +362,7 @@
     "title": "Pilot client protection without locking out the learner",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/defender-for-cloud/integration-defender-for-endpoint",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "4345dbfe7a9a641f8b9099abb148f8078e2b521746db42f6d220fde8831f3fda"
   },
@@ -372,7 +372,7 @@
     "title": "Start only when needed and deallocate after use",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-desktop/autoscale-scaling-plan",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "6f84f8c4d581227ff27325c3c332e5a4d2b0921c86e3179b6f59580945cc0e6c"
   },
@@ -382,7 +382,7 @@
     "title": "End the extension before renewal surprises",
     "platform": "Illustrated action guide",
     "source": "https://learn.microsoft.com/en-us/azure/cost-management-billing/costs/tutorial-acm-create-budgets",
-    "credit": "SONIC-Academy \u00b7 original teaching diagram",
+    "credit": "SONIC-Academy · original teaching diagram",
     "note": "Original action diagram, not a screenshot, a live portal connection, a cost quote or proof that a plan was enabled. Follow your actual portal and verify its scope and charges.",
     "sha256": "ba583b2a63c73de6cbb91a82f947e34d3bb2067faaf885afe20ba3c73253dbcb"
   }

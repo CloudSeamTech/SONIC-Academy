@@ -122,7 +122,7 @@
       "troubleshooting": [
         {
           "problem": "I don’t see a Windows desktop",
-          "fix": "Check which edition you installed. Rebuild this disposable VM with Desktop Experience if you selected Core. Installing IIS won’t turn Core into the supported desktop build."
+          "fix": "Check which edition you installed. Rebuild this practice VM with Desktop Experience if you selected Core. Installing IIS won’t turn Core into the supported desktop build."
         },
         {
           "problem": "My own computer is very slow",
@@ -261,7 +261,7 @@
         },
         {
           "problem": "My VPN uses the same address range",
-          "fix": "Pause here. Work with the lab owner to choose a non-overlapping private range before you start any scan."
+          "fix": "Pause here. Work with the lab owner to choose a different, non-overlapping private range before you start any scan."
         }
       ],
       "quiz": [
@@ -341,7 +341,7 @@
         }
       ],
       "bestPractices": [
-        "Use a disposable practice VM for this class. A company server needs its agreed change and maintenance process.",
+        "Use a practice practice VM for this class. A company server needs its agreed change and maintenance process.",
         "Keep the verified installer in your private software folder in case an approved repair needs it later."
       ],
       "commonMistakes": [
@@ -542,11 +542,11 @@
           "breakdown": [
             {
               "term": "$AdminIP",
-              "meaning": "Stores the approved source address you enter."
+              "meaning": "Stores the trusted source address you enter."
             },
             {
               "term": "New-NetFirewallRule",
-              "meaning": "Creates one Windows firewall rule; inspect existing rules too."
+              "meaning": "Creates one Windows firewall rule; check existing rules too."
             },
             {
               "term": "-Direction Inbound -Action Allow",
@@ -592,7 +592,7 @@
         },
         {
           "problem": "I see duplicate rules",
-          "fix": "Inspect their names, scope and purpose first. Only disable the course-created duplicate after checking that it is safe to do so."
+          "fix": "Check their names, scope and purpose first. Only disable the course-created duplicate after checking that it is safe to do so."
         }
       ],
       "quiz": [
@@ -866,7 +866,7 @@
           "actions": [
             "Check that you have the matching files before using import-certs. Enter their local paths below, not their contents. The paths must point to the matching unencrypted PEM server key, server certificate and CA certificate required by Tenable’s procedure.",
             "Stop the service only during the agreed maintenance time. Import the files and read the result before starting it again. If validation fails, stop and investigate the message; don’t try to force it by copying random files over the originals.",
-            "Open Nessus using the DNS name that matches the certificate. Inspect the certificate chain, name and expiry. If access or trust breaks, follow the recovery plan you wrote down. A freshly made self-signed certificate does not automatically become trusted by every browser."
+            "Open Nessus using the DNS name that matches the certificate. Check the certificate chain, name and expiry. If access or trust breaks, follow the recovery plan you wrote down. A freshly made self-signed certificate does not automatically become trusted by every browser."
           ],
           "command": "$KeyPath = Read-Host 'Protected server key PEM path'\n$CertPath = Read-Host 'Server certificate PEM path'\n$CaPath = Read-Host 'CA certificate PEM path'\nnet stop \"Tenable Nessus\"\n& 'C:\\Program Files\\Tenable\\Nessus\\nessuscli.exe' import-certs \"--serverkey=$KeyPath\" \"--servercert=$CertPath\" \"--cacert=$CaPath\"\nnet start \"Tenable Nessus\"",
           "breakdown": [
@@ -987,7 +987,7 @@
               "meaning": "Shows capacity and free space on the C volume."
             }
           ],
-          "expected": "You have service, listener, storage or log evidence that helps narrow the problem.",
+          "expected": "You have service, listener, storage or log saved result that helps narrow the problem.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Service/listener query and a relevant redacted event",
@@ -1004,13 +1004,13 @@
           "actions": [
             "Test the scanner’s private IP on TCP8834 again. If local access works but this test fails, compare the VMnet, current addresses, firewall source address and network profile.",
             "If TCP works but the browser rejects the page, check the https:// address, certificate name, certificate chain, expiry and your computer’s clock. These are different checks from opening a firewall port.",
-            "If the page opens but plugins aren’t ready, inspect the update status and permitted outbound feed or proxy path. Fix one cause you have evidence for, then test again. Don’t switch off the firewall, UAC, antivirus or TLS checks as a general cure."
+            "If the page opens but plugins aren’t ready, check the update status and permitted outbound feed or proxy path. Fix one cause you have saved result for, then test again. Don’t switch off the firewall, UAC, antivirus or TLS checks as a general cure."
           ],
           "command": "$ScannerIP = Read-Host 'Scanner private IPv4 address'\nTest-NetConnection -ComputerName $ScannerIP -Port 8834",
           "breakdown": [
             {
               "term": "Test-NetConnection -Port 8834",
-              "meaning": "Checks network reachability from the actual administrator workstation; it does not validate browser trust."
+              "meaning": "Checks network reachability from the actual administrator workstation; it does not check browser trust."
             }
           ],
           "expected": "You can distinguish a network problem from a web-identity or plugin problem, then test one supported correction.",
@@ -1052,7 +1052,7 @@
             "Delete all plugins"
           ],
           "answer": 0,
-          "explanation": "The local application works; inspect the remote network path."
+          "explanation": "The local application works; check the remote network path."
         },
         {
           "question": "TCP8834 connects but the browser reports a name mismatch. Which layer needs attention?",
@@ -1066,7 +1066,7 @@
         }
       ],
       "exercise": "Follow the checks using a real problem you encounter. If everything works, talk through a clearly labeled pretend problem instead of breaking the server to create one.",
-      "pass": "You can explain which part is failing, show the evidence, and try one permitted correction before testing again.",
+      "pass": "You can explain which part is failing, show the saved result, and try one permitted correction before testing again.",
       "needs": [
         "Keep the scanner console and administration computer available. Write down the time and exact message of the problem you are checking."
       ]
@@ -1104,7 +1104,7 @@
           "where": "Secure lab notes · no secrets in SONIC-Academy",
           "actions": [
             "Write a small handoff note: scanner name and private address, who owns it, who to contact for help, update method, maintenance time and where the recovery instructions are stored. Keep passwords and licenses in the separate approved vault.",
-            "Add screenshots from your own lab only after hiding private information. The course’s capture checklist is a reminder of what to photograph, not evidence that you already did the work.",
+            "Add screenshots from your own lab only after hiding private information. The course’s capture checklist is a reminder of what to photograph, not saved result that you already did the work.",
             "If a readiness check failed, fix it or leave it clearly unfinished before moving to the scanning class. Remember that Nessus does the scanning; Tenable Security Center is a separate management product that a standalone license does not automatically include."
           ],
           "command": "",
@@ -1206,7 +1206,7 @@
           ],
           "command": "",
           "breakdown": [],
-          "expected": "Another learner can follow your explanation and see the evidence without seeing your secrets.",
+          "expected": "Another learner can follow your explanation and see the saved result without seeing your secrets.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Final redacted practical checklist and handoff summary",
@@ -1224,7 +1224,7 @@
         "Keep Windows, Nessus and scan-account passwords and license details in the private place chosen for the lab."
       ],
       "commonMistakes": [
-        "Use a real screen and the actual version. A course placeholder is not evidence of your installation.",
+        "Use a real screen and the actual version. A course placeholder is not saved result of your installation.",
         "Don’t scan a random address to prove the scanner works. The next class sets the exact permitted targets first."
       ],
       "troubleshooting": [
@@ -1246,7 +1246,7 @@
             "A screenshot placeholder marked complete"
           ],
           "answer": 0,
-          "explanation": "Only your real lab evidence can support your completion claim."
+          "explanation": "Only your real lab saved result can support your completion claim."
         },
         {
           "question": "What comes before the first vulnerability scan?",
@@ -1260,7 +1260,7 @@
         }
       ],
       "exercise": "Hand over a working practice scanner and a short set of redacted notes, or an honest list of blocked work. Explain the network, service, web identity, license and plugin checks.",
-      "pass": "Your instructor can follow the evidence and see what passed and what still needs live validation. Don’t turn an unfinished check into a success just to finish the page.",
+      "pass": "Your instructor can follow the saved result and see what passed and what still needs live validation. Don’t turn an unfinished check into a success just to finish the page.",
       "needs": [
         "Use the separate prepared Server 2022 practice VM, verified scanner installer and license route from the earlier lessons."
       ]

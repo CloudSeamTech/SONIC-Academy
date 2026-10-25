@@ -1,5 +1,6 @@
 export type GuidedStep = {
   title: string;
+  where?: string;
   action: string;
   expect: string;
   trouble: string;
@@ -36,6 +37,7 @@ export function parseGuidedLab(body: string): GuidedLab | null {
     const titleEnd = part.indexOf('\n');
     return {
       title: part.slice(0, titleEnd).trim(),
+      where: readField(part, 'WORKSPACE') || undefined,
       action: readField(part, 'DO'),
       expect: readField(part, 'EXPECT'),
       trouble: readField(part, 'IF STUCK'),

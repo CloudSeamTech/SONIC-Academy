@@ -87,7 +87,7 @@
           "where": "Your notebook, then Azure Portal → Virtual machines",
           "actions": [
             "Open portal.azure.com. Search for Virtual machines and choose your lab subscription. Read each server name and operating system before adding it to your notes.",
-            "For this exercise, use two disposable Windows Server 2022 member servers and two supported RHEL 9 servers. Example names are WIN-PILOT01, WIN-APP02, RHEL-PILOT01 and RHEL-APP02. Your actual names may differ.",
+            "For this exercise, use two practice Windows Server 2022 member servers and two supported RHEL 9 servers. Example names are WIN-PILOT01, WIN-APP02, RHEL-PILOT01 and RHEL-APP02. Your actual names may differ.",
             "Two servers are pilots; the other two form the next wave. If cost limits you to two VMs, perform the pilot work for real and clearly label the remaining-server sequence as a tabletop rehearsal. Do not claim you proved a highly available application.",
             "Keep domain controllers, clusters, SQL databases and real company systems out of this beginner exercise. Those need their own application-aware maintenance and recovery plan."
           ],
@@ -138,7 +138,7 @@
       "troubleshooting": [
         {
           "problem": "You do not have permission or a recovery window.",
-          "fix": "Stay in the worksheet rehearsal. Ask the instructor to provide an approved lab plan before real changes."
+          "fix": "Stay in the worksheet rehearsal. Ask the instructor to provide an practice lab plan before real changes."
         }
       ],
       "exercise": "Create your four-server worksheet and explain which two machines go first.",
@@ -245,7 +245,7 @@
               "meaning": "Shows filesystem free space in readable units such as GiB."
             }
           ],
-          "expected": "You have a dated RHEL baseline and know whether any issue existed before updates.",
+          "expected": "You have a dated RHEL starting point and know whether any issue existed before updates.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Check the RHEL pilot",
@@ -259,7 +259,7 @@
       ],
       "bestPractices": [
         "Use the same application checks before and after the change.",
-        "Save a baseline for each server, not just the first pilot."
+        "Save a starting point for each server, not just the first pilot."
       ],
       "commonMistakes": [
         "Assuming an Azure Running status means the website or database works.",
@@ -272,7 +272,7 @@
         }
       ],
       "exercise": "Write one concrete healthy result for each pilot, such as a test page loading with the expected content.",
-      "pass": "Both pilots have a dated baseline with machine identity, disk health and application results.",
+      "pass": "Both pilots have a dated starting point with machine identity, disk health and application results.",
       "quiz": [
         {
           "question": "Which check best proves the application works?",
@@ -435,7 +435,7 @@
           "where": "Azure Portal → pilot VM → Disks",
           "actions": [
             "Open Disks on the pilot VM. Record the OS disk and every data disk used by the application, including their resource IDs.",
-            "For this disposable lab, arrange a brief outage, stop application work and shut the guest down cleanly. Confirm the agreed stopped state before taking disk copies. An arbitrary live snapshot may miss pending writes.",
+            "For this practice lab, arrange a brief outage, stop application work and shut the guest down cleanly. Confirm the agreed stopped state before taking disk copies. An arbitrary live snapshot may miss pending writes.",
             "For a real multi-disk/database workload, use its application-aware backup or coordinated recovery procedure. Do not assume snapshots taken seconds apart form one consistent application checkpoint."
           ],
           "command": "",
@@ -459,7 +459,7 @@
             "Open the exact source managed disk from your recorded VM’s Disks page. On its Overview page, select Create snapshot. Choose the approved recovery resource group and the source disk’s region.",
             "Enter a clear name, such as the pilot name followed by prepatch and today’s date. Select the correct Source subscription and Source disk by comparing the full resource ID to your notes.",
             "Choose the approved snapshot/storage options and keep encryption access compatible with the source. Review the estimated storage cost. Select Review + create, then Create.",
-            "Repeat only for the other disks required by the coordinated plan. Record each successful snapshot’s ID and time. Start the VM again and repeat its baseline checks before patching."
+            "Repeat only for the other disks required by the coordinated plan. Record each successful snapshot’s ID and time. Start the VM again and repeat its starting point checks before patching."
           ],
           "command": "",
           "breakdown": [],
@@ -479,7 +479,7 @@
           "where": "Your maintenance worksheet",
           "actions": [
             "Write how a replacement managed disk will be created from each snapshot. A snapshot itself is not the disk you can boot.",
-            "Record the recovery deadline, required permissions, encryption/key dependencies, disk compatibility and application validation. Keep the original disks until the replacement has passed testing.",
+            "Record the recovery deadline, required permissions, encryption/key required connections and services, disk compatibility and application validation. Keep the original disks until the replacement has passed testing.",
             "Choose a retention/cleanup date after the observation period and owner sign-off. Snapshots and retained disks continue to cost money even when the VM is deallocated. Do not delete the backup vault as cleanup."
           ],
           "command": "",
@@ -553,12 +553,12 @@
           "actions": [
             "Open Azure Update Manager and choose your lab subscription. Find the supported Windows Server 2022 and RHEL 9 image/version entries in the support matrix. Custom images and unusual configurations need their own support check.",
             "Confirm the VM agent is healthy and your account has the scoped assessment/patch permissions. Update Manager normally deploys its required extension when an operation first runs; do not install random extensions to make the page look ready.",
-            "Confirm Windows can reach its approved Microsoft Update or WSUS source and RHEL can reach its configured RHUI or entitled Red Hat repositories. Check DNS, time, repository entitlement and proxy rules.",
+            "Confirm Windows can reach its approved Microsoft Update or WSUS source and RHEL can reach its configured RHUI or entitled Red Hat repositories. Check DNS, time, repository license or evaluation permission and proxy rules.",
             "Review current Update Manager pricing and any Arc or optional service charges. Azure VM, storage and backup costs remain separate."
           ],
           "command": "",
           "breakdown": [],
-          "expected": "The pilots meet the current service prerequisites, with permissions and reachable update sources.",
+          "expected": "The pilots meet the current service things to prepare, with permissions and reachable update sources.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Check support and access first",
@@ -666,7 +666,7 @@
       "title": "Update and Reboot the Windows Pilot",
       "description": "Patch one Windows VM, then prove it is healthy before touching the next machine.",
       "what": "Let’s do one Windows server together. We’ll review its backup, install only the approved updates and check it after any restart.",
-      "why": "The first server gives us real evidence about this update set. If it fails, the other Windows servers remain unchanged.",
+      "why": "The first server gives us real saved result about this update set. If it fails, the other Windows servers remain unchanged.",
       "steps": [
         {
           "title": "Drain work and verify the safety net",
@@ -674,7 +674,7 @@
           "actions": [
             "Tell the lab users the maintenance window is starting. If the application has multiple healthy instances, use its documented drain or maintenance mode so this server stops accepting new work and existing work finishes.",
             "Confirm the other instance can actually carry the load before draining. If there is only one instance, call it a planned outage; do not claim rolling maintenance kept it available.",
-            "Recheck the baseline, the exact pre-update recovery point and any required snapshots. Make sure the recovery deadline still leaves time to restore."
+            "Recheck the starting point, the exact pre-update recovery point and any required snapshots. Make sure the recovery deadline still leaves time to restore."
           ],
           "command": "",
           "breakdown": [],
@@ -716,7 +716,7 @@
           "where": "Azure Update Manager → History, then WIN-PILOT01",
           "actions": [
             "Watch History and open this deployment’s per-machine results. Do not interrupt a busy installer or power-cycle the VM just because the session disconnects.",
-            "After the planned reboot, reconnect and repeat the Windows baseline commands and application tests. Compare the actual boot time and update history. Read any installation errors or skipped updates.",
+            "After the planned reboot, reconnect and repeat the Windows starting point commands and application tests. Compare the actual boot time and update history. Read any installation errors or skipped updates.",
             "Have the application owner check the result. Observe it for the period agreed in the plan, then return it to service only if healthy. Record Go or Stop for the next wave."
           ],
           "command": "",
@@ -773,7 +773,7 @@
       ],
       "needs": [
         "Use only the Windows pilot for this part. The other servers should wait.",
-        "Have its successful backup/restore check, baseline and selected Windows update numbers ready.",
+        "Have its successful backup/restore check, starting point and selected Windows update numbers ready.",
         "Choose when a restart is allowed and which application checks you will repeat afterward."
       ]
     },
@@ -789,8 +789,8 @@
           "where": "RHEL-PILOT01 → its SSH session",
           "actions": [
             "Confirm hostname and the pre-change recovery record. Drain the application using its supported procedure or record the planned outage.",
-            "Use the command below to inspect the available security updates from this RHEL server’s configured repositories. If it returns exit code 100, that means updates are available; it is not automatically an error.",
-            "Compare the actual packages and advisory information with the reviewed scope. If the repositories or entitlement are failing, stop here instead of assuming no updates exist."
+            "Use the command below to check the available security updates from this RHEL server’s configured repositories. If it returns exit code 100, that means updates are available; it is not automatically an error.",
+            "Compare the actual packages and advisory information with the reviewed scope. If the repositories or license or evaluation permission are failing, stop here instead of assuming no updates exist."
           ],
           "command": "hostname\nsudo dnf check-update --security",
           "breakdown": [
@@ -859,7 +859,7 @@
           "actions": [
             "Wait until the chosen update operation finishes. If its reboot policy already restarted the VM, do not request another reboot just to follow a script.",
             "If the approved plan requires a manual reboot, tell the lab users and run sudo systemctl reboot once. The SSH session disconnecting is expected; wait for the VM and its services to return.",
-            "Reconnect. Run the inspection block below, repeat the application check and compare the kernel to your baseline and the installed versions. Read failed units and errors rather than treating a newer kernel number as proof of health.",
+            "Reconnect. Run the inspection block below, repeat the application check and compare the kernel to your starting point and the installed versions. Read failed units and errors rather than treating a newer kernel number as proof of health.",
             "Observe the pilot for the agreed period and record Go or Stop. Keep the previous supported kernel and recovery assets until validation and retention review are complete."
           ],
           "command": "hostname\nuname -r\nrpm -q kernel-core\nsystemctl --failed\nsudo dnf history list",
@@ -918,7 +918,11 @@
         },
         {
           "question": "Does booting an older kernel undo all updated packages?",
-          "options": ["Yes", "Only on Azure", "No"],
+          "options": [
+            "Yes",
+            "Only on Azure",
+            "No"
+          ],
           "answer": 2,
           "explanation": "The rest of the installed userspace and data stay as they are."
         }
@@ -942,7 +946,7 @@
           "actions": [
             "Check both pilot decisions and their observation periods. If either is Stop, do not start the next wave.",
             "Confirm the approved update scope has not changed since the pilots. Reassess or retest material differences instead of assuming new packages were covered by the earlier result.",
-            "For each remaining VM, verify its own baseline, recovery point and supported application drain procedure. Write its position in the sequence and the exact test required before moving on."
+            "For each remaining VM, verify its own starting point, recovery point and supported application drain procedure. Write its position in the sequence and the exact test required before moving on."
           ],
           "command": "",
           "breakdown": [],
@@ -1072,7 +1076,7 @@
       "id": "azure-maint-rollback",
       "title": "When an Update Fails: Choose the Right Rollback",
       "description": "Decide whether to troubleshoot, remove a supported update, use a previous kernel, or restore the protected state.",
-      "what": "If a server fails a check, take a breath. We’ll stop the rollout, keep the evidence and choose the recovery method that fits the failure.",
+      "what": "If a server fails a check, take a breath. We’ll stop the rollout, keep the saved result and choose the recovery method that fits the failure.",
       "why": "Rollback is not one magic button. An update may be removable, a kernel issue may have a boot workaround, or the whole protected application state may need restoring.",
       "steps": [
         {
@@ -1166,7 +1170,7 @@
       "troubleshooting": [
         {
           "problem": "A rollback option is not supported or fails.",
-          "fix": "Keep the original evidence and move to the approved isolated restore/recovery plan. Escalate a complex OS, database or boot failure rather than guessing."
+          "fix": "Keep the original saved result and move to the approved isolated restore/recovery plan. Escalate a complex OS, database or boot failure rather than guessing."
         }
       ],
       "exercise": "For the simulated failed pilot, choose a recovery branch and explain why the other choices may not fit.",
@@ -1195,14 +1199,14 @@
       ],
       "needs": [
         "Use the practice board or an instructor-provided failure example. We won’t damage a VM to create a problem.",
-        "Keep the failed machine’s baseline, update result and recovery deadline ready.",
+        "Keep the failed machine’s starting point, update result and recovery deadline ready.",
         "Know which tested backup or snapshot recovery set belongs to this exact VM."
       ]
     },
     {
       "id": "azure-maint-recovery",
       "title": "Restore, Test, and Close the Maintenance Job",
-      "description": "Rehearse an isolated restore, learn the snapshot-disk path, and finish with real recovery evidence.",
+      "description": "Practice an isolated restore, learn the snapshot-disk path, and finish with real recovery evidence.",
       "what": "Now we’ll practise bringing protected data back. We’ll restore a separate test copy first, then review when a compatible snapshot-derived disk could be used.",
       "why": "A successful restore job is only the beginning. We still need to check the restored application and avoid putting a duplicate server identity onto the live network.",
       "steps": [
@@ -1233,13 +1237,13 @@
           "title": "Test the recovered copy before any cutover",
           "where": "Recovered test VM → its isolated console/network",
           "actions": [
-            "Confirm which recovered VM you are using. Check the OS, services, application data and the same test transaction from the baseline, using a supported identity/application recovery procedure.",
+            "Confirm which recovered VM you are using. Check the OS, services, application data and the same test transaction from the starting point, using a supported identity/application recovery procedure.",
             "Record the actual restored data time and actual elapsed recovery time. RPO means how much recent data may be lost; RTO means how long service can be down. Compare the test to the plan instead of inventing a zero-data-loss promise.",
             "Only the designated owner can approve any live replacement, identity handling, DNS/routing change or application cutover. Domain controllers, databases and clusters require their specialized recovery procedures; this beginner member-server test does not authorize those restores."
           ],
           "command": "",
           "breakdown": [],
-          "expected": "You have evidence that the recovery copy works, including the actual recovery time and data point.",
+          "expected": "You have saved result that the recovery copy works, including the actual recovery time and data point.",
           "screenshot": {
             "status": "capture-needed",
             "title": "Test the recovered copy before any cutover",
@@ -1254,9 +1258,9 @@
           "title": "Review the snapshot-to-disk recovery path",
           "where": "Azure Portal → Snapshots → recorded OS snapshot → Create disk; then the failed lab VM → Disks",
           "actions": [
-            "For the disposable member-server exercise only, select the recorded OS snapshot and choose Create disk. Preserve the snapshot. Choose a compatible managed disk in the correct region with the required size, VM generation/security type and encryption/key settings.",
+            "For the practice member-server exercise only, select the recorded OS snapshot and choose Create disk. Preserve the snapshot. Choose a compatible managed disk in the correct region with the required size, VM generation/security type and encryption/key settings.",
             "With the instructor, check the current and replacement disk compatibility and make sure the replacement is not attached elsewhere. Keep all application data disks aligned with the same tested recovery plan; replacing only an OS disk may leave the application inconsistent.",
-            "Use the approved outage and clean stop for this lab. Open the VM’s Disks page and choose Swap OS disk only if that workflow is supported for this VM/disk/security configuration. Select the verified replacement disk and review the confirmation before proceeding.",
+            "Use the approved outage and clean stop for this lab. Open the VM’s Disks page and choose Swap OS disk only if that steps is supported for this VM/disk/security configuration. Select the verified replacement disk and review the confirmation before proceeding.",
             "After an authorized swap, confirm the VM’s recorded OS disk ID, start it as planned and repeat the health/data checks. Keep the original disk until the owner accepts the result. If compatibility or consistency is uncertain, use the tested backup restore route instead."
           ],
           "command": "",
@@ -1278,9 +1282,9 @@
           "title": "Finish the practical and close the record",
           "where": "Your maintenance worksheet and Azure resource review",
           "actions": [
-            "Walk through your evidence: baselines → usable backup/restore test → consistent checkpoints → Windows and RHEL pilot results → one-at-a-time rollout → the simulated failed-pilot decision → recovery test.",
+            "Walk through your saved result: baselines → usable backup/restore test → consistent checkpoints → Windows and RHEL pilot results → one-at-a-time rollout → the simulated failed-pilot decision → recovery test.",
             "Clearly label any worksheet-only or blocked action. Real update results, real screenshots and a real restore are needed before claiming those practical tasks passed.",
-            "Return only validated instances to service. Remove temporary recovery/test resources under the approved retention plan, review ongoing VM/disk/snapshot/vault charges, and retain required backups. Never delete recovery data just to make the bill disappear.",
+            "Return only validated instances to service. Remove temporary recovery/test resources under the approved retention plan, review ongoing VM/disk/snapshot/vault charges, and keep required backups. Never delete recovery data just to make the bill disappear.",
             "Write what changed, what remains, who owns the next action and the date for follow-up. Your instructor signs off the actual results, not just the checked boxes on this website."
           ],
           "command": "",
@@ -1309,14 +1313,14 @@
       "troubleshooting": [
         {
           "problem": "The recovered VM boots but the application/data is wrong.",
-          "fix": "Do not cut it over. Check the recovery point, disk set, application consistency and identity dependencies with the owner."
+          "fix": "Do not cut it over. Check the recovery point, disk set, application consistency and identity required connections and services with the owner."
         },
         {
           "problem": "Swap OS disk is unavailable or incompatible.",
           "fix": "Stop. Use the supported backup restore route and the VM/disk support documentation; do not force an incompatible disk into the VM."
         }
       ],
-      "exercise": "Complete an instructor-reviewed maintenance evidence pack and one isolated recovery test. Label the failure event as a simulation.",
+      "exercise": "Complete an instructor-reviewed maintenance saved result pack and one isolated recovery test. Label the failure event as a simulation.",
       "pass": "An instructor can trace the pilot, protection, serial rollout and recovery decisions. Any unperformed live action remains pending.",
       "quiz": [
         {
@@ -1350,7 +1354,7 @@
   "supplies": [
     "A practice Azure subscription you can use, plus a spending limit. Azure charges for running VMs, disks, snapshots and backup storage.",
     "Ideally, two Windows Server 2022 member VMs and two supported RHEL 9 VMs. The first Windows and RHEL machines are our pilots—the first ones we try an update on.",
-    "If four VMs are too costly, use one Windows and one RHEL pilot. You can rehearse the remaining-server order on the practice board and label that part as a simulation.",
+    "If four VMs are too costly, use one Windows and one RHEL pilot. You can practice the remaining-server order on the practice board and label that part as a simulation.",
     "Working sign-in access to each VM and a small application or service you can test before and after each change.",
     "A place for recovery copies, an isolated network for a restore test, and permission to use Azure Update Manager and Azure Backup. We’ll look at those settings together.",
     "A notebook with the VM names, addresses, backup times, update choices and a deadline for switching to recovery. Keep passwords in your password manager, not in these notes."

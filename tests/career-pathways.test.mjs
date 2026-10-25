@@ -81,7 +81,7 @@ test('security practice log evidence supports the taught investigation and input
     events.every(
       (e) =>
         Number.isFinite(Date.parse(e.timestamp)) &&
-        e.server.endsWith('.cloudseam.tech'),
+        e.server.endsWith('.lab.example.test'),
     ),
   );
 });

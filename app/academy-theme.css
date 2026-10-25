@@ -3471,3 +3471,47 @@ html body .academy-shell.academy-shell .console-sidebar .academy-primary-nav a.a
   box-shadow: inset 3px 0 #e7975f !important;
   font-weight: 800;
 }
+
+/* One warm teaching surface. Product screenshots keep their original pixels. */
+:root { --academy-teaching-surface: #d7c8b2; --academy-teaching-ink: #292929; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace :is(
+  .teaching-callout, .teacher-preparation, .lesson-preflight, .coaching-brief,
+  .coaching-why, .coaching-effect, .coaching-command, .guided-context,
+  .guided-expected, .guided-purpose, .guided-production, .guided-rollback,
+  .guided-final, .guided-evidence, .guided-check, .walkthrough-check,
+  .nessus-location, .nessus-explanation, .nessus-best, .nessus-mistakes,
+  .nessus-troubleshooting, .nessus-exercise, .nessus-quiz, .nessus-quiz fieldset,
+  .alma-verify, .sonic-readout, .sonic-readout-copy, .sonic-action-assist,
+  .sonic-click-path, .sonic-breakdown, .walkthrough-location, .workspace-start,
+  .lab-example-plan, .lab-notebook, .lab-step-nav, .lab-step-nav-panel,
+  .troubleshooting-category, .troubleshooting-tip, .troubleshooting-scenario,
+  .guided-command, .guided-command header, .guided-command pre, .guided-command code,
+  .sonic-terminal, .sonic-terminal header, .sonic-terminal pre, .sonic-terminal code,
+  .sonic-terminal .terminal-output, .sonic-terminal .terminal-output p
+) {
+  background: var(--academy-teaching-surface) !important;
+  color: var(--academy-teaching-ink) !important;
+  border-color: #ad987a !important;
+}
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace :is(.guided-command, .sonic-terminal, .sonic-breakdown, .workspace-start, .lab-example-plan) :is(h2, h3, h4, p, span, strong, small, li, code, pre, svg) { color: var(--academy-teaching-ink) !important; -webkit-text-fill-color: var(--academy-teaching-ink); }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace :is(.guided-command, .sonic-terminal) button { background: #f6f0e6 !important; color: #292929 !important; border: 1px solid #88765e !important; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace :is(.guided-command, .sonic-terminal) button :is(span, svg) { color: #292929 !important; -webkit-text-fill-color: #292929; }
+.workspace-start, .lab-example-plan { padding: 18px 20px; border-radius: 8px; margin: 20px 0; line-height: 1.7; }
+.lab-example-plan h3 { margin: 0 0 10px; }
+.lab-example-plan p { margin: 12px 0; }
+.resource-table-scroll { overflow-x: auto; max-width: 100%; }
+.beginner-lab-guide table { border-collapse: collapse; width: 100%; min-width: 600px; }
+.beginner-lab-guide :is(th, td) { padding: 14px; text-align: left; vertical-align: top; border-bottom: 1px solid #ad987a; }
+.beginner-lab-guide th { background: #d7c8b2; }
+.beginner-lab-guide section { margin: 36px 0; scroll-margin-top: 24px; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace :is(.sonic-step-title, .sonic-step-title > span, .index-title, .lesson-phase, .setup-command-line, .setup-command-line pre, .setup-command-line code) { background: var(--academy-teaching-surface) !important; color: #292929 !important; -webkit-text-fill-color: #292929; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace button:not(.screen-marker):not(.primary-button) { background: var(--academy-teaching-surface) !important; color: #292929 !important; border-color: #88765e !important; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace button:not(.screen-marker):not(.primary-button) :is(span, svg, small) { color: #292929 !important; -webkit-text-fill-color: #292929; }
+/* Linux steps read as a continuous lesson, not a dark inset console. */
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace :is(.sonic-action-panel, .sonic-action-body, .sonic-action-visual) { background: transparent !important; color: #292929 !important; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace .primary-button { background: var(--academy-brand-purple) !important; color: #fff !important; -webkit-text-fill-color: #fff; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace .primary-button :is(span, svg, strong, small) { color: #fff !important; -webkit-text-fill-color: #fff; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace .sonic-walkthrough > ol > li { background: transparent !important; border: 0 !important; box-shadow: none !important; }
+/* Retained interactive teaching diagrams use the same warm surface as the lesson. */
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace :is(.key-machine, .private-key, .public-key, .workflow-chain li, .future-architecture > div, .protocol-grid > div, .exchange-detail) { background: var(--academy-teaching-surface) !important; color: #292929 !important; border-color: #ad987a !important; }
+html body .academy-shell.academy-shell .reader-workspace.reader-workspace .guided-step-number { color: #292929 !important; -webkit-text-fill-color: #292929; }

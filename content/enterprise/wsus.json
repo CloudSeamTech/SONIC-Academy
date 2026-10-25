@@ -1,13 +1,13 @@
 {
   "id": "wsus-operations",
-  "title": "WSUS \u00b7 Patch and Recovery Operations",
-  "description": "Configure a standalone WSUS pilot, approve updates, validate reboots and practice recovery.",
-  "baseline": "Standalone WSUS01 \u00b7 cloudseam.tech \u00b7 disposable Windows member server",
+  "title": "WSUS · Patch and Recovery Operations",
+  "description": "Configure a standalone WSUS pilot, approve updates, check reboots and practice recovery.",
+  "baseline": "Standalone WSUS01 · lab.example.test · disposable Windows member server",
   "prerequisite": "Complete Install WSUS first. This class uses a standalone WSUS01 server, not the WSUS database/content managed by a MECM software update point. WSUS is deprecated but still supported in applicable Windows Server versions; learn the existing service and evaluate current alternatives for new designs.",
   "supplies": [
     "WSUS01 with successful synchronization and only the required products selected.",
-    "DC01 for scoped Group Policy and one disposable member-server pilot.",
-    "A verified recovery plan and an approved lab update/restart window."
+    "DC01 for scoped Group Policy and one practice member-server pilot.",
+    "A verified recovery plan and an practice lab update/restart window."
   ],
   "sources": [
     {
@@ -24,7 +24,7 @@
       "why": "Approvals affect the selected group. A small pilot helps you catch problems before updating other servers.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -65,17 +65,17 @@
       "steps": [
         {
           "title": "Check your standalone WSUS server",
-          "where": "WSUS01 \u00b7 Update Services console",
+          "where": "WSUS01 · Update Services console",
           "actions": [
-            "Open Server Manager \u2192 Tools \u2192 Windows Server Update Services. Expand WSUS01.",
-            "Select Options \u2192 Computers. For this first lab select Use the Update Services console, then Apply. This is server-side targeting; do not configure a client-side targeting GPO at the same time.",
-            "Select Options \u2192 Products and Classifications. Select only your supported lab Windows product and required classifications; avoid downloading every product."
+            "Open Server Manager → Tools → Windows Server Update Services. Expand WSUS01.",
+            "Select Options → Computers. For this first lab select Use the Update Services console, then Apply. This is server-side targeting; do not configure a client-side targeting GPO at the same time.",
+            "Select Options → Products and Classifications. Select only your supported lab Windows product and required classifications; avoid downloading every product."
           ],
           "expected": "The standalone WSUS server uses console-assigned groups and a limited product scope. This is WSUS01, not a MECM-managed software update point.",
           "breakdown": [
             {
               "term": "Standalone WSUS",
-              "meaning": "A WSUS server controlled by MECM should be managed through Configuration Manager for update deployments. Do not apply this standalone approval workflow to that server."
+              "meaning": "A WSUS server controlled by MECM should be managed through Configuration Manager for update deployments. Do not apply this standalone approval steps to that server."
             }
           ],
           "sources": [
@@ -84,15 +84,15 @@
           "screenshot": {
             "status": "reference",
             "title": "Interface reference: Select Comptuers in the WSUS Administration Console.",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "wsus-computer-targeting"
           }
         },
         {
           "title": "Create the two computer groups",
-          "where": "WSUS01 \u00b7 Update Services console",
+          "where": "WSUS01 · Update Services console",
           "actions": [
-            "Expand Computers \u2192 All Computers. Right-click All Computers \u2192 Add Computer Group.",
+            "Expand Computers → All Computers. Right-click All Computers → Add Computer Group.",
             "Name the first group LAB-WSUS-Pilot. Create a second group named LAB-WSUS-Rollout.",
             "Do not approve updates to All Computers while practicing. Keep the rollout group empty until the pilot is verified."
           ],
@@ -109,19 +109,19 @@
           "screenshot": {
             "status": "reference",
             "title": "Interface reference: Add Computer Group in the WSUS Administration UI.",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "wsus-computer-group"
           }
         },
         {
           "title": "Point a practice client at WSUS",
-          "where": "DC01 \u00b7 Group Policy Management, then APP01",
+          "where": "DC01 · Group Policy Management, then APP01",
           "actions": [
-            "On DC01 open Group Policy Management. Create a GPO named LAB-WSUS-Clients and link it only to the OU containing your disposable member-server client, not the Domain Controllers OU.",
-            "Edit Computer Configuration \u2192 Policies \u2192 Administrative Templates \u2192 Windows Components \u2192 Windows Update. Find Specify intranet Microsoft update service location (inside Manage updates offered from Windows Server Update Service on newer ADMX templates).",
-            "Enable it. Set both update and statistics URLs to the actual WSUS01 endpoint: http://WSUS01.cloudseam.tech:8530 only if that is your configured HTTP lab endpoint; use the verified HTTPS URL and port for a TLS-configured server.",
-            "Configure Automatic Updates for a lab schedule you can observe. On APP01 run gpupdate /force, then open Settings \u2192 Update & Security \u2192 Windows Update \u2192 Check for updates.",
-            "Back in WSUS, wait for APP01 to report. In Unassigned Computers, right-click APP01 \u2192 Change Membership and assign LAB-WSUS-Pilot."
+            "On DC01 open Group Policy Management. Create a GPO named LAB-WSUS-Clients and link it only to the OU containing your practice member-server client, not the Domain Controllers OU.",
+            "Edit Computer Configuration → Policies → Administrative Templates → Windows Components → Windows Update. Find Specify intranet Microsoft update service location (inside Manage updates offered from Windows Server Update Service on newer ADMX templates).",
+            "Enable it. Set both update and statistics URLs to the actual WSUS01 endpoint: http://WSUS01.lab.example.test:8530 only if that is your configured HTTP lab endpoint; use the verified HTTPS URL and port for a TLS-configured server.",
+            "Configure Automatic Updates for a lab schedule you can observe. On APP01 run gpupdate /force, then open Settings → Update & Security → Windows Update → Check for updates.",
+            "Back in WSUS, wait for APP01 to report. In Unassigned Computers, right-click APP01 → Change Membership and assign LAB-WSUS-Pilot."
           ],
           "expected": "APP01 reports to WSUS01 and belongs only to the intended pilot group. Group Policy results confirm the intranet update server setting.",
           "breakdown": [
@@ -136,7 +136,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Interface reference: Set the intranet statistics server in the UI.",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "wsus-gpo-server-url"
           }
         }
@@ -150,7 +150,7 @@
       "why": "A successful download is not proof of a healthy server after restart. Test its services before expanding the change.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -191,11 +191,11 @@
       "steps": [
         {
           "title": "Prepare recovery and select an applicable update",
-          "where": "WSUS01 \u00b7 Update Services console",
+          "where": "WSUS01 · Update Services console",
           "actions": [
-            "Check that APP01 is disposable and has a tested recovery path appropriate for its workload. Record its current OS build and whether its test application responds.",
-            "In WSUS select Updates \u2192 All Updates. Filter Approval = Unapproved and Status = Needed. Refresh the view after synchronization.",
-            "Open the details for one supported update needed by APP01. Read its prerequisites, restart behavior and known issues on the linked Microsoft support page. Record the KB number."
+            "Check that APP01 is practice and has a tested recovery path appropriate for its workload. Record its current OS build and whether its test application responds.",
+            "In WSUS select Updates → All Updates. Filter Approval = Unapproved and Status = Needed. Refresh the view after synchronization.",
+            "Open the details for one supported update needed by APP01. Read its things to prepare, restart behavior and known issues on the linked Microsoft support page. Record the KB number."
           ],
           "expected": "A specific needed update and its recovery plan are recorded; no broad approval exists.",
           "breakdown": [
@@ -210,15 +210,15 @@
           "screenshot": {
             "status": "reference",
             "title": "Interface reference: Approve the feature you want to deploy in WSUS admin console.",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "wsus-approve-menu"
           }
         },
         {
           "title": "Approve the update only for the pilot",
-          "where": "WSUS01 \u00b7 Update Services console",
+          "where": "WSUS01 · Update Services console",
           "actions": [
-            "Right-click the selected update \u2192 Approve. In the approval dialog set Install only for LAB-WSUS-Pilot.",
+            "Right-click the selected update → Approve. In the approval dialog set Install only for LAB-WSUS-Pilot.",
             "Review inherited approvals and confirm All Computers and LAB-WSUS-Rollout are not receiving a new broad install approval from this action. Select OK.",
             "On APP01 open Windows Update and check again. Install the offered update in the planned lab window. Save work and restart when required."
           ],
@@ -235,17 +235,17 @@
           "screenshot": {
             "status": "reference",
             "title": "Interface reference: Select Approve for install in the WSUS admin console.",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "wsus-approve-group"
           }
         },
         {
           "title": "Validate before expanding",
-          "where": "APP01 \u00b7 Windows Update history; WSUS01 \u00b7 reports",
+          "where": "APP01 · Windows Update history; WSUS01 · reports",
           "actions": [
             "On APP01 review Windows Update history, confirm the intended KB/build where applicable, and test the application and expected services.",
-            "In WSUS refresh APP01\u2019s status after reporting. Compare the console status with the actual client result.",
-            "If the pilot is healthy, approve the same update for LAB-WSUS-Rollout only when you have additional disposable clients. Schedule servers in batches with a health check after each batch; do not reboot redundant domain controllers together."
+            "In WSUS refresh APP01’s status after reporting. Compare the console status with the actual client result.",
+            "If the pilot is healthy, approve the same update for LAB-WSUS-Rollout only when you have additional practice clients. Schedule servers in batches with a health check after each batch; do not reboot redundant domain controllers together."
           ],
           "expected": "The pilot has a confirmed update result and application check before any rollout approval.",
           "breakdown": [
@@ -260,7 +260,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Interface reference: A sample successful deployment.",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "wsus-approval-progress"
           }
         }
@@ -274,7 +274,7 @@
       "why": "Changing approvals, uninstalling an update and restoring a server are different actions. Choose the action that addresses the evidence.",
       "needs": [
         "Complete the install and configuration lessons in this class first.",
-        "Use only the cloudseam.tech practice environment and disposable test computers."
+        "Use only the lab.example.test practice environment and practice test computers."
       ],
       "bestPractices": [
         "Keep pilot devices separate from all other computers. Record the starting state and check the actual result before expanding a deployment."
@@ -288,8 +288,8 @@
           "fix": "Check the target computer, its DNS and network access, then the matching client/server log named in the step. Stop before expanding the change."
         }
       ],
-      "pass": "Your incident note links the symptom to evidence and verifies the recovery or clearly states the unresolved issue.",
-      "exercise": "Create a sample incident: failed KB, client evidence, rollout pause, chosen supported recovery, and final service check.",
+      "pass": "Your incident note links the symptom to saved result and verifies the recovery or clearly states the unresolved issue.",
+      "exercise": "Create a sample incident: failed KB, client saved result, rollout pause, chosen supported recovery, and final service check.",
       "quiz": [
         {
           "question": "Where should you test this change first?",
@@ -315,13 +315,13 @@
       "steps": [
         {
           "title": "Find why a client is missing",
-          "where": "APP01 \u00b7 PowerShell and Event Viewer",
+          "where": "APP01 · PowerShell and Event Viewer",
           "actions": [
             "Check the clock, DNS and WSUS endpoint. In PowerShell run gpresult /r /scope computer and confirm the intended GPO applies.",
-            "Check the effective intranet update server policy, then test the configured WSUS port with Test-NetConnection WSUS01.cloudseam.tech -Port 8530 for the HTTP example. Use your real TLS port if different.",
-            "Open Event Viewer \u2192 Applications and Services Logs \u2192 Microsoft \u2192 Windows \u2192 WindowsUpdateClient \u2192 Operational. Match errors to the time you checked for updates. Do not disable the firewall or delete SoftwareDistribution as the first response."
+            "Check the effective intranet update server policy, then test the configured WSUS port with Test-NetConnection WSUS01.lab.example.test -Port 8530 for the HTTP example. Use your real TLS port if different.",
+            "Open Event Viewer → Applications and Services Logs → Microsoft → Windows → WindowsUpdateClient → Operational. Match errors to the time you checked for updates. Do not disable the firewall or delete SoftwareDistribution as the first response."
           ],
-          "expected": "You have policy, connectivity and update event evidence for the named client.",
+          "expected": "You have policy, connectivity and update event saved result for the named client.",
           "breakdown": [
             {
               "term": "Evidence first",
@@ -333,18 +333,18 @@
           ],
           "screenshot": {
             "status": "reference",
-            "title": "Interface reference: Windows Terminal \u00b7 PowerShell profile and prompt",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "title": "Interface reference: Windows Terminal · PowerShell profile and prompt",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "win-powershell-tabs"
           }
         },
         {
           "title": "Stop expansion and choose recovery",
-          "where": "WSUS01 \u00b7 Update Services console",
+          "where": "WSUS01 · Update Services console",
           "actions": [
             "If the pilot fails, stop new rollout approvals and record the affected KB, error and symptoms. An approval change does not uninstall an update that is already installed.",
-            "Read the KB\u2019s known issues and supported removal/recovery guidance. Some updates cannot be uninstalled. Do not force removal or delete update files manually.",
-            "On the disposable client only, use Windows Update history \u2192 Uninstall updates if the KB supports removal, then restart in the lab window. If removal is unsupported, use your tested workload-aware backup/rebuild plan."
+            "Read the KB’s known issues and supported removal/recovery guidance. Some updates cannot be uninstalled. Do not force removal or delete update files manually.",
+            "On the practice client only, use Windows Update history → Uninstall updates if the KB supports removal, then restart in the lab window. If removal is unsupported, use your tested workload-aware backup/rebuild plan."
           ],
           "expected": "The recovery decision follows the KB and the lab backup plan; no unsupported rollback has been forced.",
           "breakdown": [
@@ -359,7 +359,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Interface reference: Select Approve for install in the WSUS admin console.",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "wsus-approve-group"
           }
         },
@@ -368,10 +368,10 @@
           "where": "APP01, then WSUS01",
           "actions": [
             "On APP01 repeat the original application, service and update-history checks. Save the new result and the incident timeline.",
-            "On WSUS01 review synchronization results and available disk space. Review Options \u2192 Server Cleanup Wizard before running it; choose only understood cleanup options and protect the WSUS database/content using your documented recovery plan.",
+            "On WSUS01 review synchronization results and available disk space. Review Options → Server Cleanup Wizard before running it; choose only understood cleanup options and protect the WSUS database/content using your documented recovery plan.",
             "Keep failed updates out of the rollout until you have a documented fix and a new successful pilot test."
           ],
-          "expected": "The client\u2019s service is restored or the remaining fault is clearly documented, and the rollout remains paused until a new pilot succeeds.",
+          "expected": "The client’s service is restored or the remaining fault is clearly documented, and the rollout remains paused until a new pilot succeeds.",
           "breakdown": [
             {
               "term": "Recovery verification",
@@ -384,7 +384,7 @@
           "screenshot": {
             "status": "reference",
             "title": "Interface reference: A sample successful deployment.",
-            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written cloudseam.tech values and check your own result.",
+            "instructions": "Orientation reference for the named application, not a capture of every action. Follow the written lab.example.test values and check your own result.",
             "assetId": "wsus-approval-progress"
           }
         }
