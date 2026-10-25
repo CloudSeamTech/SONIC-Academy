@@ -3466,3 +3466,8 @@ html body .academy-shell.academy-shell .console-sidebar :is(a, button, summary, 
   color: var(--academy-on-purple) !important;
   -webkit-text-fill-color: var(--academy-on-purple);
 }
+/* A selected item stays identifiable even when its purple matches the sidebar. */
+html body .academy-shell.academy-shell .console-sidebar .academy-primary-nav a.active {
+  box-shadow: inset 3px 0 #e7975f !important;
+  font-weight: 800;
+}
