@@ -1,4 +1,5 @@
 'use client';
+import { ServerRoleText } from './server-role-text';
 import { WorkspaceStart } from './workspace-start';
 import { learnerActions } from '../lib/learner-directions';
 import { FocusStepControl } from './focus-step-control';
@@ -324,7 +325,7 @@ export function SonicWalkthrough({
                   {step.actions
                     .flatMap(learnerActions)
                     .map((action, actionIndex) => (
-                      <li key={`${actionIndex}-${action}`}>{action}</li>
+                      <li key={`${actionIndex}-${action}`}><ServerRoleText text={action} /></li>
                     ))}
                 </ul>
                 {step.command && (

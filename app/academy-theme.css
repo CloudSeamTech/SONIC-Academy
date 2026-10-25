@@ -3515,3 +3515,38 @@ html body .academy-shell.academy-shell .reader-workspace.reader-workspace .sonic
 /* Retained interactive teaching diagrams use the same warm surface as the lesson. */
 html body .academy-shell.academy-shell .reader-workspace.reader-workspace :is(.key-machine, .private-key, .public-key, .workflow-chain li, .future-architecture > div, .protocol-grid > div, .exchange-detail) { background: var(--academy-teaching-surface) !important; color: #292929 !important; border-color: #ad987a !important; }
 html body .academy-shell.academy-shell .reader-workspace.reader-workspace .guided-step-number { color: #292929 !important; -webkit-text-fill-color: #292929; }
+
+/* Clear terminal typography and a visible separation between titles and tasks. */
+html body .academy-shell :is(h1,h2,h3,h4,h5,h6) {
+  font-weight: 700 !important;
+  font-style: normal !important;
+  line-height: 1.3 !important;
+  letter-spacing: -0.035em !important;
+  margin-block: 1.15em .65em;
+  overflow-wrap: anywhere;
+}
+html body .academy-shell .reader-workspace h1 { font-size: clamp(29px, 3.2vw, 42px) !important; }
+html body .academy-shell .reader-workspace h2 { font-size: clamp(25px, 2.6vw, 33px) !important; }
+html body .academy-shell .reader-workspace h3 { font-size: clamp(22px, 2.2vw, 28px) !important; }
+html body .academy-shell .reader-workspace h4 { font-size: 21px !important; }
+html body .academy-shell :is(strong,b,.sonic-action-label) { font-weight: 700 !important; }
+html body .academy-shell .workspace-start { margin-block: 24px; line-height: 1.85; }
+html body .academy-shell .workspace-start > strong { display: block; font-size: 23px; margin-bottom: 10px; }
+html body .academy-shell :is(.teaching-callout,.lab-example-plan,.teacher-preparation,.guided-action,.guided-purpose,.exam-connection) {
+  box-sizing: border-box;
+  border: 0 !important;
+  padding: clamp(18px, 2vw, 28px) !important;
+  margin-block: 24px !important;
+  overflow-wrap: anywhere;
+}
+html body .academy-shell :is(.teaching-callout,.lab-example-plan,.teacher-preparation,.exam-connection) {
+  background: var(--academy-teaching-surface, #d7c8b2) !important;
+  color: #292929 !important;
+}
+html body .academy-shell :is(.teaching-callout,.lab-example-plan,.teacher-preparation,.exam-connection) > :first-child { margin-top: 0; }
+html body .academy-shell .reader-workspace :is(.beginner-actions,.learner-action-list,.guided-action ol) > li { margin-block: 0 18px; padding-left: 6px; line-height: 1.85; }
+html body .academy-shell .exam-scope { font-size: 14px !important; margin-bottom: 0; }
+@media (max-width:600px) {
+  html body .academy-shell .reader-workspace p { font-size: 16px !important; }
+  html body .academy-shell :is(.teaching-callout,.lab-example-plan,.teacher-preparation,.guided-action,.exam-connection) { padding: 16px !important; }
+}

@@ -10,9 +10,9 @@ export function LabExamplePlan({ lessonId }: { lessonId: string }) {
   const example = dmz
     ? 'app-dmz.lab.example.test = the name a practice visitor uses. iis-backend.lab.example.test = the private IIS website name. PROXY01 = the gateway in the DMZ. IIS-DMZ01 = the private server that hosts the test page.'
     : helpdesk
-      ? 'APP01 = the example application server. lab.example.test = the example Windows domain. helpdesk.lab.example.test = the example help desk website. Practice IT Help Desk = the name shown to your pretend users.'
+      ? 'Application server (APP01) = the Windows computer that runs osTicket. Its full computer name is app01.lab.example.test. Windows domain (lab.example.test) = the shared sign-in and DNS environment. Application address (helpdesk.lab.example.test) = what a user types into a browser to open osTicket. Practice IT Help Desk = the name shown to your pretend users.'
       : windows
-        ? 'DC01 and DC02 = example domain controllers for lab.example.test. APP01 = an example member/application server. SQL01 = an example database server. migrate.lab.example.test = the separate destination domain used only in the domain-move lessons.'
+        ? 'DC01 and DC02 = example domain controllers for lab.example.test. Application server (APP01) = a Windows member server; the help desk class installs osTicket here. Database server (SQL01) = the separate Microsoft SQL Server practice computer. migrate.lab.example.test = the separate destination domain used only in the domain-move lessons.'
         : azure
           ? 'Resource names such as rg-practice-lab and APP02 are examples, not resources this website has created. Use your own subscription ID and the region you choose. A name ending in example.test is a private, fictional practice name.'
           : splunk
@@ -96,12 +96,15 @@ export function LabExamplePlan({ lessonId }: { lessonId: string }) {
       )}
       {helpdesk && (
         <p>
-          <strong>What APP01 hosts:</strong> IIS receives browser requests. PHP
+          <strong>What the application server (APP01) hosts:</strong> IIS receives browser requests. PHP
           runs osTicket. MariaDB stores the practice users and tickets; this
           small private lab keeps it on APP01 and limits it to local
           connections. DC01 and DC02 provide sign-in and DNS, not the help desk
-          website. No server is placed in a DMZ during this class.
+          website. Both app01.lab.example.test and helpdesk.lab.example.test resolve to APP01’s recorded private IP. They identify a computer and an application on that computer; they are not two servers. IIS uses the helpdesk name to choose the correct website. No server is placed in a DMZ during this class.
         </p>
+      )}
+      {helpdesk && (
+        <p><strong>Windows and Linux are separate builds:</strong> this is the Windows build: IIS → PHP → osTicket → MariaDB. osTicket supports MySQL-compatible databases, including MariaDB, on Windows too; Microsoft SQL Server cannot replace it. A Linux osTicket build would use a Linux web server → PHP → osTicket → MariaDB, with different installation commands. Do not paste Linux installation commands into this Windows class. <a href="https://docs.osticket.com/en/latest/Getting%20Started/Installation.html">Official database requirements</a>.</p>
       )}
       {dmz && (
         <p>
