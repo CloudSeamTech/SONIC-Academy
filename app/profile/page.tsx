@@ -99,6 +99,7 @@ export default function Profile() {
                   <div><dt>Bookmarked labs</dt><dd>{academy.bookmarks.length}</dd></div>
                 </dl>
                 <a href="/?view=bookmarks">Open my bookmarks →</a>
+                <p><a href="/dmz#lesson=dmz-plan">Open my DMZ lab notebook →</a></p>
                 {academy.user ? <>
                   <p>Started as a guest? Import this browser’s earlier progress only if it belongs to you.</p>
                   <button type="button" disabled={saving} onClick={async () => {

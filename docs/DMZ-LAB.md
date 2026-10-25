@@ -75,3 +75,11 @@ subnets, with cost estimates and cleanup requirements. It does not deploy a
 paid gateway or promise an always-on enterprise stack for $25/month. VM
 shutdown/deallocation does not remove all cloud charges. Tags help identify
 owners and expiry; a budget alert is not a hard spending cap.
+
+## Learner notebook and beginner revision
+
+Each lesson includes blank, editable notebook fields appropriate to that lesson, plus a whole-plan view and separate lesson notes. Names, network ranges, adapter mappings, firewall rules and test results can be saved or downloaded as text. The entries are notes; they do not interpolate into executable commands or claim that custom values were applied to a VM.
+
+The public Vercel deployment currently has no connected account database. Guest notes are saved to this browser only and are visible to anyone using that same browser profile. The UI states this explicitly and offers a download. On hosts with authenticated account storage, the notebook uses the existing user-scoped learner records API and account-ID checks. Guest import is explicit and keeps an existing account value on conflict. When an account cannot be verified, cached account notes are not opened or overwritten as guest notes. Supabase is still a separate setup task; this release does not provision it.
+
+The course now explains what belongs in the DMZ before configuration: only the reverse proxy is in the DMZ, while IIS is in a separate private application subnet. Its harmless test page stands in for a help desk. This course does not install or relocate osTicket, PHP or its database. All 35 steps have shorter action wording, simpler titles and concrete expected checks. Technical commands, subnet separation and certificate verification remain intact.

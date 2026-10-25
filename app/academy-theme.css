@@ -3420,3 +3420,48 @@ html body .academy-shell.academy-shell .reader-workspace .focus-step-control but
 }
 /* Keep the current step below the sticky focus controls on every viewport. */
 html body .academy-shell.academy-shell .reader-workspace [data-step-focus="true"] :is(.guided-step, .sonic-action-panel) { scroll-margin-top: 120px !important; }
+
+/* Brand rule: lettering and icons on purple surfaces are always white. */
+:root { --academy-on-purple: #ffffff; }
+html body .academy-shell.academy-shell :is(
+  .purple-surface,
+  .console-sidebar .academy-primary-nav a,
+  .console-sidebar .reader-lesson-link.active,
+  .console-sidebar .reader-course[open] > summary,
+  .console-sidebar .plan-badge,
+  .reader-workspace .nessus-course-switcher a[aria-current],
+  .reader-workspace .profile-avatar,
+  .reader-workspace .primary-button,
+  .reader-workspace .screen-marker
+),
+html body .academy-shell.academy-shell :is(
+  .purple-surface,
+  .console-sidebar .academy-primary-nav a,
+  .console-sidebar .reader-lesson-link.active,
+  .console-sidebar .reader-course[open] > summary,
+  .console-sidebar .plan-badge,
+  .reader-workspace .nessus-course-switcher a[aria-current],
+  .reader-workspace .profile-avatar,
+  .reader-workspace .primary-button,
+  .reader-workspace .screen-marker
+) :is(span, small, strong, b, em, svg, h2, h3, p) {
+  color: var(--academy-on-purple) !important;
+  -webkit-text-fill-color: var(--academy-on-purple);
+}
+.lab-notebook { margin: 24px 0 36px; padding: 24px; background: #ede4d8; border-radius: 10px; }
+.lab-notebook h2 { margin: 0 0 16px; }
+.notebook-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.lab-notebook label { display: block; font-weight: 700; margin: 16px 0; }
+html body .academy-shell .reader-workspace .lab-notebook textarea { display: block; width: 100%; box-sizing: border-box; resize: vertical; margin-top: 8px; padding: 12px; background: #f6f0e6 !important; color: #181818 !important; border: 1px solid #88765e; border-radius: 6px; font: inherit; font-weight: 400; line-height: 1.6; }
+.lab-notebook textarea::placeholder { color: #665d51; opacity: 1; }
+.notebook-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+html body .academy-shell .reader-workspace .notebook-actions button { padding: 12px 16px; background: #cdbfa9 !important; color: #181818 !important; border: 1px solid #88765e; border-radius: 6px; min-height: 44px; }
+.notebook-actions button:focus-visible, .lab-notebook textarea:focus-visible { outline: 3px solid #713bd1; outline-offset: 3px; }
+[data-step-focus="true"] > .lab-notebook { display: none; }
+@media(max-width: 650px) { .notebook-fields { grid-template-columns: minmax(0, 1fr); gap: 0; } .lab-notebook { padding: 16px; } }
+.notebook-edit-fields { padding: 0; margin: 0; border: 0; min-width: 0; }
+.notebook-actions { margin-top: 18px; }
+html body .academy-shell.academy-shell .console-sidebar :is(a, button, summary, p, span, small, strong, label, svg) {
+  color: var(--academy-on-purple) !important;
+  -webkit-text-fill-color: var(--academy-on-purple);
+}
