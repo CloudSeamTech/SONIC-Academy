@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { IBM_Plex_Mono, JetBrains_Mono } from 'next/font/google';
+import { Space_Grotesk, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import './sonic.css';
 import { AcademyProvider } from './academy-provider';
-const uiFont = IBM_Plex_Mono({
+const uiFont = Space_Grotesk({
   variable: '--font-academy-ui',
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],

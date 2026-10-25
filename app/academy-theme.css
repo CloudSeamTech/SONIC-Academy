@@ -3550,3 +3550,17 @@ html body .academy-shell .exam-scope { font-size: 14px !important; margin-bottom
   html body .academy-shell .reader-workspace p { font-size: 16px !important; }
   html body .academy-shell :is(.teaching-callout,.lab-example-plan,.teacher-preparation,.guided-action,.exam-connection) { padding: 16px !important; }
 }
+
+/* Geometric uppercase UI; underlying lesson data and copied commands keep their case. */
+html body { text-transform: uppercase !important; }
+html body .academy-shell :is(h1,h2,h3,h4,h5,h6,p,a,button,summary,label,li,dd,dt,span,strong,b,small,div,section,article,header,nav,aside,footer,td,th,legend,output) {
+  text-transform: uppercase !important;
+}
+/* Technical values must be displayed exactly as students enter them. */
+html body .academy-shell.academy-shell :is(pre,code,kbd,samp,input,textarea,[contenteditable="true"],.terminal-output,.terminal-input-row,.xterm,.monaco-editor,.cm-editor),
+html body .academy-shell.academy-shell :is(pre,code,kbd,samp,input,textarea,[contenteditable="true"],.terminal-output,.terminal-input-row,.xterm,.monaco-editor,.cm-editor) * {
+  text-transform: none !important;
+}
+html body .academy-shell :is(h1,h2,h3,h4,h5,h6) { letter-spacing: -.025em !important; }
+html body .academy-shell :is(button,summary,.console-nav-label) { letter-spacing: .015em !important; }
+html body .academy-shell :is(input,textarea)::placeholder { text-transform: uppercase !important; }
