@@ -8,6 +8,7 @@ export const progressKeys = [
 export function isProgressKey(key: string) {
   return (
     progressKeys.includes(key) ||
+    key === 'sonic-academy-notebook-v1:windows-dmz' ||
     /^sonic-guided-workstation2019-v1:[a-z0-9:-]{1,100}$/.test(key)
   );
 }

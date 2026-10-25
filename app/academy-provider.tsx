@@ -311,7 +311,14 @@ export function AcademyProvider({ children }: { children: ReactNode }) {
       if (!prior) current[key] = raw;
       else if (Array.isArray(prior) && Array.isArray(value))
         current[key] = JSON.stringify([...new Set([...prior, ...value])]);
-      else if (
+      else if (key === 'sonic-academy-notebook-v1:windows-dmz') {
+        // Explicit guest import keeps the signed-in account's choices on conflict.
+        current[key] = JSON.stringify({
+          version: 1,
+          fields: { ...value.fields, ...prior.fields },
+          notes: { ...value.notes, ...prior.notes },
+        });
+      } else if (
         prior &&
         value &&
         typeof prior === 'object' &&

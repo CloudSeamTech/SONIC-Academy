@@ -1,4 +1,5 @@
 'use client';
+import { DmzLabNotebook } from '../dmz/lab-notebook';
 import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
 import { LabOverview } from '../lab-overview';
@@ -226,6 +227,7 @@ function LessonReader({
         step={index}
         total={lesson.steps.length}
       />
+      {lesson.id.startsWith('dmz-') && <DmzLabNotebook lessonId={lesson.id} />}
       <section className="guided-lab" aria-label="Guided walkthrough">
         <LabStepNav
           titles={lesson.steps.map((item) => item.title)}

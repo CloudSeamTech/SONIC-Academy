@@ -3,35 +3,35 @@
     "id": "dmz-plan-screen-1",
     "src": "/dmz/screens/dmz-plan-screen-1.svg",
     "kind": "architecture",
-    "title": "Follow one web request",
-    "where": "Your Windows host \u00b7 lab notebook",
+    "title": "Trace a visitor’s request",
+    "where": "Your Windows host · lab notebook",
     "fields": [
       [
         "Visitor",
-        "TEST01 \u00b7 10.70.0.10"
+        "TEST01 · 10.70.0.10"
       ],
       [
         "Edge firewall",
-        "FW01 \u00b7 10.70.0.1"
+        "FW01 · 10.70.0.1"
       ],
       [
         "DMZ proxy",
-        "PROXY01 \u00b7 10.60.0.10"
+        "PROXY01 · 10.60.0.10"
       ],
       [
         "Private application",
-        "IIS-DMZ01 \u00b7 10.80.0.40; AD remains 10.50.0.0/24"
+        "IIS-DMZ01 · 10.80.0.40; AD remains 10.50.0.0/24"
       ]
     ],
     "command": null,
-    "expected": "Your diagram separates visitor, DMZ, private application and private AD/management zones with one approved HTTPS route."
+    "expected": "Your diagram shows the visitor reaching only the gateway. The gateway can request a page from private IIS. AD and SQL stay outside the DMZ."
   },
   {
     "id": "dmz-plan-screen-2",
     "src": "/dmz/screens/dmz-plan-screen-2.svg",
     "kind": "architecture",
-    "title": "Choose local practice before Azure",
-    "where": "Your Windows host \u00b7 lab notebook",
+    "title": "Choose your practice setup",
+    "where": "Your Windows host · lab notebook",
     "fields": [
       [
         "Local practice",
@@ -43,99 +43,99 @@
       ],
       [
         "Cloud follow-on",
-        "WAF ingress \u2192 private IIS backend"
+        "WAF ingress → private IIS backend"
       ]
     ],
     "command": null,
-    "expected": "The plan is local and isolated. Azure is a later design comparison, not a resource deployment."
+    "expected": "Your plan uses four new VMs inside VMware. No Internet publishing or Azure deployment is planned yet."
   },
   {
     "id": "dmz-plan-screen-3",
     "src": "/dmz/screens/dmz-plan-screen-3.svg",
     "kind": "architecture",
-    "title": "Reserve four networks without changing the domain controllers",
-    "where": "Windows host \u00b7 VMware Virtual Network Editor and lab notebook",
+    "title": "Write down the four networks",
+    "where": "Windows host · VMware Virtual Network Editor and lab notebook",
     "fields": [
       [
-        "AD / management \u00b7 VMnet2",
-        "10.50.0.0/24 \u00b7 DC .10/.11 \u00b7 FW .1 \u00b7 host .254"
+        "AD / management · VMnet2",
+        "10.50.0.0/24 · DC .10/.11 · FW .1 · host .254"
       ],
       [
-        "DMZ \u00b7 VMnet3",
-        "10.60.0.0/24 \u00b7 FW .1 \u00b7 proxy .10"
+        "DMZ · VMnet3",
+        "10.60.0.0/24 · FW .1 · proxy .10"
       ],
       [
-        "OUTSIDE \u00b7 VMnet4",
-        "10.70.0.0/24 \u00b7 FW .1 \u00b7 visitor .10"
+        "OUTSIDE · VMnet4",
+        "10.70.0.0/24 · FW .1 · visitor .10"
       ],
       [
-        "APP_PRIVATE \u00b7 VMnet5",
-        "10.80.0.0/24 \u00b7 FW .1 \u00b7 IIS .40"
+        "APP_PRIVATE · VMnet5",
+        "10.80.0.0/24 · FW .1 · IIS .40"
       ]
     ],
     "command": null,
-    "expected": "Your inventory shows unique addresses, unchanged DC01/DC02 and no overlapping subnets."
+    "expected": "Your notebook lists four different network ranges and unique addresses. DC01 and DC02 keep their existing settings."
   },
   {
     "id": "dmz-networks-screen-1",
     "src": "/dmz/screens/dmz-networks-screen-1.svg",
     "kind": "workstation",
-    "title": "Prepare the VM images and package tools",
-    "where": "Windows host \u00b7 Workstation Pro; Linux guest consoles during preparation",
+    "title": "Prepare the four new VMs",
+    "where": "Windows host · Workstation Pro; Linux guest consoles during preparation",
     "fields": [
       [
         "FW01",
-        "2 vCPU \u00b7 4 GB \u00b7 40 GB \u00b7 FreeBSD x64"
+        "2 vCPU · 4 GB · 40 GB · FreeBSD x64"
       ],
       [
         "IIS-DMZ01",
-        "Server 2019 GUI \u00b7 4 GB \u00b7 60 GB"
+        "Server 2019 GUI · 4 GB · 60 GB"
       ],
       [
         "PROXY01",
-        "AlmaLinux 9 \u00b7 2 GB \u00b7 30 GB"
+        "AlmaLinux 9 · 2 GB · 30 GB"
       ],
       [
         "TEST01",
-        "AlmaLinux 9 GNOME \u00b7 3 GB \u00b7 30 GB"
+        "AlmaLinux 9 GNOME · 3 GB · 30 GB"
       ]
     ],
     "command": "sudo dnf upgrade --refresh -y\nsudo dnf install -y nginx openssl curl tcpdump open-vm-tools fuse3 policycoreutils-python-utils\nsudo systemctl enable --now vmtoolsd",
-    "expected": "The guests are prepared, powered off and ready to be attached to isolated networks."
+    "expected": "Your new VMs are installed, updated and shut down, ready for the network changes."
   },
   {
     "id": "dmz-networks-screen-2",
     "src": "/dmz/screens/dmz-networks-screen-2.svg",
     "kind": "workstation",
-    "title": "Create the four isolated switches",
-    "where": "Windows host \u00b7 VMware Workstation Pro \u2192 Edit \u2192 Virtual Network Editor",
+    "title": "Create the VMware networks",
+    "where": "Windows host · VMware Workstation Pro → Edit → Virtual Network Editor",
     "fields": [
       [
         "VMnet2",
-        "Host-only \u00b7 10.50.0.0 \u00b7 management host adapter"
+        "Host-only · 10.50.0.0 · management host adapter"
       ],
       [
         "VMnet3",
-        "Host-only \u00b7 10.60.0.0 \u00b7 DHCP/host adapter off"
+        "Host-only · 10.60.0.0 · DHCP/host adapter off"
       ],
       [
         "VMnet4",
-        "Host-only \u00b7 10.70.0.0 \u00b7 DHCP/host adapter off"
+        "Host-only · 10.70.0.0 · DHCP/host adapter off"
       ],
       [
         "VMnet5",
-        "Host-only \u00b7 10.80.0.0 \u00b7 DHCP/host adapter off"
+        "Host-only · 10.80.0.0 · DHCP/host adapter off"
       ]
     ],
     "command": null,
-    "expected": "VMnet2/3/4/5 are isolated host-only /24 networks with DHCP off. Only VMnet2 has the intended host management adapter."
+    "expected": "VMnet2, VMnet3, VMnet4 and VMnet5 show Host-only with DHCP off. Only VMnet2 has a host management adapter."
   },
   {
     "id": "dmz-networks-screen-3",
     "src": "/dmz/screens/dmz-networks-screen-3.svg",
     "kind": "windows-network",
-    "title": "Move only the host management adapter",
-    "where": "Windows 10 host \u00b7 Run \u2192 ncpa.cpl",
+    "title": "Set the Windows host’s management address",
+    "where": "Windows 10 host · Run → ncpa.cpl",
     "fields": [
       [
         "Adapter",
@@ -155,14 +155,14 @@
       ]
     ],
     "command": null,
-    "expected": "The host VMnet2 adapter is 10.50.0.254 and does not conflict with the future FW01 .1 address."
+    "expected": "The Windows host’s VMnet2 adapter shows 10.50.0.254. Its physical Wi-Fi or Ethernet settings have not changed."
   },
   {
     "id": "dmz-networks-screen-4",
     "src": "/dmz/screens/dmz-networks-screen-4.svg",
     "kind": "workstation",
-    "title": "Attach the VMs and record their MAC addresses",
-    "where": "Workstation Pro \u00b7 each powered-off VM \u2192 Settings \u2192 Network Adapter",
+    "title": "Connect each VM to the right network",
+    "where": "Workstation Pro · each powered-off VM → Settings → Network Adapter",
     "fields": [
       [
         "FW01 adapters 1 / 2",
@@ -182,14 +182,14 @@
       ]
     ],
     "command": null,
-    "expected": "The saved four-zone MAC/NIC inventory has four FW01 adapters and one adapter on each server/client."
+    "expected": "FW01 has four adapters with recorded MAC addresses. Each other new VM has just one adapter on the correct VMnet."
   },
   {
     "id": "dmz-firewall-screen-1",
     "src": "/dmz/screens/dmz-firewall-screen-1.svg",
     "kind": "console",
-    "title": "Install OPNsense on FW01",
-    "where": "FW01 VMware console \u00b7 OPNsense installer",
+    "title": "Install the firewall on FW01",
+    "where": "FW01 VMware console · OPNsense installer",
     "fields": [
       [
         "WAN",
@@ -209,14 +209,14 @@
       ]
     ],
     "command": null,
-    "expected": "FW01 boots from disk with WAN, LAN, OPT1 and OPT2 mapped to the correct recorded MACs."
+    "expected": "FW01 starts from its virtual disk. Its four network adapters match the MAC addresses in your notes."
   },
   {
     "id": "dmz-firewall-screen-2",
     "src": "/dmz/screens/dmz-firewall-screen-2.svg",
     "kind": "console",
-    "title": "Set the firewall\u2019s four addresses",
-    "where": "FW01 console \u00b7 Set interface IP address",
+    "title": "Give the firewall its four addresses",
+    "where": "FW01 console · Set interface IP address",
     "fields": [
       [
         "LAN / management",
@@ -236,18 +236,18 @@
       ]
     ],
     "command": null,
-    "expected": "The host reaches FW01 on 10.50.0.1 and all four interface addresses match the diagram."
+    "expected": "Your Windows host opens the firewall at 10.50.0.1. All four firewall addresses match your plan."
   },
   {
     "id": "dmz-firewall-screen-3",
     "src": "/dmz/screens/dmz-firewall-screen-3.svg",
     "kind": "opnsense",
-    "title": "Label the interfaces and allow the lab\u2019s private outside addresses",
-    "where": "Windows host browser \u00b7 FW01 Interfaces",
+    "title": "Name the firewall connections",
+    "where": "Windows host browser · FW01 Interfaces",
     "fields": [
       [
         "Interface",
-        "WAN / OUTSIDE \u00b7 10.70.0.1/24"
+        "WAN / OUTSIDE · 10.70.0.1/24"
       ],
       [
         "Block private networks",
@@ -263,14 +263,14 @@
       ]
     ],
     "command": null,
-    "expected": "The DMZ is enabled, the test outside interface accepts the planned private lab addresses, and management is confined to PRIVATE."
+    "expected": "DMZ and APP_PRIVATE are enabled and named correctly. Firewall administration listens only on the private management connection."
   },
   {
     "id": "dmz-firewall-screen-4",
     "src": "/dmz/screens/dmz-firewall-screen-4.svg",
     "kind": "opnsense",
-    "title": "Keep an explicit administrator doorway",
-    "where": "Windows host browser \u00b7 Firewall \u2192 Aliases, then Rules [new] / interface rules",
+    "title": "Keep your administrator access working",
+    "where": "Windows host browser · Firewall → Aliases, then Rules [new] / interface rules",
     "fields": [
       [
         "Interface",
@@ -278,53 +278,53 @@
       ],
       [
         "Source",
-        "ADMIN_HOST \u00b7 10.50.0.254"
+        "ADMIN_HOST · 10.50.0.254"
       ],
       [
         "Destination",
-        "LAN address \u00b7 TCP 443"
+        "LAN address · TCP 443"
       ],
       [
         "Description",
-        "ADMIN_TO_FW_HTTPS \u00b7 Log enabled"
+        "ADMIN_TO_FW_HTTPS · Log enabled"
       ]
     ],
     "command": null,
-    "expected": "Only the explicit administrator management path is retained; the broad LAN-to-any rules are disabled."
+    "expected": "A fresh browser connection works through ADMIN_TO_FW_HTTPS. The broad LAN rules and automatic anti-lockout rule are disabled."
   },
   {
     "id": "dmz-firewall-screen-5",
     "src": "/dmz/screens/dmz-firewall-screen-5.svg",
     "kind": "opnsense",
-    "title": "Allow one private web service from the proxy",
-    "where": "Windows host browser \u00b7 Firewall \u2192 Rules \u2192 DMZ",
+    "title": "Allow only gateway-to-IIS web requests",
+    "where": "Windows host browser · Firewall → Rules → DMZ",
     "fields": [
       [
         "Pass / IPv4 TCP",
-        "DMZ_PROXY \u2192 PRIVATE_IIS \u00b7 destination 443"
+        "DMZ_PROXY → PRIVATE_IIS · destination 443"
       ],
       [
         "Block / IPv4 any",
-        "DMZ net \u2192 any \u00b7 logged"
+        "DMZ net → any · logged"
       ],
       [
         "Rule order",
-        "Specific allow first \u00b7 deny below"
+        "Specific allow first · deny below"
       ]
     ],
     "command": null,
-    "expected": "DMZ_PROXY_TO_IIS_443 is above DMZ_DENY_OTHER, and there is no broad DMZ-to-private allow."
+    "expected": "DMZ_PROXY_TO_IIS_443 sits above DMZ_DENY_OTHER. Other DMZ connections stay blocked; APP_PRIVATE also has its logged deny rule."
   },
   {
     "id": "dmz-iis-screen-1",
     "src": "/dmz/screens/dmz-iis-screen-1.svg",
     "kind": "powershell",
-    "title": "Give the new private server its address",
-    "where": "IIS-DMZ01 guest console \u00b7 Windows Server 2019 \u2192 ncpa.cpl",
+    "title": "Set the private IIS server’s name and address",
+    "where": "IIS-DMZ01 guest console · Windows Server 2019 → ncpa.cpl",
     "fields": [
       [
         "Computer",
-        "IIS-DMZ01 \u00b7 workgroup"
+        "IIS-DMZ01 · workgroup"
       ],
       [
         "IPv4",
@@ -336,32 +336,32 @@
       ]
     ],
     "command": "hostname\nipconfig /all",
-    "expected": "IIS-DMZ01 is a workgroup VM at 10.80.0.40/24 with gateway 10.80.0.1 and exactly one VMnet5 NIC."
+    "expected": "IIS-DMZ01 shows IP 10.80.0.40, mask 255.255.255.0 and gateway 10.80.0.1. Its only adapter is VMnet5; it is not a domain controller."
   },
   {
     "id": "dmz-iis-screen-2",
     "src": "/dmz/screens/dmz-iis-screen-2.svg",
     "kind": "powershell",
-    "title": "Install IIS and create a clearly named practice site",
-    "where": "IIS-DMZ01 \u00b7 Windows PowerShell as Administrator",
+    "title": "Install IIS and open your test page",
+    "where": "IIS-DMZ01 · Windows PowerShell as Administrator",
     "fields": [],
     "command": "if ($env:COMPUTERNAME -ne 'IIS-DMZ01') { throw 'Wrong VM. Stop here.' }\nInstall-WindowsFeature Web-Server -IncludeManagementTools\nImport-Module WebAdministration\nNew-Item -ItemType Directory -Path C:\\inetpub\\dmz-lab -Force\n'<h1>CloudSeam DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\\inetpub\\dmz-lab\\index.html\nStop-Website 'Default Web Site'\nNew-Website -Name 'DMZ-Lab' -PhysicalPath C:\\inetpub\\dmz-lab -IPAddress 127.0.0.1 -Port 8080\n(Invoke-WebRequest http://127.0.0.1:8080 -UseBasicParsing).StatusCode",
-    "expected": "The local health request returns the CloudSeam training page from the DMZ-Lab site."
+    "expected": "The local test on IIS-DMZ01 returns your small practice webpage. DMZ-Lab appears in IIS Manager."
   },
   {
     "id": "dmz-iis-screen-3",
     "src": "/dmz/screens/dmz-iis-screen-3.svg",
     "kind": "iis",
-    "title": "Bind HTTPS and export only the public certificate",
-    "where": "IIS-DMZ01 \u00b7 elevated PowerShell, then IIS Manager \u2192 DMZ-Lab \u2192 Bindings",
+    "title": "Add HTTPS to the private website",
+    "where": "IIS-DMZ01 · elevated PowerShell, then IIS Manager → DMZ-Lab → Bindings",
     "fields": [
       [
         "Type / IP / port",
-        "https \u00b7 10.80.0.40 \u00b7 443"
+        "https · 10.80.0.40 · 443"
       ],
       [
         "Host name / SNI",
-        "iis-backend.cloudseam.tech \u00b7 enabled"
+        "iis-backend.cloudseam.tech · enabled"
       ],
       [
         "SSL certificate",
@@ -369,58 +369,58 @@
       ]
     ],
     "command": "$cert = New-SelfSignedCertificate -DnsName 'iis-backend.cloudseam.tech' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)\nNew-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.cloudseam.tech' -SslFlags 1\n(Get-WebBinding -Name 'DMZ-Lab' -Protocol https).AddSslCertificate($cert.Thumbprint, 'My')\nNew-Item -ItemType Directory C:\\DMZ-Lab -Force\n$pem = '-----BEGIN CERTIFICATE-----' + \"`r`n\" + [Convert]::ToBase64String($cert.RawData, [System.Base64FormattingOptions]::InsertLineBreaks) + \"`r`n-----END CERTIFICATE-----`r`n\"\n$pem | Set-Content C:\\DMZ-Lab\\backend-public.pem -Encoding Ascii",
-    "expected": "The correct SNI HTTPS binding exists, and backend-public.pem contains only the backend\u2019s public certificate."
+    "expected": "IIS has the HTTPS binding for iis-backend.cloudseam.tech. backend-public.pem contains the public certificate, with no private key."
   },
   {
     "id": "dmz-iis-screen-4",
     "src": "/dmz/screens/dmz-iis-screen-4.svg",
     "kind": "powershell",
-    "title": "Restrict the Windows firewall and stage the public certificate",
-    "where": "IIS-DMZ01 \u00b7 elevated PowerShell; Windows host \u2192 Workstation shared folder settings",
+    "title": "Limit IIS access and copy its public certificate",
+    "where": "IIS-DMZ01 · elevated PowerShell; Windows host → Workstation shared folder settings",
     "fields": [],
     "command": "New-NetFirewallRule -DisplayName 'DMZ-Lab HTTPS from proxy only' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 443 -RemoteAddress 10.60.0.10 -Profile Any\nGet-NetFirewallRule -DisplayName 'DMZ-Lab HTTPS from proxy only' | Get-NetFirewallAddressFilter\n# Inspect other inbound web allows on this dedicated VM before disabling them.\nGet-NetFirewallRule -Direction Inbound -Enabled True -Action Allow | Where-Object DisplayName -Match 'World Wide Web|HTTPS|HTTP' | Select-Object Name,DisplayName,Enabled",
-    "expected": "The Windows HTTPS rule is scoped to 10.60.0.10, and only the public backend PEM is staged for the proxy."
+    "expected": "Only the gateway IP is allowed through the Windows HTTPS rule. The shared folder contains only the public certificate file."
   },
   {
     "id": "dmz-proxy-screen-1",
     "src": "/dmz/screens/dmz-proxy-screen-1.svg",
     "kind": "terminal",
-    "title": "Set PROXY01\u2019s DMZ address",
-    "where": "PROXY01 \u00b7 AlmaLinux console",
+    "title": "Set the gateway’s DMZ address",
+    "where": "PROXY01 · AlmaLinux console",
     "fields": [],
     "command": "sudo hostnamectl set-hostname proxy01.cloudseam.tech\nnmcli connection show\n# Replace YOUR_CONNECTION with the exact Ethernet profile name above.\nsudo nmcli connection modify \"YOUR_CONNECTION\" ipv4.method manual ipv4.addresses 10.60.0.10/24 ipv4.gateway 10.60.0.1 ipv4.dns \"\" ipv6.method disabled\nsudo nmcli connection up \"YOUR_CONNECTION\"\nip -4 address\nip -4 route\ntimedatectl",
-    "expected": "PROXY01 has only 10.60.0.10/24 on its Ethernet NIC and uses 10.60.0.1 as gateway."
+    "expected": "PROXY01 shows 10.60.0.10/24 and default gateway 10.60.0.1. No temporary NAT adapter remains."
   },
   {
     "id": "dmz-proxy-screen-2",
     "src": "/dmz/screens/dmz-proxy-screen-2.svg",
     "kind": "terminal",
-    "title": "Copy the pinned backend certificate and prove the private HTTPS hop",
-    "where": "PROXY01 \u00b7 AlmaLinux console; Workstation Options \u2192 Shared Folders",
+    "title": "Test the gateway’s connection to IIS",
+    "where": "PROXY01 · AlmaLinux console; Workstation Options → Shared Folders",
     "fields": [],
     "command": "sudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\nsudo cp /mnt/dmz-transfer/backend-public.pem /etc/pki/tls/certs/iis-backend.pem\ncurl --cacert /etc/pki/tls/certs/iis-backend.pem --resolve iis-backend.cloudseam.tech:443:10.80.0.40 --connect-timeout 5 https://iis-backend.cloudseam.tech/",
-    "expected": "A verified curl request from PROXY01 reaches the private IIS page and a matching narrow firewall pass is logged."
+    "expected": "The gateway receives the IIS practice page with the certificate check enabled. FW01 logs the matching allowed request."
   },
   {
     "id": "dmz-proxy-screen-3",
     "src": "/dmz/screens/dmz-proxy-screen-3.svg",
     "kind": "terminal",
-    "title": "Create the visitor-facing lab certificate",
-    "where": "PROXY01 \u00b7 AlmaLinux console",
+    "title": "Create the gateway’s test certificate",
+    "where": "PROXY01 · AlmaLinux console",
     "fields": [],
     "command": "sudo openssl req -x509 -nodes -newkey rsa:3072 -sha256 -days 30 -keyout /etc/pki/tls/private/dmz-front.key -out /etc/pki/tls/certs/dmz-front.crt -subj \"/CN=app-dmz.cloudseam.tech\" -addext \"subjectAltName=DNS:app-dmz.cloudseam.tech\"\nsudo chmod 600 /etc/pki/tls/private/dmz-front.key\nopenssl x509 -in /etc/pki/tls/certs/dmz-front.crt -noout -subject -dates -ext subjectAltName\nsudo cp /etc/pki/tls/certs/dmz-front.crt /mnt/dmz-transfer/proxy-public.crt",
-    "expected": "The front certificate has the correct SAN and dates; the front private key stays root-only on PROXY01."
+    "expected": "The gateway certificate covers app-dmz.cloudseam.tech and has the expected dates. Only root can read its private key."
   },
   {
     "id": "dmz-proxy-screen-4",
     "src": "/dmz/screens/dmz-proxy-screen-4.svg",
     "kind": "terminal",
-    "title": "Install the exact NGINX HTTPS proxy configuration",
-    "where": "PROXY01 \u00b7 AlmaLinux console / text editor",
+    "title": "Copy and check the NGINX configuration",
+    "where": "PROXY01 · AlmaLinux console / text editor",
     "fields": [
       [
         "Front listener",
-        "10.60.0.10:443 \u00b7 app-dmz.cloudseam.tech"
+        "10.60.0.10:443 · app-dmz.cloudseam.tech"
       ],
       [
         "Private upstream",
@@ -428,28 +428,28 @@
       ],
       [
         "TLS name / verify",
-        "iis-backend.cloudseam.tech \u00b7 on"
+        "iis-backend.cloudseam.tech · on"
       ]
     ],
     "command": "sudo cp /mnt/dmz-transfer/nginx-dmz.conf /etc/nginx/conf.d/dmz.conf\nsudo nginx -t",
-    "expected": "nginx -t reports a valid configuration with upstream certificate verification enabled."
+    "expected": "nginx -t reports that the configuration test succeeded. The settings still verify the private IIS certificate."
   },
   {
     "id": "dmz-proxy-screen-5",
     "src": "/dmz/screens/dmz-proxy-screen-5.svg",
     "kind": "terminal",
-    "title": "Start the service without disabling host protections",
-    "where": "PROXY01 \u00b7 AlmaLinux console",
+    "title": "Start NGINX and keep protections on",
+    "where": "PROXY01 · AlmaLinux console",
     "fields": [],
     "command": "sudo setsebool -P httpd_can_network_connect 1\nsudo firewall-cmd --get-active-zones\nsudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family=\"ipv4\" source address=\"10.70.0.10/32\" service name=\"https\" accept'\nsudo firewall-cmd --reload\nsudo systemctl enable --now nginx\nsystemctl is-active nginx\ngetenforce\nsudo ss -lntp | grep ':443'",
-    "expected": "SELinux is enforcing, firewalld has the scoped visitor HTTPS rule, and NGINX is active on the DMZ listener."
+    "expected": "NGINX is active at 10.60.0.10:443. SELinux and firewalld remain on, with HTTPS allowed only from TEST01."
   },
   {
     "id": "dmz-publish-screen-1",
     "src": "/dmz/screens/dmz-publish-screen-1.svg",
     "kind": "gnome",
-    "title": "Give the visitor its isolated outside address",
-    "where": "TEST01 \u00b7 AlmaLinux 9 GNOME Settings \u2192 Network",
+    "title": "Set the practice visitor’s address",
+    "where": "TEST01 · AlmaLinux 9 GNOME Settings → Network",
     "fields": [
       [
         "IPv4 method",
@@ -465,97 +465,97 @@
       ],
       [
         "DNS",
-        "Automatic off \u00b7 blank"
+        "Automatic off · blank"
       ]
     ],
     "command": "sudo hostnamectl set-hostname test01.cloudseam.tech\nip -4 address\nip -4 route",
-    "expected": "TEST01 is 10.70.0.10/24 with one VMnet4 NIC and gateway 10.70.0.1."
+    "expected": "TEST01 shows 10.70.0.10/24 and gateway 10.70.0.1. Its only VMware adapter is VMnet4."
   },
   {
     "id": "dmz-publish-screen-2",
     "src": "/dmz/screens/dmz-publish-screen-2.svg",
     "kind": "opnsense",
-    "title": "Forward outside TCP 443 to the DMZ proxy",
-    "where": "Windows host browser \u00b7 FW01 \u2192 Firewall \u2192 NAT \u2192 Destination NAT / Port Forward",
+    "title": "Send visitor HTTPS requests to the gateway",
+    "where": "Windows host browser · FW01 → Firewall → NAT → Destination NAT / Port Forward",
     "fields": [
       [
         "Interface / protocol",
-        "WAN / OUTSIDE \u00b7 IPv4 TCP"
+        "WAN / OUTSIDE · IPv4 TCP"
       ],
       [
         "Source",
-        "LAB_VISITOR \u00b7 source port any"
+        "LAB_VISITOR · source port any"
       ],
       [
         "Destination",
-        "WAN address \u00b7 port 443"
+        "WAN address · port 443"
       ],
       [
         "Redirect target",
-        "10.60.0.10 \u00b7 port 443"
+        "10.60.0.10 · port 443"
       ]
     ],
     "command": null,
-    "expected": "One outside TCP 443 forward points to PROXY01, with its narrow pass rule; IIS has no outside forward."
+    "expected": "One HTTPS forwarding rule sends the practice visitor to PROXY01. There is no direct outside forward to IIS."
   },
   {
     "id": "dmz-publish-screen-3",
     "src": "/dmz/screens/dmz-publish-screen-3.svg",
     "kind": "terminal",
-    "title": "Give the visitor only the public trust certificate",
-    "where": "TEST01 \u00b7 AlmaLinux Terminal; temporary VMware shared folder",
+    "title": "Copy the certificate the visitor needs",
+    "where": "TEST01 · AlmaLinux Terminal; temporary VMware shared folder",
     "fields": [],
     "command": "mkdir -p ~/dmz-lab\nsudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\ncp /mnt/dmz-transfer/proxy-public.crt ~/dmz-lab/\nopenssl x509 -in ~/dmz-lab/proxy-public.crt -noout -fingerprint -sha256\nsudo umount /mnt/dmz-transfer",
-    "expected": "TEST01 has the matching front public certificate and all temporary shared folders are disabled."
+    "expected": "TEST01 has the gateway’s matching public certificate. Shared Folders is now disabled on all practice VMs."
   },
   {
     "id": "dmz-publish-screen-4",
     "src": "/dmz/screens/dmz-publish-screen-4.svg",
     "kind": "terminal",
-    "title": "Make a real verified request through the whole path",
-    "where": "TEST01 \u00b7 AlmaLinux Terminal",
+    "title": "Open the page through the full route",
+    "where": "TEST01 · AlmaLinux Terminal",
     "fields": [],
     "command": "curl --fail --show-error --cacert ~/dmz-lab/proxy-public.crt --resolve app-dmz.cloudseam.tech:443:10.70.0.1 --connect-timeout 5 \"https://app-dmz.cloudseam.tech/?labtrace=DMZ01\"",
-    "expected": "The request succeeds with TLS verification and returns the page created on private IIS through PROXY01."
+    "expected": "TEST01 receives the private IIS practice page through PROXY01, with certificate checking enabled."
   },
   {
     "id": "dmz-verify-screen-1",
     "src": "/dmz/screens/dmz-verify-screen-1.svg",
     "kind": "terminal",
-    "title": "Test direct outside access to the backend",
-    "where": "TEST01 \u00b7 AlmaLinux Terminal; FW01 Live View",
+    "title": "Check that visitors cannot reach IIS directly",
+    "where": "TEST01 · AlmaLinux Terminal; FW01 Live View",
     "fields": [],
     "command": "timeout 5 bash -c '</dev/tcp/10.80.0.40/443'\necho \"TCP probe exit status: $?\"",
-    "expected": "Direct outside TCP 443 to the private IIS address is blocked with a matching firewall record, while the approved proxy request still succeeds."
+    "expected": "Direct visitor access to IIS fails with a matching firewall Block. The approved gateway request still works."
   },
   {
     "id": "dmz-verify-screen-2",
     "src": "/dmz/screens/dmz-verify-screen-2.svg",
     "kind": "terminal",
-    "title": "Test the DMZ\u2019s blocked management and domain paths",
-    "where": "PROXY01 \u00b7 AlmaLinux console; FW01 Live View",
+    "title": "Check that private management stays blocked",
+    "where": "PROXY01 · AlmaLinux console; FW01 Live View",
     "fields": [],
     "command": "timeout 5 bash -c '</dev/tcp/10.80.0.40/3389'\ntimeout 5 bash -c '</dev/tcp/10.50.0.10/445'",
-    "expected": "The DMZ can reach only the intended private HTTPS service; the tested RDP/SMB paths have matching deny logs."
+    "expected": "The management checks fail with matching Block logs. Gateway-to-IIS HTTPS still works. IIS-to-AD access is also blocked."
   },
   {
     "id": "dmz-verify-screen-3",
     "src": "/dmz/screens/dmz-verify-screen-3.svg",
     "kind": "opnsense",
-    "title": "Check the policy and adapter inventory together",
-    "where": "Windows host browser \u00b7 FW01 Live View and Workstation settings",
+    "title": "Save the test results and check the adapters",
+    "where": "Windows host browser · FW01 Live View and Workstation settings",
     "fields": [
       [
         "Source / destination filter",
-        "10.70.0.10 \u2192 10.80.0.40"
+        "10.70.0.10 → 10.80.0.40"
       ],
       [
         "Decision",
-        "Block \u00b7 outside default deny"
+        "Block · outside default deny"
       ],
       [
         "Allowed comparison",
-        "10.60.0.10 \u2192 10.80.0.40:443"
+        "10.60.0.10 → 10.80.0.40:443"
       ],
       [
         "Rule",
@@ -563,14 +563,14 @@
       ]
     ],
     "command": null,
-    "expected": "The connection matrix has both allowed and denied evidence, and the inventory shows no alternate route around FW01."
+    "expected": "Your saved checklist has both working and blocked tests, each matched to a log. No extra adapter or shared folder bypass remains."
   },
   {
     "id": "dmz-recover-screen-1",
     "src": "/dmz/screens/dmz-recover-screen-1.svg",
     "kind": "terminal",
-    "title": "Correlate the request in proxy and IIS logs",
-    "where": "PROXY01 terminal; IIS-DMZ01 \u2192 IIS Manager \u2192 DMZ-Lab \u2192 Logging",
+    "title": "Find the same request in both logs",
+    "where": "PROXY01 terminal; IIS-DMZ01 → IIS Manager → DMZ-Lab → Logging",
     "fields": [
       [
         "NGINX client",
@@ -590,14 +590,14 @@
       ]
     ],
     "command": "sudo tail -n 20 /var/log/nginx/dmz-access.log\nsudo tail -n 20 /var/log/nginx/dmz-error.log",
-    "expected": "The same labtrace request can be matched across proxy and IIS logs with the expected proxy/client distinction."
+    "expected": "You find the same labtrace request in the gateway and IIS logs. IIS sees the gateway as its connecting client."
   },
   {
     "id": "dmz-recover-screen-2",
     "src": "/dmz/screens/dmz-recover-screen-2.svg",
     "kind": "opnsense",
-    "title": "Create one controlled upstream failure",
-    "where": "Windows host browser \u00b7 FW01 DMZ rule list; TEST01 terminal",
+    "title": "Break and restore one firewall rule",
+    "where": "Windows host browser · FW01 DMZ rule list; TEST01 terminal",
     "fields": [
       [
         "Controlled change",
@@ -605,32 +605,32 @@
       ],
       [
         "State handling",
-        "Clear only matching proxy \u2192 IIS 443 states"
+        "Clear only matching proxy → IIS 443 states"
       ],
       [
         "Recovery",
-        "Re-enable rule \u00b7 Apply \u00b7 retest both paths"
+        "Re-enable rule · Apply · retest both paths"
       ]
     ],
     "command": null,
-    "expected": "A deliberately blocked upstream is diagnosed from logs and recovered by restoring the single known rule."
+    "expected": "The request fails when the one rule is disabled. It works again after that rule is restored, and your blocked-path tests still fail."
   },
   {
     "id": "dmz-recover-screen-3",
     "src": "/dmz/screens/dmz-recover-screen-3.svg",
     "kind": "terminal",
-    "title": "Separate certificate errors from routing errors",
-    "where": "PROXY01 \u00b7 AlmaLinux console",
+    "title": "Tell certificate and network problems apart",
+    "where": "PROXY01 · AlmaLinux console",
     "fields": [],
     "command": "sudo nginx -t\nsystemctl status nginx --no-pager\ngetsebool httpd_can_network_connect\nopenssl x509 -in /etc/pki/tls/certs/iis-backend.pem -noout -subject -dates -ext subjectAltName\nsudo tail -n 20 /var/log/nginx/dmz-error.log",
-    "expected": "You can identify whether the fault is configuration, name/trust, time, service policy or a blocked network path."
+    "expected": "You can use the error message to choose the right check: configuration, certificate, clock, service permission or firewall."
   },
   {
     "id": "dmz-recover-screen-4",
     "src": "/dmz/screens/dmz-recover-screen-4.svg",
     "kind": "workstation",
-    "title": "Rehearse a clean rollback",
-    "where": "Windows host \u00b7 Workstation consoles and private change notes",
+    "title": "Practice restoring a working backup",
+    "where": "Windows host · Workstation consoles and private change notes",
     "fields": [
       [
         "First action",
@@ -646,41 +646,41 @@
       ]
     ],
     "command": null,
-    "expected": "Your recovery notes identify the exact checkpoint, restore order and full validation matrix without touching AD."
+    "expected": "Your notes identify the working backup, restore order and test results. DC01 and DC02 were not restored or changed."
   },
   {
     "id": "dmz-azure-screen-1",
     "src": "/dmz/screens/dmz-azure-screen-1.svg",
     "kind": "azure",
-    "title": "Map the design to Azure without copying VMnet settings",
-    "where": "Your notebook \u00b7 Azure architecture planning",
+    "title": "Draw the same design in Azure",
+    "where": "Your notebook · Azure architecture planning",
     "fields": [
       [
         "Internet ingress",
-        "Application Gateway WAF v2 \u00b7 dedicated subnet"
+        "Application Gateway WAF v2 · dedicated subnet"
       ],
       [
         "Application",
-        "Private IIS VM \u00b7 no public IP"
+        "Private IIS VM · no public IP"
       ],
       [
         "Data / AD",
-        "Private tiers \u00b7 least-privilege paths"
+        "Private tiers · least-privilege paths"
       ],
       [
         "Hybrid",
-        "Non-overlapping addresses \u00b7 planned connectivity"
+        "Non-overlapping addresses · planned connectivity"
       ]
     ],
     "command": null,
-    "expected": "The Azure diagram separates managed ingress, private application and data/domain tiers, with no public IP on the backend VM."
+    "expected": "Your Azure drawing puts the public gateway and private IIS in separate subnets. The IIS VM has no public IP."
   },
   {
     "id": "dmz-azure-screen-2",
     "src": "/dmz/screens/dmz-azure-screen-2.svg",
     "kind": "azure",
-    "title": "Compare the costs before choosing a hosted lab",
-    "where": "Windows host browser \u00b7 Azure pricing calculator and your budget notes",
+    "title": "Estimate Azure costs before building",
+    "where": "Windows host browser · Azure pricing calculator and your budget notes",
     "fields": [
       [
         "Managed gateway/WAF",
@@ -696,18 +696,18 @@
       ],
       [
         "This lesson",
-        "Plan only \u00b7 no Create action"
+        "Plan only · no Create action"
       ]
     ],
     "command": null,
-    "expected": "Your comparison includes fixed and running costs, a runtime/deletion plan and no deployed Azure resources."
+    "expected": "Your notes include the region, running hours, estimated charges and deletion plan. No Azure resources were created."
   },
   {
     "id": "dmz-azure-screen-3",
     "src": "/dmz/screens/dmz-azure-screen-3.svg",
     "kind": "workstation",
-    "title": "Stop and hand over the local practice lab",
-    "where": "Windows host \u00b7 Workstation Pro and lab notebook",
+    "title": "Save your work and shut down the lab",
+    "where": "Windows host · Workstation Pro and lab notebook",
     "fields": [
       [
         "Publication",
@@ -723,6 +723,6 @@
       ]
     ],
     "command": null,
-    "expected": "The four dedicated VMs are stopped, no real Internet exposure exists, and another learner can follow the saved runbook."
+    "expected": "The four practice VMs are shut down. Your notes and private backups are saved, ready for another practice session."
   }
 ]

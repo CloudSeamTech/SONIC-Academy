@@ -1,11 +1,11 @@
 {
   "id": "windows-dmz",
-  "title": "Build a DMZ for Your Private IIS Application",
-  "description": "Build a low-cost enterprise-style DMZ in VMware, publish through a reverse proxy, prove isolation and plan the Azure equivalent.",
-  "baseline": "Windows 10 host / Workstation Pro \u00b7 OPNsense Community \u00b7 AlmaLinux 9 / NGINX \u00b7 Windows Server 2019 / IIS \u00b7 isolated practice only",
-  "prerequisite": "Complete the linked Windows/VMware installation and IIS foundation lessons, plus AlmaLinux installation and terminal basics. PROXY01 uses AlmaLinux Minimal Install; TEST01 uses Workstation/GNOME. Use fresh FW01, PROXY01, IIS-DMZ01 and TEST01 VMs; leave existing AD and APP01 unchanged. This is isolated local practice, not Internet publication.",
+  "title": "Build a DMZ for Your IIS Help Desk",
+  "description": "Build a safe front door for a practice help desk. Keep IIS private, let approved web requests through, and check that other connections stay blocked.",
+  "baseline": "Windows 10 host / Workstation Pro · OPNsense Community · AlmaLinux 9 / NGINX · Windows Server 2019 / IIS · isolated practice only",
+  "prerequisite": "Start with the linked VMware, Windows Server and IIS lessons. You also need the AlmaLinux installation and terminal lessons. We will use four new practice VMs: a firewall, a gateway, an IIS server and a pretend visitor. Leave DC01, DC02 and your existing APP01 alone.",
   "supplies": [
-    "A patched host with Workstation Pro, approximately 24\u201332 GB RAM and 200 GB free disk space.",
+    "A patched host with Workstation Pro, approximately 24–32 GB RAM and 200 GB free disk space.",
     "Verified OPNsense/AlmaLinux media and valid Windows Server 2019 media/evaluation entitlement.",
     "Access to the Windows host and each VM console; a private password manager and backup location.",
     "No Azure subscription, home-router port forwarding or public DNS change is needed."
@@ -63,17 +63,18 @@
   "lessons": [
     {
       "id": "dmz-plan",
-      "title": "Understand What Belongs in a DMZ",
-      "description": "Draw the visitor-to-proxy-to-private-IIS route and choose the local practice design.",
-      "what": "Draw the visitor-to-proxy-to-private-IIS route and choose the local practice design.",
-      "why": "Think of the DMZ as a reception desk. Visitors talk to the receptionist; they do not receive a key to every room. A reverse proxy forwards a web request, not an unrestricted network connection.",
+      "title": "Meet the DMZ: Your Application’s Front Door",
+      "description": "Learn where the help desk, gateway and firewall belong before changing any settings.",
+      "what": "Learn where the help desk, gateway and firewall belong before changing any settings.",
+      "why": "Imagine an office reception area. Visitors speak to the receptionist, not directly to everyone inside. Our DMZ is that reception area. A gateway there receives web requests and passes only the approved requests to IIS in a separate private network. DMZ stands for demilitarized zone: a separate network between visitors and the private servers.",
       "needs": [
         "Complete the Windows/VMware installation and IIS basics first. The public course link for those classes stays in the Windows pathway.",
         "Use a supported, patched Windows host with Workstation Pro. A Windows 10 host needs applicable security updates/ESU; keep this lab isolated.",
-        "Plan around 24\u201332 GB host RAM and 200 GB free disk space for this four-VM exercise; you can shut down unrelated practice VMs. No Azure subscription is required."
+        "Plan around 24–32 GB host RAM and 200 GB free disk space for this four-VM exercise; you can shut down unrelated practice VMs. No Azure subscription is required."
       ],
       "bestPractices": [
-        "Write the allowed request route before opening any port."
+        "Get the small test page working before adding a full help desk. This makes it easier to tell an application problem from a network problem.",
+        "For a real help desk, install and test it on a private IIS application server first. Point the gateway at its approved HTTPS binding; keep the database private and allow only the specific application-to-database connection it needs. Test sign-in, links, attachments and sign-out before any public launch. Use the IIS help desk class for the application install; copying website files alone is not a complete migration."
       ],
       "commonMistakes": [
         "Putting a reverse proxy in front does not make it a WAF or a fully production-ready deployment."
@@ -100,13 +101,15 @@
       ],
       "steps": [
         {
-          "title": "Follow one web request",
-          "where": "Your Windows host \u00b7 lab notebook",
+          "title": "Trace a visitor’s request",
+          "where": "Your Windows host · lab notebook",
           "actions": [
-            "Write the training name app-dmz.cloudseam.tech at the top of your notes. It is a local test name, not a change to the live cloudseam.tech website.",
-            "Draw TEST01 \u2192 FW01 outside address \u2192 PROXY01 in the DMZ \u2192 IIS-DMZ01 in the private network. Write TCP 443 on each web connection.",
-            "Place DC01, DC02 and SQL in the existing 10.50.0.0/24 private/AD network. Put the new IIS application on a separate 10.80.0.0/24 network. Draw crossed-out lines from the visitor, DMZ and application network to domain/database management services.",
-            "Say this out loud: the proxy can request one web service; it does not give the visitor direct access to the private network."
+            "Open My lab notebook above. In “What application am I protecting?”, type practice help desk. Click Save notes.",
+            "Picture someone opening your help desk in a browser. They ask for a page; they do not need access to your server’s desktop or database.",
+            "Write this route in your notes: TEST01 visitor → FW01 firewall → PROXY01 gateway in the DMZ → IIS-DMZ01 private website.",
+            "The DMZ contains PROXY01 only. IIS-DMZ01 stays on its own private application network. DC01, DC02 and SQL stay out of the DMZ.",
+            "Use app-dmz.cloudseam.tech as the visitor’s practice website name. This does not create a public DNS record or change cloudseam.tech.",
+            "In this class we build a harmless test page, not another osTicket installation. A real help desk would use the same approved web route, with its own application and database connections reviewed separately."
           ],
           "breakdown": [
             {
@@ -118,11 +121,11 @@
               "meaning": "A server that receives a web request and makes an approved request to your private web server."
             }
           ],
-          "expected": "Your diagram separates visitor, DMZ, private application and private AD/management zones with one approved HTTPS route.",
+          "expected": "Your diagram shows the visitor reaching only the gateway. The gateway can request a page from private IIS. AD and SQL stay outside the DMZ.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-plan-screen-1",
-            "title": "Follow one web request",
+            "title": "Trace a visitor’s request",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Your diagram separates visitor, DMZ, private application and private AD/management zones with one approved HTTPS route."
           },
           "sources": [
@@ -141,13 +144,15 @@
           ]
         },
         {
-          "title": "Choose local practice before Azure",
-          "where": "Your Windows host \u00b7 lab notebook",
+          "title": "Choose your practice setup",
+          "where": "Your Windows host · lab notebook",
           "actions": [
-            "Choose VMware Workstation Pro for the first build: OPNsense Community is the firewall, AlmaLinux/NGINX is the proxy and Windows Server 2019/IIS is the backend.",
-            "Keep IIS-DMZ01 separate from the existing APP01 help-desk server. Do not overwrite its website or reuse a live server to save a VM.",
-            "Use a dedicated outside VM to imitate a visitor. Do not configure home-router port forwarding, a bridged NIC, a tunnel or a public DNS record.",
-            "Record the Azure follow-on: managed HTTPS ingress/WAF and a private backend are the production-style cloud pattern. A permanently running Application Gateway is not a $25-per-month promise."
+            "Use VMware Workstation Pro for this first build. The firewall is OPNsense, the gateway runs AlmaLinux with NGINX, and the private website runs Windows Server 2019 with IIS.",
+            "Use the installation lessons linked above if you have not installed those operating systems yet. Come back here after the new VMs are ready.",
+            "Create a new IIS-DMZ01. Do not replace APP01 or copy a domain controller to make it.",
+            "Use another new VM, TEST01, to pretend to be the visitor. Do not use your Windows host for this test: it already has access to the private lab network.",
+            "Do not add a home-router port forward, bridge, tunnel or public DNS record. We are practicing the design inside VMware.",
+            "Leave Azure for the final planning lesson. A managed Azure web gateway has ongoing charges; we are not promising an always-on $25 cloud setup."
           ],
           "breakdown": [
             {
@@ -155,11 +160,11 @@
               "meaning": "The same request-boundary concepts can be practiced without running a paid cloud gateway or opening your home router."
             }
           ],
-          "expected": "The plan is local and isolated. Azure is a later design comparison, not a resource deployment.",
+          "expected": "Your plan uses four new VMs inside VMware. No Internet publishing or Azure deployment is planned yet.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-plan-screen-2",
-            "title": "Choose local practice before Azure",
+            "title": "Choose your practice setup",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The plan is local and isolated. Azure is a later design comparison, not a resource deployment."
           },
           "sources": [
@@ -178,14 +183,17 @@
           ]
         },
         {
-          "title": "Reserve four networks without changing the domain controllers",
-          "where": "Windows host \u00b7 VMware Virtual Network Editor and lab notebook",
+          "title": "Write down the four networks",
+          "where": "Windows host · VMware Virtual Network Editor and lab notebook",
           "actions": [
-            "Reserve VMnet2 / 10.50.0.0/24 for existing PRIVATE/AD management, VMnet3 / 10.60.0.0/24 for DMZ, VMnet4 / 10.70.0.0/24 for OUTSIDE and VMnet5 / 10.80.0.0/24 for APP_PRIVATE. Stop if any overlaps a physical, VPN or existing lab network.",
-            "Keep DC01 at 10.50.0.10 and DC02 at 10.50.0.11. Reserve 10.50.0.1 for FW01 management and 10.50.0.254 for the host\u2019s VMnet2 adapter. Check the inventory for conflicts first.",
-            "Reserve 10.80.0.40 for the new IIS-DMZ01 and 10.80.0.1 for FW01 APP_PRIVATE. Keeping the application on VMnet5 means it cannot bypass the firewall to reach the domain controllers on VMnet2.",
-            "Reserve 10.60.0.10 / 10.60.0.1 for PROXY01 / FW01 DMZ and 10.70.0.10 / 10.70.0.1 for TEST01 / FW01 OUTSIDE.",
-            "Leave DC01/DC02 gateways, the existing APP01 and all domain/public DNS records unchanged. IIS-DMZ01 is a standalone workgroup practice server; this lesson does not open domain ports for it."
+            "In My lab notebook, click Show my whole lab plan. Write these four network ranges before opening VMware settings.",
+            "Existing AD and management: VMnet2, 10.50.0.0/24. Keep DC01 at 10.50.0.10 and DC02 at 10.50.0.11.",
+            "DMZ: VMnet3, 10.60.0.0/24. PROXY01 will use 10.60.0.10 and the firewall will use 10.60.0.1.",
+            "Pretend outside visitor: VMnet4, 10.70.0.0/24. TEST01 will use 10.70.0.10 and the firewall will use 10.70.0.1.",
+            "Private application: VMnet5, 10.80.0.0/24. IIS-DMZ01 will use 10.80.0.40 and the firewall will use 10.80.0.1.",
+            "On VMnet2, reserve 10.50.0.1 for the firewall and 10.50.0.254 for the Windows host’s management adapter. Check that neither address is already used.",
+            "The /24 means a mask of 255.255.255.0. If any planned range overlaps your home network, VPN or another lab, stop and resolve that before building. Leave your existing servers’ gateways and DNS unchanged.",
+            "Click Save notes. The new IIS server stays in a workgroup; we are not joining it to Active Directory."
           ],
           "breakdown": [
             {
@@ -197,11 +205,11 @@
               "meaning": "IIS uses 10.80.0.0/24, so reaching AD on 10.50.0.0/24 must cross the firewall."
             }
           ],
-          "expected": "Your inventory shows unique addresses, unchanged DC01/DC02 and no overlapping subnets.",
+          "expected": "Your notebook lists four different network ranges and unique addresses. DC01 and DC02 keep their existing settings.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-plan-screen-3",
-            "title": "Reserve four networks without changing the domain controllers",
+            "title": "Write down the four networks",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Your inventory shows unique addresses, unchanged DC01/DC02 and no overlapping subnets."
           },
           "sources": [
@@ -223,16 +231,16 @@
     },
     {
       "id": "dmz-networks",
-      "title": "Build Four Isolated VMware Networks",
-      "description": "Create separate AD/management, application, DMZ and outside networks and prepare the four VMs.",
-      "what": "Create separate AD/management, application, DMZ and outside networks and prepare the four VMs.",
-      "why": "Separate virtual switches give us separate rooms. FW01 becomes the controlled doorway between them. A second NAT or bridged adapter would make another doorway.",
+      "title": "Build the Four Practice Networks",
+      "description": "Create the four private VMware networks that separate your visitor, gateway, IIS server and existing domain controllers.",
+      "what": "Create the four private VMware networks that separate your visitor, gateway, IIS server and existing domain controllers.",
+      "why": "A network is a group of computers that can talk directly. Separate networks let our firewall decide which groups may talk to each other. We need four because the private application must also stay separate from Active Directory.",
       "needs": [
         "Use the address plan from the previous lesson.",
         "Download verified supported OPNsense amd64 DVD ISO, AlmaLinux 9 ISO and licensed/evaluation Windows Server 2019 media from the publishers. Use evaluation software only within its terms."
       ],
       "bestPractices": [
-        "Verify both the virtual-switch settings and every guest\u2019s adapter list."
+        "Verify both the virtual-switch settings and every guest’s adapter list."
       ],
       "commonMistakes": [
         "Changing the physical adapter instead of the named VMware management adapter."
@@ -244,14 +252,14 @@
         }
       ],
       "pass": "The saved VMnet settings and NIC/MAC inventory match the diagram; original domain controllers remain unchanged.",
-      "exercise": "Reopen every guest\u2019s settings and audit the adapters without looking at your earlier checklist.",
+      "exercise": "Reopen every guest’s settings and audit the adapters without looking at your earlier checklist.",
       "quiz": [
         {
           "question": "Which adapter creates a bypass around the lab firewall?",
           "options": [
             "An extra NAT or bridged NIC on a protected server",
-            "The proxy\u2019s single DMZ NIC",
-            "The visitor\u2019s single OUTSIDE NIC"
+            "The proxy’s single DMZ NIC",
+            "The visitor’s single OUTSIDE NIC"
           ],
           "answer": 0,
           "explanation": "A second network connection can provide a path that never crosses FW01."
@@ -259,14 +267,17 @@
       ],
       "steps": [
         {
-          "title": "Prepare the VM images and package tools",
-          "where": "Windows host \u00b7 Workstation Pro; Linux guest consoles during preparation",
+          "title": "Prepare the four new VMs",
+          "where": "Windows host · Workstation Pro; Linux guest consoles during preparation",
           "actions": [
-            "Create FW01 with 2 vCPUs, 4 GB RAM and a 40 GB virtual disk. Choose the supported FreeBSD 64-bit guest type for OPNsense; attach the DVD ISO. Disable Secure Boot if the vendor virtual-install guide requires it.",
-            "Use the Windows and AlmaLinux installation links at the top of this class. Create IIS-DMZ01 with Server 2019 Standard Desktop Experience, 4 GB RAM and 60 GB disk. In AlmaLinux Software Selection choose Minimal Install for PROXY01 (2 GB RAM, 30 GB disk) and Workstation/GNOME for TEST01 (3 GB RAM, 30 GB disk). Use fresh installs, not copied domain controllers. The AlmaLinux terminal basics link explains opening a shell and using sudo.",
-            "During preparation only, give PROXY01 and TEST01 one NAT adapter on VMnet8. On PROXY01, paste the package block below into its console. On TEST01, run these exact commands separately: sudo dnf upgrade --refresh -y; then sudo dnf install -y curl openssl open-vm-tools fuse3; then sudo systemctl enable --now vmtoolsd. The proxy-only NGINX package block is not required on TEST01.",
-            "Install VMware Tools on the Windows guest and open-vm-tools on AlmaLinux so the temporary public-certificate shared folder will work. Apply available guest updates before isolation.",
-            "Shut down the three operating-system guests. Before testing, their NAT adapters will be replaced by one named custom VMnet. FW01 will have exactly four adapters."
+            "Create a new FW01 VM: 2 processors, 4 GB memory and a 40 GB virtual disk. Attach the OPNsense DVD ISO. Choose the supported FreeBSD 64-bit guest type; follow OPNsense’s guide for Secure Boot.",
+            "Use the linked Windows installation lesson to create IIS-DMZ01: Server 2019 Standard Desktop Experience, 4 GB memory and 60 GB disk.",
+            "Use the linked AlmaLinux installation lesson to create PROXY01: Minimal Install, 2 GB memory and 30 GB disk. Create TEST01 with Workstation/GNOME, 3 GB memory and 30 GB disk.",
+            "For package downloads only, give PROXY01 and TEST01 one NAT adapter on VMnet8. We will remove this connection before the isolation tests.",
+            "On PROXY01, open its console and run the command block below. It updates AlmaLinux and installs the gateway tools.",
+            "On TEST01, open Terminal. Run sudo dnf upgrade --refresh -y. When it finishes, run sudo dnf install -y curl openssl open-vm-tools fuse3. Then run sudo systemctl enable --now vmtoolsd.",
+            "Install VMware Tools in the Windows guest and apply its available updates. These tools will let us temporarily copy public certificate files through a shared folder.",
+            "Shut down IIS-DMZ01, PROXY01 and TEST01. Keep them off while changing their adapters."
           ],
           "command": "sudo dnf upgrade --refresh -y\nsudo dnf install -y nginx openssl curl tcpdump open-vm-tools fuse3 policycoreutils-python-utils\nsudo systemctl enable --now vmtoolsd",
           "breakdown": [
@@ -275,11 +286,11 @@
               "meaning": "Install packages while temporary NAT access exists. The final networks deliberately have no Internet upstream."
             }
           ],
-          "expected": "The guests are prepared, powered off and ready to be attached to isolated networks.",
+          "expected": "Your new VMs are installed, updated and shut down, ready for the network changes.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-networks-screen-1",
-            "title": "Prepare the VM images and package tools",
+            "title": "Prepare the four new VMs",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The guests are prepared, powered off and ready to be attached to isolated networks."
           },
           "sources": [
@@ -298,14 +309,16 @@
           ]
         },
         {
-          "title": "Create the four isolated switches",
-          "where": "Windows host \u00b7 VMware Workstation Pro \u2192 Edit \u2192 Virtual Network Editor",
+          "title": "Create the VMware networks",
+          "where": "Windows host · VMware Workstation Pro → Edit → Virtual Network Editor",
           "actions": [
-            "Open Edit \u2192 Virtual Network Editor. Click Change Settings and approve the Windows administrator prompt.",
-            "Select VMnet2 and confirm Host-only, subnet 10.50.0.0, mask 255.255.255.0, and VMware DHCP unchecked. Preserve existing VMnet2 settings if they already match.",
-            "Click Add Network, choose VMnet3 and set Host-only, subnet 10.60.0.0 and mask 255.255.255.0. Uncheck both the host virtual adapter and local DHCP options.",
-            "Repeat for VMnet4 with subnet 10.70.0.0 and VMnet5 with subnet 10.80.0.0. Use mask 255.255.255.0, host-adapter option off and DHCP off on both. Do not choose Bridged or NAT.",
-            "Click Apply, then OK. Reopen the editor and verify the saved values rather than assuming they were kept."
+            "In VMware Workstation Pro on your Windows host, click Edit → Virtual Network Editor.",
+            "Click Change Settings. Approve the Windows administrator prompt.",
+            "Select VMnet2. Confirm Host-only, Subnet IP 10.50.0.0 and Subnet mask 255.255.255.0. Leave its existing host adapter enabled. Clear the local DHCP checkbox. If these settings already match, leave them alone.",
+            "Click Add Network, select VMnet3 and click OK. Select Host-only. Enter Subnet IP 10.60.0.0 and mask 255.255.255.0.",
+            "For VMnet3, clear both “Connect a host virtual adapter” and “Use local DHCP service”. We will assign our own addresses.",
+            "Add VMnet4 the same way, using Subnet IP 10.70.0.0. Add VMnet5 using 10.80.0.0. Both use mask 255.255.255.0; clear the host adapter and DHCP checkboxes on both.",
+            "Click Apply, then OK. Reopen the editor and check all four networks. None should be Bridged or NAT."
           ],
           "breakdown": [
             {
@@ -317,11 +330,11 @@
               "meaning": "Every lab address is assigned deliberately instead of being leased by VMware."
             }
           ],
-          "expected": "VMnet2/3/4/5 are isolated host-only /24 networks with DHCP off. Only VMnet2 has the intended host management adapter.",
+          "expected": "VMnet2, VMnet3, VMnet4 and VMnet5 show Host-only with DHCP off. Only VMnet2 has a host management adapter.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-networks-screen-2",
-            "title": "Create the four isolated switches",
+            "title": "Create the VMware networks",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. VMnet2/3/4/5 are isolated host-only /24 networks with DHCP off. Only VMnet2 has the intended host management adapter."
           },
           "sources": [
@@ -340,14 +353,16 @@
           ]
         },
         {
-          "title": "Move only the host management adapter",
-          "where": "Windows 10 host \u00b7 Run \u2192 ncpa.cpl",
+          "title": "Set the Windows host’s management address",
+          "where": "Windows 10 host · Run → ncpa.cpl",
           "actions": [
-            "Press Windows+R, type ncpa.cpl and press Enter. Find VMware Network Adapter VMnet2; do not select Wi-Fi or Ethernet.",
-            "Right-click that virtual adapter \u2192 Properties \u2192 Internet Protocol Version 4 \u2192 Properties. Record its original values first.",
-            "Select Use the following IP address. Enter 10.50.0.254, mask 255.255.255.0, and leave the default gateway and DNS fields blank for this management adapter.",
-            "Click OK twice. Run ipconfig in the host\u2019s PowerShell and confirm the VMnet2 adapter now shows .254. Your physical adapter should retain its original settings.",
-            "Keep this host adapter for administration only. It already has private-network access, so it is not the outside visitor we will use to prove blocking. Keep Internet Connection Sharing and Network Bridge disabled on the lab adapters."
+            "On the Windows host, press Windows+R. Type ncpa.cpl and press Enter. This opens Network Connections.",
+            "Find VMware Network Adapter VMnet2. Do not choose Wi-Fi or your physical Ethernet adapter.",
+            "Right-click VMnet2 → Properties. Select Internet Protocol Version 4 → Properties. Write down its old settings before changing them.",
+            "Select Use the following IP address. Enter 10.50.0.254 for IP address and 255.255.255.0 for Subnet mask.",
+            "Leave Default gateway and DNS blank on this VMware management adapter. Click OK, then OK again.",
+            "Open PowerShell on the Windows host. Run ipconfig and find the VMnet2 section. Check that it shows 10.50.0.254. Your physical network adapter should still have its original settings.",
+            "Do not enable Internet Connection Sharing or Network Bridge. The host adapter is for managing the firewall, not for pretending to be an outside visitor."
           ],
           "breakdown": [
             {
@@ -355,11 +370,11 @@
               "meaning": "The host needs a private management address that does not conflict with FW01 at .1. This does not change your physical Wi-Fi or Ethernet settings."
             }
           ],
-          "expected": "The host VMnet2 adapter is 10.50.0.254 and does not conflict with the future FW01 .1 address.",
+          "expected": "The Windows host’s VMnet2 adapter shows 10.50.0.254. Its physical Wi-Fi or Ethernet settings have not changed.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-networks-screen-3",
-            "title": "Move only the host management adapter",
+            "title": "Set the Windows host’s management address",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The host VMnet2 adapter is 10.50.0.254 and does not conflict with the future FW01 .1 address."
           },
           "sources": [
@@ -378,14 +393,16 @@
           ]
         },
         {
-          "title": "Attach the VMs and record their MAC addresses",
-          "where": "Workstation Pro \u00b7 each powered-off VM \u2192 Settings \u2192 Network Adapter",
+          "title": "Connect each VM to the right network",
+          "where": "Workstation Pro · each powered-off VM → Settings → Network Adapter",
           "actions": [
-            "For FW01, add four adapters: adapter 1 \u2192 Custom VMnet4 (OUTSIDE), adapter 2 \u2192 Custom VMnet2 (PRIVATE/AD management), adapter 3 \u2192 Custom VMnet3 (DMZ), adapter 4 \u2192 Custom VMnet5 (APP_PRIVATE). In Advanced, record each MAC next to its zone.",
-            "For IIS-DMZ01, select its only adapter \u2192 Custom VMnet5. PROXY01 has only Custom VMnet3; TEST01 has only Custom VMnet4.",
-            "Remove or disconnect extra guest adapters. None of the four final VMs may have an attached NAT/VMnet8 or bridged NIC.",
-            "Keep Connected and Connect at power on enabled for the intended adapters. Save and re-open the settings to check them.",
-            "Only FW01 has four NICs. Your Windows host\u2019s separate VMnet2 management adapter stays at 10.50.0.254; it is not the visitor."
+            "With FW01 powered off, right-click it → Settings. Open its first Network Adapter. Choose Custom → VMnet4. This is OUTSIDE.",
+            "Add three more Network Adapters with Add → Network Adapter. Set adapter 2 to Custom VMnet2, adapter 3 to Custom VMnet3 and adapter 4 to Custom VMnet5.",
+            "For each FW01 adapter, open Advanced and copy its MAC address into My lab notebook. Label each one OUTSIDE, PRIVATE/AD, DMZ or APP_PRIVATE. A MAC address identifies the adapter when OPNsense starts.",
+            "Open IIS-DMZ01 Settings. Give it just one adapter: Custom VMnet5.",
+            "Give PROXY01 just one adapter: Custom VMnet3. Give TEST01 just one adapter: Custom VMnet4.",
+            "Remove or disconnect the temporary VMnet8 adapters and any extra adapters. No final VM should have a bridged adapter.",
+            "Check Connected and Connect at power on for the intended adapters. Save, reopen Settings and compare with your notebook. Only FW01 should have four adapters."
           ],
           "breakdown": [
             {
@@ -397,11 +414,11 @@
               "meaning": "Prevents an extra NAT or bridged connection from bypassing FW01."
             }
           ],
-          "expected": "The saved four-zone MAC/NIC inventory has four FW01 adapters and one adapter on each server/client.",
+          "expected": "FW01 has four adapters with recorded MAC addresses. Each other new VM has just one adapter on the correct VMnet.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-networks-screen-4",
-            "title": "Attach the VMs and record their MAC addresses",
+            "title": "Connect each VM to the right network",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The saved four-zone MAC/NIC inventory has four FW01 adapters and one adapter on each server/client."
           },
           "sources": [
@@ -423,10 +440,10 @@
     },
     {
       "id": "dmz-firewall",
-      "title": "Install and Name Your DMZ Firewall",
-      "description": "Install OPNsense, assign the correct interfaces and create an explicit administrator rule before removing broad access.",
-      "what": "Install OPNsense, assign the correct interfaces and create an explicit administrator rule before removing broad access.",
-      "why": "The firewall decides which new conversations may start. Interface names must match the correct virtual cables, and administrator access must be preserved before a default allow rule is removed.",
+      "title": "Set Up the Firewall and Its Rules",
+      "description": "Install OPNsense, name its four connections and allow the gateway to reach only the IIS web service.",
+      "what": "Install OPNsense, name its four connections and allow the gateway to reach only the IIS web service.",
+      "why": "The firewall acts like a security guard. A rule tells it who may connect, where they may go and which service they may use. We will write specific rules instead of giving every server access to everything.",
       "needs": [
         "FW01, the four custom VMnets and the MAC inventory are ready.",
         "Use the VMware console for recovery. Keep a private password manager available; screenshots never show your real password."
@@ -459,14 +476,16 @@
       ],
       "steps": [
         {
-          "title": "Install OPNsense on FW01",
-          "where": "FW01 VMware console \u00b7 OPNsense installer",
+          "title": "Install the firewall on FW01",
+          "where": "FW01 VMware console · OPNsense installer",
           "actions": [
-            "Power on FW01 from the verified DVD ISO. At the live-system login, use the installer account and its documented initial password opnsense. These are installer defaults, not credentials to keep after installation.",
-            "Choose the correct keymap, then Install (UFS) for this simple single-disk practice VM if offered. Select only FW01\u2019s new 40 GB virtual disk and the installer\u2019s supported default partition layout. Confirm the disk identity before accepting an erase; never select a physical host disk.",
-            "Set a unique root password when prompted and store it privately. Complete installation, disconnect the ISO and reboot from the virtual disk.",
-            "Sign in at the installed console as root using your new password. Open Assign interfaces. Decline VLAN creation for this lab.",
-            "Match the detected interface MACs with your inventory: WAN = VMnet4 OUTSIDE, LAN = VMnet2 AD/management, OPT1 = VMnet3 DMZ and OPT2 = VMnet5 APP_PRIVATE. Do not assume em0/em1/em2/em3 names identify zones."
+            "Power on FW01 using the OPNsense DVD ISO. At the login prompt, use installer with the initial password opnsense. These defaults are only for installation.",
+            "Choose your keyboard layout. Choose Install (UFS), if offered for this simple one-disk VM.",
+            "Select FW01’s new 40 GB virtual disk. Check the disk carefully before confirming an erase. Never select a physical Windows host disk.",
+            "Set your own strong root password when asked. Keep it in your password manager, not in the notebook.",
+            "Finish installation, disconnect the ISO in VMware and restart FW01 from its virtual disk.",
+            "Sign in as root with your new password. Select Assign interfaces. Answer no to creating VLANs for this lab.",
+            "Match the displayed MAC addresses with your notebook: WAN = VMnet4, LAN = VMnet2, OPT1 = VMnet3 and OPT2 = VMnet5. Do not guess from names such as em0."
           ],
           "breakdown": [
             {
@@ -474,11 +493,11 @@
               "meaning": "The installer account starts installation. Your chosen root password is for the installed firewall; do not keep the published installer default."
             }
           ],
-          "expected": "FW01 boots from disk with WAN, LAN, OPT1 and OPT2 mapped to the correct recorded MACs.",
+          "expected": "FW01 starts from its virtual disk. Its four network adapters match the MAC addresses in your notes.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-firewall-screen-1",
-            "title": "Install OPNsense on FW01",
+            "title": "Install the firewall on FW01",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. FW01 boots from disk with WAN, LAN, OPT1 and OPT2 mapped to the correct recorded MACs."
           },
           "sources": [
@@ -497,14 +516,15 @@
           ]
         },
         {
-          "title": "Set the firewall\u2019s four addresses",
-          "where": "FW01 console \u00b7 Set interface IP address",
+          "title": "Give the firewall its four addresses",
+          "where": "FW01 console · Set interface IP address",
           "actions": [
-            "Choose Set interface IP address for LAN. Select static IPv4, enter 10.50.0.1, prefix 24, no upstream gateway and no DHCP server. Choose no IPv6 configuration for this isolated exercise. Keep HTTPS for the web interface.",
-            "Repeat for WAN with static 10.70.0.1/24, no upstream gateway, no DHCP and no IPv6. The outside test segment has no Internet upstream.",
-            "Repeat for OPT1 with 10.60.0.1/24 and OPT2 with 10.80.0.1/24. Both use static IPv4, no upstream gateway, no DHCP server and no IPv6 configuration for this exercise. Enable/name both interfaces in the web interface next.",
-            "Read all four addresses in the console summary and correct any swapped interface before opening a browser.",
-            "On the Windows host, open https://10.50.0.1. For the appliance\u2019s initial self-signed management certificate, confirm you are on the isolated management adapter and verify its certificate in the console/browser before accepting a lab-only exception. Use a trusted management certificate in production."
+            "At the FW01 console menu, select Set interface IP address, then LAN.",
+            "Choose a static IPv4 address. Enter 10.50.0.1 and prefix 24. Leave the upstream gateway empty. Say no to DHCP and IPv6 setup for this lab. Keep HTTPS for administration.",
+            "Repeat for WAN: address 10.70.0.1, prefix 24, no upstream gateway, no DHCP and no IPv6. This is our pretend outside network, not an Internet connection.",
+            "Repeat for OPT1 with 10.60.0.1/24 and OPT2 with 10.80.0.1/24. Again, no upstream gateway, DHCP or IPv6.",
+            "Compare the four addresses on the console with your notebook. Correct any mix-up before continuing.",
+            "On your Windows host, open a browser and enter https://10.50.0.1. Check that you are reaching your own isolated firewall. Verify its initial self-signed certificate before accepting a lab-only browser exception. Real deployments need a trusted management certificate."
           ],
           "breakdown": [
             {
@@ -512,11 +532,11 @@
               "meaning": "The isolated outside segment has no real Internet router. Internal interface gateways are not configured as upstream WAN gateways."
             }
           ],
-          "expected": "The host reaches FW01 on 10.50.0.1 and all four interface addresses match the diagram.",
+          "expected": "Your Windows host opens the firewall at 10.50.0.1. All four firewall addresses match your plan.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-firewall-screen-2",
-            "title": "Set the firewall\u2019s four addresses",
+            "title": "Give the firewall its four addresses",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The host reaches FW01 on 10.50.0.1 and all four interface addresses match the diagram."
           },
           "sources": [
@@ -535,26 +555,28 @@
           ]
         },
         {
-          "title": "Label the interfaces and allow the lab\u2019s private outside addresses",
-          "where": "Windows host browser \u00b7 FW01 Interfaces",
+          "title": "Name the firewall connections",
+          "where": "Windows host browser · FW01 Interfaces",
           "actions": [
-            "Sign in to the OPNsense web interface as root with your own password. Record the installed version so you can compare labels with the documentation. In System \u2192 Settings \u2192 General, set hostname fw01 and domain cloudseam.tech for this appliance; that does not join AD or create a public DNS record.",
-            "Open Interfaces \u2192 OPT1, enable it, describe it as DMZ and confirm 10.60.0.1/24. Repeat for OPT2, enable it, describe it APP_PRIVATE and confirm 10.80.0.1/24. Save and apply each. Keep LAN as private/AD management and WAN as OUTSIDE.",
-            "Open the WAN/OUTSIDE interface. For this isolated RFC1918 outside test network only, uncheck Block private networks. Uncheck Block bogon networks if it would reject this lab segment. Save and apply.",
-            "Leave those protections enabled on a real ISP-facing WAN unless its documented design requires otherwise. This exception is not advice for an Internet firewall.",
-            "In System \u2192 Settings \u2192 Administration, restrict management listening to PRIVATE/LAN when the release provides Listen Interfaces. Keep the VMware console open in case you lose the browser session."
+            "Sign in to the firewall web page as root with your own password. Write the installed OPNsense version in your notebook.",
+            "Open System → Settings → General. Set Hostname to fw01 and Domain to cloudseam.tech. Save. This names the firewall; it does not join a Windows domain or change public DNS.",
+            "Open Interfaces → OPT1. Check Enable, set Description to DMZ and confirm 10.60.0.1/24. Save and apply.",
+            "Open Interfaces → OPT2. Check Enable, set Description to APP_PRIVATE and confirm 10.80.0.1/24. Save and apply. LAN remains private management; WAN is our pretend OUTSIDE.",
+            "Open Interfaces → WAN. For this isolated practice network only, clear Block private networks. Also clear Block bogon networks if it blocks this lab range. Save and apply.",
+            "Why? Our pretend outside address starts with 10, which is a private address. On a real Internet-facing WAN, keep these protections unless your documented design requires otherwise.",
+            "Open System → Settings → Administration. If your release offers Listen Interfaces, choose PRIVATE/LAN only. Keep the VMware console open so you can recover if browser access fails."
           ],
           "breakdown": [
             {
               "term": "Private-address blocking",
-              "meaning": "A real WAN often rejects private source addresses. This lab\u2019s simulated outside uses 10.70.0.0/24, so that lab interface needs a deliberate exception."
+              "meaning": "A real WAN often rejects private source addresses. This lab’s simulated outside uses 10.70.0.0/24, so that lab interface needs a deliberate exception."
             }
           ],
-          "expected": "The DMZ is enabled, the test outside interface accepts the planned private lab addresses, and management is confined to PRIVATE.",
+          "expected": "DMZ and APP_PRIVATE are enabled and named correctly. Firewall administration listens only on the private management connection.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-firewall-screen-3",
-            "title": "Label the interfaces and allow the lab\u2019s private outside addresses",
+            "title": "Name the firewall connections",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The DMZ is enabled, the test outside interface accepts the planned private lab addresses, and management is confined to PRIVATE."
           },
           "sources": [
@@ -573,14 +595,16 @@
           ]
         },
         {
-          "title": "Keep an explicit administrator doorway",
-          "where": "Windows host browser \u00b7 Firewall \u2192 Aliases, then Rules [new] / interface rules",
+          "title": "Keep your administrator access working",
+          "where": "Windows host browser · Firewall → Aliases, then Rules [new] / interface rules",
           "actions": [
-            "Create host aliases ADMIN_HOST=10.50.0.254, DMZ_PROXY=10.60.0.10, PRIVATE_IIS=10.80.0.40 and LAB_VISITOR=10.70.0.10. Use one address per host alias and Apply changes.",
-            "On the LAN/PRIVATE rules tab, add a Pass IPv4 TCP rule: source ADMIN_HOST, destination LAN/PRIVATE address (the firewall itself), destination port HTTPS/443. Enable logging and name it ADMIN_TO_FW_HTTPS. Save, move it above broad rules and apply.",
-            "Before lockdown, export a private backup and verify that you can sign in through the VMware console. Recheck the explicit rule\u2019s interface, source, destination and port. Do not assume an old browser session proves that rule: an existing state or the automatic anti-lockout rule can still be allowing it.",
-            "Disable the default LAN-to-any IPv4/IPv6 rules and, after saving the explicit administrator rule and preparing console recovery, disable the automatic anti-lockout rule. Apply. Open https://10.50.0.1 in a new private/incognito browser window to create a fresh connection, then confirm ADMIN_TO_FW_HTTPS in Live View. Check legacy/new rule views if the release has both.",
-            "If the new management connection fails, use the already-open VMware console to restore the saved configuration. Keep the explicit rule only after a fresh connection succeeds. Do not leave an any-to-any recovery rule behind."
+            "Open Firewall → Aliases. Add Host aliases named ADMIN_HOST (10.50.0.254), DMZ_PROXY (10.60.0.10), PRIVATE_IIS (10.80.0.40) and LAB_VISITOR (10.70.0.10). Save and apply. An alias is a short label for an address.",
+            "Open Firewall → Rules → LAN. Add a Pass rule: IPv4, TCP, source ADMIN_HOST, destination LAN address, destination port HTTPS (443).",
+            "Check Log. Enter description ADMIN_TO_FW_HTTPS. Save, move it above broad rules and apply. This is your named doorway into firewall settings.",
+            "Before removing anything, export a private firewall backup and confirm that your root login works in the VMware console. Keep the console open.",
+            "Recheck your new rule. Then disable the default LAN-to-any IPv4 and IPv6 rules and the automatic anti-lockout rule. Apply. The new explicit rule must now be the management doorway.",
+            "Open a fresh private/incognito browser window and sign in at https://10.50.0.1. In Live View, check that ADMIN_TO_FW_HTTPS allowed the new connection. An old browser tab could still be using an already-approved connection.",
+            "If the fresh connection fails, use the open VMware console to restore your saved configuration. Do not leave a broad allow-everything rule as the fix. Some releases have both legacy and new rule views; check both."
           ],
           "breakdown": [
             {
@@ -592,11 +616,11 @@
               "meaning": "An automatic management allow can take precedence over your rule. Preserve console recovery before removing it."
             }
           ],
-          "expected": "Only the explicit administrator management path is retained; the broad LAN-to-any rules are disabled.",
+          "expected": "A fresh browser connection works through ADMIN_TO_FW_HTTPS. The broad LAN rules and automatic anti-lockout rule are disabled.",
           "screenshot": {
             "status": "reference",
             "assetId": "dmz-opnsense-rules-reference",
-            "title": "Find the interface selector, Add and Apply",
+            "title": "Keep your administrator access working",
             "instructions": "This original vendor image shows default LAN rules. Do not copy those broad allows into the final lab policy. Create and verify ADMIN_TO_FW_HTTPS first, then disable the broad LAN rules as written above."
           },
           "sources": [
@@ -615,14 +639,16 @@
           ]
         },
         {
-          "title": "Allow one private web service from the proxy",
-          "where": "Windows host browser \u00b7 Firewall \u2192 Rules \u2192 DMZ",
+          "title": "Allow only gateway-to-IIS web requests",
+          "where": "Windows host browser · Firewall → Rules → DMZ",
           "actions": [
-            "Select the DMZ interface tab, not WAN. Add a Pass IPv4 TCP rule with source DMZ_PROXY, destination PRIVATE_IIS and destination port HTTPS/443. Name it DMZ_PROXY_TO_IIS_443 and enable logging.",
-            "Leave the source port as any: clients use temporary source ports. The destination port is the service we are restricting. Save and apply.",
-            "Add a logged Block IPv4 any rule below it: source DMZ net, destination any, description DMZ_DENY_OTHER. This makes the blocked tests easy to find; the firewall also has a default deny.",
-            "On APP_PRIVATE, add a logged Block IPv4 any rule: source APP_PRIVATE net, destination any, description APP_DENY_OTHER. Do not add general access from the application subnet to AD or SQL. Return packets for the approved proxy connection use its existing state.",
-            "Keep only the explicit DMZ HTTPS allow above its logged deny. Do not add source NAT between these internal networks. Export a private configuration backup; later tests must prove both DMZ-to-AD and application-to-AD blocking."
+            "Open Firewall → Rules → DMZ. Click Add. Choose Pass, IPv4 and TCP.",
+            "Set Source to DMZ_PROXY and Destination to PRIVATE_IIS. Leave source port as any. Set destination port to HTTPS (443).",
+            "Check Log and enter description DMZ_PROXY_TO_IIS_443. Save and apply. This permits the gateway to ask IIS for web pages only.",
+            "Add a second rule below it: Block, IPv4, any protocol, source DMZ net, destination any. Check Log and name it DMZ_DENY_OTHER. Save and apply.",
+            "Open the APP_PRIVATE rules tab. Add Block, IPv4, any protocol, source APP_PRIVATE net, destination any. Check Log and name it APP_DENY_OTHER. Save and apply.",
+            "Do not add general access to AD or SQL. Replies to an approved request use the firewall’s existing connection record, called a state; they do not need a broad reverse allow rule.",
+            "Keep the one DMZ web allow above the deny rule. Do not add source NAT between these internal networks. Export another private firewall backup."
           ],
           "breakdown": [
             {
@@ -634,11 +660,11 @@
               "meaning": "A reply to an approved request uses the existing state; it does not require allowing every new connection in the reverse direction."
             }
           ],
-          "expected": "DMZ_PROXY_TO_IIS_443 is above DMZ_DENY_OTHER, and there is no broad DMZ-to-private allow.",
+          "expected": "DMZ_PROXY_TO_IIS_443 sits above DMZ_DENY_OTHER. Other DMZ connections stay blocked; APP_PRIVATE also has its logged deny rule.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-firewall-screen-5",
-            "title": "Allow one private web service from the proxy",
+            "title": "Allow only gateway-to-IIS web requests",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. DMZ_PROXY_TO_IIS_443 is above DMZ_DENY_OTHER, and there is no broad DMZ-to-private allow."
           },
           "sources": [
@@ -660,10 +686,10 @@
     },
     {
       "id": "dmz-iis",
-      "title": "Build the Private IIS Application",
-      "description": "Create a disposable private IIS website with HTTPS and allow only the DMZ proxy to connect.",
-      "what": "Create a disposable private IIS website with HTTPS and allow only the DMZ proxy to connect.",
-      "why": "The application belongs behind the receptionist. We will pin its lab certificate so the proxy verifies both encryption and the backend name instead of ignoring TLS errors.",
+      "title": "Build the Private IIS Practice Website",
+      "description": "Create a small test website on a new IIS server and let only the gateway reach it over HTTPS.",
+      "what": "Create a small test website on a new IIS server and let only the gateway reach it over HTTPS.",
+      "why": "We will start with a simple page that stands in for your help desk. This lets us prove the network works before adding an application and database. Your existing ticketing server stays untouched.",
       "needs": [
         "Use only the fresh IIS-DMZ01 Server 2019 guest, not existing APP01. Install VMware Tools and keep the VM console available.",
         "Download /dmz/new-iis-backend.ps1 on the Windows host if you prefer the complete script. Review it before running; the steps show the same operations."
@@ -686,7 +712,7 @@
         {
           "question": "What may be copied to the proxy?",
           "options": [
-            "The backend\u2019s public PEM certificate",
+            "The backend’s public PEM certificate",
             "The backend private key and Administrator password",
             "A domain controller database"
           ],
@@ -696,14 +722,15 @@
       ],
       "steps": [
         {
-          "title": "Give the new private server its address",
-          "where": "IIS-DMZ01 guest console \u00b7 Windows Server 2019 \u2192 ncpa.cpl",
+          "title": "Set the private IIS server’s name and address",
+          "where": "IIS-DMZ01 guest console · Windows Server 2019 → ncpa.cpl",
           "actions": [
-            "Start IIS-DMZ01. Confirm its only VMware NIC is VMnet5. Sign in as its local Administrator. Rename the computer IIS-DMZ01 using Server Manager \u2192 Local Server \u2192 Computer name \u2192 Change, then restart.",
-            "Press Windows+R \u2192 ncpa.cpl. Open the guest\u2019s Ethernet adapter \u2192 Properties \u2192 IPv4. Enter 10.80.0.40, mask 255.255.255.0 and default gateway 10.80.0.1.",
-            "Leave DNS blank for this standalone workgroup test VM; the proxy uses an IP upstream with an explicit TLS name. Do not change DC01/DC02 DNS or make the new server a domain controller.",
-            "Open Windows PowerShell as administrator and run ipconfig /all. Check the adapter, IP, mask and gateway against the diagram.",
-            "If .40 is already assigned in your actual lab, stop and resolve the conflict consistently rather than using two machines with the same address."
+            "Start the new IIS-DMZ01 VM. In VMware Settings, check that its only adapter is Custom VMnet5.",
+            "Sign in as the local Administrator. Open Server Manager → Local Server. Click Computer name → Change and enter IIS-DMZ01. Restart when asked.",
+            "Inside this Windows Server VM, press Windows+R, type ncpa.cpl and press Enter. Right-click Ethernet → Properties → Internet Protocol Version 4 → Properties.",
+            "Enter IP address 10.80.0.40, Subnet mask 255.255.255.0 and Default gateway 10.80.0.1. Leave DNS blank for this standalone practice server. Click OK twice.",
+            "Open Windows PowerShell as administrator inside IIS-DMZ01. Run ipconfig /all. Compare the IP, mask and gateway with your notebook.",
+            "Leave DC01 and DC02 alone. If 10.80.0.40 is already in use, stop and fix the address conflict before continuing."
           ],
           "command": "hostname\nipconfig /all",
           "breakdown": [
@@ -712,11 +739,11 @@
               "meaning": "This fresh application VM does not need domain membership for the static HTTPS demonstration. That avoids opening AD service ports."
             }
           ],
-          "expected": "IIS-DMZ01 is a workgroup VM at 10.80.0.40/24 with gateway 10.80.0.1 and exactly one VMnet5 NIC.",
+          "expected": "IIS-DMZ01 shows IP 10.80.0.40, mask 255.255.255.0 and gateway 10.80.0.1. Its only adapter is VMnet5; it is not a domain controller.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-iis-screen-1",
-            "title": "Give the new private server its address",
+            "title": "Set the private IIS server’s name and address",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. IIS-DMZ01 is a workgroup VM at 10.80.0.40/24 with gateway 10.80.0.1 and exactly one VMnet5 NIC."
           },
           "sources": [
@@ -735,14 +762,15 @@
           ]
         },
         {
-          "title": "Install IIS and create a clearly named practice site",
-          "where": "IIS-DMZ01 \u00b7 Windows PowerShell as Administrator",
+          "title": "Install IIS and open your test page",
+          "where": "IIS-DMZ01 · Windows PowerShell as Administrator",
           "actions": [
-            "Check that hostname prints IIS-DMZ01 before pasting anything. The downloaded script has the same guard and refuses an unexpected machine.",
-            "Paste the command block below into that guest\u2019s elevated PowerShell. It installs IIS and creates C:\\inetpub\\dmz-lab with a harmless training page.",
-            "The dedicated new VM\u2019s Default Web Site is stopped so we do not accidentally publish it. No existing APP01 website is touched.",
-            "Open IIS Manager \u2192 Sites and confirm DMZ-Lab is listed. Its initial HTTP health binding is loopback-only at 127.0.0.1:8080.",
-            "Run the local health check. Seeing the training page proves the application exists before we diagnose firewall or proxy problems."
+            "In IIS-DMZ01’s administrator PowerShell, run hostname. It must print IIS-DMZ01. Do not paste the setup block into APP01 or your Windows host.",
+            "Copy the command block below and paste it into that PowerShell window. It installs IIS and creates a small page in C:\\inetpub\\dmz-lab.",
+            "This page stands in for your help desk. We are proving the protected web route before adding osTicket, PHP or a database.",
+            "The block stops Default Web Site on this new practice VM. It does not change your existing APP01 website.",
+            "Open IIS Manager → Sites. Look for DMZ-Lab. Its first test address is 127.0.0.1:8080, which works only from IIS-DMZ01 itself.",
+            "Run the local health check in the block. You should see the practice page. If it fails here, fix IIS before moving on to firewall or gateway testing."
           ],
           "command": "if ($env:COMPUTERNAME -ne 'IIS-DMZ01') { throw 'Wrong VM. Stop here.' }\nInstall-WindowsFeature Web-Server -IncludeManagementTools\nImport-Module WebAdministration\nNew-Item -ItemType Directory -Path C:\\inetpub\\dmz-lab -Force\n'<h1>CloudSeam DMZ lab</h1><p>Private IIS backend: IIS-DMZ01</p>' | Set-Content C:\\inetpub\\dmz-lab\\index.html\nStop-Website 'Default Web Site'\nNew-Website -Name 'DMZ-Lab' -PhysicalPath C:\\inetpub\\dmz-lab -IPAddress 127.0.0.1 -Port 8080\n(Invoke-WebRequest http://127.0.0.1:8080 -UseBasicParsing).StatusCode",
           "breakdown": [
@@ -755,11 +783,11 @@
               "meaning": "127.0.0.1:8080 can be reached only inside this server; it lets you prove the page exists before testing the network."
             }
           ],
-          "expected": "The local health request returns the CloudSeam training page from the DMZ-Lab site.",
+          "expected": "The local test on IIS-DMZ01 returns your small practice webpage. DMZ-Lab appears in IIS Manager.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-iis-screen-2",
-            "title": "Install IIS and create a clearly named practice site",
+            "title": "Install IIS and open your test page",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The local health request returns the CloudSeam training page from the DMZ-Lab site."
           },
           "sources": [
@@ -778,14 +806,15 @@
           ]
         },
         {
-          "title": "Bind HTTPS and export only the public certificate",
-          "where": "IIS-DMZ01 \u00b7 elevated PowerShell, then IIS Manager \u2192 DMZ-Lab \u2192 Bindings",
+          "title": "Add HTTPS to the private website",
+          "where": "IIS-DMZ01 · elevated PowerShell, then IIS Manager → DMZ-Lab → Bindings",
           "actions": [
-            "Run the command block once. It creates a 30-day self-signed lab server certificate for iis-backend.cloudseam.tech and attaches it to this site\u2019s HTTPS binding.",
-            "In IIS Manager, inspect DMZ-Lab \u2192 Bindings. Confirm https, IP 10.80.0.40, port 443, host name iis-backend.cloudseam.tech and SNI enabled. The selected certificate should be DMZ-Lab backend.",
-            "Open C:\\DMZ-Lab and confirm backend-public.pem contains BEGIN CERTIFICATE and END CERTIFICATE lines. This is public certificate material; it must not contain PRIVATE KEY.",
-            "The backend certificate is a pinned self-signed test certificate, not an enterprise CA hierarchy. Production uses a managed CA, renewal and trust lifecycle.",
-            "Keep the private key in the Windows certificate store. Do not export it or upload it to the academy."
+            "Stay in IIS-DMZ01’s administrator PowerShell. Run the command block below once. It creates a 30-day test certificate and adds HTTPS to DMZ-Lab.",
+            "A certificate helps the gateway check that it has reached the right website. Our private HTTPS name is iis-backend.cloudseam.tech.",
+            "Open IIS Manager → Sites → DMZ-Lab → Bindings. Check Type https, IP 10.80.0.40, Port 443 and Host name iis-backend.cloudseam.tech.",
+            "Check that SNI is enabled and the selected certificate is DMZ-Lab backend. SNI tells IIS which named HTTPS site the request wants.",
+            "Open C:\\DMZ-Lab\\backend-public.pem. It should have BEGIN CERTIFICATE and END CERTIFICATE lines. It must not contain PRIVATE KEY.",
+            "Keep the private key in Windows. Only copy the public PEM file later. This short-lived self-signed certificate is for our lab; real sites need managed trust and renewal."
           ],
           "command": "$cert = New-SelfSignedCertificate -DnsName 'iis-backend.cloudseam.tech' -CertStoreLocation 'Cert:\\LocalMachine\\My' -FriendlyName 'DMZ-Lab backend' -KeyAlgorithm RSA -KeyLength 3072 -HashAlgorithm SHA256 -NotAfter (Get-Date).AddDays(30)\nNew-WebBinding -Name 'DMZ-Lab' -Protocol https -IPAddress '10.80.0.40' -Port 443 -HostHeader 'iis-backend.cloudseam.tech' -SslFlags 1\n(Get-WebBinding -Name 'DMZ-Lab' -Protocol https).AddSslCertificate($cert.Thumbprint, 'My')\nNew-Item -ItemType Directory C:\\DMZ-Lab -Force\n$pem = '-----BEGIN CERTIFICATE-----' + \"`r`n\" + [Convert]::ToBase64String($cert.RawData, [System.Base64FormattingOptions]::InsertLineBreaks) + \"`r`n-----END CERTIFICATE-----`r`n\"\n$pem | Set-Content C:\\DMZ-Lab\\backend-public.pem -Encoding Ascii",
           "breakdown": [
@@ -799,15 +828,15 @@
             },
             {
               "term": "Public PEM",
-              "meaning": "A text-encoded certificate used for verification. It must not include the server\u2019s private key."
+              "meaning": "A text-encoded certificate used for verification. It must not include the server’s private key."
             }
           ],
-          "expected": "The correct SNI HTTPS binding exists, and backend-public.pem contains only the backend\u2019s public certificate.",
+          "expected": "IIS has the HTTPS binding for iis-backend.cloudseam.tech. backend-public.pem contains the public certificate, with no private key.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-iis-screen-3",
-            "title": "Bind HTTPS and export only the public certificate",
-            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The correct SNI HTTPS binding exists, and backend-public.pem contains only the backend\u2019s public certificate."
+            "title": "Add HTTPS to the private website",
+            "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The correct SNI HTTPS binding exists, and backend-public.pem contains only the backend’s public certificate."
           },
           "sources": [
             "https://docs.opnsense.org/manual/virtuals.html",
@@ -825,14 +854,15 @@
           ]
         },
         {
-          "title": "Restrict the Windows firewall and stage the public certificate",
-          "where": "IIS-DMZ01 \u00b7 elevated PowerShell; Windows host \u2192 Workstation shared folder settings",
+          "title": "Limit IIS access and copy its public certificate",
+          "where": "IIS-DMZ01 · elevated PowerShell; Windows host → Workstation shared folder settings",
           "actions": [
-            "On this dedicated VM, add the named inbound rule below. Then review enabled inbound allow rules for TCP 443 and 80 in Windows Defender Firewall with Advanced Security. Disable any broad web allow that would also expose this practice site. Do not disable Windows Firewall.",
-            "Confirm DMZ-Lab HTTPS accepts remote address 10.60.0.10 only. The loopback health binding stays local. Leave domain controllers and other VMs alone.",
-            "On the host create C:\\DMZ-Transfer. In this guest\u2019s VM settings \u2192 Options \u2192 Shared Folders, add that folder with share name DMZ-Transfer temporarily. Enable it only for certificate transfer.",
-            "Inside the guest, copy C:\\DMZ-Lab\\backend-public.pem to \\\\vmware-host\\Shared Folders\\DMZ-Transfer. Check that the shared folder contains no password, PFX or private key.",
-            "After the next lesson copies the public files, disable shared folders on all practice VMs. A shared folder is a transfer convenience, not the network path we are testing."
+            "On IIS-DMZ01, run the firewall command below. It allows HTTPS from PROXY01 at 10.60.0.10.",
+            "Open Windows Defender Firewall with Advanced Security → Inbound Rules. Review enabled Allow rules for TCP 80 and 443. Disable broad web rules on this dedicated practice VM that would also allow other computers through.",
+            "Keep Windows Firewall on. A narrow new rule does not cancel an older allow-everyone rule.",
+            "On your Windows host, create the folder C:\\DMZ-Transfer. In IIS-DMZ01 VMware Settings → Options → Shared Folders, temporarily add it with share name DMZ-Transfer.",
+            "Inside IIS-DMZ01, copy C:\\DMZ-Lab\\backend-public.pem to \\\\vmware-host\\Shared Folders\\DMZ-Transfer. Check that you copied only the public certificate, not a password, PFX or private key.",
+            "We will turn off this shared folder after copying the public files to the Linux VMs. It is a temporary file transfer, not the network route our visitors will use."
           ],
           "command": "New-NetFirewallRule -DisplayName 'DMZ-Lab HTTPS from proxy only' -Direction Inbound -Action Allow -Protocol TCP -LocalPort 443 -RemoteAddress 10.60.0.10 -Profile Any\nGet-NetFirewallRule -DisplayName 'DMZ-Lab HTTPS from proxy only' | Get-NetFirewallAddressFilter\n# Inspect other inbound web allows on this dedicated VM before disabling them.\nGet-NetFirewallRule -Direction Inbound -Enabled True -Action Allow | Where-Object DisplayName -Match 'World Wide Web|HTTPS|HTTP' | Select-Object Name,DisplayName,Enabled",
           "breakdown": [
@@ -841,11 +871,11 @@
               "meaning": "Limits the inbound allow to the proxy. Other enabled broad allow rules must be reviewed too; adding a narrow allow does not override them."
             }
           ],
-          "expected": "The Windows HTTPS rule is scoped to 10.60.0.10, and only the public backend PEM is staged for the proxy.",
+          "expected": "Only the gateway IP is allowed through the Windows HTTPS rule. The shared folder contains only the public certificate file.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-iis-screen-4",
-            "title": "Restrict the Windows firewall and stage the public certificate",
+            "title": "Limit IIS access and copy its public certificate",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The Windows HTTPS rule is scoped to 10.60.0.10, and only the public backend PEM is staged for the proxy."
           },
           "sources": [
@@ -867,10 +897,10 @@
     },
     {
       "id": "dmz-proxy",
-      "title": "Build the DMZ Reverse Proxy",
-      "description": "Configure AlmaLinux and NGINX to verify and forward HTTPS to the private IIS site.",
-      "what": "Configure AlmaLinux and NGINX to verify and forward HTTPS to the private IIS site.",
-      "why": "The proxy opens a new HTTPS connection to IIS. Both hops are encrypted, and the backend certificate name is verified. We do not turn off certificate checking or SELinux to make errors disappear.",
+      "title": "Build the Gateway in the DMZ",
+      "description": "Set up NGINX on AlmaLinux so it can accept visitor requests and forward them to private IIS.",
+      "what": "Set up NGINX on AlmaLinux so it can accept visitor requests and forward them to private IIS.",
+      "why": "NGINX is our reverse proxy, or web gateway. It receives a request, asks IIS for the page and returns the answer. The visitor never receives general access to the private network.",
       "needs": [
         "PROXY01 has its packages installed from the preparation stage and one VMnet3 NIC.",
         "The public backend PEM is in the temporary host folder. Use the dedicated VM console; public SSH is not needed."
@@ -903,14 +933,15 @@
       ],
       "steps": [
         {
-          "title": "Set PROXY01\u2019s DMZ address",
-          "where": "PROXY01 \u00b7 AlmaLinux console",
+          "title": "Set the gateway’s DMZ address",
+          "where": "PROXY01 · AlmaLinux console",
           "actions": [
-            "Sign in on the VMware console. Run nmcli connection show and identify the single Ethernet connection name; ignore loopback. Record the exact name rather than guessing that it is eth0.",
-            "Use nmcli connection modify with that exact name, IPv4 manual, address 10.60.0.10/24 and gateway 10.60.0.1. Clear DNS; this exercise uses explicit IP and TLS names.",
-            "Apply the connection and inspect ip -4 address and ip -4 route. There should be one Ethernet interface in the DMZ and one default route through FW01.",
-            "If you see a VMnet8/NAT address, stop the VM and correct its adapter. Internet access is deliberately unavailable in the final isolated layout.",
-            "Verify the clock with timedatectl. Correct significant time errors using the host/console before diagnosing certificate dates."
+            "Open PROXY01’s VMware console and sign in. Run nmcli connection show. Find the one Ethernet connection; ignore loopback. Write its exact name in your notes.",
+            "In the command block below, replace the example connection name with that exact name. Keep the quotes around a name that contains spaces.",
+            "Run the block to set address 10.60.0.10/24 and gateway 10.60.0.1. DNS is empty because this practice uses explicit addresses and certificate names.",
+            "Check the output from ip -4 address and ip -4 route. You should see the DMZ address and one default route through 10.60.0.1.",
+            "If you still see a VMnet8/NAT address, shut down PROXY01 and fix its VMware adapter before continuing.",
+            "Run timedatectl. Check the date and time. A badly wrong clock can make a valid certificate appear expired."
           ],
           "command": "sudo hostnamectl set-hostname proxy01.cloudseam.tech\nnmcli connection show\n# Replace YOUR_CONNECTION with the exact Ethernet profile name above.\nsudo nmcli connection modify \"YOUR_CONNECTION\" ipv4.method manual ipv4.addresses 10.60.0.10/24 ipv4.gateway 10.60.0.1 ipv4.dns \"\" ipv6.method disabled\nsudo nmcli connection up \"YOUR_CONNECTION\"\nip -4 address\nip -4 route\ntimedatectl",
           "breakdown": [
@@ -920,14 +951,14 @@
             },
             {
               "term": "Default route",
-              "meaning": "10.60.0.1 is the firewall doorway for destinations outside PROXY01\u2019s own subnet."
+              "meaning": "10.60.0.1 is the firewall doorway for destinations outside PROXY01’s own subnet."
             }
           ],
-          "expected": "PROXY01 has only 10.60.0.10/24 on its Ethernet NIC and uses 10.60.0.1 as gateway.",
+          "expected": "PROXY01 shows 10.60.0.10/24 and default gateway 10.60.0.1. No temporary NAT adapter remains.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-proxy-screen-1",
-            "title": "Set PROXY01\u2019s DMZ address",
+            "title": "Set the gateway’s DMZ address",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. PROXY01 has only 10.60.0.10/24 on its Ethernet NIC and uses 10.60.0.1 as gateway."
           },
           "sources": [
@@ -946,14 +977,15 @@
           ]
         },
         {
-          "title": "Copy the pinned backend certificate and prove the private HTTPS hop",
-          "where": "PROXY01 \u00b7 AlmaLinux console; Workstation Options \u2192 Shared Folders",
+          "title": "Test the gateway’s connection to IIS",
+          "where": "PROXY01 · AlmaLinux console; Workstation Options → Shared Folders",
           "actions": [
-            "Temporarily add host folder C:\\DMZ-Transfer to PROXY01 with share name DMZ-Transfer. Start vmtoolsd if it is not already running.",
-            "Run the mount and copy commands below. The only input is backend-public.pem; do not copy private keys.",
-            "Run curl with --cacert and --resolve. --resolve connects to 10.80.0.40 while using iis-backend.cloudseam.tech for the URL and TLS name. Do not add -k.",
-            "The request should return the CloudSeam training page. Check FW01\u2019s Live View for the DMZ_PROXY_TO_IIS_443 pass and the expected 10.60.0.10 source.",
-            "If this fails, fix the interface route, firewall rule, certificate name, clock or IIS binding before adding NGINX. We need a known-working backend first."
+            "On the host, open PROXY01 VMware Settings → Options → Shared Folders. Temporarily add C:\\DMZ-Transfer with share name DMZ-Transfer.",
+            "In PROXY01’s console, run the mount and copy block below. It copies backend-public.pem, the public certificate from IIS. Do not copy a private key.",
+            "Run the curl test in the block. curl requests a web page from the terminal. --resolve sends it to 10.80.0.40 using the correct website name; --cacert checks the certificate against the public file you copied.",
+            "Look for the practice page from IIS. Do not add -k to hide a certificate error.",
+            "On FW01, open Firewall → Log Files → Live View. Find a Pass for source 10.60.0.10 and rule DMZ_PROXY_TO_IIS_443.",
+            "If the request fails, check the address, rule, IIS binding, certificate name and clock. Get this direct gateway-to-IIS test working before adding the gateway service."
           ],
           "command": "sudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\nsudo cp /mnt/dmz-transfer/backend-public.pem /etc/pki/tls/certs/iis-backend.pem\ncurl --cacert /etc/pki/tls/certs/iis-backend.pem --resolve iis-backend.cloudseam.tech:443:10.80.0.40 --connect-timeout 5 https://iis-backend.cloudseam.tech/",
           "breakdown": [
@@ -966,11 +998,11 @@
               "meaning": "Connects to the private IP while retaining the correct URL hostname for TLS and IIS SNI."
             }
           ],
-          "expected": "A verified curl request from PROXY01 reaches the private IIS page and a matching narrow firewall pass is logged.",
+          "expected": "The gateway receives the IIS practice page with the certificate check enabled. FW01 logs the matching allowed request.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-proxy-screen-2",
-            "title": "Copy the pinned backend certificate and prove the private HTTPS hop",
+            "title": "Test the gateway’s connection to IIS",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. A verified curl request from PROXY01 reaches the private IIS page and a matching narrow firewall pass is logged."
           },
           "sources": [
@@ -989,14 +1021,14 @@
           ]
         },
         {
-          "title": "Create the visitor-facing lab certificate",
-          "where": "PROXY01 \u00b7 AlmaLinux console",
+          "title": "Create the gateway’s test certificate",
+          "where": "PROXY01 · AlmaLinux console",
           "actions": [
-            "Run the OpenSSL command below to create a 30-day self-signed front-end certificate for app-dmz.cloudseam.tech. This is separate from the IIS backend certificate.",
-            "Set the private key to mode 600. Only root should read it; nginx\u2019s root master process can load it before dropping worker privileges.",
-            "Inspect the subject, SAN and dates with the second command. The name must be app-dmz.cloudseam.tech.",
-            "Copy only dmz-front.crt into the temporary shared folder as proxy-public.crt for TEST01. Never copy dmz-front.key.",
-            "A public production site would use a trusted CA and automated renewal. This private lab pins public certificates explicitly; it does not teach users to ignore real-site warnings."
+            "Stay on PROXY01. Run the OpenSSL block below to make a second, 30-day test certificate. This one belongs to app-dmz.cloudseam.tech, the name visitors use.",
+            "The command sets the private key to permission 600. That means only its owner, root, can read or change it.",
+            "Run the inspection command in the block. Check the certificate name and dates. SAN lists the names that the certificate covers; it must include app-dmz.cloudseam.tech.",
+            "Copy only dmz-front.crt into the shared folder, with filename proxy-public.crt. TEST01 needs this public file to check the gateway’s identity.",
+            "Never copy dmz-front.key. A real public website would use a trusted certificate service and renewal, not this temporary test certificate."
           ],
           "command": "sudo openssl req -x509 -nodes -newkey rsa:3072 -sha256 -days 30 -keyout /etc/pki/tls/private/dmz-front.key -out /etc/pki/tls/certs/dmz-front.crt -subj \"/CN=app-dmz.cloudseam.tech\" -addext \"subjectAltName=DNS:app-dmz.cloudseam.tech\"\nsudo chmod 600 /etc/pki/tls/private/dmz-front.key\nopenssl x509 -in /etc/pki/tls/certs/dmz-front.crt -noout -subject -dates -ext subjectAltName\nsudo cp /etc/pki/tls/certs/dmz-front.crt /mnt/dmz-transfer/proxy-public.crt",
           "breakdown": [
@@ -1009,11 +1041,11 @@
               "meaning": "The secret file stays on the proxy with restrictive permissions. Only the public certificate goes to TEST01."
             }
           ],
-          "expected": "The front certificate has the correct SAN and dates; the front private key stays root-only on PROXY01.",
+          "expected": "The gateway certificate covers app-dmz.cloudseam.tech and has the expected dates. Only root can read its private key.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-proxy-screen-3",
-            "title": "Create the visitor-facing lab certificate",
+            "title": "Create the gateway’s test certificate",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The front certificate has the correct SAN and dates; the front private key stays root-only on PROXY01."
           },
           "sources": [
@@ -1032,14 +1064,15 @@
           ]
         },
         {
-          "title": "Install the exact NGINX HTTPS proxy configuration",
-          "where": "PROXY01 \u00b7 AlmaLinux console / text editor",
+          "title": "Copy and check the NGINX configuration",
+          "where": "PROXY01 · AlmaLinux console / text editor",
           "actions": [
-            "On the Windows host, download the class file /dmz/nginx-dmz.conf into C:\\DMZ-Transfer. Read it before copying it. The private upstream is fixed to 10.80.0.40:443.",
-            "Copy it from the mounted share into /etc/nginx/conf.d/dmz.conf using the command below. This server block listens on 10.60.0.10:443 for app-dmz.cloudseam.tech.",
-            "Read the trust settings: proxy_ssl_verify on, proxy_ssl_server_name on, proxy_ssl_name iis-backend.cloudseam.tech and the pinned backend PEM. The Host header sent to IIS uses its backend binding name.",
-            "The configuration sets X-Forwarded-For to the connecting client address, replacing any visitor-supplied value. IIS must trust that header only from this proxy; it is not an authentication mechanism.",
-            "Run nginx -t. Stop and correct any syntax, path or certificate error before starting the service."
+            "On the Windows host, click NGINX configuration in this step’s downloads. Save nginx-dmz.conf in C:\\DMZ-Transfer.",
+            "Open the file and read it first. It sends requests to private IIS at 10.80.0.40:443. It does not point at APP01.",
+            "On PROXY01, run the copy command below. It places the file at /etc/nginx/conf.d/dmz.conf. The gateway listens at 10.60.0.10:443 for app-dmz.cloudseam.tech.",
+            "Keep proxy_ssl_verify on. Keep proxy_ssl_name set to iis-backend.cloudseam.tech and keep the backend PEM trust file. These settings check the private IIS certificate instead of blindly trusting any server.",
+            "The file replaces X-Forwarded-For with the visitor’s actual connection address. That header carries a client address; it is not proof that a user is signed in.",
+            "Run nginx -t. Look for a successful configuration test. Fix any reported file path, certificate or syntax error before starting NGINX."
           ],
           "command": "sudo cp /mnt/dmz-transfer/nginx-dmz.conf /etc/nginx/conf.d/dmz.conf\nsudo nginx -t",
           "breakdown": [
@@ -1056,11 +1089,11 @@
               "meaning": "IIS uses its backend host binding. The visitor-facing hostname does not have to be the backend binding name."
             }
           ],
-          "expected": "nginx -t reports a valid configuration with upstream certificate verification enabled.",
+          "expected": "nginx -t reports that the configuration test succeeded. The settings still verify the private IIS certificate.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-proxy-screen-4",
-            "title": "Install the exact NGINX HTTPS proxy configuration",
+            "title": "Copy and check the NGINX configuration",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. nginx -t reports a valid configuration with upstream certificate verification enabled."
           },
           "sources": [
@@ -1085,14 +1118,15 @@
           ]
         },
         {
-          "title": "Start the service without disabling host protections",
-          "where": "PROXY01 \u00b7 AlmaLinux console",
+          "title": "Start NGINX and keep protections on",
+          "where": "PROXY01 · AlmaLinux console",
           "actions": [
-            "Run the SELinux boolean command below so the web service may make an upstream network connection. This changes one policy allowance; SELinux stays enforcing. FW01 still restricts the destination to the private IIS service.",
-            "Use firewall-cmd --get-active-zones and ensure the dedicated Ethernet interface is in the zone you are editing; the commands below assume public. If it is not, use its actual zone consistently.",
-            "Add the rich rule that accepts HTTPS only from TEST01 10.70.0.10. Review the zone and remove broad http/https service allows if they already exist on this dedicated VM. Do not turn off firewalld.",
-            "Enable and start NGINX. Check that it is active and listening on 10.60.0.10:443.",
-            "After TEST01 has copied its public certificate in the next lesson, unmount /mnt/dmz-transfer and disable the shared-folder feature on the guests. Keep only the deliberate firewall network paths."
+            "On PROXY01, run the SELinux command below. It lets the web service make an outgoing connection to IIS. SELinux stays on; the firewall still limits where that connection may go.",
+            "Run firewall-cmd --get-active-zones. Find the zone containing your Ethernet interface. The block below uses public; if yours differs, use that zone name consistently.",
+            "Add the HTTPS rule in the block. It accepts requests from TEST01 at 10.70.0.10 only.",
+            "Review the zone’s services. Remove any broad http or https allowance on this dedicated VM that would also let other sources in. Do not stop firewalld.",
+            "Run the service start and check commands. NGINX should be active and listening on 10.60.0.10:443.",
+            "Leave the shared folder only until TEST01 copies its public certificate in the next lesson. Then unmount it and disable Shared Folders on the practice VMs."
           ],
           "command": "sudo setsebool -P httpd_can_network_connect 1\nsudo firewall-cmd --get-active-zones\nsudo firewall-cmd --permanent --zone=public --add-rich-rule='rule family=\"ipv4\" source address=\"10.70.0.10/32\" service name=\"https\" accept'\nsudo firewall-cmd --reload\nsudo systemctl enable --now nginx\nsystemctl is-active nginx\ngetenforce\nsudo ss -lntp | grep ':443'",
           "breakdown": [
@@ -1105,11 +1139,11 @@
               "meaning": "The visitor HTTPS rule names TEST01. FW01 independently limits which private endpoint the proxy may reach."
             }
           ],
-          "expected": "SELinux is enforcing, firewalld has the scoped visitor HTTPS rule, and NGINX is active on the DMZ listener.",
+          "expected": "NGINX is active at 10.60.0.10:443. SELinux and firewalld remain on, with HTTPS allowed only from TEST01.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-proxy-screen-5",
-            "title": "Start the service without disabling host protections",
+            "title": "Start NGINX and keep protections on",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. SELinux is enforcing, firewalld has the scoped visitor HTTPS rule, and NGINX is active on the DMZ listener."
           },
           "sources": [
@@ -1131,10 +1165,10 @@
     },
     {
       "id": "dmz-publish",
-      "title": "Publish HTTPS to the Practice Visitor",
-      "description": "Forward only outside HTTPS to the DMZ proxy and test the complete request path.",
-      "what": "Forward only outside HTTPS to the DMZ proxy and test the complete request path.",
-      "why": "Destination NAT changes where the request is delivered. It is not permission to reach every private server. The outside client remains in its own test segment.",
+      "title": "Open the Practice Help Desk as a Visitor",
+      "description": "Give TEST01 its address, open one HTTPS doorway and request the page through the gateway.",
+      "what": "Give TEST01 its address, open one HTTPS doorway and request the page through the gateway.",
+      "why": "We have built the pieces separately. Now we will connect them. TEST01 pretends to be an outside visitor, but everything still stays inside VMware. No home-router or public DNS changes are needed.",
       "needs": [
         "The private IIS hop and proxy configuration already pass their local checks.",
         "TEST01 has curl, OpenSSL and open-vm-tools installed; its only NIC is VMnet4."
@@ -1167,27 +1201,28 @@
       ],
       "steps": [
         {
-          "title": "Give the visitor its isolated outside address",
-          "where": "TEST01 \u00b7 AlmaLinux 9 GNOME Settings \u2192 Network",
+          "title": "Set the practice visitor’s address",
+          "where": "TEST01 · AlmaLinux 9 GNOME Settings → Network",
           "actions": [
-            "Start TEST01 and open Settings \u2192 Network \u2192 the Wired gear \u2192 IPv4. Choose Manual.",
-            "Enter address 10.70.0.10, mask 255.255.255.0 and gateway 10.70.0.1. Leave DNS blank; turn automatic DNS off for this connection. Apply and reconnect Wired.",
-            "Open Terminal and run ip -4 route. The default gateway should be FW01\u2019s OUTSIDE address, not a VMware NAT gateway.",
-            "Do not give this visitor a private or DMZ NIC. Do not test from the Windows host, which intentionally has a private management adapter.",
-            "This visitor simulates an external user; it has no actual Internet connection in this exercise."
+            "Start TEST01. In AlmaLinux GNOME, open Settings → Network → the gear beside Wired → IPv4. Select Manual.",
+            "Enter Address 10.70.0.10, Netmask 255.255.255.0 and Gateway 10.70.0.1.",
+            "Turn off automatic DNS and leave DNS empty. Click Apply. Switch Wired off, then on to reconnect.",
+            "Open Terminal and run ip -4 route. The default gateway should be 10.70.0.1, not a VMware NAT address.",
+            "Check VMware Settings: TEST01 must have just one adapter, Custom VMnet4. It should have no private or DMZ adapter.",
+            "Use TEST01 for visitor tests. It acts like an outside user while staying inside this isolated lab."
           ],
           "command": "sudo hostnamectl set-hostname test01.cloudseam.tech\nip -4 address\nip -4 route",
           "breakdown": [
             {
               "term": "Outside simulator",
-              "meaning": "TEST01 sits on VMnet4 only. The host\u2019s management adapter is not an outside test machine."
+              "meaning": "TEST01 sits on VMnet4 only. The host’s management adapter is not an outside test machine."
             }
           ],
-          "expected": "TEST01 is 10.70.0.10/24 with one VMnet4 NIC and gateway 10.70.0.1.",
+          "expected": "TEST01 shows 10.70.0.10/24 and gateway 10.70.0.1. Its only VMware adapter is VMnet4.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-publish-screen-1",
-            "title": "Give the visitor its isolated outside address",
+            "title": "Set the practice visitor’s address",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. TEST01 is 10.70.0.10/24 with one VMnet4 NIC and gateway 10.70.0.1."
           },
           "sources": [
@@ -1206,30 +1241,32 @@
           ]
         },
         {
-          "title": "Forward outside TCP 443 to the DMZ proxy",
-          "where": "Windows host browser \u00b7 FW01 \u2192 Firewall \u2192 NAT \u2192 Destination NAT / Port Forward",
+          "title": "Send visitor HTTPS requests to the gateway",
+          "where": "Windows host browser · FW01 → Firewall → NAT → Destination NAT / Port Forward",
           "actions": [
-            "Add a destination-NAT/port-forward rule on WAN/OUTSIDE. Select IPv4 and TCP. Set source to LAB_VISITOR and source port any.",
-            "Set destination to WAN/OUTSIDE address and destination port HTTPS/443. Redirect target is DMZ_PROXY 10.60.0.10 and redirect port 443. Name it OUTSIDE_HTTPS_TO_PROXY.",
-            "Use the version\u2019s associated-filter-rule option to create the matching outside pass rule, or create that narrow filter explicitly as documented by the release. Save and apply.",
-            "Inspect the resulting outside pass: only LAB_VISITOR \u2192 the translated proxy HTTPS service. Add a logged Block IPv4 any rule below that pass: source LAB_VISITOR, destination any, description OUTSIDE_DENY_OTHER. There must be no outside forward to 10.80.0.40 and no published RDP, SQL or firewall administration port.",
-            "Leave reflection/hairpin features off; our visitor really is on the outside segment. Source NAT between the DMZ and private network is unnecessary. The visitor IP should remain available in proxy logs."
+            "In FW01’s web interface, open Firewall → NAT → Port Forward. Click Add. Select WAN/OUTSIDE, IPv4 and TCP.",
+            "Set Source to LAB_VISITOR. Leave source port as any. Set Destination to WAN address and destination port to HTTPS (443).",
+            "Set Redirect target IP to DMZ_PROXY (10.60.0.10) and Redirect target port to 443. Enter description OUTSIDE_HTTPS_TO_PROXY.",
+            "Choose the associated filter-rule option to create its matching outside allow rule. If your release requires a separate filter rule, follow that release’s documentation and keep the same narrow visitor and HTTPS limits. Save and apply.",
+            "Open the OUTSIDE rules tab. Check that the resulting Pass allows only LAB_VISITOR to the translated gateway HTTPS service.",
+            "Below it, add a logged Block rule: IPv4, any protocol, source LAB_VISITOR, destination any. Name it OUTSIDE_DENY_OTHER. Save and apply.",
+            "Do not forward visitors directly to IIS at 10.80.0.40. Do not publish RDP, SQL or firewall administration. Leave reflection/hairpin off and do not add source NAT between the internal networks."
           ],
           "breakdown": [
             {
               "term": "Destination NAT",
-              "meaning": "Rewrites the outside HTTPS destination to the proxy\u2019s DMZ address. The accompanying firewall rule still needs to allow that specific flow."
+              "meaning": "Rewrites the outside HTTPS destination to the proxy’s DMZ address. The accompanying firewall rule still needs to allow that specific flow."
             },
             {
               "term": "No internal source NAT",
-              "meaning": "The private IIS connection should retain PROXY01\u2019s 10.60.0.10 source, which its Windows firewall expects."
+              "meaning": "The private IIS connection should retain PROXY01’s 10.60.0.10 source, which its Windows firewall expects."
             }
           ],
-          "expected": "One outside TCP 443 forward points to PROXY01, with its narrow pass rule; IIS has no outside forward.",
+          "expected": "One HTTPS forwarding rule sends the practice visitor to PROXY01. There is no direct outside forward to IIS.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-publish-screen-2",
-            "title": "Forward outside TCP 443 to the DMZ proxy",
+            "title": "Send visitor HTTPS requests to the gateway",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. One outside TCP 443 forward points to PROXY01, with its narrow pass rule; IIS has no outside forward."
           },
           "sources": [
@@ -1248,14 +1285,15 @@
           ]
         },
         {
-          "title": "Give the visitor only the public trust certificate",
-          "where": "TEST01 \u00b7 AlmaLinux Terminal; temporary VMware shared folder",
+          "title": "Copy the certificate the visitor needs",
+          "where": "TEST01 · AlmaLinux Terminal; temporary VMware shared folder",
           "actions": [
-            "Temporarily enable the same DMZ-Transfer shared folder for TEST01. Use the commands below to copy proxy-public.crt into your home folder.",
-            "Inspect its SHA-256 fingerprint and compare it with the same command run against /etc/pki/tls/certs/dmz-front.crt on PROXY01. Compare the full fingerprint, not only a few characters.",
-            "Do not copy the proxy private key or any backend private key. Do not import an unknown root CA into your everyday computer.",
-            "Unmount the share on TEST01 and PROXY01. In Workstation Options \u2192 Shared Folders, disable it for TEST01, PROXY01 and IIS-DMZ01.",
-            "Keep the class downloads and public certificates in your own lab folder, not uploaded as learner evidence to this website."
+            "In TEST01 VMware Settings → Options → Shared Folders, temporarily add C:\\DMZ-Transfer with share name DMZ-Transfer.",
+            "In TEST01 Terminal, run the copy block below. It copies proxy-public.crt into your home folder. This is the gateway’s public certificate, not its private key.",
+            "Run the fingerprint command. On PROXY01, run the same command against /etc/pki/tls/certs/dmz-front.crt. Compare every part of the SHA-256 fingerprint. Matching fingerprints mean you have the same certificate file.",
+            "Do not copy a .key file or a backend private key. Do not add an unknown root certificate to your everyday computer.",
+            "Unmount the share on TEST01 and PROXY01. Disable Shared Folders in the VMware settings of TEST01, PROXY01 and IIS-DMZ01.",
+            "Keep these public files in your own lab folder. Do not upload certificate keys or firewall backups to your academy notebook."
           ],
           "command": "mkdir -p ~/dmz-lab\nsudo mkdir -p /mnt/dmz-transfer\nsudo vmhgfs-fuse .host:/DMZ-Transfer /mnt/dmz-transfer -o allow_other\ncp /mnt/dmz-transfer/proxy-public.crt ~/dmz-lab/\nopenssl x509 -in ~/dmz-lab/proxy-public.crt -noout -fingerprint -sha256\nsudo umount /mnt/dmz-transfer",
           "breakdown": [
@@ -1264,11 +1302,11 @@
               "meaning": "Compare the complete SHA-256 fingerprint on both machines to confirm you transferred the intended public certificate."
             }
           ],
-          "expected": "TEST01 has the matching front public certificate and all temporary shared folders are disabled.",
+          "expected": "TEST01 has the gateway’s matching public certificate. Shared Folders is now disabled on all practice VMs.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-publish-screen-3",
-            "title": "Give the visitor only the public trust certificate",
+            "title": "Copy the certificate the visitor needs",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. TEST01 has the matching front public certificate and all temporary shared folders are disabled."
           },
           "sources": [
@@ -1287,14 +1325,15 @@
           ]
         },
         {
-          "title": "Make a real verified request through the whole path",
-          "where": "TEST01 \u00b7 AlmaLinux Terminal",
+          "title": "Open the page through the full route",
+          "where": "TEST01 · AlmaLinux Terminal",
           "actions": [
-            "Run the curl command below in TEST01. --resolve uses the lab\u2019s outside address without changing public DNS or the live academy domain.",
-            "--cacert trusts the specific front test certificate. Do not add -k or disable verification to get a green result.",
-            "Look for the CloudSeam DMZ lab page and the private backend label. This content is deliberately harmless and fictional. In production, do not reveal internal machine names on a public page.",
-            "On FW01, correlate the outside pass and the DMZ-to-IIS pass. On PROXY01, inspect the access log for the TEST01 address and matching path.",
-            "Record the request time and your observed result. The illustrated response is only a comparison example; your own command output is the evidence."
+            "In TEST01 Terminal, run the curl command below. It asks for app-dmz.cloudseam.tech through FW01’s outside address, 10.70.0.1.",
+            "--resolve supplies a local address for this one request, so no public DNS change is needed. --cacert checks the gateway against the public certificate you copied.",
+            "Look for the CloudSeam DMZ practice page. Do not add -k if the certificate check fails.",
+            "On FW01, open Live View and find the outside allow followed by the DMZ-to-IIS allow. On PROXY01, check the access log for TEST01’s address and request path.",
+            "Save the request time and what you actually saw in My lab notebook. The illustrated output is an example, not proof that your own test worked.",
+            "The example page identifies the backend to help you learn. Real public pages should not reveal internal server names."
           ],
           "command": "curl --fail --show-error --cacert ~/dmz-lab/proxy-public.crt --resolve app-dmz.cloudseam.tech:443:10.70.0.1 --connect-timeout 5 \"https://app-dmz.cloudseam.tech/?labtrace=DMZ01\"",
           "breakdown": [
@@ -1307,11 +1346,11 @@
               "meaning": "A harmless query value that helps match this request in logs. It is not a password or an authentication token."
             }
           ],
-          "expected": "The request succeeds with TLS verification and returns the page created on private IIS through PROXY01.",
+          "expected": "TEST01 receives the private IIS practice page through PROXY01, with certificate checking enabled.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-publish-screen-4",
-            "title": "Make a real verified request through the whole path",
+            "title": "Open the page through the full route",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The request succeeds with TLS verification and returns the page created on private IIS through PROXY01."
           },
           "sources": [
@@ -1333,10 +1372,10 @@
     },
     {
       "id": "dmz-verify",
-      "title": "Prove Private Servers Stay Private",
-      "description": "Verify allowed HTTPS and blocked direct, management, domain-controller and database paths.",
-      "what": "Verify allowed HTTPS and blocked direct, management, domain-controller and database paths.",
-      "why": "A working website is only half the test. We also need evidence that the paths we did not approve are blocked. An offline service and a firewall block can both cause a timeout, so compare the logs.",
+      "title": "Check What Visitors Can and Cannot Reach",
+      "description": "Prove that the website works through the gateway while direct access to private services stays blocked.",
+      "what": "Prove that the website works through the gateway while direct access to private services stays blocked.",
+      "why": "A working page is only half the test. We also need to show that unwanted connections fail for the right reason. A matching firewall log tells us which rule blocked the request.",
       "needs": [
         "Keep the successful end-to-end request and direct backend test as baselines.",
         "Only test the approved practice IPs and named ports. Do not scan public addresses or unrelated machines."
@@ -1369,14 +1408,14 @@
       ],
       "steps": [
         {
-          "title": "Test direct outside access to the backend",
-          "where": "TEST01 \u00b7 AlmaLinux Terminal; FW01 Live View",
+          "title": "Check that visitors cannot reach IIS directly",
+          "where": "TEST01 · AlmaLinux Terminal; FW01 Live View",
           "actions": [
-            "Run the TCP probe below from TEST01. It checks whether a connection to the private IIS address and port can open; it does not need a certificate and does not use the proxy.",
-            "The shown command tests only TCP reachability to 10.80.0.40:443 and should time out or be rejected. It does not contact the proxy.",
-            "In FW01 \u2192 Firewall \u2192 Log Files \u2192 Live View, filter source 10.70.0.10 and destination 10.80.0.40. Find the OUTSIDE_DENY_OTHER block with the matching interface and time.",
-            "Repeat the approved proxy curl request from the previous lesson; it should still work. That distinguishes a deliberate direct-path block from a broken application.",
-            "If direct access succeeds, stop publication and look for an outside allow, a stale state or an extra NIC. Fix the bypass before continuing."
+            "On TEST01, run the TCP connection check below. It tries to reach private IIS directly at 10.80.0.40:443, skipping the gateway.",
+            "This attempt should fail or time out. A timeout alone does not tell us why, so check the firewall next.",
+            "On FW01, open Firewall → Log Files → Live View. Filter Source to 10.70.0.10 and Destination to 10.80.0.40. Find a Block from OUTSIDE_DENY_OTHER at the time of your test.",
+            "Repeat the approved gateway curl request from the previous lesson. It should still return the page. Record both results in My lab notebook.",
+            "If direct access succeeds, disable the outside publishing rule while you investigate. Look for a broad allow, an old connection state or an extra VMware adapter. Fix the bypass before continuing."
           ],
           "command": "timeout 5 bash -c '</dev/tcp/10.80.0.40/443'\necho \"TCP probe exit status: $?\"",
           "breakdown": [
@@ -1385,11 +1424,11 @@
               "meaning": "The /dev/tcp check tests whether a connection can open. A timeout or rejection still needs a matching firewall decision to explain it."
             }
           ],
-          "expected": "Direct outside TCP 443 to the private IIS address is blocked with a matching firewall record, while the approved proxy request still succeeds.",
+          "expected": "Direct visitor access to IIS fails with a matching firewall Block. The approved gateway request still works.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-verify-screen-1",
-            "title": "Test direct outside access to the backend",
+            "title": "Check that visitors cannot reach IIS directly",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Direct outside TCP 443 to the private IIS address is blocked with a matching firewall record, while the approved proxy request still succeeds."
           },
           "sources": [
@@ -1408,15 +1447,15 @@
           ]
         },
         {
-          "title": "Test the DMZ\u2019s blocked management and domain paths",
-          "where": "PROXY01 \u00b7 AlmaLinux console; FW01 Live View",
+          "title": "Check that private management stays blocked",
+          "where": "PROXY01 · AlmaLinux console; FW01 Live View",
           "actions": [
-            "From PROXY01, run the two named TCP checks below. They target only your private practice server\u2019s RDP port and DC01\u2019s SMB port.",
-            "Confirm a matching DMZ_DENY_OTHER log for each source 10.60.0.10 attempt. DC01 stays at 10.50.0.10; do not change or disable its services.",
-            "If SQL01 exists in your own address inventory, repeat one probe to its recorded address and TCP 1433; do not invent a live SQL IP or assume that no listener proves a firewall block.",
-            "Repeat the verified backend curl from PROXY01; 10.80.0.40:443 must still succeed.",
-            "Also open elevated PowerShell on IIS-DMZ01 and run Test-NetConnection 10.50.0.10 -Port 445. Confirm TcpTestSucceeded is False and match an APP_DENY_OTHER record on FW01. This proves the backend cannot simply reach AD from its separate subnet.",
-            "Review that DMZ rules do not allow the entire 10.50.0.0/24 subnet. A DMZ host should not have unrestricted access to domain infrastructure."
+            "On PROXY01, run the two TCP checks below. One tries the IIS remote-desktop port; the other tries DC01’s file-sharing port. Both should be blocked.",
+            "In FW01 Live View, find a matching DMZ_DENY_OTHER Block for each attempt from 10.60.0.10. Do not change DC01’s services to force a failure.",
+            "If you already have SQL01, use its recorded lab address for one additional check on TCP 1433. Do not guess an address. A stopped SQL service alone does not prove a firewall block.",
+            "Repeat the verified backend curl test from PROXY01. The approved web connection to 10.80.0.40:443 should still work.",
+            "On IIS-DMZ01, open administrator PowerShell. Run Test-NetConnection 10.50.0.10 -Port 445. Check that TcpTestSucceeded is False and find the matching APP_DENY_OTHER Block on FW01.",
+            "Save the results and matching rule names. Our application network must not have general access to AD or SQL."
           ],
           "command": "timeout 5 bash -c '</dev/tcp/10.80.0.40/3389'\ntimeout 5 bash -c '</dev/tcp/10.50.0.10/445'",
           "breakdown": [
@@ -1429,11 +1468,11 @@
               "meaning": "IIS is on VMnet5, separate from AD. Its attempt to reach DC01 must cross FW01 and meet APP_DENY_OTHER."
             }
           ],
-          "expected": "The DMZ can reach only the intended private HTTPS service; the tested RDP/SMB paths have matching deny logs.",
+          "expected": "The management checks fail with matching Block logs. Gateway-to-IIS HTTPS still works. IIS-to-AD access is also blocked.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-verify-screen-2",
-            "title": "Test the DMZ\u2019s blocked management and domain paths",
+            "title": "Check that private management stays blocked",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The DMZ can reach only the intended private HTTPS service; the tested RDP/SMB paths have matching deny logs."
           },
           "sources": [
@@ -1452,14 +1491,16 @@
           ]
         },
         {
-          "title": "Check the policy and adapter inventory together",
-          "where": "Windows host browser \u00b7 FW01 Live View and Workstation settings",
+          "title": "Save the test results and check the adapters",
+          "where": "Windows host browser · FW01 Live View and Workstation settings",
           "actions": [
-            "Open Firewall \u2192 Log Files \u2192 Live View. Filter by each test source and destination rather than reading unrelated traffic. Capture the rule description, interface, time and decision.",
-            "Compare the logs with Workstation settings: FW01 has four custom NICs; PROXY01, IIS-DMZ01 and TEST01 each have one. No shared folders or NAT/bridged bypass adapters remain enabled.",
-            "Confirm FW01 administration still works only from the intended private administrator host. Do not use the administrator host as evidence of visitor isolation.",
-            "Record the allowed and blocked matrix. Existing servers within VMnet2 can still talk locally, but IIS-DMZ01 is on separate VMnet5: its AD/database traffic must cross the firewall and is denied unless specifically approved.",
-            "Explain that a VMnet is an isolated virtual switch in this lab, not automatically a VLAN or an enterprise access-control policy."
+            "On FW01, open Firewall → Log Files → Live View. For each test, filter by its source and destination. Record the time, interface, rule name and Pass or Block result.",
+            "Download Traffic test checklist below. Fill in your observed results; the planned result is not evidence until you test it.",
+            "In VMware Settings, check FW01’s four custom adapters. Check that PROXY01, IIS-DMZ01 and TEST01 each have only one.",
+            "Confirm temporary Shared Folders are off and no NAT or bridged bypass adapter remains.",
+            "Check that firewall administration still works from your Windows host’s private management adapter. Do not use that host as your outside visitor test.",
+            "Remember why VMnet5 matters: IIS traffic to AD must cross the firewall. Servers sharing VMnet2 can talk directly to one another, so placing IIS there would not prove this separation.",
+            "Save your completed results in My lab notebook. A VMnet is a virtual switch; it does not replace firewall rules."
           ],
           "breakdown": [
             {
@@ -1467,11 +1508,11 @@
               "meaning": "Devices on the same virtual switch can communicate without traversing a router. Separate application and AD networks make the firewall boundary meaningful."
             }
           ],
-          "expected": "The connection matrix has both allowed and denied evidence, and the inventory shows no alternate route around FW01.",
+          "expected": "Your saved checklist has both working and blocked tests, each matched to a log. No extra adapter or shared folder bypass remains.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-verify-screen-3",
-            "title": "Check the policy and adapter inventory together",
+            "title": "Save the test results and check the adapters",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The connection matrix has both allowed and denied evidence, and the inventory shows no alternate route around FW01."
           },
           "sources": [
@@ -1499,10 +1540,10 @@
     },
     {
       "id": "dmz-recover",
-      "title": "Troubleshoot and Recover the DMZ",
-      "description": "Use request logs, a controlled failure and a rollback to practice day-to-day operations.",
-      "what": "Use request logs, a controlled failure and a rollback to practice day-to-day operations.",
-      "why": "Work from the nearest known-good checkpoint. Keep certificate verification and firewall controls in place while you identify the failing hop.",
+      "title": "Find a Problem and Get the Website Working Again",
+      "description": "Follow a request through the logs, break one practice rule, and restore the working setup.",
+      "what": "Follow a request through the logs, break one practice rule, and restore the working setup.",
+      "why": "Troubleshooting is easier when you follow the same path as the request. We will check one part at a time, keep a backup and undo one controlled change.",
       "needs": [
         "The complete allowed/blocked matrix passes before you introduce a fault.",
         "Save FW01 configuration privately, copy the NGINX configuration locally and keep all VM consoles available."
@@ -1535,14 +1576,15 @@
       ],
       "steps": [
         {
-          "title": "Correlate the request in proxy and IIS logs",
-          "where": "PROXY01 terminal; IIS-DMZ01 \u2192 IIS Manager \u2192 DMZ-Lab \u2192 Logging",
+          "title": "Find the same request in both logs",
+          "where": "PROXY01 terminal; IIS-DMZ01 → IIS Manager → DMZ-Lab → Logging",
           "actions": [
-            "Send another TEST01 request with a unique labtrace value in its URL. Note the time on both servers; correct major clock differences first.",
-            "On PROXY01, inspect /var/log/nginx/dmz-access.log and /var/log/nginx/dmz-error.log. Match the visitor IP, request path, response code and upstream status.",
-            "On IIS-DMZ01, open IIS Manager \u2192 DMZ-Lab \u2192 Logging. Note the log directory and site ID, then inspect the newest W3SVC log. The c-ip should be the proxy address 10.60.0.10.",
-            "If you need the original client in IIS logs, choose Select Fields \u2192 Add Field, name ClientIP, source type Request Header, source X-Forwarded-For. Treat it as trustworthy only from your allowed proxy, which overwrites that header.",
-            "Use these fictional request records to practice troubleshooting; never paste tokens, passwords or real customer data into shared evidence."
+            "On TEST01, request the page again with a unique labtrace value in the URL, as shown below. Write down the time. Check that the server clocks roughly agree.",
+            "On PROXY01, read /var/log/nginx/dmz-access.log and /var/log/nginx/dmz-error.log. Find the request using its labtrace, visitor IP, response code and upstream status. Upstream means the IIS server behind the gateway.",
+            "On IIS-DMZ01, open IIS Manager → DMZ-Lab → Logging. Note the log folder and site ID. Open the newest W3SVC log there.",
+            "The IIS client address, c-ip, should be 10.60.0.10 because IIS receives the gateway’s connection.",
+            "To also record the original visitor, choose Select Fields → Add Field. Name it ClientIP, choose Request Header and enter X-Forwarded-For. Trust this field only from the approved gateway, which replaces visitor-supplied values.",
+            "Write the matching time and result in your notebook. Do not paste passwords, tokens or real customer records."
           ],
           "command": "sudo tail -n 20 /var/log/nginx/dmz-access.log\nsudo tail -n 20 /var/log/nginx/dmz-error.log",
           "breakdown": [
@@ -1555,11 +1597,11 @@
               "meaning": "Match a time and request identifier across the client, firewall, proxy and IIS rather than guessing from one screen."
             }
           ],
-          "expected": "The same labtrace request can be matched across proxy and IIS logs with the expected proxy/client distinction.",
+          "expected": "You find the same labtrace request in the gateway and IIS logs. IIS sees the gateway as its connecting client.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-recover-screen-1",
-            "title": "Correlate the request in proxy and IIS logs",
+            "title": "Find the same request in both logs",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The same labtrace request can be matched across proxy and IIS logs with the expected proxy/client distinction."
           },
           "sources": [
@@ -1578,14 +1620,15 @@
           ]
         },
         {
-          "title": "Create one controlled upstream failure",
-          "where": "Windows host browser \u00b7 FW01 DMZ rule list; TEST01 terminal",
+          "title": "Break and restore one firewall rule",
+          "where": "Windows host browser · FW01 DMZ rule list; TEST01 terminal",
           "actions": [
-            "Record a successful baseline request first. Export the firewall backup and keep the console open.",
-            "Disable only DMZ_PROXY_TO_IIS_443, leaving DMZ_DENY_OTHER enabled. Apply changes. For a fair test, clear only connection states matching 10.60.0.10 \u2192 10.80.0.40:443 using Firewall \u2192 Diagnostics \u2192 States; existing states may otherwise keep passing.",
-            "From TEST01, request the same published HTTPS URL. NGINX should return an upstream error or timeout after its configured timeout; do not assume a particular status before reading the log.",
-            "Inspect the NGINX error log and matching firewall block. This is an upstream-path failure, not a reason to disable TLS verification or open every port.",
-            "Re-enable the one HTTPS rule, apply and make a fresh request. Confirm the allowed path and the negative tests are restored."
+            "First send a successful TEST01 request and note the time. Export a private firewall backup. Keep the VMware firewall console open.",
+            "In FW01 → Firewall → Rules → DMZ, disable only DMZ_PROXY_TO_IIS_443. Keep DMZ_DENY_OTHER enabled. Apply.",
+            "Open Firewall → Diagnostics → States. Clear only states matching 10.60.0.10 → 10.80.0.40:443. An already-approved connection might otherwise keep working.",
+            "From TEST01, request the same page. Wait for the configured timeout. Read the actual error; do not assume a particular response code.",
+            "On PROXY01, check the NGINX error log. On FW01, find the matching Block. This shows the gateway cannot reach IIS; it is not a reason to open every port.",
+            "Re-enable DMZ_PROXY_TO_IIS_443 and apply. Send a fresh request. Repeat your blocked-path tests too. Save what failed and what fixed it."
           ],
           "breakdown": [
             {
@@ -1593,11 +1636,11 @@
               "meaning": "Disabling an allow may not remove connections already admitted. Clear only the matching test states, not every management session."
             }
           ],
-          "expected": "A deliberately blocked upstream is diagnosed from logs and recovered by restoring the single known rule.",
+          "expected": "The request fails when the one rule is disabled. It works again after that rule is restored, and your blocked-path tests still fail.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-recover-screen-2",
-            "title": "Create one controlled upstream failure",
+            "title": "Break and restore one firewall rule",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. A deliberately blocked upstream is diagnosed from logs and recovered by restoring the single known rule."
           },
           "sources": [
@@ -1616,14 +1659,14 @@
           ]
         },
         {
-          "title": "Separate certificate errors from routing errors",
-          "where": "PROXY01 \u00b7 AlmaLinux console",
+          "title": "Tell certificate and network problems apart",
+          "where": "PROXY01 · AlmaLinux console",
           "actions": [
-            "Run nginx -t, systemctl status nginx and the verified direct backend curl. Read the actual error text.",
-            "If the certificate expired, correct your clock or renew the lab certificate and update the pinned public certificate after verifying it. Keep a backup of the old configuration and trust file.",
-            "If hostname verification fails, compare proxy_ssl_name, the IIS certificate SAN and the IIS SNI binding. They must all use iis-backend.cloudseam.tech.",
-            "If NGINX reports permission denied while connecting, check the SELinux boolean and audit log before changing policy. Keep SELinux enforcing. If the request times out, check the firewall and listener.",
-            "After an approved change, run nginx -t before reload and repeat the positive and negative matrix. Do not use proxy_ssl_verify off or curl -k as a permanent fix."
+            "On PROXY01, run nginx -t and systemctl status nginx. Then run the verified direct backend curl test. Read the exact error before changing anything.",
+            "If the certificate is expired, check the clock first. If it really expired, renew the lab certificate and verify the replacement public file before updating the trust file. Keep the old configuration and certificate backed up.",
+            "If the error says the name does not match, compare proxy_ssl_name in NGINX, the certificate SAN and the IIS SNI binding. All must use iis-backend.cloudseam.tech.",
+            "If the error says permission denied, check the SELinux setting and audit log. Leave SELinux enforcing. If the request times out, check the firewall rule and whether IIS is listening.",
+            "After your fix, run nginx -t before reloading NGINX. Repeat the allowed and blocked tests. Do not turn off certificate verification as a shortcut."
           ],
           "command": "sudo nginx -t\nsystemctl status nginx --no-pager\ngetsebool httpd_can_network_connect\nopenssl x509 -in /etc/pki/tls/certs/iis-backend.pem -noout -subject -dates -ext subjectAltName\nsudo tail -n 20 /var/log/nginx/dmz-error.log",
           "breakdown": [
@@ -1632,11 +1675,11 @@
               "meaning": "A wrong name, expired certificate or wrong public trust file is a different problem from a blocked network path. Fix the reported cause."
             }
           ],
-          "expected": "You can identify whether the fault is configuration, name/trust, time, service policy or a blocked network path.",
+          "expected": "You can use the error message to choose the right check: configuration, certificate, clock, service permission or firewall.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-recover-screen-3",
-            "title": "Separate certificate errors from routing errors",
+            "title": "Tell certificate and network problems apart",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. You can identify whether the fault is configuration, name/trust, time, service policy or a blocked network path."
           },
           "sources": [
@@ -1655,14 +1698,15 @@
           ]
         },
         {
-          "title": "Rehearse a clean rollback",
-          "where": "Windows host \u00b7 Workstation consoles and private change notes",
+          "title": "Practice restoring a working backup",
+          "where": "Windows host · Workstation consoles and private change notes",
           "actions": [
-            "Before a patch or significant change, shut down and snapshot only the dedicated FW01, PROXY01 and IIS-DMZ01 lab VMs, with a timestamp and the change purpose. Record the private backup locations too.",
-            "Do not take or restore domain-controller snapshots as part of this DMZ exercise. A VM snapshot is not a substitute for a tested backup, and this class does not change AD.",
-            "On failure, stop new publication first by disabling the lab outside NAT rule. Use the VMware console to restore the last known-good firewall/configuration or the dedicated VM checkpoint.",
-            "Restore the intended single-NIC/four-NIC mappings, certificate trust files and the one allowed HTTPS rule. Then retest the baseline and the blocked paths before re-enabling the outside NAT rule.",
-            "Write down what failed, what you restored and which tests passed. That is the handover note another administrator should be able to follow."
+            "Before a patch or large change, shut down the dedicated FW01, PROXY01 and IIS-DMZ01 VMs. In VMware, take a snapshot of each. Give it a date and a clear reason, such as before-proxy-update.",
+            "Write the snapshot names and private backup locations in your notebook. Do not take or restore DC01/DC02 snapshots for this exercise. A snapshot is not a replacement for a tested backup.",
+            "If a change breaks the lab, disable the outside NAT rule first so new visitor requests stop.",
+            "Use the VMware console to restore the last working firewall backup, configuration file or dedicated VM snapshot, as appropriate.",
+            "Check the adapter mappings, certificate trust files and HTTPS rule after restoring. Repeat both the working-page test and the blocked-path tests.",
+            "Only re-enable the outside NAT rule after those checks pass. Write what failed, what you restored and which tests passed so another person could follow your recovery."
           ],
           "breakdown": [
             {
@@ -1670,11 +1714,11 @@
               "meaning": "A short-lived VM checkpoint helps a lab rollback. A separate, tested backup is still needed for recovery from lost or damaged VM files."
             }
           ],
-          "expected": "Your recovery notes identify the exact checkpoint, restore order and full validation matrix without touching AD.",
+          "expected": "Your notes identify the working backup, restore order and test results. DC01 and DC02 were not restored or changed.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-recover-screen-4",
-            "title": "Rehearse a clean rollback",
+            "title": "Practice restoring a working backup",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Your recovery notes identify the exact checkpoint, restore order and full validation matrix without touching AD."
           },
           "sources": [
@@ -1696,10 +1740,10 @@
     },
     {
       "id": "dmz-azure",
-      "title": "Plan the Azure Equivalent and Stop the Lab",
-      "description": "Translate the local design into an Azure ingress/private-backend plan and record cleanup costs.",
-      "what": "Translate the local design into an Azure ingress/private-backend plan and record cleanup costs.",
-      "why": "The security goal stays the same after migration, but Azure uses subnets, managed ingress, NSGs and identity controls rather than VMware VMnet names. Running a managed gateway continuously can cost far more than this local lab.",
+      "title": "Plan the Azure Version and Close the Lab",
+      "description": "Compare the same design with Azure, estimate the costs and shut down the local practice machines.",
+      "what": "Compare the same design with Azure, estimate the costs and shut down the local practice machines.",
+      "why": "The same idea works in Azure: a public web doorway in front of a private application. The services and bills are different, so this lesson is a plan. It does not create paid Azure resources.",
       "needs": [
         "Finish the on-premises traffic and recovery tests.",
         "This lesson is planning only. It does not ask you to deploy Azure resources or alter the live cloudseam.tech website."
@@ -1732,14 +1776,15 @@
       ],
       "steps": [
         {
-          "title": "Map the design to Azure without copying VMnet settings",
-          "where": "Your notebook \u00b7 Azure architecture planning",
+          "title": "Draw the same design in Azure",
+          "where": "Your notebook · Azure architecture planning",
           "actions": [
-            "Draw Azure Application Gateway WAF v2 in its own dedicated subnet with the public HTTPS endpoint. Place the IIS VM on a separate private backend subnet with no VM public IP.",
-            "Allow backend HTTPS only from the approved gateway subnet/addresses and approved administration path. Use NSGs and host firewall rules; do not add a general Internet-to-IIS allow.",
-            "Keep domain controllers and database tiers private, with only required application/management paths. Add private DNS and private endpoints where the chosen service requires them.",
-            "Use a new, non-overlapping Azure address range and plan VPN/ExpressRoute/DNS separately for hybrid access. A VMware host-only network does not automatically become an Azure subnet.",
-            "For the actual migration and Server 2019-to-2022 work, follow the existing Azure migration/maintenance classes. This comparison does not make the VMs migrated."
+            "Draw an Azure version of the same route: visitor → Application Gateway WAF v2 → private IIS VM. WAF means web application firewall; it can inspect web requests for common attacks.",
+            "Give Application Gateway its own dedicated subnet. Put IIS in a separate private subnet with no public IP on the VM.",
+            "Plan to allow backend HTTPS only from the approved gateway and approved administration path. Use Azure Network Security Groups, or NSGs, plus the Windows firewall. Do not allow all Internet traffic to IIS.",
+            "Keep AD and databases private. Add only the application and management connections they really require; plan private DNS and private endpoints where needed.",
+            "Choose an Azure address range that does not overlap your local lab. Plan VPN or ExpressRoute and DNS separately if connecting the two environments. VMware host-only networks do not automatically exist in Azure.",
+            "Use the existing Azure migration and maintenance classes for an actual move or Windows upgrade. This diagram does not migrate or deploy anything."
           ],
           "breakdown": [
             {
@@ -1751,11 +1796,11 @@
               "meaning": "The application has no VM public IP. Its inbound web traffic is restricted to the approved ingress service."
             }
           ],
-          "expected": "The Azure diagram separates managed ingress, private application and data/domain tiers, with no public IP on the backend VM.",
+          "expected": "Your Azure drawing puts the public gateway and private IIS in separate subnets. The IIS VM has no public IP.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-azure-screen-1",
-            "title": "Map the design to Azure without copying VMnet settings",
+            "title": "Draw the same design in Azure",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The Azure diagram separates managed ingress, private application and data/domain tiers, with no public IP on the backend VM."
           },
           "sources": [
@@ -1774,14 +1819,15 @@
           ]
         },
         {
-          "title": "Compare the costs before choosing a hosted lab",
-          "where": "Windows host browser \u00b7 Azure pricing calculator and your budget notes",
+          "title": "Estimate Azure costs before building",
+          "where": "Windows host browser · Azure pricing calculator and your budget notes",
           "actions": [
-            "Open the Azure pricing calculator. Choose the actual region and estimate Application Gateway/WAF, VM compute, disks, public IP, backup, logging and network egress. Record the estimate date and assumptions.",
-            "Compare that estimate with local practice using hardware you already own. OPNsense Community, NGINX and AlmaLinux have no software subscription fee for this exercise; Windows evaluation terms and hardware/electricity still matter.",
-            "Do not promise an always-on enterprise WAF stack for $25/month. A short-lived single-proxy VM experiment may cost less, but it is not equivalent to a managed WAF or a highly available production design.",
-            "For a later approved Azure session, define the allowed runtime and deletion plan first. Deallocating a VM does not remove disk, public-IP or gateway charges. Azure budgets are alerts, not a guaranteed hard spending cap.",
-            "Do not click Create during this planning lesson. Keep the live academy DNS and website hosting unchanged."
+            "Open the Azure pricing calculator. Select your intended region. Add Application Gateway/WAF, VM compute, disks, public IP, backup, logs and outgoing network traffic.",
+            "Write the estimated cost, region, date and running hours in My lab notebook. This is an estimate, not a spending limit.",
+            "Compare with using your existing local hardware. OPNsense Community, AlmaLinux and NGINX have no subscription fee for this exercise. Windows evaluation terms, electricity and hardware still matter.",
+            "Do not expect this always-on managed gateway design to fit a $25 monthly budget. A small temporary proxy VM is a different design with different protections and availability.",
+            "For any later Azure build, set an end time and a deletion checklist before starting. Stopping a VM does not remove disk, public IP or gateway charges. Budget alerts warn you; they do not automatically cap the bill.",
+            "Do not click Create during this lesson. Leave the academy website and public DNS unchanged."
           ],
           "breakdown": [
             {
@@ -1793,11 +1839,11 @@
               "meaning": "Tags identify the owner and expiry for reports or automation. A tag by itself does not stop a resource or reduce its rate."
             }
           ],
-          "expected": "Your comparison includes fixed and running costs, a runtime/deletion plan and no deployed Azure resources.",
+          "expected": "Your notes include the region, running hours, estimated charges and deletion plan. No Azure resources were created.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-azure-screen-2",
-            "title": "Compare the costs before choosing a hosted lab",
+            "title": "Estimate Azure costs before building",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. Your comparison includes fixed and running costs, a runtime/deletion plan and no deployed Azure resources."
           },
           "sources": [
@@ -1816,14 +1862,14 @@
           ]
         },
         {
-          "title": "Stop and hand over the local practice lab",
-          "where": "Windows host \u00b7 Workstation Pro and lab notebook",
+          "title": "Save your work and shut down the lab",
+          "where": "Windows host · Workstation Pro and lab notebook",
           "actions": [
-            "Save your diagram, MAC inventory, firewall rule matrix, configuration versions and successful test timestamps. Keep private firewall backups outside public repositories.",
-            "Disable the outside NAT rule if you will keep any VMs running. Shut down TEST01, PROXY01, IIS-DMZ01 and FW01 cleanly when finished.",
-            "Confirm no home-router forward, public DNS record, bridged adapter or tunnel was created. Disable temporary shared folders and disconnect installer ISOs.",
-            "Retain the VM files only if you need another practice session. Remove obsolete dedicated-lab snapshots after you have a tested backup; do not delete existing DC01/DC02/APP01 data or VMnet2 used by other classes.",
-            "For real Internet publication later, require a supported patched platform, CA-issued certificates/renewal, WAF as appropriate, monitoring, tested backups, access management, availability planning and an approved deployment. The local exercise is a teaching model, not a production certification."
+            "Click Save notes, then Download my notes. Keep your diagram, adapter MACs, rule checklist and test times. Keep private firewall backups outside public repositories.",
+            "If leaving any VMs running, disable the outside NAT rule. Otherwise shut down TEST01, PROXY01, IIS-DMZ01 and FW01 cleanly.",
+            "Check that temporary Shared Folders are off and installer ISOs are disconnected. Confirm you did not create a home-router forward, public DNS record, bridge or tunnel.",
+            "Keep the VM files if you want to practice again. Remove old dedicated-lab snapshots only after checking your backup. Do not delete DC01, DC02, APP01 or the VMnet2 network used by other classes.",
+            "Before a real public launch, plan supported updates, trusted certificates and renewal, monitoring, backups, access control, availability and a WAF where appropriate. This practice lab teaches the pattern; it does not certify a production deployment."
           ],
           "breakdown": [
             {
@@ -1831,11 +1877,11 @@
               "meaning": "A second administrator should be able to rebuild and verify the design from your diagram, configuration inventory and traffic-test matrix."
             }
           ],
-          "expected": "The four dedicated VMs are stopped, no real Internet exposure exists, and another learner can follow the saved runbook.",
+          "expected": "The four practice VMs are shut down. Your notes and private backups are saved, ready for another practice session.",
           "screenshot": {
             "status": "illustration",
             "assetId": "dmz-azure-screen-3",
-            "title": "Stop and hand over the local practice lab",
+            "title": "Save your work and shut down the lab",
             "instructions": "Use the numbered controls as a guide, then compare the result on your own lab machine. The four dedicated VMs are stopped, no real Internet exposure exists, and another learner can follow the saved runbook."
           },
           "sources": [
