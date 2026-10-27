@@ -1,4 +1,5 @@
 import {
+  tlsCourse,
   splunkCourse,
   dmzCourse,
   mecmCourse,
@@ -23,6 +24,7 @@ export type ConsoleLesson = {
   description: string;
   href: string;
   source:
+    | 'tls'
     | 'linux'
     | 'migration'
     | 'alma'
@@ -590,29 +592,44 @@ export const learningPathways: LearningPathway[] = [
   {
     id: 'linux',
     title: 'Linux Administration',
-    prerequisite: 'Separate RHEL / Wazuh pathway · Azure subscription required',
-    sections: modules
-      .filter((module) => module.lessonIds.length)
-      .map((module) => ({
-        title: module.title,
-        lessons: module.lessonIds.map((id) => {
-          const lesson = lessons.find((item) => item.id === id)!;
-          return {
-            id,
-            title: linuxTitles[id] ?? lesson.title,
-            description: welcomeFor(id)?.welcome ?? lesson.objective,
-            href: `/#lesson=${id}`,
-            source: 'linux' as const,
-            metadata: lesson.shell,
-            steps: [
-              'Read the task and check the target host',
-              'Follow the guided commands in your own lab',
-              'Verify the expected output',
-              'Record evidence and mark verified',
-            ],
-          };
-        }),
+    prerequisite:
+      'Choose Azure RHEL/Wazuh labs or local VMware SSL/TLS; each class lists its own prerequisites.',
+    sections: [
+      ...modules
+        .filter((module) => module.lessonIds.length)
+        .map((module) => ({
+          title: module.title,
+          lessons: module.lessonIds.map((id) => {
+            const lesson = lessons.find((item) => item.id === id)!;
+            return {
+              id,
+              title: linuxTitles[id] ?? lesson.title,
+              description: welcomeFor(id)?.welcome ?? lesson.objective,
+              href: `/#lesson=${id}`,
+              source: 'linux' as const,
+              metadata: lesson.shell,
+              steps: [
+                'Read the task and check the target host',
+                'Follow the guided commands in your own lab',
+                'Verify the expected output',
+                'Record evidence and mark verified',
+              ],
+            };
+          }),
+        })),
+      ...[
+        ...new Set(
+          tlsCourse.lessons.map((l) => l.module ?? 'Certificate labs'),
+        ),
+      ].map((module) => ({
+        title: `SSL/TLS · ${module}`,
+        lessons: standaloneLessons(tlsCourse, '/tls', 'tls').filter((l) =>
+          tlsCourse.lessons.find(
+            (item) => item.id === l.id && item.module === module,
+          ),
+        ),
       })),
+    ],
   },
   {
     id: 'alma',
@@ -690,6 +707,7 @@ export const pathwayLessons = (pathway: LearningPathway) =>
 // Core lesson pagination follows the prerequisite route. Optional extensions
 // stay within their own sequence instead of interrupting the core route.
 export function lessonSequenceFor(id: string): ConsoleLesson[] {
+  if (id.startsWith('tls-')) return standaloneLessons(tlsCourse, '/tls', 'tls');
   if (id.startsWith('dmz-'))
     return pathwayLessons(learningPathways.find((path) => path.id === 'dmz')!);
   if (id.startsWith('splunk-'))

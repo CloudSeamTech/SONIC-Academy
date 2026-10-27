@@ -4,6 +4,7 @@ import scanning from '../content/nessus/scanning.json' with { type: 'json' };
 
 export type NessusStep = {
   title: string;
+  guide?: { what: string; why: string; verify: string; failure: string };
   where: string;
   actions: string[];
   command?: string;
@@ -20,6 +21,7 @@ export type NessusStep = {
 };
 export type NessusLesson = {
   id: string;
+  module?: string;
   title: string;
   description: string;
   needs?: string[];

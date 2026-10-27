@@ -1,0 +1,1644 @@
+[
+  {
+    "id": "tls-start-screen-1",
+    "lessonId": "tls-start",
+    "step": 1,
+    "title": "Write down the two jobs",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "On your Windows PC, click Start, type Notepad, and open it. Save a new file as TLS lab notes.txt in Documents.",
+      "Write: application server (TLS-APP01) = NGINX plus our small hosted practice page, 10.90.0.10/24.",
+      "Write: practice CA server (TLS-CA01) = a pretend signing office, 10.90.0.20/24. It is not a DoD CA.",
+      "Write: app.example.mil = the browser address for the practice application. It is a fictional example used only by private hosts-file entries in this lab, not a domain you own.",
+      "Write: learner = the Linux user we will create on both new VMs. Keep passwords in your password manager, not this notes file.",
+      "This course builds the TLS layer, not an enterprise firewall. The architecture diagram shows a real edge-firewall pattern; our host-only network and RHEL firewalld model a private practice boundary. Never publish these VMs."
+    ],
+    "expected": "Your notes list two different jobs, two private addresses and one application address.",
+    "kind": "diagram",
+    "output": "Your notes list two different jobs, two private addresses and one application address."
+  },
+  {
+    "id": "tls-start-screen-2",
+    "lessonId": "tls-start",
+    "step": 2,
+    "title": "Get the installers without buying cloud resources",
+    "where": "Your Windows 10 host · Windows PowerShell",
+    "command": "Get-FileHash -Algorithm SHA256 \"$env:USERPROFILE\\Downloads\\rhel-9.x-x86_64-dvd.iso\"",
+    "actions": [
+      "Open a browser on Windows. Visit the official Red Hat Developer RHEL page linked below and sign in or create your own account.",
+      "Review the current Developer subscription terms, then choose the RHEL 9 x86_64 DVD ISO. Do not choose RHEL 10 or an ARM image.",
+      "Save the ISO in Downloads. Use Red Hat’s published checksum and the command below; replace the example filename with the filename you downloaded.",
+      "If VMware Workstation Pro is not installed, follow the academy’s existing VMware setup lesson linked in the course resources, using the official Broadcom download. Install it on Windows and reopen it.",
+      "If you want a graphical browser check later, install a current Firefox on Windows from Mozilla. We will use a separate practice profile."
+    ],
+    "expected": "A SHA256 row appears. Its hash must exactly match Red Hat’s checksum for your exact ISO; the version in your filename may differ.",
+    "kind": "powershell",
+    "output": "A SHA256 row appears. Its hash must exactly match Red Hat’s checksum for your exact ISO; the version in your filename may differ."
+  },
+  {
+    "id": "tls-start-screen-3",
+    "lessonId": "tls-start",
+    "step": 3,
+    "title": "Create the application VM",
+    "where": "Your Windows 10 host · VMware Workstation Pro 17",
+    "command": null,
+    "actions": [
+      "On Windows, open VMware Workstation Pro. In Library, leave your existing VMs alone.",
+      "Click File, then New Virtual Machine. Choose Typical and click Next. Choose I will install the operating system later.",
+      "Choose Linux, then Red Hat Enterprise Linux 9 64-bit. Name this new VM TLS-APP01.",
+      "Choose a 30 GB virtual disk and leave Allocate all disk space now unchecked if shown. Split versus single file does not decide whether it is growable.",
+      "Click Customize Hardware. Set Memory to 2048 MB, Processors to one virtual processor with one core, Network Adapter to NAT temporarily, and CD/DVD to the downloaded RHEL 9 ISO.",
+      "Click Close, then Finish. The 30 GB is a growth limit, not a promise that the host needs no free space; leave space for updates and snapshots."
+    ],
+    "expected": "Library contains a new TLS-APP01 VM with 2 GB RAM, one vCPU, a growable disk and the RHEL ISO.",
+    "kind": "vmware",
+    "output": "Library contains a new TLS-APP01 VM with 2 GB RAM, one vCPU, a growable disk and the RHEL ISO."
+  },
+  {
+    "id": "tls-start-screen-4",
+    "lessonId": "tls-start",
+    "step": 4,
+    "title": "Install RHEL 9 and create learner",
+    "where": "TLS-APP01 · RHEL 9 installer console",
+    "command": null,
+    "actions": [
+      "In VMware Library, double-click TLS-APP01 and click Power on this virtual machine. Click inside its screen; press Ctrl+Alt to release the mouse when needed.",
+      "Select Install Red Hat Enterprise Linux 9 and press Enter. Choose your language, then Continue.",
+      "On Installation Summary, open Installation Destination. Select only the new 30 GB virtual disk, choose Automatic, and click Done. No physical Windows disk should appear.",
+      "Open Software Selection, choose Minimal Install, and click Done. Open Network & Host Name, turn the adapter On, enter tls-app01.lab.example.test, click Apply, then Done.",
+      "Open User Creation. Enter learner as the user name, choose Make this user administrator, set your own strong password, and click Done. Configure the root account as required by the installer; we will sign in as learner and use sudo.",
+      "Click Begin Installation, wait, then Reboot System. If the installer reopens, disconnect the ISO in VMware CD/DVD settings, not the VM disk.",
+      "At the text login prompt, type learner and press Enter. Type your password and press Enter. Password characters stay invisible."
+    ],
+    "expected": "A text prompt such as [learner@tls-app01 ~]$ appears. A minimal server does not have a GNOME desktop.",
+    "kind": "rhel-installer",
+    "output": "A text prompt such as [learner@tls-app01 ~]$ appears. A minimal server does not have a GNOME desktop."
+  },
+  {
+    "id": "tls-start-screen-5",
+    "lessonId": "tls-start",
+    "step": 5,
+    "title": "Install the application tools before isolation",
+    "where": "TLS-APP01 · RHEL 9 local console · Bash",
+    "command": "sudo subscription-manager identity\n# Run this only if the VM is not already registered:\nsudo subscription-manager register\nsudo dnf install -y nginx openssl openssh-server firewalld policycoreutils policycoreutils-python-utils\nsudo systemctl enable --now sshd firewalld\nopenssl version\nnginx -v",
+    "actions": [
+      "Click the TLS-APP01 console and sign in as learner. Type the first command below and press Enter.",
+      "If your VM is not registered, run the registration command. Enter your own Red Hat username and password only at the terminal prompts; skip registration if status already shows a valid identity.",
+      "Paste the package command. Type your learner password for sudo; type y only when you have reviewed the package transaction.",
+      "Wait for Complete before starting the services. NGINX is not started yet; first we will set up its page and configuration."
+    ],
+    "expected": "The tools install; OpenSSL reports 3.x and nginx reports a package version. Registration may use Simple Content Access; do not assume an auto-attach command is required.",
+    "kind": "terminal",
+    "output": "The tools install; OpenSSL reports 3.x and nginx reports a package version. Registration may use Simple Content Access; do not assume an auto-attach command is required."
+  },
+  {
+    "id": "tls-start-screen-6",
+    "lessonId": "tls-start",
+    "step": 6,
+    "title": "Build the separate practice CA VM",
+    "where": "Your Windows 10 host · VMware Workstation Pro 17",
+    "command": null,
+    "actions": [
+      "Create a second new VM named TLS-CA01 using the same VMware and RHEL installer steps. Use one vCPU, 2 GB RAM and a new 30 GB growable disk; use NAT only during installation.",
+      "Choose Minimal Install and create the same learner administrator account. Use tls-ca01.lab.example.test as this VM’s hostname.",
+      "Finish the RHEL installer using the same Installation Summary choices from the application VM: new virtual disk only, Minimal Install, adapter On, learner with administrator rights, then Begin Installation and Reboot System.",
+      "At the text login prompt, sign in as learner. In the next step we will install the CA tools at this separate VM’s console."
+    ],
+    "expected": "VMware Library contains a new TLS-CA01 with its own RHEL 9 installation, learner account, one vCPU, 2 GB RAM and growable 30 GB disk.",
+    "kind": "vmware",
+    "output": "VMware Library contains a new TLS-CA01 with its own RHEL 9 installation, learner account, one vCPU, 2 GB RAM and growable 30 GB disk."
+  },
+  {
+    "id": "tls-start-screen-7",
+    "lessonId": "tls-start",
+    "step": 7,
+    "title": "Install the CA tools at its own console",
+    "where": "TLS-CA01 · RHEL 9 local console · Bash",
+    "command": "hostname\nsudo subscription-manager register\nsudo dnf install -y openssl openssh-server firewalld policycoreutils\nsudo systemctl enable --now sshd firewalld\nopenssl version",
+    "actions": [
+      "Power on TLS-CA01 in VMware Library and sign in at its text console as learner. This is the second VM, not the application VM.",
+      "Run hostname first; it must identify tls-ca01. Paste the package block into this Linux console, not Windows PowerShell.",
+      "Register this separate VM if not already registered. Enter Red Hat account details only at the terminal prompts. Wait for package installation to finish, then check the OpenSSL version."
+    ],
+    "expected": "The CA console shows tls-ca01 and OpenSSL 3.x.",
+    "kind": "terminal",
+    "output": "The CA console shows tls-ca01 and OpenSSL 3.x."
+  },
+  {
+    "id": "tls-start-screen-8",
+    "lessonId": "tls-start",
+    "step": 8,
+    "title": "Create the private practice network",
+    "where": "Your Windows 10 host · VMware Workstation Pro 17",
+    "command": "sudo shutdown -h now",
+    "actions": [
+      "At each Linux console, run the shutdown command below. Wait until both VMs show Powered off.",
+      "In VMware, choose Edit, then Virtual Network Editor. Click Change Settings and accept the Windows administrator prompt.",
+      "Click Add Network, choose VMnet6 if unused, then OK. Select Host-only, set Subnet IP to 10.90.0.0 and Subnet mask to 255.255.255.0.",
+      "Enable Connect a host virtual adapter to this network. Clear Use local DHCP service to distribute IP addresses to VMs. Click Apply, then OK.",
+      "For each VM, open Edit virtual machine settings, select Network Adapter, choose Custom: VMnet6, and save. Each VM must have exactly one adapter; no NAT or Bridged adapter remains.",
+      "On Windows, press Win+R, type ncpa.cpl and press Enter. Right-click VMware Network Adapter VMnet6, choose Properties, select Internet Protocol Version 4, and click Properties. Set address 10.90.0.254, mask 255.255.255.0, and leave gateway and DNS blank. Do not edit your physical Wi-Fi or Ethernet adapter."
+    ],
+    "expected": "Both powered-off VMs use only VMnet6; Windows has a VMnet6 address of 10.90.0.254.",
+    "kind": "vmware",
+    "output": "Both powered-off VMs use only VMnet6; Windows has a VMnet6 address of 10.90.0.254."
+  },
+  {
+    "id": "tls-start-screen-9",
+    "lessonId": "tls-start",
+    "step": 9,
+    "title": "Give the application server its private address",
+    "where": "TLS-APP01 · RHEL 9 local console · Bash",
+    "command": "nmcli -t -f NAME connection show --active\nLAB_CONNECTION='Wired connection 1'\nsudo nmcli connection modify \"$LAB_CONNECTION\" ipv4.method manual ipv4.addresses 10.90.0.10/24 ipv4.gateway '' ipv4.dns '' ipv4.never-default yes\nsudo nmcli connection up \"$LAB_CONNECTION\"\nsudo hostnamectl set-hostname tls-app01.lab.example.test\nip -br address",
+    "actions": [
+      "Power on TLS-APP01, click its console, and sign in as learner.",
+      "Run the first command. It prints the active connection profile name; copy that exact name, which may be ens160 or Wired connection 1.",
+      "In the second line, replace Wired connection 1 only if your printed profile name differs. Keep the single quotes around the name.",
+      "Paste the remaining lines. The empty gateway and DNS values are intentional on this isolated network."
+    ],
+    "expected": "The active Ethernet interface shows 10.90.0.10/24.",
+    "kind": "terminal",
+    "output": "The active Ethernet interface shows 10.90.0.10/24."
+  },
+  {
+    "id": "tls-start-screen-10",
+    "lessonId": "tls-start",
+    "step": 10,
+    "title": "Give the CA its different address",
+    "where": "TLS-CA01 · RHEL 9 local console · Bash",
+    "command": "nmcli -t -f NAME connection show --active\nLAB_CONNECTION='Wired connection 1'\nsudo nmcli connection modify \"$LAB_CONNECTION\" ipv4.method manual ipv4.addresses 10.90.0.20/24 ipv4.gateway '' ipv4.dns '' ipv4.never-default yes\nsudo nmcli connection up \"$LAB_CONNECTION\"\nsudo hostnamectl set-hostname tls-ca01.lab.example.test\nip -br address",
+    "actions": [
+      "Open the TLS-CA01 console, not TLS-APP01, and sign in as learner.",
+      "Run the first command and put its exact connection profile into LAB_CONNECTION, just as you did on the application server.",
+      "Paste the remaining lines, then check the address."
+    ],
+    "expected": "The CA Ethernet interface shows 10.90.0.20/24.",
+    "kind": "terminal",
+    "output": "The CA Ethernet interface shows 10.90.0.20/24."
+  },
+  {
+    "id": "tls-start-screen-11",
+    "lessonId": "tls-start",
+    "step": 11,
+    "title": "Open PowerShell and verify SSH host keys",
+    "where": "Your Windows 10 host · Windows PowerShell",
+    "command": "Get-Command ssh\nssh learner@10.90.0.10",
+    "actions": [
+      "On Windows, click Start, type PowerShell, and open Windows PowerShell as your normal user.",
+      "Run Get-Command ssh. If SSH is missing, open PowerShell as administrator and run Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0, then reopen normal PowerShell.",
+      "On each VM’s local console, run sudo ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub. Record the public host fingerprint beside that VM’s address.",
+      "Back in normal PowerShell, run ssh learner@10.90.0.10. Compare the displayed fingerprint with the application console before typing yes. Enter your learner password when asked.",
+      "Run hostname in the SSH session. Type exit to return to Windows. Repeat ssh learner@10.90.0.20 and compare the CA fingerprint, then run hostname and exit."
+    ],
+    "expected": "SSH opens the application’s Linux prompt after you verify its host fingerprint. exit returns to PS C:\\...>.",
+    "kind": "powershell",
+    "output": "SSH opens the application’s Linux prompt after you verify its host fingerprint. exit returns to PS C:\\...>."
+  },
+  {
+    "id": "tls-start-screen-12",
+    "lessonId": "tls-start",
+    "step": 12,
+    "title": "Create your working folder and practice page",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "mkdir -p ~/tls-work\ncd ~/tls-work\npwd\nsudo install -d -m 0755 /usr/share/nginx/html/tls-lab\nprintf '%s\\n' '<h1>TLS practice application</h1><p>Hosted on TLS-APP01.</p>' | sudo tee /usr/share/nginx/html/tls-lab/index.html > /dev/null\nsudo restorecon -Rv /usr/share/nginx/html/tls-lab\nsudo systemctl enable --now nginx\nsudo systemctl is-active nginx",
+    "actions": [
+      "In normal Windows PowerShell, run ssh learner@10.90.0.10 and check hostname.",
+      "Paste the block below into this Linux session. The page is a stand-in application, not a production ticketing system.",
+      "Keep ~/tls-work for public requests and certificate files only. The tilde means your learner home folder."
+    ],
+    "expected": "pwd shows /home/learner/tls-work; the final line says active.",
+    "kind": "terminal",
+    "output": "pwd shows /home/learner/tls-work; the final line says active."
+  },
+  {
+    "id": "tls-basics-screen-1",
+    "lessonId": "tls-basics",
+    "step": 1,
+    "title": "Follow a request through the DMZ",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Open the interactive architecture below. Select External users, then Firewall, then the RHEL application server, then NGINX, then Hosted application.",
+      "In this course, NGINX on the RHEL application server ends the TLS connection and serves a small page from /usr/share/nginx/html/tls-lab.",
+      "The application server is in the conceptual DMZ. A DMZ is a separate network area for reachable services; it is not an application or a certificate.",
+      "Our private VMnet6 is a teaching substitute, not a fully segmented enterprise DMZ. Do not expose it through your home router."
+    ],
+    "expected": "You can describe the path: external user → firewall → RHEL DMZ server → NGINX → hosted page.",
+    "kind": "diagram",
+    "output": "You can describe the path: external user → firewall → RHEL DMZ server → NGINX → hosted page."
+  },
+  {
+    "id": "tls-basics-screen-2",
+    "lessonId": "tls-basics",
+    "step": 2,
+    "title": "Understand TLS and HTTPS",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Think of HTTPS as a protected delivery envelope for HTTP messages.",
+      "TLS encrypts traffic in transit, checks that messages were not changed, and helps the client authenticate the endpoint when it validates the certificate.",
+      "SSL is the older protocol family; people still say SSL certificate, but this lab uses TLS 1.2 and TLS 1.3, not SSL, TLS 1.0 or TLS 1.1.",
+      "HTTPS does not prove an application has no bugs or that every person using it is authorized."
+    ],
+    "expected": "Your notes say TLS protects the connection; HTTPS is HTTP carried over that connection.",
+    "kind": "diagram",
+    "output": "Your notes say TLS protects the connection; HTTPS is HTTP carried over that connection."
+  },
+  {
+    "id": "tls-basics-screen-3",
+    "lessonId": "tls-basics",
+    "step": 3,
+    "title": "Meet the public certificate and secret key",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Think of a certificate as a school ID card showing a name, an issuer and an expiry date. The real certificate also contains a public key.",
+      "Think of the private key as the secret way the server proves it owns that public key. It is not copied into the certificate.",
+      "A TLS handshake uses cryptography to prove possession and establish shared traffic keys. Do not imagine the public certificate itself is a secret password.",
+      "If a private key is exposed, treat it as an incident: replace it and follow revocation policy. Merely changing its filename is not a fix."
+    ],
+    "expected": "Your notes have PUBLIC: certificate and CSR; SECRET: website private key and CA private keys.",
+    "kind": "diagram",
+    "output": "Your notes have PUBLIC: certificate and CSR; SECRET: website private key and CA private keys."
+  },
+  {
+    "id": "tls-basics-screen-4",
+    "lessonId": "tls-basics",
+    "step": 4,
+    "title": "Meet the CSR and signing office",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "A Certificate Signing Request, or CSR, is an application form containing a public key and requested names.",
+      "It is signed using the matching private key so the CA can check the request was not changed. That signature does not prove your organization owns the requested domain.",
+      "A certificate authority, or CA, checks identity and authority using its own policy, then may issue a signed certificate.",
+      "Our simulated CA follows a small practice approval checklist. It is not connected to DoD or a public CA."
+    ],
+    "expected": "You can put the sequence in order: key → CSR → approval → signed certificate.",
+    "kind": "diagram",
+    "output": "You can put the sequence in order: key → CSR → approval → signed certificate."
+  },
+  {
+    "id": "tls-basics-screen-5",
+    "lessonId": "tls-basics",
+    "step": 5,
+    "title": "Build the trust chain",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "The website leaf certificate is like your ID. An intermediate CA is the office allowed to issue it. A root CA is the top trust anchor.",
+      "The root signs the intermediate; the intermediate signs the website certificate. The root private key is especially sensitive and normally kept offline in a real PKI.",
+      "NGINX sends the website certificate first, then the intermediate certificates in order. It normally does not send the root.",
+      "The client separately decides which roots to trust. Receiving a root from a random website does not make it trusted."
+    ],
+    "expected": "Your drawn chain is leaf → intermediate → trusted root. Your server bundle is leaf + intermediate, not key + root.",
+    "kind": "diagram",
+    "output": "Your drawn chain is leaf → intermediate → trusted root. Your server bundle is leaf + intermediate, not key + root."
+  },
+  {
+    "id": "tls-basics-screen-6",
+    "lessonId": "tls-basics",
+    "step": 6,
+    "title": "Check names, dates and matching keys",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "The Subject Alternative Name, or SAN, must include app.example.mil. Modern clients check SANs; the Common Name alone is not enough.",
+      "The current time must be within notBefore and notAfter. Expired certificates cause clients to reject the connection, even if NGINX still runs.",
+      "The certificate’s public key must match the private key used by NGINX. We compare public-key fingerprints without displaying secret key data.",
+      "We also check issuer chain, server-auth purpose and local policy. A good date alone is not a complete check."
+    ],
+    "expected": "Your checklist includes name, time, trusted chain, permitted purpose and matching private key.",
+    "kind": "diagram",
+    "output": "Your checklist includes name, time, trusted chain, permitted purpose and matching private key."
+  },
+  {
+    "id": "tls-find-screen-1",
+    "lessonId": "tls-find",
+    "step": 1,
+    "title": "Open the application terminal",
+    "where": "Your Windows 10 host · Windows PowerShell",
+    "command": "ssh learner@10.90.0.10",
+    "actions": [
+      "On Windows, click Start, type PowerShell, and open Windows PowerShell.",
+      "Paste the SSH command below. Use the host fingerprint checked during setup. Enter your learner password privately.",
+      "When the Linux prompt appears, run hostname. It must show tls-app01.lab.example.test. Keep this terminal window for application steps."
+    ],
+    "expected": "You see the application VM’s Linux prompt, not PS C:\\...>.",
+    "kind": "powershell",
+    "output": "You see the application VM’s Linux prompt, not PS C:\\...>."
+  },
+  {
+    "id": "tls-find-screen-2",
+    "lessonId": "tls-find",
+    "step": 2,
+    "title": "Confirm the operating system",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "cat /etc/redhat-release",
+    "actions": [
+      "At the application’s Linux prompt, paste the command below and press Enter.",
+      "Read the release number before copying any NGINX configuration. Keep letter case exactly as the command shows."
+    ],
+    "expected": "A line similar to Red Hat Enterprise Linux release 9.x appears; your minor version may differ.",
+    "kind": "terminal",
+    "output": "A line similar to Red Hat Enterprise Linux release 9.x appears; your minor version may differ."
+  },
+  {
+    "id": "tls-find-screen-3",
+    "lessonId": "tls-find",
+    "step": 3,
+    "title": "Check NGINX without changing it",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo systemctl status nginx --no-pager --full",
+    "actions": [
+      "Paste the command below. Find the Active line.",
+      "If your screen says active (running), the process is running; this does not yet prove HTTPS works.",
+      "If you run systemctl without --no-pager and see a full-screen status view, press q to return to the prompt."
+    ],
+    "expected": "Active: active (running) appears after setup. A fresh unprepared server may show inactive or Unit nginx.service could not be found.",
+    "kind": "terminal",
+    "output": "Active: active (running) appears after setup. A fresh unprepared server may show inactive or Unit nginx.service could not be found."
+  },
+  {
+    "id": "tls-find-screen-4",
+    "lessonId": "tls-find",
+    "step": 4,
+    "title": "Find the configuration NGINX actually loads",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo nginx -T",
+    "actions": [
+      "Paste the command below. It tests the configuration, then prints the main file and included files.",
+      "Find /etc/nginx/nginx.conf and the include for /etc/nginx/conf.d/*.conf. Save a private note of these paths; do not upload the full configuration.",
+      "On an existing authorized server, find a server block containing listen 443 ssl and server_name app.example.mil. On our new VM there is no HTTPS block yet; that is expected."
+    ],
+    "expected": "The printed configuration includes the main file and loaded .conf files; no TLS file appears yet on the fresh lab.",
+    "kind": "terminal",
+    "output": "The printed configuration includes the main file and loaded .conf files; no TLS file appears yet on the fresh lab."
+  },
+  {
+    "id": "tls-find-screen-5",
+    "lessonId": "tls-find",
+    "step": 5,
+    "title": "Read the two certificate directives",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo grep -R -E \\\n'ssl_certificate|ssl_certificate_key' /etc/nginx/",
+    "actions": [
+      "Paste the grep command below exactly; the backslash continues the same command on the next line.",
+      "For an existing HTTPS site, record ssl_certificate and ssl_certificate_key from the correct server block. Ignore commented lines until you confirm them in nginx -T.",
+      "For our fresh lab, no matches is expected. Record planned paths /etc/pki/tls/certs/app-v1-fullchain.pem and /etc/pki/tls/private/app-v1.key. They will be created later.",
+      "Do not print the private key. Seeing its path is enough to locate it."
+    ],
+    "expected": "Existing HTTPS sites print file paths; the fresh lab can return no lines and grep exit status 1.",
+    "kind": "terminal",
+    "output": "Existing HTTPS sites print file paths; the fresh lab can return no lines and grep exit status 1."
+  },
+  {
+    "id": "tls-find-screen-6",
+    "lessonId": "tls-find",
+    "step": 6,
+    "title": "Inspect a found certificate, or record the fresh-lab stop",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl x509 -in /path/to/app.crt \\\n-noout -dates -subject -issuer\n# After Module 6, use the real lab path:\nopenssl x509 -in /etc/pki/tls/certs/app-v1.crt -noout -dates -subject -issuer -ext subjectAltName",
+    "actions": [
+      "If you are using our fresh lab, the certificate does not exist yet. Read this example now and run it after Module 6 installs app-v1.crt.",
+      "For an existing authorized server, replace /path/to/app.crt with the ssl_certificate path you just recorded, keeping the rest of the command unchanged.",
+      "Read notBefore, notAfter, subject and issuer. Then use -ext subjectAltName to inspect names. Only read public certificates; never substitute a .key path."
+    ],
+    "expected": "When the file exists, notBefore and notAfter are printed along with subject, issuer and DNS:app.example.mil. Before issuance, file-not-found is an expected stop.",
+    "kind": "terminal",
+    "output": "When the file exists, notBefore and notAfter are printed along with subject, issuer and DNS:app.example.mil. Before issuance, file-not-found is an expected stop."
+  },
+  {
+    "id": "tls-key-screen-1",
+    "lessonId": "tls-key",
+    "step": 1,
+    "title": "Choose the key’s safe home",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "hostname\nsudo install -d -m 0700 /etc/pki/tls/private\nsudo install -d -m 0755 /etc/pki/tls/certs\nmkdir -p ~/tls-work\nls -ld /etc/pki/tls/private",
+    "actions": [
+      "Check hostname so this is TLS-APP01, then paste the block below.",
+      "The standard RHEL paths make file labeling and review easier. This is a new practice server; do not change another application’s permissions.",
+      "Remember: website private keys stay here; practice CA keys stay on TLS-CA01. Neither belongs in the web document root or GitHub."
+    ],
+    "expected": "The private directory is owned by root and shows drwx------.",
+    "kind": "terminal",
+    "output": "The private directory is owned by root and shows drwx------."
+  },
+  {
+    "id": "tls-key-screen-2",
+    "lessonId": "tls-key",
+    "step": 2,
+    "title": "Generate app-v1.key once",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo sh -c 'umask 077; test ! -e /etc/pki/tls/private/app-v1.key && openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out /etc/pki/tls/private/app-v1.key'\nsudo chown root:root /etc/pki/tls/private/app-v1.key\nsudo chmod 600 /etc/pki/tls/private/app-v1.key",
+    "actions": [
+      "Paste the complete block below. It stops if app-v1.key already exists, so you cannot silently replace a key you need.",
+      "The service key is not passphrase-encrypted in this small unattended-service lab. A real organization may require an approved key store, HSM or other control; follow its policy.",
+      "Do not photograph, upload, email or commit the key. The progress symbols printed by OpenSSL are not the key itself."
+    ],
+    "expected": "OpenSSL finishes and returns to the prompt. An existing key is not overwritten.",
+    "kind": "terminal",
+    "output": "OpenSSL finishes and returns to the prompt. An existing key is not overwritten."
+  },
+  {
+    "id": "tls-key-screen-3",
+    "lessonId": "tls-key",
+    "step": 3,
+    "title": "Verify the key without exposing it",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo openssl pkey -in /etc/pki/tls/private/app-v1.key -check -noout\nsudo stat -c '%U %G %a %n' /etc/pki/tls/private/app-v1.key\nsudo restorecon -v /etc/pki/tls/private/app-v1.key\nsudo matchpathcon -V /etc/pki/tls/private/app-v1.key",
+    "actions": [
+      "Paste the block below. -check validates structure; -noout prevents a private-key dump.",
+      "Look for Key is valid, root root and mode 600. Matchpathcon compares the file’s current label with the installed SELinux policy.",
+      "Keep only the filename, owner, mode and check result in your notes."
+    ],
+    "expected": "Key is valid, root root 600, and a verified policy-label check appear. Label names depend on the installed RHEL policy.",
+    "kind": "terminal",
+    "output": "Key is valid, root root 600, and a verified policy-label check appear. Label names depend on the installed RHEL policy."
+  },
+  {
+    "id": "tls-csr-existing-screen-1",
+    "lessonId": "tls-csr-existing",
+    "step": 1,
+    "title": "Choose the exact application name",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Write the three different labels: TLS-APP01 is the VMware name; tls-app01.lab.example.test is the computer hostname; app.example.mil is the website address.",
+      "Choose app.example.mil for the certificate SAN because users will open https://app.example.mil. Do not request a certificate for a domain you do not control outside this isolated exercise.",
+      "Our SAN contains just that one DNS name. Add no wildcard, IP or extra organization name without an approved need."
+    ],
+    "expected": "Your notes identify app.example.mil as the certificate’s required DNS SAN.",
+    "kind": "diagram",
+    "output": "Your notes identify app.example.mil as the certificate’s required DNS SAN."
+  },
+  {
+    "id": "tls-csr-existing-screen-2",
+    "lessonId": "tls-csr-existing",
+    "step": 2,
+    "title": "Save the CSR settings file",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "mkdir -p ~/tls-work\ncat > ~/tls-work/req.cnf <<'EOF'\n[req]\nprompt = no\ndistinguished_name = dn\nreq_extensions = req_ext\n[dn]\nCN = app.example.mil\n[req_ext]\nsubjectAltName = @alt_names\n[alt_names]\nDNS.1 = app.example.mil\nEOF\ncat ~/tls-work/req.cnf",
+    "actions": [
+      "In the application SSH terminal, paste this entire block, including the final EOF line. Do not add a dollar-sign prompt.",
+      "The shell saves the lines between the markers into /home/learner/tls-work/req.cnf. This is a text file, not a list of separate Linux commands.",
+      "Run cat to check this public settings file. It must show DNS.1 = app.example.mil."
+    ],
+    "expected": "The file contains [req], [dn], [req_ext] and [alt_names] with DNS.1 = app.example.mil.",
+    "kind": "editor",
+    "output": "The file contains [req], [dn], [req_ext] and [alt_names] with DNS.1 = app.example.mil."
+  },
+  {
+    "id": "tls-csr-existing-screen-3",
+    "lessonId": "tls-csr-existing",
+    "step": 3,
+    "title": "Create app-v1.csr using -key",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo openssl req -new -sha256 -key /etc/pki/tls/private/app-v1.key -out /home/learner/tls-work/app-v1.csr -config /home/learner/tls-work/req.cnf\nsudo chmod 644 /home/learner/tls-work/app-v1.csr\nls -l ~/tls-work/app-v1.csr",
+    "actions": [
+      "Paste the command below into TLS-APP01. It reads the root-owned key and writes a public CSR in your working folder.",
+      "Keep the resulting .csr file; do not rename it to .crt. They are different objects.",
+      "The final chmod makes this public request readable for transfer; it does not relax the private key."
+    ],
+    "expected": "A nonempty app-v1.csr exists in /home/learner/tls-work; the private key remains app-v1.key.",
+    "kind": "terminal",
+    "output": "A nonempty app-v1.csr exists in /home/learner/tls-work; the private key remains app-v1.key."
+  },
+  {
+    "id": "tls-csr-existing-screen-4",
+    "lessonId": "tls-csr-existing",
+    "step": 4,
+    "title": "Verify the CSR before submission",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl req -in ~/tls-work/app-v1.csr -noout -verify -subject -text\nset -o pipefail\nopenssl req -in ~/tls-work/app-v1.csr -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256\nsudo openssl pkey -in /etc/pki/tls/private/app-v1.key -pubout -outform DER | openssl dgst -sha256",
+    "actions": [
+      "Paste the block below. Read Certificate request self-signature verify OK, the subject, and Requested Extensions.",
+      "Find X509v3 Subject Alternative Name and DNS:app.example.mil.",
+      "Only prepare this CSR for transfer if the signature and intended name both check out. The CA will still need to approve the request."
+    ],
+    "expected": "The signature verifies and the request contains DNS:app.example.mil. Wording can differ slightly between OpenSSL versions. The two complete public-key digests must also be identical.",
+    "kind": "terminal",
+    "output": "The signature verifies and the request contains DNS:app.example.mil. Wording can differ slightly between OpenSSL versions. The two complete public-key digests must also be identical."
+  },
+  {
+    "id": "tls-csr-new-screen-1",
+    "lessonId": "tls-csr-new",
+    "step": 1,
+    "title": "Name the new pair before generating it",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Write candidate pair: app-v2.csr ↔ app-v2.key. Keep existing pair app-v1.csr ↔ app-v1.key unchanged.",
+      "This lab demonstrates a new-key request. Do not edit NGINX yet; Module 6 first installs version 1.",
+      "We will generate another fresh key during the later rotation lab, so this spare candidate is not silently reused as a new renewal key."
+    ],
+    "expected": "Your notes show two distinct pairs and identify version 1 as the first installation.",
+    "kind": "diagram",
+    "output": "Your notes show two distinct pairs and identify version 1 as the first installation."
+  },
+  {
+    "id": "tls-csr-new-screen-2",
+    "lessonId": "tls-csr-new",
+    "step": 2,
+    "title": "Generate the new key and CSR together",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo sh -c 'umask 077; test ! -e /etc/pki/tls/private/app-v2.key && openssl req -new -newkey rsa:3072 -noenc -sha256 -keyout /etc/pki/tls/private/app-v2.key -out /home/learner/tls-work/app-v2.csr -config /home/learner/tls-work/req.cnf'\nsudo chown root:root /etc/pki/tls/private/app-v2.key\nsudo chmod 600 /etc/pki/tls/private/app-v2.key\nsudo chmod 644 /home/learner/tls-work/app-v2.csr\nsudo restorecon -v /etc/pki/tls/private/app-v2.key",
+    "actions": [
+      "Paste the complete block below. It refuses to overwrite app-v2.key.",
+      "-noenc keeps the service key usable by an unattended NGINX master process; the encrypted practice CA keys use a different policy.",
+      "Only the CSR is saved in learner’s folder. The private key stays under /etc/pki/tls/private."
+    ],
+    "expected": "A new app-v2.key and app-v2.csr exist. app-v1.key is unchanged.",
+    "kind": "terminal",
+    "output": "A new app-v2.key and app-v2.csr exist. app-v1.key is unchanged."
+  },
+  {
+    "id": "tls-csr-new-screen-3",
+    "lessonId": "tls-csr-new",
+    "step": 3,
+    "title": "Inspect and compare the request",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl req -in ~/tls-work/app-v2.csr -noout -verify -subject -text\nsudo stat -c '%U %G %a %n' /etc/pki/tls/private/app-v2.key",
+    "actions": [
+      "Run the CSR inspection below. Confirm the signature and DNS SAN exactly as in Lab A.",
+      "Record that app-v2.csr was created with app-v2.key. A certificate issued from app-v2.csr will not work with app-v1.key.",
+      "Do not submit the spare version 2 request in the next module; that walkthrough signs app-v1.csr first."
+    ],
+    "expected": "The CSR verifies, contains DNS:app.example.mil, and the new private key is root root 600.",
+    "kind": "terminal",
+    "output": "The CSR verifies, contains DNS:app.example.mil, and the new private key is root root 600."
+  },
+  {
+    "id": "tls-ca-screen-1",
+    "lessonId": "tls-ca",
+    "step": 1,
+    "title": "Know what enrollment means",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "For a real enterprise request, follow the approved service owner, registration authority and CA process. Keep its approval record and requested SANs.",
+      "For DoD PKI, use the current official PKI/PKE guidance and your organization’s PKI representative. We do not provide a made-up enrollment website, approval chain or claim of DoD access.",
+      "In this lab, you act as the practice reviewer and approve only app.example.mil for your isolated machine. Nothing is sent to a real DoD system.",
+      "PEM is text encoding with BEGIN and END markers. CRT and CER are filename conventions, not proof of encoding; either can be PEM or DER. KEY conventionally identifies a key file. A CSR is a request, not an issued certificate."
+    ],
+    "expected": "Your notes have a pretend approval entry: service, approved name, requester and date.",
+    "kind": "diagram",
+    "output": "Your notes have a pretend approval entry: service, approved name, requester and date."
+  },
+  {
+    "id": "tls-ca-screen-2",
+    "lessonId": "tls-ca",
+    "step": 2,
+    "title": "Open the separate CA terminal",
+    "where": "Your Windows 10 host · Windows PowerShell",
+    "command": "ssh learner@10.90.0.20",
+    "actions": [
+      "Open a second normal Windows PowerShell window. Keep the existing application window open.",
+      "Paste ssh learner@10.90.0.20, verify its recorded host fingerprint if prompted, then enter the CA learner password.",
+      "Run hostname; it must say tls-ca01.lab.example.test. Add CA to this window’s title or keep its address visible in your notes."
+    ],
+    "expected": "The CA Linux prompt appears.",
+    "kind": "powershell",
+    "output": "The CA Linux prompt appears."
+  },
+  {
+    "id": "tls-ca-screen-3",
+    "lessonId": "tls-ca",
+    "step": 3,
+    "title": "Prepare private CA folders",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "umask 077\nmkdir -p ~/tls-ca/incoming ~/tls-ca/issued ~/tls-ca/public\nchmod 700 ~/tls-ca\ncd ~/tls-ca\npwd",
+    "actions": [
+      "At the CA prompt, paste the block below. This folder belongs to learner and has mode 700.",
+      "Create the folder structure once. Keep it outside every web document root and outside any Git checkout.",
+      "We use simple OpenSSL issuance to teach the mechanics; this is not a production CA, revocation service or policy-complete PKI."
+    ],
+    "expected": "pwd shows /home/learner/tls-ca.",
+    "kind": "terminal",
+    "output": "pwd shows /home/learner/tls-ca."
+  },
+  {
+    "id": "tls-ca-screen-4",
+    "lessonId": "tls-ca",
+    "step": 4,
+    "title": "Create an encrypted root key",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "cd ~/tls-ca\numask 077\ntest ! -e root.key && openssl genpkey -algorithm RSA -aes-256-cbc -pkeyopt rsa_keygen_bits:3072 -out root.key\nchmod 600 root.key",
+    "actions": [
+      "Paste the guarded command below at the CA prompt.",
+      "When OpenSSL asks for a PEM pass phrase, enter a new strong practice CA passphrase from your password manager. Type it again when asked.",
+      "Characters do not appear while typing. Do not put the passphrase into an argument, screenshot or notes file."
+    ],
+    "expected": "root.key is created and encrypted; you return to the CA prompt.",
+    "kind": "terminal",
+    "output": "root.key is created and encrypted; you return to the CA prompt."
+  },
+  {
+    "id": "tls-ca-screen-5",
+    "lessonId": "tls-ca",
+    "step": 5,
+    "title": "Create the public root certificate",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "cd ~/tls-ca\ntest ! -e root.crt && openssl req -new -x509 -sha256 -days 3650 -key root.key -out root.crt -subj '/CN=SONIC Practice Root CA' -addext 'basicConstraints=critical,CA:TRUE,pathlen:1' -addext 'keyUsage=critical,keyCertSign,cRLSign'\nopenssl x509 -in root.crt -noout -subject -issuer -dates -fingerprint -sha256",
+    "actions": [
+      "Paste the command. Enter the root key passphrase when asked.",
+      "The root certificate is public; the root key is not. The long validity here is a teaching choice, not a DoD or enterprise policy.",
+      "This certificate is self-signed because a root is its own trust anchor. Self-signed does not mean automatically trusted."
+    ],
+    "expected": "The subject and issuer both identify SONIC Practice Root CA. A SHA256 certificate fingerprint is printed.",
+    "kind": "terminal",
+    "output": "The subject and issuer both identify SONIC Practice Root CA. A SHA256 certificate fingerprint is printed."
+  },
+  {
+    "id": "tls-ca-screen-6",
+    "lessonId": "tls-ca",
+    "step": 6,
+    "title": "Make and sign the intermediate CA",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "cd ~/tls-ca\ntest ! -e intermediate.key && openssl genpkey -algorithm RSA -aes-256-cbc -pkeyopt rsa_keygen_bits:3072 -out intermediate.key\nopenssl req -new -sha256 -key intermediate.key -out intermediate.csr -subj '/CN=SONIC Practice Issuing CA'\ncat > intermediate.ext <<'EOF'\nbasicConstraints = critical,CA:TRUE,pathlen:0\nkeyUsage = critical,keyCertSign,cRLSign\nsubjectKeyIdentifier = hash\nauthorityKeyIdentifier = keyid,issuer\nEOF\nopenssl x509 -req -in intermediate.csr -CA root.crt -CAkey root.key -CAserial root.srl -CAcreateserial -days 1825 -sha256 -extfile intermediate.ext -out intermediate.crt\nopenssl verify -CAfile root.crt intermediate.crt",
+    "actions": [
+      "Paste the block. For intermediate.key, choose a different strong passphrase. The signing command later asks for the root key passphrase.",
+      "Paste the entire intermediate.ext text between the EOF markers. pathlen:0 prevents this intermediate from authorizing another subordinate CA.",
+      "The final verify command must succeed before this CA signs a website request."
+    ],
+    "expected": "intermediate.crt: OK appears.",
+    "kind": "terminal",
+    "output": "intermediate.crt: OK appears."
+  },
+  {
+    "id": "tls-ca-screen-7",
+    "lessonId": "tls-ca",
+    "step": 7,
+    "title": "Send only the checked CSR",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "scp ~/tls-work/app-v1.csr learner@10.90.0.20:~/tls-ca/incoming/app-v1.csr",
+    "actions": [
+      "Switch back to the application SSH window and confirm hostname.",
+      "Paste the SCP command. For the first application-to-CA connection, compare the CA host fingerprint with the one recorded from its console before accepting it.",
+      "Enter the CA learner password. This copies the .csr file into the incoming folder already created on TLS-CA01."
+    ],
+    "expected": "The transfer completes for app-v1.csr; no .key file is transferred.",
+    "kind": "terminal",
+    "output": "The transfer completes for app-v1.csr; no .key file is transferred."
+  },
+  {
+    "id": "tls-ca-screen-8",
+    "lessonId": "tls-ca",
+    "step": 8,
+    "title": "Approve the request and issue the leaf",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "cd ~/tls-ca\nopenssl req -in incoming/app-v1.csr -noout -verify -subject -text\ncat > server.ext <<'EOF'\nbasicConstraints = critical,CA:FALSE\nkeyUsage = critical,digitalSignature,keyEncipherment\nextendedKeyUsage = serverAuth\nsubjectAltName = DNS:app.example.mil\nsubjectKeyIdentifier = hash\nauthorityKeyIdentifier = keyid,issuer\nEOF\nopenssl x509 -req -in incoming/app-v1.csr -CA intermediate.crt -CAkey intermediate.key -CAserial intermediate.srl -CAcreateserial -days 90 -sha256 -extfile server.ext -out issued/app-v1.crt\nopenssl verify -CAfile root.crt -untrusted intermediate.crt -purpose sslserver -verify_hostname app.example.mil issued/app-v1.crt",
+    "actions": [
+      "In the CA window, run the first inspection command and check the CSR signature and DNS:app.example.mil.",
+      "Only for your isolated lab, record your pretend approval. If the request asks for any other name, stop rather than sign it.",
+      "Paste server.ext exactly. It permits server authentication and the one approved DNS name; it does not authorize CA signing.",
+      "Run the issuance command, entering the intermediate key passphrase privately. The root key is not used to sign this leaf."
+    ],
+    "expected": "issued/app-v1.crt: OK appears. The certificate is valid for a 90-day practice period.",
+    "kind": "terminal",
+    "output": "issued/app-v1.crt: OK appears. The certificate is valid for a 90-day practice period."
+  },
+  {
+    "id": "tls-ca-screen-9",
+    "lessonId": "tls-ca",
+    "step": 9,
+    "title": "Publish only the public response files",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "cd ~/tls-ca\ncp issued/app-v1.crt intermediate.crt root.crt public/\nchmod 644 public/*.crt\nls -l public/",
+    "actions": [
+      "Paste the block below. It copies only the leaf, intermediate and root certificates into public.",
+      "The parent tls-ca directory remains mode 700. SCP runs as learner, so it can access these public files without opening the CA to other accounts.",
+      "Keep root.key and intermediate.key here on the CA. Do not include them in an archive or response package."
+    ],
+    "expected": "Exactly the intended .crt response files appear, with no .key file.",
+    "kind": "terminal",
+    "output": "Exactly the intended .crt response files appear, with no .key file."
+  },
+  {
+    "id": "tls-install-screen-1",
+    "lessonId": "tls-install",
+    "step": 1,
+    "title": "Receive the public response on the application",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "cd ~/tls-work\nscp learner@10.90.0.20:~/tls-ca/public/app-v1.crt .\nscp learner@10.90.0.20:~/tls-ca/public/intermediate.crt .\nscp learner@10.90.0.20:~/tls-ca/public/root.crt .\nls -l app-v1.crt intermediate.crt root.crt",
+    "actions": [
+      "In the application SSH window, paste the block below. Enter the CA learner password when SCP asks.",
+      "The command names three public .crt files explicitly. No .key file should leave the CA.",
+      "Run ls and compare the files with your approval record."
+    ],
+    "expected": "Three nonempty public certificate files are in /home/learner/tls-work.",
+    "kind": "terminal",
+    "output": "Three nonempty public certificate files are in /home/learner/tls-work."
+  },
+  {
+    "id": "tls-install-screen-2",
+    "lessonId": "tls-install",
+    "step": 2,
+    "title": "Inspect the returned leaf and CA chain",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl x509 -in ~/tls-work/app-v1.crt -noout -dates -subject -issuer -ext subjectAltName\nopenssl verify -CAfile ~/tls-work/root.crt -untrusted ~/tls-work/intermediate.crt -purpose sslserver -verify_hostname app.example.mil ~/tls-work/app-v1.crt",
+    "actions": [
+      "Run the first command and find DNS:app.example.mil and a current notBefore/notAfter period.",
+      "Run the second command. It must validate through the intermediate to this practice root, for server authentication and the correct DNS name.",
+      "CRT/CER filenames do not guarantee PEM. If an authorized CA returns DER, convert a copy with openssl x509 -inform DER -in received.cer -out received.pem before inspection. Our practice files are already PEM."
+    ],
+    "expected": "The leaf names app.example.mil, its issuer is SONIC Practice Issuing CA, and verification ends in OK.",
+    "kind": "terminal",
+    "output": "The leaf names app.example.mil, its issuer is SONIC Practice Issuing CA, and verification ends in OK."
+  },
+  {
+    "id": "tls-install-screen-3",
+    "lessonId": "tls-install",
+    "step": 3,
+    "title": "Verify the certificate and private key match",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "set -o pipefail\nopenssl x509 -in ~/tls-work/app-v1.crt -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256\nsudo openssl pkey -in /etc/pki/tls/private/app-v1.key -pubout -outform DER | openssl dgst -sha256",
+    "actions": [
+      "Paste the complete block below. set -o pipefail prevents a pipeline from hiding a failed earlier command.",
+      "The first SHA-256 line comes from the certificate’s public key. The second comes from only the public half of app-v1.key.",
+      "Both commands must succeed and the complete digests must match exactly. These are public-key digests, not hashes of the certificate file bytes."
+    ],
+    "expected": "Two SHA-256 digests are identical. Your real values are random and will not match a picture.",
+    "kind": "terminal",
+    "output": "Two SHA-256 digests are identical. Your real values are random and will not match a picture."
+  },
+  {
+    "id": "tls-install-screen-4",
+    "lessonId": "tls-install",
+    "step": 4,
+    "title": "Build the chain in the correct order",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "cat ~/tls-work/app-v1.crt ~/tls-work/intermediate.crt > ~/tls-work/app-v1-fullchain.pem\ngrep -c 'BEGIN CERTIFICATE' ~/tls-work/app-v1-fullchain.pem",
+    "actions": [
+      "Paste the block below. It joins app-v1.crt first and intermediate.crt second.",
+      "Do not append the root or any private key. The client obtains trust in the root separately.",
+      "The final grep counts public certificate markers; this lab has exactly two certificates in the full chain."
+    ],
+    "expected": "The count is 2. The first certificate in the file is the app leaf, followed by the issuing intermediate.",
+    "kind": "terminal",
+    "output": "The count is 2. The first certificate in the file is the app leaf, followed by the issuing intermediate."
+  },
+  {
+    "id": "tls-install-screen-5",
+    "lessonId": "tls-install",
+    "step": 5,
+    "title": "Back up configuration before the first edit",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo install -d -m 0700 /root/tls-rollbacks\nsudo sh -c 'test ! -e /root/tls-rollbacks/nginx-before-tls && cp -a /etc/nginx /root/tls-rollbacks/nginx-before-tls'\nsudo ls -ld /root/tls-rollbacks/nginx-before-tls",
+    "actions": [
+      "Paste the block below on this new application VM. The guard keeps you from overwriting an earlier baseline.",
+      "The backup contains configuration only. The versioned private keys already remain in the protected private directory; do not make extra unencrypted exports.",
+      "In a real environment, follow the approved encrypted backup and retention policy. Keep the backup and its contents off GitHub."
+    ],
+    "expected": "A root-only rollback folder contains the original NGINX configuration tree.",
+    "kind": "terminal",
+    "output": "A root-only rollback folder contains the original NGINX configuration tree."
+  },
+  {
+    "id": "tls-install-screen-6",
+    "lessonId": "tls-install",
+    "step": 6,
+    "title": "Install public files and secure metadata",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo install -o root -g root -m 0644 ~/tls-work/app-v1.crt /etc/pki/tls/certs/app-v1.crt\nsudo install -o root -g root -m 0644 ~/tls-work/app-v1-fullchain.pem /etc/pki/tls/certs/app-v1-fullchain.pem\nsudo install -o root -g root -m 0644 ~/tls-work/root.crt /etc/pki/tls/certs/sonic-lab-root.crt\nsudo stat -c '%U %G %a %n' /etc/pki/tls/certs/app-v1-fullchain.pem /etc/pki/tls/private/app-v1.key",
+    "actions": [
+      "Paste the block. install copies the public certificate files with root ownership and readable public-certificate mode 644.",
+      "The private key is not copied or shared. Confirm it remains root root 600.",
+      "We keep the root certificate only for explicit lab verification. This does not add it to RHEL’s global trust store."
+    ],
+    "expected": "The chain is root root 644, while the key is root root 600.",
+    "kind": "terminal",
+    "output": "The chain is root root 644, while the key is root root 600."
+  },
+  {
+    "id": "tls-install-screen-7",
+    "lessonId": "tls-install",
+    "step": 7,
+    "title": "Check SELinux labels instead of disabling protection",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "getenforce\nsudo restorecon -v /etc/pki/tls/certs/app-v1.crt /etc/pki/tls/certs/app-v1-fullchain.pem /etc/pki/tls/private/app-v1.key\nsudo ls -lZ /etc/pki/tls/certs/app-v1-fullchain.pem /etc/pki/tls/private/app-v1.key\nsudo matchpathcon -V /etc/pki/tls/certs/app-v1-fullchain.pem /etc/pki/tls/private/app-v1.key",
+    "actions": [
+      "Run restorecon for these standard RHEL paths, then inspect their labels and policy matches.",
+      "getenforce should say Enforcing for this course. A matching label is shown as verified by matchpathcon; exact context strings depend on installed policy.",
+      "Keep files in the planned paths. Nonstandard locations need an approved persistent file-context rule, not a guessed temporary label."
+    ],
+    "expected": "SELinux is Enforcing and both files match their expected policy contexts.",
+    "kind": "terminal",
+    "output": "SELinux is Enforcing and both files match their expected policy contexts."
+  },
+  {
+    "id": "tls-install-screen-8",
+    "lessonId": "tls-install",
+    "step": 8,
+    "title": "Create the HTTPS server block",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo tee /etc/nginx/conf.d/app-tls.conf > /dev/null <<'EOF'\nserver {\n    listen 443 ssl;\n    server_name app.example.mil;\n    ssl_protocols TLSv1.2 TLSv1.3;\n    ssl_certificate /etc/pki/tls/certs/app-v1-fullchain.pem;\n    ssl_certificate_key /etc/pki/tls/private/app-v1.key;\n    root /usr/share/nginx/html/tls-lab;\n    index index.html;\n    location / {\n        try_files $uri $uri/ =404;\n    }\n}\nEOF\nsudo restorecon -v /etc/nginx/conf.d/app-tls.conf\nsudo sed -n '1,30p' /etc/nginx/conf.d/app-tls.conf",
+    "actions": [
+      "Use the loaded /etc/nginx/conf.d directory confirmed in Module 2. This is a fresh lab; do not create a duplicate HTTPS site on an existing production server.",
+      "Paste the entire here-document block below. The final EOF must be on its own line. sudo tee writes the file; > /dev/null only hides the repeated text.",
+      "The server_name is the application address. ssl_certificate names the public full chain; ssl_certificate_key names the separate matching private key.",
+      "Run the final sed command to read back the file. It does not change it. No reload happens until the next step."
+    ],
+    "expected": "The file shows listen 443 ssl, server_name app.example.mil and the intended v1 chain/key paths.",
+    "kind": "editor",
+    "output": "The file shows listen 443 ssl, server_name app.example.mil and the intended v1 chain/key paths."
+  },
+  {
+    "id": "tls-install-screen-9",
+    "lessonId": "tls-install",
+    "step": 9,
+    "title": "Test first, then reload gracefully",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo nginx -t && sudo systemctl reload nginx\nsudo systemctl is-active nginx\nsudo journalctl -u nginx -n 20 --no-pager",
+    "actions": [
+      "Run sudo nginx -t first. Both syntax is ok and test is successful must appear.",
+      "The && ensures reload runs only if the test succeeded. A running old configuration is preferable to forcing a broken change.",
+      "After reload, check active state and the journal. A successful service reload is still not proof of the browser-facing certificate."
+    ],
+    "expected": "NGINX reports configuration syntax is ok and configuration test is successful; the service remains active.",
+    "kind": "terminal",
+    "output": "NGINX reports configuration syntax is ok and configuration test is successful; the service remains active."
+  },
+  {
+    "id": "tls-install-screen-10",
+    "lessonId": "tls-install",
+    "step": 10,
+    "title": "Allow HTTPS on the private practice adapter",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo firewall-cmd --get-active-zones\nsudo firewall-cmd --zone=public --permanent --add-service=https\nsudo firewall-cmd --reload\nsudo firewall-cmd --zone=public --query-service=https\nsudo ss -ltnp 'sport = :443'",
+    "actions": [
+      "Run the first command and find the zone that contains your VMnet6 interface.",
+      "This new lab normally uses public. If the active zone name differs, replace public in the following commands with that exact zone; do not edit unrelated adapters.",
+      "Add only the https service, reload firewalld, then query the same zone. No router forwarding or real enterprise edge change is part of this lab."
+    ],
+    "expected": "The service query says yes and a listener on port 443 appears.",
+    "kind": "terminal",
+    "output": "The service query says yes and a listener on port 443 appears."
+  },
+  {
+    "id": "tls-install-screen-11",
+    "lessonId": "tls-install",
+    "step": 11,
+    "title": "Verify the served certificate with SNI and trust",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Paste the command. -servername sends app.example.mil as SNI even though the connection uses a private IP.",
+      "The test trusts only our recorded root, verifies the DNS name and stops on certificate errors. Closing standard input prevents an interactive wait.",
+      "Look for Verification: OK or Verify return code: 0 (ok). Compare the presented subject and issuer with the intended leaf."
+    ],
+    "expected": "The TLS connection verifies for app.example.mil and the practice issuer. The exact session/cipher details vary.",
+    "kind": "terminal",
+    "output": "The TLS connection verifies for app.example.mil and the practice issuer. The exact session/cipher details vary."
+  },
+  {
+    "id": "tls-install-screen-12",
+    "lessonId": "tls-install",
+    "step": 12,
+    "title": "Copy the public root to Windows",
+    "where": "Your Windows 10 host · Windows PowerShell",
+    "command": "New-Item -ItemType Directory -Force \"$env:USERPROFILE\\Documents\\SONIC-TLS\"\nscp learner@10.90.0.20:~/tls-ca/public/root.crt \"$env:USERPROFILE\\Documents\\SONIC-TLS\\root.crt\"\ncertutil -dump \"$env:USERPROFILE\\Documents\\SONIC-TLS\\root.crt\"",
+    "actions": [
+      "Open a normal Windows PowerShell window, not either SSH window. Type exit first if the prompt is still a Linux prompt.",
+      "Paste the block. This creates a folder under your Windows Documents and copies only the public root certificate.",
+      "Inspect its public subject and issuer with certutil -dump. In the Firefox trust step, compare the SHA-256 certificate fingerprint directly with the CA console; a whole-file hash is a different value."
+    ],
+    "expected": "root.crt is in Windows Documents\\SONIC-TLS, and certutil can read the public certificate.",
+    "kind": "powershell",
+    "output": "root.crt is in Windows Documents\\SONIC-TLS, and certutil can read the public certificate."
+  },
+  {
+    "id": "tls-install-screen-13",
+    "lessonId": "tls-install",
+    "step": 13,
+    "title": "Map the fictional website name only on this PC",
+    "where": "Your Windows host · Administrator Windows PowerShell",
+    "command": "$HostsFile = \"$env:SystemRoot\\System32\\drivers\\etc\\hosts\"\nif (!(Test-Path \"$HostsFile.sonic-tls-backup\")) { Copy-Item $HostsFile \"$HostsFile.sonic-tls-backup\" }\nif (!(Select-String -Path $HostsFile -Pattern '\\bapp\\.example\\.mil\\b' -Quiet)) { Add-Content -Path $HostsFile -Value \"`r`n10.90.0.10 app.example.mil\" }\nSelect-String -Path $HostsFile -Pattern 'app\\.example\\.mil'",
+    "actions": [
+      "Click Start, type PowerShell, right-click Windows PowerShell, and choose Run as administrator. Accept the prompt for your own PC.",
+      "Paste the block. It keeps a backup of the original hosts file if one does not already exist, then adds a line only if this exact name is not present.",
+      "Read the final line. It must be 10.90.0.10 app.example.mil. If an older entry maps it elsewhere, open Notepad as administrator, open the hosts file using All Files, and correct only your lab entry.",
+      "Close this administrator window when finished. The change affects this PC only; it is not a public DNS registration."
+    ],
+    "expected": "The hosts-file line maps app.example.mil to 10.90.0.10, and no duplicate conflicting entry exists.",
+    "kind": "powershell",
+    "output": "The hosts-file line maps app.example.mil to 10.90.0.10, and no duplicate conflicting entry exists."
+  },
+  {
+    "id": "tls-install-screen-14",
+    "lessonId": "tls-install",
+    "step": 14,
+    "title": "Check HTTPS from Windows without a bypass",
+    "where": "Your Windows 10 host · Windows PowerShell",
+    "command": "curl.exe --cacert \"$env:USERPROFILE\\Documents\\SONIC-TLS\\root.crt\" --resolve app.example.mil:443:10.90.0.10 --fail --silent --show-error --max-time 10 https://app.example.mil/",
+    "actions": [
+      "Open normal Windows PowerShell and paste the block below. Use curl.exe, not PowerShell’s older curl alias.",
+      "The --resolve option targets only this private address. --cacert trusts the one practice root for this command; it does not trust every certificate.",
+      "Look for our TLS practice application page. Do not add -k or --insecure to silence a certificate error."
+    ],
+    "expected": "The response contains TLS practice application and Hosted on TLS-APP01. No certificate warning is suppressed.",
+    "kind": "powershell",
+    "output": "The response contains TLS practice application and Hosted on TLS-APP01. No certificate warning is suppressed."
+  },
+  {
+    "id": "tls-install-screen-15",
+    "lessonId": "tls-install",
+    "step": 15,
+    "title": "Create an isolated Firefox practice profile",
+    "where": "Your Windows host · Firefox profile manager",
+    "command": null,
+    "actions": [
+      "On Windows, open current Firefox. Type about:profiles in the address bar and press Enter.",
+      "Click Create a New Profile, then Next. Name it SONIC TLS Practice and click Finish.",
+      "Find that new profile and click Launch profile in new browser. If it became your default, use Set as default profile beside your original profile in about:profiles to keep everyday browsing separate.",
+      "Use only the newly launched SONIC TLS Practice window for the following trust step. Do not install the practice root in Windows Trusted Root Certification Authorities."
+    ],
+    "expected": "A separate Firefox window uses the SONIC TLS Practice profile.",
+    "kind": "firefox",
+    "output": "A separate Firefox window uses the SONIC TLS Practice profile."
+  },
+  {
+    "id": "tls-install-screen-16",
+    "lessonId": "tls-install",
+    "step": 16,
+    "title": "Trust the checked root in that profile only",
+    "where": "Your Windows host · Firefox SONIC TLS Practice profile · Certificate Manager",
+    "command": null,
+    "actions": [
+      "In the practice Firefox window, type about:preferences#privacy in the address bar. Scroll to Certificates and select View Certificates. Labels may vary slightly by version.",
+      "Open the Authorities tab, click Import, and choose Documents\\SONIC-TLS\\\root.crt.",
+      "Use View to inspect the certificate. Compare its SHA-256 fingerprint with openssl x509 -in ~/tls-ca/root.crt -noout -fingerprint -sha256 on the CA console before accepting trust.",
+      "Only after the match, allow this CA to identify websites in this disposable practice profile. Never enable trust for an unknown CA or import the intermediate as a root.",
+      "Then open https://app.example.mil. Use the padlock/site information control, Connection secure, More Information or View Certificate to inspect the leaf SAN, issuer and dates."
+    ],
+    "expected": "The practice page opens without a trust warning in this profile; its certificate names app.example.mil and uses the practice issuer.",
+    "kind": "firefox",
+    "output": "The practice page opens without a trust warning in this profile; its certificate names app.example.mil and uses the practice issuer."
+  },
+  {
+    "id": "tls-renew-existing-screen-1",
+    "lessonId": "tls-renew-existing",
+    "step": 1,
+    "title": "Check whether key reuse is allowed",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Confirm the current site passes the live TLS test and record the current certificate serial and notAfter.",
+      "For this isolated exercise, assume policy permits reuse and app-v1.key has not been exposed. If a key may be compromised or policy requires rotation, skip to the new-key lab instead.",
+      "Write: new certificate app-r1.crt, existing key app-v1.key. The website SAN stays app.example.mil, but serial and validity should change.",
+      "Do not expect a new notAfter inside the old file. The CA issues a different certificate file."
+    ],
+    "expected": "Your renewal note records why key reuse is permitted and the planned pairing.",
+    "kind": "diagram",
+    "output": "Your renewal note records why key reuse is permitted and the planned pairing."
+  },
+  {
+    "id": "tls-renew-existing-screen-2",
+    "lessonId": "tls-renew-existing",
+    "step": 2,
+    "title": "Make and transfer the fresh renewal CSR",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo openssl req -new -sha256 -key /etc/pki/tls/private/app-v1.key -out /home/learner/tls-work/app-r1.csr -config /home/learner/tls-work/req.cnf\nsudo chmod 644 /home/learner/tls-work/app-r1.csr\nopenssl req -in ~/tls-work/app-r1.csr -noout -verify -subject -text\nscp ~/tls-work/app-r1.csr learner@10.90.0.20:~/tls-ca/incoming/app-r1.csr",
+    "actions": [
+      "Paste the block below in the application SSH window. Keep the current NGINX paths untouched.",
+      "Inspect the CSR signature and SAN before the final transfer. Stop if inspection fails; do not run the SCP line for an invalid request.",
+      "Enter the CA learner password when SCP asks. No private-key transfer is involved."
+    ],
+    "expected": "A checked app-r1.csr is present in the CA incoming folder.",
+    "kind": "terminal",
+    "output": "A checked app-r1.csr is present in the CA incoming folder."
+  },
+  {
+    "id": "tls-renew-existing-screen-3",
+    "lessonId": "tls-renew-existing",
+    "step": 3,
+    "title": "Approve and return the renewal certificate",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "cd ~/tls-ca\nopenssl req -in incoming/app-r1.csr -noout -verify -subject\nopenssl x509 -req -in incoming/app-r1.csr -CA intermediate.crt -CAkey intermediate.key -CAserial intermediate.srl -CAcreateserial -days 90 -sha256 -extfile server.ext -out issued/app-r1.crt\nopenssl x509 -in issued/app-r1.crt -noout -serial -dates\ncp issued/app-r1.crt public/\nchmod 644 public/app-r1.crt",
+    "actions": [
+      "At the CA terminal, inspect app-r1.csr and repeat the same-name approval check.",
+      "Sign using the intermediate and its existing serial file. Do not recreate the root or intermediate CA.",
+      "Copy the new public leaf into the response folder. Compare its serial with the older leaf: they should differ even though issuance may happen the same day."
+    ],
+    "expected": "A newly signed app-r1.crt has a new serial. notAfter may differ only slightly in this fast practice renewal.",
+    "kind": "terminal",
+    "output": "A newly signed app-r1.crt has a new serial. notAfter may differ only slightly in this fast practice renewal."
+  },
+  {
+    "id": "tls-renew-existing-screen-4",
+    "lessonId": "tls-renew-existing",
+    "step": 4,
+    "title": "Receive, verify and build the renewed chain",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "scp learner@10.90.0.20:~/tls-ca/public/app-r1.crt ~/tls-work/app-r1.crt\nopenssl verify -CAfile ~/tls-work/root.crt -untrusted ~/tls-work/intermediate.crt -purpose sslserver -verify_hostname app.example.mil ~/tls-work/app-r1.crt\nset -o pipefail\nopenssl x509 -in ~/tls-work/app-r1.crt -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256\nsudo openssl pkey -in /etc/pki/tls/private/app-v1.key -pubout -outform DER | openssl dgst -sha256\ncat ~/tls-work/app-r1.crt ~/tls-work/intermediate.crt > ~/tls-work/app-r1-fullchain.pem\nsudo install -o root -g root -m 0644 ~/tls-work/app-r1-fullchain.pem /etc/pki/tls/certs/app-r1-fullchain.pem\nsudo restorecon -v /etc/pki/tls/certs/app-r1-fullchain.pem",
+    "actions": [
+      "Copy the new leaf, verify trust and name, then compare its public key digest with app-v1.key.",
+      "Only if both fingerprints match and validation says OK should you assemble and install the renewed public chain.",
+      "Keep the old v1 certificate and key protected for rollback while they are still valid and policy permits."
+    ],
+    "expected": "The leaf verifies, the public-key digests match and the new fullchain is staged.",
+    "kind": "terminal",
+    "output": "The leaf verifies, the public-key digests match and the new fullchain is staged."
+  },
+  {
+    "id": "tls-renew-existing-screen-5",
+    "lessonId": "tls-renew-existing",
+    "step": 5,
+    "title": "Change only the certificate path and reload",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo sh -c 'test ! -e /root/tls-rollbacks/before-same-key.conf && cp -a /etc/nginx/conf.d/app-tls.conf /root/tls-rollbacks/before-same-key.conf'\nsudo sed -i 's@app-v1-fullchain.pem@app-r1-fullchain.pem@' /etc/nginx/conf.d/app-tls.conf\nsudo grep -E 'ssl_certificate|ssl_certificate_key' /etc/nginx/conf.d/app-tls.conf\nsudo nginx -t && sudo systemctl reload nginx\nopenssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Paste the backup command first; it preserves the known working v1 configuration once.",
+      "The sed command changes only app-v1-fullchain.pem to app-r1-fullchain.pem. Read both directives afterwards; the key must remain app-v1.key.",
+      "Run the guarded test and reload, then perform the live TLS test. Compare the leaf serial with the new CA response and refresh the practice browser’s certificate view."
+    ],
+    "expected": "The live endpoint verifies and presents the renewed serial; NGINX remains active.",
+    "kind": "terminal",
+    "output": "The live endpoint verifies and presents the renewed serial; NGINX remains active."
+  },
+  {
+    "id": "tls-renew-existing-screen-6",
+    "lessonId": "tls-renew-existing",
+    "step": 6,
+    "title": "Keep a usable rollback, not an expired shortcut",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "# Recovery only when the previous v1 pair is still valid and safe:\nsudo cp -a /root/tls-rollbacks/before-same-key.conf /etc/nginx/conf.d/app-tls.conf\nsudo restorecon -v /etc/nginx/conf.d/app-tls.conf\nsudo nginx -t && sudo systemctl reload nginx",
+    "actions": [
+      "Read the command below. Use it only if activation failed and the earlier v1 certificate is still valid and its key is safe.",
+      "After copying the known-good config, test it before reload. Then repeat the same client TLS check.",
+      "If the old certificate is expired or the old key is compromised, do not restore it for users. Keep the service protected and issue a valid replacement through your approved incident/change process."
+    ],
+    "expected": "A deliberately performed rollback restores the previous v1 serial; otherwise leave the successful r1 deployment in place.",
+    "kind": "terminal",
+    "output": "A deliberately performed rollback restores the previous v1 serial; otherwise leave the successful r1 deployment in place."
+  },
+  {
+    "id": "tls-renew-new-screen-1",
+    "lessonId": "tls-renew-new",
+    "step": 1,
+    "title": "Create a fresh version 3 request and key",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo sh -c 'umask 077; test ! -e /etc/pki/tls/private/app-v3.key && openssl req -new -newkey rsa:3072 -noenc -sha256 -keyout /etc/pki/tls/private/app-v3.key -out /home/learner/tls-work/app-v3.csr -config /home/learner/tls-work/req.cnf'\nsudo chown root:root /etc/pki/tls/private/app-v3.key\nsudo chmod 600 /etc/pki/tls/private/app-v3.key\nsudo chmod 644 /home/learner/tls-work/app-v3.csr\nsudo restorecon -v /etc/pki/tls/private/app-v3.key\nopenssl req -in ~/tls-work/app-v3.csr -noout -verify -subject -text\nscp ~/tls-work/app-v3.csr learner@10.90.0.20:~/tls-ca/incoming/app-v3.csr",
+    "actions": [
+      "Check the site still works, then paste the guarded block below. It creates app-v3.key and app-v3.csr together.",
+      "Version 2 was only a CSR demonstration. This lab deliberately creates fresh version 3 key material now.",
+      "Inspect the CSR signature and SAN before transferring it to the CA."
+    ],
+    "expected": "A verified v3 CSR reaches the CA while app-v3.key stays root-owned on the application server.",
+    "kind": "terminal",
+    "output": "A verified v3 CSR reaches the CA while app-v3.key stays root-owned on the application server."
+  },
+  {
+    "id": "tls-renew-new-screen-2",
+    "lessonId": "tls-renew-new",
+    "step": 2,
+    "title": "Issue the version 3 certificate",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "cd ~/tls-ca\nopenssl req -in incoming/app-v3.csr -noout -verify -subject\nopenssl x509 -req -in incoming/app-v3.csr -CA intermediate.crt -CAkey intermediate.key -CAserial intermediate.srl -CAcreateserial -days 90 -sha256 -extfile server.ext -out issued/app-v3.crt\nopenssl x509 -in issued/app-v3.crt -noout -dates -serial -ext subjectAltName\ncp issued/app-v3.crt public/\nchmod 644 public/app-v3.crt",
+    "actions": [
+      "Check the CSR signature and intended subject at the CA. Use the previously approved fixed server.ext SAN.",
+      "Sign with the existing intermediate, enter its passphrase privately, and make only the new public response available.",
+      "Inspect the new certificate’s names and dates before returning it."
+    ],
+    "expected": "A new app-v3.crt names app.example.mil and has a new serial.",
+    "kind": "terminal",
+    "output": "A new app-v3.crt names app.example.mil and has a new serial."
+  },
+  {
+    "id": "tls-renew-new-screen-3",
+    "lessonId": "tls-renew-new",
+    "step": 3,
+    "title": "Validate and stage both new paths",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "scp learner@10.90.0.20:~/tls-ca/public/app-v3.crt ~/tls-work/app-v3.crt\nopenssl verify -CAfile ~/tls-work/root.crt -untrusted ~/tls-work/intermediate.crt -purpose sslserver -verify_hostname app.example.mil ~/tls-work/app-v3.crt\nset -o pipefail\nopenssl x509 -in ~/tls-work/app-v3.crt -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256\nsudo openssl pkey -in /etc/pki/tls/private/app-v3.key -pubout -outform DER | openssl dgst -sha256\ncat ~/tls-work/app-v3.crt ~/tls-work/intermediate.crt > ~/tls-work/app-v3-fullchain.pem\nsudo install -o root -g root -m 0644 ~/tls-work/app-v3-fullchain.pem /etc/pki/tls/certs/app-v3-fullchain.pem\nsudo restorecon -v /etc/pki/tls/certs/app-v3-fullchain.pem /etc/pki/tls/private/app-v3.key",
+    "actions": [
+      "Copy the response and verify chain, hostname and purpose.",
+      "Compare the two public-key fingerprints; they must match v3.key. Do not compare to v1.key for this deployment.",
+      "Assemble the leaf-first chain and install it. Keep existing versions intact during the change window."
+    ],
+    "expected": "The new certificate verifies, public-key digests match, and the v3 chain is staged.",
+    "kind": "terminal",
+    "output": "The new certificate verifies, public-key digests match, and the v3 chain is staged."
+  },
+  {
+    "id": "tls-renew-new-screen-4",
+    "lessonId": "tls-renew-new",
+    "step": 4,
+    "title": "Activate the certificate and key together",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo sh -c 'test ! -e /root/tls-rollbacks/before-key-rotation.conf && cp -a /etc/nginx/conf.d/app-tls.conf /root/tls-rollbacks/before-key-rotation.conf'\nsudo sed -i -E 's@ssl_certificate .*;@ssl_certificate /etc/pki/tls/certs/app-v3-fullchain.pem;@; s@ssl_certificate_key .*;@ssl_certificate_key /etc/pki/tls/private/app-v3.key;@' /etc/nginx/conf.d/app-tls.conf\nsudo grep -E 'ssl_certificate|ssl_certificate_key' /etc/nginx/conf.d/app-tls.conf\nsudo nginx -t && sudo systemctl reload nginx\nopenssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Back up the current working app-tls.conf once. The command supports either v1 or r1 as your current successful state.",
+      "The two sed expressions replace the certificate and key directives with the staged v3 paths. Read the file back before testing.",
+      "Only if nginx -t succeeds should reload run. Then repeat the actual TLS test and browser certificate view; record the new serial."
+    ],
+    "expected": "The two directives both reference v3; the live endpoint verifies and presents the v3 certificate serial.",
+    "kind": "terminal",
+    "output": "The two directives both reference v3; the live endpoint verifies and presents the v3 certificate serial."
+  },
+  {
+    "id": "tls-renew-new-screen-5",
+    "lessonId": "tls-renew-new",
+    "step": 5,
+    "title": "Record the result and retain a safe recovery pair",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Record the application name, private IP, active chain path, active key path, issuer, serial, SAN, UTC expiry, change owner and client-test result.",
+      "Record the rollback file and the time limit for retaining the older pair. Do not copy private key contents into your evidence.",
+      "If rotation was due to exposure, the old key is not a usable rollback. Follow the real CA’s revocation and incident process.",
+      "Update monitoring and inventory after every renewal. A saved screenshot alone does not schedule the next renewal."
+    ],
+    "expected": "Your notes identify v3 as the active certificate/key pair and document a security-valid rollback decision.",
+    "kind": "checklist",
+    "output": "Your notes identify v3 as the active certificate/key pair and document a security-valid rollback decision."
+  },
+  {
+    "id": "tls-troubleshoot-screen-1",
+    "lessonId": "tls-troubleshoot",
+    "step": 1,
+    "title": "The certificate is expired",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl x509 -in ~/tls-work/app-v3.crt -noout -dates\ndate -u\nopenssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "notAfter is before the correct current UTC time. A client may report certificate has expired.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — notAfter is before the correct current UTC time. A client may report certificate has expired."
+  },
+  {
+    "id": "tls-troubleshoot-screen-2",
+    "lessonId": "tls-troubleshoot",
+    "step": 2,
+    "title": "The private key does not match",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "set -o pipefail\nopenssl x509 -in ~/tls-work/app-v3.crt -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256\nsudo openssl pkey -in /etc/pki/tls/private/app-v3.key -pubout -outform DER | openssl dgst -sha256\nsudo nginx -t",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "Different public-key fingerprints indicate a wrong pair. NGINX may report key values mismatch.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — Different public-key fingerprints indicate a wrong pair. NGINX may report key values mismatch."
+  },
+  {
+    "id": "tls-troubleshoot-screen-3",
+    "lessonId": "tls-troubleshoot",
+    "step": 3,
+    "title": "An intermediate certificate is missing",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl s_client -connect 10.90.0.10:443 -servername app.example.mil -showcerts -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "A missing intermediate commonly produces unable to get local issuer certificate. The served chain has only the leaf.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — A missing intermediate commonly produces unable to get local issuer certificate. The served chain has only the leaf."
+  },
+  {
+    "id": "tls-troubleshoot-screen-4",
+    "lessonId": "tls-troubleshoot",
+    "step": 4,
+    "title": "The certificate chain is invalid",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl verify -CAfile ~/tls-work/root.crt -untrusted ~/tls-work/intermediate.crt -purpose sslserver -verify_hostname app.example.mil ~/tls-work/app-v3.crt",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "Verification fails if the issuer is wrong, signatures do not link, a CA is expired, or purpose constraints fail.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — Verification fails if the issuer is wrong, signatures do not link, a CA is expired, or purpose constraints fail."
+  },
+  {
+    "id": "tls-troubleshoot-screen-5",
+    "lessonId": "tls-troubleshoot",
+    "step": 5,
+    "title": "The DNS name is wrong",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl x509 -in ~/tls-work/app-v3.crt -noout -ext subjectAltName\nopenssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "A hostname mismatch appears when the requested DNS name is absent from the SAN.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — A hostname mismatch appears when the requested DNS name is absent from the SAN."
+  },
+  {
+    "id": "tls-troubleshoot-screen-6",
+    "lessonId": "tls-troubleshoot",
+    "step": 6,
+    "title": "NGINX cannot read the key file",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo stat -c '%U %G %a %n' /etc/pki/tls/private/app-v3.key\nsudo namei -l /etc/pki/tls/private/app-v3.key\nsudo nginx -t",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "A missing file, wrong owner, inaccessible parent or a different service privilege model can cause permission denied.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — A missing file, wrong owner, inaccessible parent or a different service privilege model can cause permission denied."
+  },
+  {
+    "id": "tls-troubleshoot-screen-7",
+    "lessonId": "tls-troubleshoot",
+    "step": 7,
+    "title": "SELinux denies access",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "getenforce\nsudo ls -lZ /etc/pki/tls/certs/app-v3-fullchain.pem /etc/pki/tls/private/app-v3.key\nsudo matchpathcon -V /etc/pki/tls/certs/app-v3-fullchain.pem /etc/pki/tls/private/app-v3.key\nsudo ausearch -m AVC,USER_AVC -ts recent",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "An AVC denial names the blocked process, path and operation. Mode 600 alone cannot fix a wrong label.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — An AVC denial names the blocked process, path and operation. Mode 600 alone cannot fix a wrong label."
+  },
+  {
+    "id": "tls-troubleshoot-screen-8",
+    "lessonId": "tls-troubleshoot",
+    "step": 8,
+    "title": "The configuration test fails",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo nginx -t\nsudo nl -ba /etc/nginx/conf.d/app-tls.conf",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "NGINX reports a file and line, such as a missing semicolon, brace or referenced certificate.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — NGINX reports a file and line, such as a missing semicolon, brace or referenced certificate."
+  },
+  {
+    "id": "tls-troubleshoot-screen-9",
+    "lessonId": "tls-troubleshoot",
+    "step": 9,
+    "title": "The reload failed",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo systemctl status nginx --no-pager --full\nsudo journalctl -u nginx --since '10 minutes ago' --no-pager\nsudo nginx -t",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "The journal can show a reload error while an older worker configuration still serves the website.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — The journal can show a reload error while an older worker configuration still serves the website."
+  },
+  {
+    "id": "tls-troubleshoot-screen-10",
+    "lessonId": "tls-troubleshoot",
+    "step": 10,
+    "title": "The browser warns about trust",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "A private practice root is not trusted by default. Warnings may also mean expiry, name mismatch or a broken chain.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — A private practice root is not trusted by default. Warnings may also mean expiry, name mismatch or a broken chain."
+  },
+  {
+    "id": "tls-troubleshoot-screen-11",
+    "lessonId": "tls-troubleshoot",
+    "step": 11,
+    "title": "The server presents the wrong certificate",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo nginx -T\nopenssl s_client -connect 10.90.0.10:443 -servername app.example.mil -showcerts -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "Another server block, missing SNI, stale loaded configuration or another endpoint can present an unexpected leaf.",
+    "kind": "terminal",
+    "output": "SIMULATED FAILURE CLUE — Another server block, missing SNI, stale loaded configuration or another endpoint can present an unexpected leaf."
+  },
+  {
+    "id": "tls-troubleshoot-screen-12",
+    "lessonId": "tls-troubleshoot",
+    "step": 12,
+    "title": "A load balancer ends TLS before RHEL",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "# On TLS-APP01, verify the backend separately:\nopenssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Use the troubleshooting simulation below to select this scenario and read its simulated evidence.",
+      "On your own VM, run only the read-only diagnostic commands shown here. A healthy completed lab will not reproduce the simulated error.",
+      "Compare the evidence with the verification note. Do not intentionally damage a key or certificate to create the failure."
+    ],
+    "expected": "A real front-end load balancer may present its own certificate even after the RHEL backend certificate is renewed.",
+    "kind": "diagram",
+    "output": "SIMULATED FAILURE CLUE — A real front-end load balancer may present its own certificate even after the RHEL backend certificate is renewed."
+  },
+  {
+    "id": "tls-enterprise-screen-1",
+    "lessonId": "tls-enterprise",
+    "step": 1,
+    "title": "Know the real DoD and STIG boundaries",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Open the official DoD PKI/PKE and DISA STIG resources linked in the course references. Ask the organization’s PKI and security owners which current profiles apply.",
+      "A non-person entity certificate identifies a service or device. A server TLS certificate is not a CAC user certificate and does not enable CAC sign-in by itself.",
+      "Real controls may cover approved issuers, algorithms, key protection, certificate policies, revocation checking, allowed protocols, audit records and system crypto configuration.",
+      "Use the current applicable RHEL, web-server and organizational guidance. This lab is not DoD-approved PKI, not a STIG scan, and not a claim of FIPS validation. Do not weaken the installed crypto policy to make an example connect.",
+      "Revocation means the issuer marks a certificate as no longer acceptable before its expiry. A CRL is a published revocation list; OCSP is a status-checking service. Our simple practice CA publishes neither, so real revocation checks need your approved enterprise PKI design."
+    ],
+    "expected": "Your notes identify the appropriate policy owners and say this is isolated simulated-CA training.",
+    "kind": "checklist",
+    "output": "Your notes identify the appropriate policy owners and say this is isolated simulated-CA training."
+  },
+  {
+    "id": "tls-enterprise-screen-2",
+    "lessonId": "tls-enterprise",
+    "step": 2,
+    "title": "Create an inventory with named owners",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Download the inventory CSV from the course resources on Windows. Open it in a text editor or spreadsheet; save your working copy privately.",
+      "Fill actual issuer, serial, SAN and UTC expiry from the live certificate, not from a picture.",
+      "Assign an owner, backup owner, policy-based renewal date, change identifier and verification method. A filename is not an owner.",
+      "Record only a reference to the private-key path or approved key store. Do not paste the key, password or sensitive production topology into the inventory."
+    ],
+    "expected": "A row identifies this exact endpoint, certificate and renewal responsibility.",
+    "kind": "checklist",
+    "output": "A row identifies this exact endpoint, certificate and renewal responsibility."
+  },
+  {
+    "id": "tls-enterprise-screen-3",
+    "lessonId": "tls-enterprise",
+    "step": 3,
+    "title": "Run a simple local expiry check",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl x509 -in /etc/pki/tls/certs/app-v3-fullchain.pem -noout -checkend 2592000\necho $?\nupdate-crypto-policies --show",
+    "actions": [
+      "Run the block against the currently installed version 3 chain. The first certificate in the chain must be the leaf.",
+      "echo $? shows the previous command’s exit status: zero means it will not expire within this 30-day window; nonzero is a failed/expiring check to investigate.",
+      "This is a practice threshold. Your organization may require a different lead time. It does not renew automatically."
+    ],
+    "expected": "With a new 90-day leaf, OpenSSL reports Certificate will not expire and exit status 0. The crypto-policy command reports the installed system policy.",
+    "kind": "terminal",
+    "output": "With a new 90-day leaf, OpenSSL reports Certificate will not expire and exit status 0. The crypto-policy command reports the installed system policy."
+  },
+  {
+    "id": "tls-enterprise-screen-4",
+    "lessonId": "tls-enterprise",
+    "step": 4,
+    "title": "Monitor the actual endpoint, not a stale filename",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo tee /usr/local/sbin/check-app-tls > /dev/null <<'EOF'\n#!/bin/bash\nset -euo pipefail\nsample=$(mktemp)\ntrap 'rm -f \"$sample\"' EXIT\ntimeout 10 openssl s_client -connect 10.90.0.10:443 -servername app.example.mil \\\n  -CAfile /etc/pki/tls/certs/sonic-lab-root.crt -verify_return_error \\\n  -verify_hostname app.example.mil -showcerts < /dev/null | \\\n  awk '/-----BEGIN CERTIFICATE-----/{in_cert=1} in_cert{print} /-----END CERTIFICATE-----/{in_cert=0}' > \"$sample\"\nopenssl x509 -in \"$sample\" -noout -checkend 2592000\ncurl --cacert /etc/pki/tls/certs/sonic-lab-root.crt \\\n  --resolve app.example.mil:443:10.90.0.10 --fail --silent --show-error \\\n  --max-time 10 https://app.example.mil/ > /dev/null\nEOF\nsudo chmod 755 /usr/local/sbin/check-app-tls\nsudo restorecon -v /usr/local/sbin/check-app-tls\nsudo /usr/local/sbin/check-app-tls",
+    "actions": [
+      "Paste the complete script below into the application terminal. It verifies the served endpoint with SNI, checks the served leaf’s 30-day threshold, then requests the page.",
+      "The temporary file contains only the public served chain. A trap removes it when the script exits. It never reads or exports a private key.",
+      "Run the final command. All checks must succeed; a connection or certificate failure returns nonzero."
+    ],
+    "expected": "The live endpoint verifies and Certificate will not expire appears. No private key is printed.",
+    "kind": "editor",
+    "output": "The live endpoint verifies and Certificate will not expire appears. No private key is printed."
+  },
+  {
+    "id": "tls-enterprise-screen-5",
+    "lessonId": "tls-enterprise",
+    "step": 5,
+    "title": "Schedule the check and inspect its result",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo tee /etc/systemd/system/check-app-tls.service > /dev/null <<'EOF'\n[Unit]\nDescription=Check private practice HTTPS certificate and page\nAfter=network-online.target nginx.service\nWants=network-online.target\n[Service]\nType=oneshot\nExecStart=/usr/local/sbin/check-app-tls\nEOF\nsudo tee /etc/systemd/system/check-app-tls.timer > /dev/null <<'EOF'\n[Unit]\nDescription=Daily private practice TLS check\n[Timer]\nOnCalendar=daily\nPersistent=true\n[Install]\nWantedBy=timers.target\nEOF\nsudo systemctl daemon-reload\nsudo systemctl enable --now check-app-tls.timer\nsudo systemctl start check-app-tls.service\nsudo systemctl list-timers check-app-tls.timer --no-pager\nsudo journalctl -u check-app-tls.service -n 30 --no-pager",
+    "actions": [
+      "Paste both unit files and the final commands. The timer uses the VM’s configured time; note that time zone in your inventory.",
+      "Run the service once now, then list timers and read its journal.",
+      "This local timer records results on the VM only. It does not send email, page an operator or renew a certificate. A real team must connect failures to its approved monitoring and response system."
+    ],
+    "expected": "The timer has a next run, and the one-shot service journal shows a successful check. A successful one-shot service may be inactive afterwards.",
+    "kind": "terminal",
+    "output": "The timer has a next run, and the one-shot service journal shows a successful check. A successful one-shot service may be inactive afterwards."
+  },
+  {
+    "id": "tls-enterprise-screen-6",
+    "lessonId": "tls-enterprise",
+    "step": 6,
+    "title": "Collect evidence and manage the next change",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "Save the approved SANs, CSR filename, certificate serial/issuer/expiry, matching-public-key check result, config diff, nginx -t result and client TLS/page check.",
+      "Record the change owner, approval, implementation time, rollback decision and updated monitoring result. Protect internal names according to your organization’s policy.",
+      "Keep encrypted backups and key retention/revocation under the real policy. Do not attach private keys to tickets.",
+      "For the lab, note that the CA lacks production revocation distribution, hardened administration and policy automation. Do not reuse its root outside the disposable profile."
+    ],
+    "expected": "A short change record explains the before/after certificate and verification evidence.",
+    "kind": "checklist",
+    "output": "A short change record explains the before/after certificate and verification evidence."
+  },
+  {
+    "id": "tls-final-screen-1",
+    "lessonId": "tls-final",
+    "step": 1,
+    "title": "Save a known-valid recovery point",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "openssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null\nsudo sh -c 'test ! -e /root/tls-rollbacks/after-renewal.conf && cp -a /etc/nginx/conf.d/app-tls.conf /root/tls-rollbacks/after-renewal.conf'\nsudo systemctl stop check-app-tls.timer",
+    "actions": [
+      "This final lab changes only TLS-APP01 on isolated VMnet6. Confirm Module 7’s v3 certificate still verifies and presents the correct page.",
+      "Run the read-only TLS test first. Only after it succeeds, save after-renewal.conf once as the known-valid v3 baseline.",
+      "The timer will intentionally fail while the fixture is active; temporarily stop it for this recorded practice window. Do not change the system clock."
+    ],
+    "expected": "The current endpoint verifies and the protected after-renewal.conf baseline exists.",
+    "kind": "terminal",
+    "output": "The current endpoint verifies and the protected after-renewal.conf baseline exists."
+  },
+  {
+    "id": "tls-final-screen-2",
+    "lessonId": "tls-final",
+    "step": 2,
+    "title": "Get the expired-certificate fixture helper",
+    "where": "Your Windows 10 host · Windows PowerShell",
+    "command": "Invoke-WebRequest -Uri https://cloudseam.tech/tls-lab/make-expired-fixture.sh -OutFile \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\nGet-FileHash -Algorithm SHA256 \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\n# Expected SHA256: EFA17EA1A43F1C869379CB44109D00D22DC98EDF019837CBE09CA798DFB66EF6\nnotepad \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\nscp \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\" learner@10.90.0.20:~/make-expired-fixture.sh",
+    "actions": [
+      "In normal Windows PowerShell, download the course helper into your existing SONIC-TLS folder.",
+      "Compare its complete SHA256 hash with the value shown below. Then open it in Notepad and read it: it creates a deliberately expired public certificate using your existing practice intermediate.",
+      "Only after reviewing it, copy the script to the CA with SCP. It is not a genuine DoD tool."
+    ],
+    "expected": "The downloaded script hash matches the published value, and its reviewed copy is on TLS-CA01.",
+    "kind": "powershell",
+    "output": "The downloaded script hash matches the published value, and its reviewed copy is on TLS-CA01."
+  },
+  {
+    "id": "tls-final-screen-3",
+    "lessonId": "tls-final",
+    "step": 3,
+    "title": "Create the deliberately expired leaf at the CA",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "bash -n ~/make-expired-fixture.sh\nless ~/make-expired-fixture.sh\nbash ~/make-expired-fixture.sh\nopenssl x509 -in ~/tls-ca/public/app-expired.crt -noout -dates -subject -issuer",
+    "actions": [
+      "At the CA terminal, run bash -n first to check the script syntax, then read it with less; press q to leave less.",
+      "Run the script only on your disposable practice CA. It creates separate expired-fixture database files and signs the original v1 CSR with dates from two days ago to one day ago.",
+      "Enter the intermediate CA passphrase only at the prompt. No new private key is generated or copied by this helper."
+    ],
+    "expected": "The public fixture’s notAfter is yesterday in UTC. Its name is app.example.mil and it matches v1.key, not v3.key.",
+    "kind": "terminal",
+    "output": "The public fixture’s notAfter is yesterday in UTC. Its name is app.example.mil and it matches v1.key, not v3.key."
+  },
+  {
+    "id": "tls-final-screen-4",
+    "lessonId": "tls-final",
+    "step": 4,
+    "title": "Activate the expired fixture only in this lab",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo test -f /root/tls-rollbacks/after-renewal.conf && scp learner@10.90.0.20:~/tls-ca/public/app-expired.crt ~/tls-work/app-expired.crt\ncat ~/tls-work/app-expired.crt ~/tls-work/intermediate.crt > ~/tls-work/app-expired-fullchain.pem\nsudo install -o root -g root -m 0644 ~/tls-work/app-expired-fullchain.pem /etc/pki/tls/certs/app-expired-fullchain.pem\nsudo restorecon -v /etc/pki/tls/certs/app-expired-fullchain.pem\nsudo sed -i -E 's@ssl_certificate .*;@ssl_certificate /etc/pki/tls/certs/app-expired-fullchain.pem;@; s@ssl_certificate_key .*;@ssl_certificate_key /etc/pki/tls/private/app-v1.key;@' /etc/nginx/conf.d/app-tls.conf\nsudo nginx -t && sudo systemctl reload nginx\nopenssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Confirm the safe v3 baseline exists. Copy the expired public leaf from the CA and assemble its chain.",
+      "Install the fixture and change both directives to expired chain plus app-v1.key. Version 1 is intentional: this fixture was signed from app-v1.csr.",
+      "Notice that nginx -t can succeed for an expired but structurally valid pair. Reload only to create this isolated final-lab condition, never on a real service.",
+      "Run the verification command. It must now fail with expiration; the practice Firefox profile should also warn. Do not click through it."
+    ],
+    "expected": "The client reports certificate has expired. NGINX may remain active because expiry is a client validation failure.",
+    "kind": "terminal",
+    "output": "The client reports certificate has expired. NGINX may remain active because expiry is a client validation failure."
+  },
+  {
+    "id": "tls-final-screen-5",
+    "lessonId": "tls-final",
+    "step": 5,
+    "title": "Investigate and identify the actual pair",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo nginx -T\nopenssl x509 -in /etc/pki/tls/certs/app-expired-fullchain.pem -noout -dates -subject -issuer -serial -ext subjectAltName\ndate -u\nsudo stat -c '%U %G %a %n' /etc/pki/tls/private/app-v1.key",
+    "actions": [
+      "Run the block below. Find the correct HTTPS server block, then inspect its first public certificate.",
+      "Record the expired chain path, app-v1.key path, SAN, issuer, serial and notAfter. Do not inspect secret key contents.",
+      "Choose a new-key renewal for this final exercise and plan the new pair app-v4.crt ↔ app-v4.key."
+    ],
+    "expected": "The active config names the expired chain and original key, and the leaf dates show expiry.",
+    "kind": "terminal",
+    "output": "The active config names the expired chain and original key, and the leaf dates show expiry."
+  },
+  {
+    "id": "tls-final-screen-6",
+    "lessonId": "tls-final",
+    "step": 6,
+    "title": "Generate and submit the final new-key CSR",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo sh -c 'umask 077; test ! -e /etc/pki/tls/private/app-v4.key && openssl req -new -newkey rsa:3072 -noenc -sha256 -keyout /etc/pki/tls/private/app-v4.key -out /home/learner/tls-work/app-v4.csr -config /home/learner/tls-work/req.cnf'\nsudo chown root:root /etc/pki/tls/private/app-v4.key\nsudo chmod 600 /etc/pki/tls/private/app-v4.key\nsudo chmod 644 /home/learner/tls-work/app-v4.csr\nsudo restorecon -v /etc/pki/tls/private/app-v4.key\nopenssl req -in ~/tls-work/app-v4.csr -noout -verify -subject -text\nscp ~/tls-work/app-v4.csr learner@10.90.0.20:~/tls-ca/incoming/app-v4.csr",
+    "actions": [
+      "Paste the guarded newkey block. The private key remains under /etc/pki/tls/private.",
+      "Inspect the CSR signature and SAN. Submit only after those checks pass.",
+      "Copy the CSR to the separate practice CA. No public-service enrollment occurs."
+    ],
+    "expected": "A valid app-v4.csr reaches the CA and app-v4.key stays protected locally.",
+    "kind": "terminal",
+    "output": "A valid app-v4.csr reaches the CA and app-v4.key stays protected locally."
+  },
+  {
+    "id": "tls-final-screen-7",
+    "lessonId": "tls-final",
+    "step": 7,
+    "title": "Approve and return the final certificate",
+    "where": "Practice CA server (TLS-CA01) · RHEL 9 Bash terminal · learner@10.90.0.20",
+    "command": "cd ~/tls-ca\nopenssl req -in incoming/app-v4.csr -noout -verify -subject\nopenssl x509 -req -in incoming/app-v4.csr -CA intermediate.crt -CAkey intermediate.key -CAserial intermediate.srl -CAcreateserial -days 90 -sha256 -extfile server.ext -out issued/app-v4.crt\nopenssl verify -CAfile root.crt -untrusted intermediate.crt -purpose sslserver -verify_hostname app.example.mil issued/app-v4.crt\ncp issued/app-v4.crt public/\nchmod 644 public/app-v4.crt",
+    "actions": [
+      "Inspect the new request on the CA and approve only the intended app.example.mil identity.",
+      "Sign with the existing intermediate, check the returned leaf and copy it into the response folder.",
+      "Leave all CA private keys on this separate VM."
+    ],
+    "expected": "issued/app-v4.crt: OK appears, and the public response file is ready.",
+    "kind": "terminal",
+    "output": "issued/app-v4.crt: OK appears, and the public response file is ready."
+  },
+  {
+    "id": "tls-final-screen-8",
+    "lessonId": "tls-final",
+    "step": 8,
+    "title": "Validate and stage the replacement",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "scp learner@10.90.0.20:~/tls-ca/public/app-v4.crt ~/tls-work/app-v4.crt\nopenssl x509 -in ~/tls-work/app-v4.crt -noout -dates -serial -ext subjectAltName\nopenssl verify -CAfile ~/tls-work/root.crt -untrusted ~/tls-work/intermediate.crt -purpose sslserver -verify_hostname app.example.mil ~/tls-work/app-v4.crt\nset -o pipefail\nopenssl x509 -in ~/tls-work/app-v4.crt -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256\nsudo openssl pkey -in /etc/pki/tls/private/app-v4.key -pubout -outform DER | openssl dgst -sha256\ncat ~/tls-work/app-v4.crt ~/tls-work/intermediate.crt > ~/tls-work/app-v4-fullchain.pem\nsudo install -o root -g root -m 0644 ~/tls-work/app-v4.crt /etc/pki/tls/certs/app-v4.crt\nsudo install -o root -g root -m 0644 ~/tls-work/app-v4-fullchain.pem /etc/pki/tls/certs/app-v4-fullchain.pem\nsudo restorecon -v /etc/pki/tls/certs/app-v4.crt /etc/pki/tls/certs/app-v4-fullchain.pem /etc/pki/tls/private/app-v4.key\nsudo matchpathcon -V /etc/pki/tls/certs/app-v4-fullchain.pem /etc/pki/tls/private/app-v4.key",
+    "actions": [
+      "Receive the new leaf and verify the approved chain and hostname.",
+      "Compare public-key fingerprints against app-v4.key, then build the leaf-first full chain.",
+      "Install the public files and verify SELinux contexts. Leave the protected v3 baseline available until the final check is complete."
+    ],
+    "expected": "Trust, DNS name, dates, key match and file-context checks pass for v4.",
+    "kind": "terminal",
+    "output": "Trust, DNS name, dates, key match and file-context checks pass for v4."
+  },
+  {
+    "id": "tls-final-screen-9",
+    "lessonId": "tls-final",
+    "step": 9,
+    "title": "Activate, test and reload the repaired site",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo sed -i -E 's@ssl_certificate .*;@ssl_certificate /etc/pki/tls/certs/app-v4-fullchain.pem;@; s@ssl_certificate_key .*;@ssl_certificate_key /etc/pki/tls/private/app-v4.key;@' /etc/nginx/conf.d/app-tls.conf\nsudo grep -E 'ssl_certificate|ssl_certificate_key' /etc/nginx/conf.d/app-tls.conf\nsudo nginx -t && sudo systemctl reload nginx\nsudo systemctl is-active nginx\nsudo journalctl -u nginx -n 20 --no-pager\nopenssl s_client -connect 10.90.0.10:443 -servername app.example.mil -CAfile ~/tls-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null",
+    "actions": [
+      "Change both directives to v4 and read them back. Keep the expired fixture files distinct for your lab evidence.",
+      "Run nginx -t, then reload only if it succeeds.",
+      "Check the running state, journal and actual served certificate. Verify the served serial equals the new v4 leaf."
+    ],
+    "expected": "Configuration test succeeds, service remains active and the client verifies the v4 leaf.",
+    "kind": "terminal",
+    "output": "Configuration test succeeds, service remains active and the client verifies the v4 leaf."
+  },
+  {
+    "id": "tls-final-screen-10",
+    "lessonId": "tls-final",
+    "step": 10,
+    "title": "Prove repair from the learner’s browser",
+    "where": "Your Windows 10 host · Windows PowerShell",
+    "command": "curl.exe --cacert \"$env:USERPROFILE\\Documents\\SONIC-TLS\\root.crt\" --resolve app.example.mil:443:10.90.0.10 --fail --silent --show-error --max-time 10 https://app.example.mil/",
+    "actions": [
+      "In normal Windows PowerShell, run the explicit-trust curl command below. No bypass flag is permitted.",
+      "Open https://app.example.mil in the SONIC TLS Practice Firefox profile. The page should load without a certificate warning.",
+      "Open its certificate viewer. Compare the SAN, issuer, serial and expiry to app-v4.crt. The expired fixture serial must no longer be presented."
+    ],
+    "expected": "The intended practice page loads and the browser displays the valid v4 certificate.",
+    "kind": "firefox",
+    "output": "The intended practice page loads and the browser displays the valid v4 certificate."
+  },
+  {
+    "id": "tls-final-screen-11",
+    "lessonId": "tls-final",
+    "step": 11,
+    "title": "Resume monitoring and finish the change record",
+    "where": "Application server (TLS-APP01) · RHEL 9 Bash terminal · learner@10.90.0.10",
+    "command": "sudo /usr/local/sbin/check-app-tls\nsudo systemctl enable --now check-app-tls.timer\nsudo systemctl start check-app-tls.service\nsudo systemctl show check-app-tls.service -p Result\nsudo systemctl list-timers check-app-tls.timer --no-pager",
+    "actions": [
+      "Run the monitor manually and read its result before enabling the timer again.",
+      "Update your private inventory and change record with the new serial, expiry, v4 paths, owner, renewal date and safe recovery reference.",
+      "Complete the final assessment below. The completion indicator records your own lab verification and quiz result; it is not a professional certification."
+    ],
+    "expected": "The monitor succeeds, Result=success appears and the timer has a next run.",
+    "kind": "terminal",
+    "output": "The monitor succeeds, Result=success appears and the timer has a next run."
+  },
+  {
+    "id": "tls-final-screen-12",
+    "lessonId": "tls-final",
+    "step": 12,
+    "title": "Clean up only when you are done practicing",
+    "where": "Your Windows host · Notepad lab notes",
+    "command": null,
+    "actions": [
+      "If continuing practice, keep the lab isolated and retain the required recovery files under your plan.",
+      "If finished, close the practice Firefox window. In your original profile’s about:profiles page, confirm the original is active and remove only SONIC TLS Practice; this removes its practice trust store.",
+      "Open the Windows hosts file in administrator Notepad and remove only the 10.90.0.10 app.example.mil lab line. Do not restore an old complete hosts backup over unrelated later changes.",
+      "At each VM console run sudo shutdown -h now. Retain or delete only these new practice VMs according to your learning plan; do not remove existing academy lab servers.",
+      "The CA is for disposable practice only. Do not export its private keys, add its root to business systems, or imply that a .mil example is a real authorization."
+    ],
+    "expected": "No practice CA trust or lab hosts entry remains in your everyday profile/PC after final cleanup; unused VMs are powered off.",
+    "kind": "checklist",
+    "output": "No practice CA trust or lab hosts entry remains in your everyday profile/PC after final cleanup; unused VMs are powered off."
+  }
+]

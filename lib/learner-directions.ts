@@ -35,6 +35,14 @@ export function learnerActions(text: string): string[] {
 export function workspaceDirections(where: string, action = ''): string {
   where = where.split(/,?\s+unless\b/i)[0];
   const context = `${where} ${action}`;
+  if (/TLS-(APP01|CA01)/.test(where) && /local console|installer/i.test(where))
+    return 'In VMware Library, open the TLS practice VM named above. Use its local installer or text console, as the step specifies; do not use the SSH window while changing its network settings.';
+  if (/TLS-(APP01|CA01)/.test(where) && /Bash/i.test(where)) {
+    const address = where.includes('TLS-CA01') ? '10.90.0.20' : '10.90.0.10';
+    return `On Windows, open PowerShell and type ssh learner@${address}, or return to the existing SSH window for that address. Compare the recorded SSH host fingerprint before accepting a new connection. Run hostname to check the VM, then paste the Linux block there. A sudo password stays invisible while you type.`;
+  }
+  if (/Firefox/i.test(where))
+    return 'On your Windows host, use the SONIC TLS Practice Firefox window named in the step. These are browser clicks, not Linux or PowerShell commands. Check the active profile before changing certificate trust.';
   const machine =
     action.match(
       /^(?:On|Inside|In|Sign into|Sign in to)\s+(?:the\s+)?(DEST-DC01|AZ-DC01|AZ-SQL01|DC0[12]|APP0[12]|IIS-DMZ01|SQL0[12]|MECM01|WSUS01|FW01|PROXY01|TEST01|CLIENT01)\b/i,

@@ -6,6 +6,7 @@ import {
   normalizePlanTier,
   planLabel,
 } from '../lib/plan-access.ts';
+import { tlsCourse } from '../lib/guided-courses.ts';
 import { learningPathways, pathwayLessons } from '../app/learning-pathways.ts';
 const lessons = learningPathways.flatMap(pathwayLessons);
 test('two-tier catalog has valid foundation IDs and reserves enterprise troubleshooting for Apex', () => {
@@ -13,7 +14,10 @@ test('two-tier catalog has valid foundation IDs and reserves enterprise troubles
   assert.equal(new Set(freeLessonIds).size, freeLessonIds.length);
   assert.ok(freeLessonIds.every((id) => valid.has(id)));
   assert.equal(lessons.filter((l) => lessonTier(l.id) === 'free').length, 42);
-  assert.equal(lessons.filter((l) => lessonTier(l.id) === 'apex').length, 188);
+  assert.equal(
+    lessons.filter((l) => lessonTier(l.id) === 'apex').length,
+    188 + tlsCourse.lessons.length,
+  );
   for (const id of [
     'lab-19',
     'lab-07',

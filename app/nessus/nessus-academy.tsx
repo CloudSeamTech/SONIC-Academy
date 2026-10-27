@@ -1,5 +1,7 @@
 'use client';
 import { ServerRoleText } from '../server-role-text';
+import { TlsText } from '../tls/tls-text';
+import { TlsCourseExtras } from '../tls/tls-interactives';
 import { WorkspaceStart } from '../workspace-start';
 import { learnerActions } from '../../lib/learner-directions';
 import { DmzLabNotebook } from '../dmz/lab-notebook';
@@ -105,7 +107,9 @@ function KnowledgeCheck({
   );
   return (
     <section className="nessus-quiz" aria-label="Knowledge check">
-      <h2>Knowledge check</h2>
+      <h2>
+        {lesson.id === 'tls-final' ? 'Final assessment' : 'Knowledge check'}
+      </h2>
       <p>Try these before continuing. You can look back and try again.</p>
       {lesson.quiz.map((question, index) => (
         <fieldset key={index}>
@@ -294,11 +298,29 @@ function LessonReader({
                 where={step.where}
                 action={step.actions.join(' ')}
               />
+              {step.guide && (
+                <section className="tls-step-guide teaching-callout">
+                  <h4>What we’re doing</h4>
+                  <p>
+                    <TlsText text={step.guide.what} />
+                  </p>
+                  <h4>Why we’re doing it</h4>
+                  <p>
+                    <TlsText text={step.guide.why} />
+                  </p>
+                </section>
+              )}
               <section className="guided-action">
                 <h4>Let’s try it</h4>
                 <ol>
                   {step.actions.flatMap(learnerActions).map((action, i) => (
-                    <li key={i}><ServerRoleText text={action} /></li>
+                    <li key={i}>
+                      {step.guide ? (
+                        <TlsText text={action} />
+                      ) : (
+                        <ServerRoleText text={action} />
+                      )}
+                    </li>
                   ))}
                 </ol>
               </section>
@@ -312,12 +334,30 @@ function LessonReader({
               <CommandExample key={`${lesson.id}:${index}`} step={step} />
               <section className="guided-expected">
                 <h4>What you should see</h4>
-                <p>{step.expected}</p>
+                <p>
+                  {step.guide ? (
+                    <TlsText text={step.expected} />
+                  ) : (
+                    step.expected
+                  )}
+                </p>
                 <small>
                   Expected observation, not recorded output from your
                   environment.
                 </small>
               </section>
+              {step.guide && (
+                <section className="tls-step-verification teaching-callout">
+                  <h4>Verify success</h4>
+                  <p>
+                    <TlsText text={step.guide.verify} />
+                  </p>
+                  <h4>If this fails</h4>
+                  <p>
+                    <TlsText text={step.guide.failure} />
+                  </p>
+                </section>
+              )}
               <div className="guided-visuals">
                 <CourseScreenshot screenshot={step.screenshot} />
               </div>
@@ -429,6 +469,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
   const isEnterprise = ['mecm-operations', 'wsus-operations'].includes(
     course.id,
   );
+  const isTls = course.id === 'rhel-nginx-tls';
   const isSplunk = course.id === 'splunk-core-user';
   const isDmz = course.id === 'windows-dmz';
   const isLandingZone = course.id === 'azure-landing-zone';
@@ -436,6 +477,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
   const isHelpdesk = course.id === 'iis-helpdesk';
   const isSecurity = course.id === 'budget-cloud-security';
   const relatedCourses =
+    isTls ||
     isSplunk ||
     isDmz ||
     isEnterprise ||
@@ -490,7 +532,8 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         <nav
           className={
             'nessus-course-switcher' +
-            (isSplunk ||
+            (isTls ||
+            isSplunk ||
             isDmz ||
             isEnterprise ||
             isLandingZone ||
@@ -501,7 +544,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
               : '')
           }
           aria-label={
-            isSplunk || isEnterprise || isDmz
+            isTls || isSplunk || isEnterprise || isDmz
               ? course.title
               : isLandingZone
                 ? 'Azure landing zone course'
@@ -527,7 +570,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         </nav>
         <header className="alma-header">
           <span className="eyebrow">
-            {isSplunk || isEnterprise || isDmz
+            {isTls || isSplunk || isEnterprise || isDmz
               ? course.title.toUpperCase()
               : isLandingZone
                 ? 'YOUR FIRST AZURE LANDING ZONE'
@@ -561,6 +604,41 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             self-verified
           </small>
         </header>
+        {isTls && (
+          <section
+            className="tls-course-progress teaching-callout"
+            aria-label="TLS course progress"
+          >
+            <h2>
+              {done === course.lessons.length
+                ? 'Course complete · self-verified'
+                : 'Your certificate-management pathway'}
+            </h2>
+            <p role="status">
+              {done} of {course.lessons.length} lessons self-verified. Finish
+              the step checks, practical exercise and quiz to verify each
+              lesson.
+            </p>
+            <progress
+              value={done}
+              max={course.lessons.length}
+              aria-label="TLS course completion"
+            />
+            <p>
+              Progress uses the academy’s existing storage. Browser rehearsals
+              do not execute commands or verify your server.
+            </p>
+            <nav className="tls-actions">
+              <a href="/tls-lab/certificate-inventory.csv" download>
+                Inventory template
+              </a>
+              <a href="/tls-lab/app-tls.conf" download>
+                Example NGINX configuration
+              </a>
+              <a href="/migration#lesson=lab-04-vmware">VMware setup help</a>
+            </nav>
+          </section>
+        )}
         {isDmz && (
           <section className="dmz-practice-files" aria-label="DMZ lab files">
             <p>
@@ -651,6 +729,12 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
           ['sec-plan', 'sec-cost', 'sec-vdi-license'].includes(lesson.id) && (
             <SecurityBudget />
           )}
+        {isTls && (
+          <TlsCourseExtras
+            key={`tls-extras-${lesson.id}`}
+            lessonId={lesson.id}
+          />
+        )}
         <LessonReader
           key={lesson.id}
           lesson={lesson}

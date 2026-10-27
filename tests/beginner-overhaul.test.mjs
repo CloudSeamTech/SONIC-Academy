@@ -34,7 +34,11 @@ test('Per-step workspaces are kept out of commands and distinguish host, guest a
 });
 test('Teaching examples use reserved private domains without changing the public support identity', () => {
   const teaching = JSON.stringify([catalog, alma, ...guidedCourses]);
-  assert.doesNotMatch(teaching, /cloudseam\.tech/i);
+  // An academy download URL is not a server/domain placeholder.
+  assert.doesNotMatch(
+    teaching.replaceAll('https://cloudseam.tech/tls-lab/', '/tls-lab/'),
+    /cloudseam\.tech/i,
+  );
   assert.match(teaching, /lab\.example\.test/);
   const setup = catalog.lessons.find((l) => l.id === 'mecm-02').body;
   assert.match(setup, /DC=lab,DC=example,DC=test/);
