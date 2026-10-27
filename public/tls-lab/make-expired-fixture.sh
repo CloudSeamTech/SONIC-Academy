@@ -1,7 +1,8 @@
 #!/bin/bash
 # ISOLATED PRACTICE CA ONLY. Create an expired public leaf, never a private key.
 set -euo pipefail
-cd "$HOME/tls-ca"
+# Optional dedicated directory override for the offline verification harness.
+cd "${SONIC_TLS_CA_DIR:-$HOME/tls-ca}"
 for file in intermediate.crt intermediate.key server.ext incoming/app-v1.csr; do
   test -s "$file" || { printf 'Missing CA input: %s\n' "$file" >&2; exit 1; }
 done

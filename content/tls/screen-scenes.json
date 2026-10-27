@@ -1468,7 +1468,7 @@
     "step": 2,
     "title": "Get the expired-certificate fixture helper",
     "where": "Your Windows 10 host · Windows PowerShell",
-    "command": "Invoke-WebRequest -Uri https://cloudseam.tech/tls-lab/make-expired-fixture.sh -OutFile \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\nGet-FileHash -Algorithm SHA256 \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\n# Expected SHA256: EFA17EA1A43F1C869379CB44109D00D22DC98EDF019837CBE09CA798DFB66EF6\nnotepad \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\nscp \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\" learner@10.90.0.20:~/make-expired-fixture.sh",
+    "command": "Invoke-WebRequest -Uri https://cloudseam.tech/tls-lab/make-expired-fixture.sh -OutFile \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\nGet-FileHash -Algorithm SHA256 \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\n# Expected SHA256: D786FA6954111E88C1964EB53E04B560EF32590C32EB974ECE75CC64ED0EEAD0\nnotepad \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\"\nscp \"$env:USERPROFILE\\Documents\\SONIC-TLS\\make-expired-fixture.sh\" learner@10.90.0.20:~/make-expired-fixture.sh",
     "actions": [
       "In normal Windows PowerShell, download the course helper into your existing SONIC-TLS folder.",
       "Compare its complete SHA256 hash with the value shown below. Then open it in Notepad and read it: it creates a deliberately expired public certificate using your existing practice intermediate.",

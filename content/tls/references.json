@@ -897,7 +897,7 @@
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
     "credit": "CloudSeam Tech · authored instructional mockup",
     "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
-    "sha256": "004e093d502113ee9559709be297a7bd9368225fa19174e866f66731694662d7"
+    "sha256": "351175769989043d85b74f5fe475c5e0398502798c5507baa6ddc19fd429ec5b"
   },
   {
     "id": "tls-final-screen-3",

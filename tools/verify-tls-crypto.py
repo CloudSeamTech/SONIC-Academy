@@ -40,7 +40,7 @@ with tempfile.TemporaryDirectory(prefix='sonic-tls-test-') as tmp:
  assert run('openssl','x509','-in',str(ca/'issued/app-v1.crt'),'-noout','-checkend','2592000').returncode==0
  # The published fixture uses an encrypted signing key and prompts through stdin in this no-TTY rehearsal.
  helper=ROOT/'public/tls-lab/make-expired-fixture.sh';run('bash','-n',str(helper))
- env={**os.environ,'HOME':str(home)}
+ env={**os.environ,'SONIC_TLS_CA_DIR':str(ca)}
  expired=subprocess.run(['bash',str(helper)],env=env,input='throwaway-ephemeral-test-only\n',text=True,stdout=subprocess.PIPE,stderr=subprocess.PIPE)
  assert expired.returncode==0,expired.stderr
  bad=run('openssl','verify','-CAfile','root.crt','-untrusted','intermediate.crt','-verify_hostname','app.example.mil','issued/app-expired.crt',cwd=ca,ok=False)
