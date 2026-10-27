@@ -1,0 +1,7 @@
+[Unit]
+Description=Check private practice HTTPS certificate and page
+After=network-online.target nginx.service
+Wants=network-online.target
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/check-app-tls

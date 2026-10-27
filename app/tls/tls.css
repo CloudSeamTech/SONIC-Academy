@@ -1,0 +1,103 @@
+/* Course-only additions inherit the academy typography, colors and navigation. */
+.tls-interactive {
+  margin-block: 32px;
+  min-width: 0;
+}
+.tls-flow {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 16px 0;
+  padding: 0;
+}
+.tls-flow li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1 1 155px;
+}
+.tls-flow button {
+  flex: 1;
+  min-height: 74px;
+  padding: 12px;
+  overflow-wrap: anywhere;
+}
+.tls-flow li > span {
+  flex: 0 0 auto;
+}
+.tls-chain,
+.tls-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 16px;
+}
+.tls-interactive label {
+  display: block;
+  margin-block: 16px;
+}
+.tls-interactive :is(select, textarea) {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  padding: 12px;
+  margin-top: 10px;
+  font: inherit;
+  line-height: 1.65;
+}
+.tls-interactive textarea {
+  resize: vertical;
+  font-family: var(--font-ibm-plex-mono), monospace !important;
+}
+.tls-interactive fieldset {
+  padding: 16px 0;
+  border: 0;
+  min-width: 0;
+}
+.tls-interactive .tls-choice {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  line-height: 1.7;
+}
+.tls-choice input {
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  margin-top: 4px;
+}
+.tls-course-progress {
+  margin-block: 24px;
+}
+.tls-course-progress progress {
+  display: block;
+  width: 100%;
+  height: 18px;
+  accent-color: var(--academy-brand-purple);
+  margin-top: 14px;
+}
+.tls-step-guide,
+.tls-step-verification {
+  margin-block: 24px;
+}
+.tls-step-guide p,
+.tls-step-verification p {
+  margin-block: 14px;
+}
+@media (max-width: 600px) {
+  .tls-flow {
+    display: block;
+  }
+  .tls-flow li {
+    margin-block: 10px;
+  }
+  .tls-flow li > span {
+    transform: rotate(90deg);
+  }
+  .tls-flow button {
+    min-height: 52px;
+  }
+}

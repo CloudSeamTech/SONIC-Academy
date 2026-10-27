@@ -1,4 +1,5 @@
 import {
+  tlsCourse,
   splunkCourse,
   dmzCourse,
   mecmCourse,
@@ -28,6 +29,7 @@ test('pathways retain every existing lesson exactly once with its original reade
     new Set(ids),
     new Set(
       [
+        ...tlsCourse.lessons,
         ...lessons,
         ...migrationCurriculum,
         ...alma.lessons,
@@ -46,7 +48,7 @@ test('pathways retain every existing lesson exactly once with its original reade
   for (const lesson of entries) {
     assert.equal(
       lesson.href,
-      `${['nessus', 'azure-lab', 'helpdesk', 'security-lab', 'landing-zone', 'enterprise'].includes(lesson.source) ? lesson.href.split('#')[0] : lesson.source === 'alma' ? '/alma' : lesson.source === 'linux' ? '/' : '/migration'}#lesson=${lesson.id}`,
+      `${['tls', 'nessus', 'azure-lab', 'helpdesk', 'security-lab', 'landing-zone', 'enterprise'].includes(lesson.source) ? lesson.href.split('#')[0] : lesson.source === 'alma' ? '/alma' : lesson.source === 'linux' ? '/' : '/migration'}#lesson=${lesson.id}`,
     );
     assert.ok(lesson.title && lesson.description && lesson.steps.length);
   }

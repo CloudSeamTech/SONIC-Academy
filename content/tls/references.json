@@ -1,0 +1,1002 @@
+[
+  {
+    "id": "tls-start-screen-1",
+    "src": "/tls-lab/screens/tls-start-screen-1.svg",
+    "title": "Write down the two jobs",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "51471eb0356c254e67f190979691b1cc7688c24d21ae7b6f419d2cda6088ada7"
+  },
+  {
+    "id": "tls-start-screen-2",
+    "src": "/tls-lab/screens/tls-start-screen-2.svg",
+    "title": "Get the installers without buying cloud resources",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://developers.redhat.com/products/rhel/download",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "f258711566c1e7ac7e508908bbe7341a4d5c22b80c712266feb2c64efb6b1399"
+  },
+  {
+    "id": "tls-start-screen-3",
+    "src": "/tls-lab/screens/tls-start-screen-3.svg",
+    "title": "Create the application VM",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "2086cf5b825ae80f80f39508b8885eeb89287325357da0e942262a438226995f"
+  },
+  {
+    "id": "tls-start-screen-4",
+    "src": "/tls-lab/screens/tls-start-screen-4.svg",
+    "title": "Install RHEL 9 and create learner",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/performing_a_standard_rhel_9_installation/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "d6774e2d80f8af96bd531413156c89c228528c176595cc7aadc164737fe853c2"
+  },
+  {
+    "id": "tls-start-screen-5",
+    "src": "/tls-lab/screens/tls-start-screen-5.svg",
+    "title": "Install the application tools before isolation",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "7fbe54ba8287f88448e5d576f0b603de6fc97327e996098de72ec13b66e7bfde"
+  },
+  {
+    "id": "tls-start-screen-6",
+    "src": "/tls-lab/screens/tls-start-screen-6.svg",
+    "title": "Build the separate practice CA VM",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "f9697ff6546e984580dd65beb35283b30bf75ea1aec470620d8edcbcf20eec84"
+  },
+  {
+    "id": "tls-start-screen-7",
+    "src": "/tls-lab/screens/tls-start-screen-7.svg",
+    "title": "Install the CA tools at its own console",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "a3a55bf9d34e208822d9deae641ea5a4651c8e6bb3425e0995dda752e12ee664"
+  },
+  {
+    "id": "tls-start-screen-8",
+    "src": "/tls-lab/screens/tls-start-screen-8.svg",
+    "title": "Create the private practice network",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "ebde39c8fbdfbd0d5683eeb982fd516560243f34d099278981d7c9c5f2ab2546"
+  },
+  {
+    "id": "tls-start-screen-9",
+    "src": "/tls-lab/screens/tls-start-screen-9.svg",
+    "title": "Give the application server its private address",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "d7441b38b8bbf8b2a25f07b082ea6657789a0426093580bc2bcf0377d051ca51"
+  },
+  {
+    "id": "tls-start-screen-10",
+    "src": "/tls-lab/screens/tls-start-screen-10.svg",
+    "title": "Give the CA its different address",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "c64e006d706d8782d03754b63a82954a89ba175a8a39f1620ee1e15f4795ff28"
+  },
+  {
+    "id": "tls-start-screen-11",
+    "src": "/tls-lab/screens/tls-start-screen-11.svg",
+    "title": "Open PowerShell and verify SSH host keys",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "b6d1127b6bc876e80bfeaf9d3d85eb646f8630fc2bc830ca79060a67f6c9d468"
+  },
+  {
+    "id": "tls-start-screen-12",
+    "src": "/tls-lab/screens/tls-start-screen-12.svg",
+    "title": "Create your working folder and practice page",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "89b7d664e7ec29dd758f3f5ec7f479d45ea485de49ba47ad40d6b514fe84ffc9"
+  },
+  {
+    "id": "tls-basics-screen-1",
+    "src": "/tls-lab/screens/tls-basics-screen-1.svg",
+    "title": "Follow a request through the DMZ",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "c6f7f7ea3d9b06ea01c621edd5f03c5005484e7dcf868ed253075d9b3717d199"
+  },
+  {
+    "id": "tls-basics-screen-2",
+    "src": "/tls-lab/screens/tls-basics-screen-2.svg",
+    "title": "Understand TLS and HTTPS",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "68d10355784b535c123d75c2b514057df4df13b4d0260a5f1ce9cfadf3329135"
+  },
+  {
+    "id": "tls-basics-screen-3",
+    "src": "/tls-lab/screens/tls-basics-screen-3.svg",
+    "title": "Meet the public certificate and secret key",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "62c69fd46399e15891e30cf7a30c4d5a14edf3d68cb2392522478cf140878b9e"
+  },
+  {
+    "id": "tls-basics-screen-4",
+    "src": "/tls-lab/screens/tls-basics-screen-4.svg",
+    "title": "Meet the CSR and signing office",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "2b7204ed7badb9e13f3e750c227edf23474c527990237df95ff8bd257f9a2774"
+  },
+  {
+    "id": "tls-basics-screen-5",
+    "src": "/tls-lab/screens/tls-basics-screen-5.svg",
+    "title": "Build the trust chain",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "dce3111bc52e772ab4a2606334abeff40156578e9d92609a2089dc0f91d50bd8"
+  },
+  {
+    "id": "tls-basics-screen-6",
+    "src": "/tls-lab/screens/tls-basics-screen-6.svg",
+    "title": "Check names, dates and matching keys",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "75510a5b23ccd7bad8f558fe151e22ab66eeb4c5f6fd48df88e77e92ba1fbb7b"
+  },
+  {
+    "id": "tls-find-screen-1",
+    "src": "/tls-lab/screens/tls-find-screen-1.svg",
+    "title": "Open the application terminal",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "eccfe9f0cca2bc7f63cea9f33563605decddbd760ffebf1b0d7cbbceea06b371"
+  },
+  {
+    "id": "tls-find-screen-2",
+    "src": "/tls-lab/screens/tls-find-screen-2.svg",
+    "title": "Confirm the operating system",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "804eb661009783f6fabce8b478e87e2e80fc99172494c8fab53f912bb3136d2a"
+  },
+  {
+    "id": "tls-find-screen-3",
+    "src": "/tls-lab/screens/tls-find-screen-3.svg",
+    "title": "Check NGINX without changing it",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "706fa9f59de93e873c4fa2dd5d3cbed5926e69502e5fb9b3ce56ef247c484f3b"
+  },
+  {
+    "id": "tls-find-screen-4",
+    "src": "/tls-lab/screens/tls-find-screen-4.svg",
+    "title": "Find the configuration NGINX actually loads",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "b5ee83ed32940a5f6dc453744d8db46d8ea49b35af94b069ee87c7a3842dedd5"
+  },
+  {
+    "id": "tls-find-screen-5",
+    "src": "/tls-lab/screens/tls-find-screen-5.svg",
+    "title": "Read the two certificate directives",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "a810550135fb8b0a1d758f1c7c7e410eb94a1409704092106f32654dd4ed310f"
+  },
+  {
+    "id": "tls-find-screen-6",
+    "src": "/tls-lab/screens/tls-find-screen-6.svg",
+    "title": "Inspect a found certificate, or record the fresh-lab stop",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "fddb3c3b3ee87848bf49670ce8a4b2dbb66567ef404429ad4ac0a8fdf605e6c5"
+  },
+  {
+    "id": "tls-key-screen-1",
+    "src": "/tls-lab/screens/tls-key-screen-1.svg",
+    "title": "Choose the key’s safe home",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "53cabaf697e423e30ff821742829dbf208f1124dfa5ce532ab19ed3c6330ac04"
+  },
+  {
+    "id": "tls-key-screen-2",
+    "src": "/tls-lab/screens/tls-key-screen-2.svg",
+    "title": "Generate app-v1.key once",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "75c4209cca6b297507260cef5b6af0e90544339792231f013acb86c22ce1b01c"
+  },
+  {
+    "id": "tls-key-screen-3",
+    "src": "/tls-lab/screens/tls-key-screen-3.svg",
+    "title": "Verify the key without exposing it",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "448dce05ffa561c4437e3f4603b27a1790d05ef4fc2f0400b4b2ae38fe19ff93"
+  },
+  {
+    "id": "tls-csr-existing-screen-1",
+    "src": "/tls-lab/screens/tls-csr-existing-screen-1.svg",
+    "title": "Choose the exact application name",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "c176525d88b2e4e2a020c35374c6c2fab294ab4f35c04f29b27bb807f83c1aa1"
+  },
+  {
+    "id": "tls-csr-existing-screen-2",
+    "src": "/tls-lab/screens/tls-csr-existing-screen-2.svg",
+    "title": "Save the CSR settings file",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "d4f0eda2e4e464f46e9bc704825c409737044deb84985eb3c38a6e33427e402e"
+  },
+  {
+    "id": "tls-csr-existing-screen-3",
+    "src": "/tls-lab/screens/tls-csr-existing-screen-3.svg",
+    "title": "Create app-v1.csr using -key",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "91dd9688bcf508bb18fec8a594594086c9a23b45328cb40ddb46ce2ac8b52f2a"
+  },
+  {
+    "id": "tls-csr-existing-screen-4",
+    "src": "/tls-lab/screens/tls-csr-existing-screen-4.svg",
+    "title": "Verify the CSR before submission",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "36b5b29a76aa73e91a7d64b5bcc272a79c927e71aeb16647c4b97eb5a9090f08"
+  },
+  {
+    "id": "tls-csr-new-screen-1",
+    "src": "/tls-lab/screens/tls-csr-new-screen-1.svg",
+    "title": "Name the new pair before generating it",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "7b69a61304f783d99cc8c8942b9137837d81b98a07a67e3453d624310ce18adb"
+  },
+  {
+    "id": "tls-csr-new-screen-2",
+    "src": "/tls-lab/screens/tls-csr-new-screen-2.svg",
+    "title": "Generate the new key and CSR together",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "60d98f24e2237b2edfcae96e4a7b62d585b2e1851ed725773f91d5778a82fb4d"
+  },
+  {
+    "id": "tls-csr-new-screen-3",
+    "src": "/tls-lab/screens/tls-csr-new-screen-3.svg",
+    "title": "Inspect and compare the request",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "1ffefd41a87684644be68e30adf0af8205f4fcbea47b85cb47acea49212049a1"
+  },
+  {
+    "id": "tls-ca-screen-1",
+    "src": "/tls-lab/screens/tls-ca-screen-1.svg",
+    "title": "Know what enrollment means",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://www.cyber.mil/pki-pke/for-admins-integrators-and-developers",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "2b4a1450fe4d5092d1f429568ce6e550075108ad992f5793c607adc65656059b"
+  },
+  {
+    "id": "tls-ca-screen-2",
+    "src": "/tls-lab/screens/tls-ca-screen-2.svg",
+    "title": "Open the separate CA terminal",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "c5c6fa58a7324fc030ec00b4980f4bbc6cc2d5e4c7760362e4a6ef0df6a83320"
+  },
+  {
+    "id": "tls-ca-screen-3",
+    "src": "/tls-lab/screens/tls-ca-screen-3.svg",
+    "title": "Prepare private CA folders",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "d1d4de57a836f544dee5ee0ef40319adf4da21e1134cd8b29ce5fb2d08e17a62"
+  },
+  {
+    "id": "tls-ca-screen-4",
+    "src": "/tls-lab/screens/tls-ca-screen-4.svg",
+    "title": "Create an encrypted root key",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "5f4016ad63528dbeb72117ac093b43cb6cc3c74bbaabbf58495d285b620d7770"
+  },
+  {
+    "id": "tls-ca-screen-5",
+    "src": "/tls-lab/screens/tls-ca-screen-5.svg",
+    "title": "Create the public root certificate",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "01c77183794d0435f8188c93df8b9060f26be8119d3e9c55ffb9b2b8f8531c8f"
+  },
+  {
+    "id": "tls-ca-screen-6",
+    "src": "/tls-lab/screens/tls-ca-screen-6.svg",
+    "title": "Make and sign the intermediate CA",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "95c3a72df4644c34a531aca9a1b6d2e4739ab3654dd71b07ebdcc4a2393088e1"
+  },
+  {
+    "id": "tls-ca-screen-7",
+    "src": "/tls-lab/screens/tls-ca-screen-7.svg",
+    "title": "Send only the checked CSR",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "5619cf20c6721f655578978fb5516640029a90147269a39bc2b3036fe07d6e78"
+  },
+  {
+    "id": "tls-ca-screen-8",
+    "src": "/tls-lab/screens/tls-ca-screen-8.svg",
+    "title": "Approve the request and issue the leaf",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "8520ba6b995858a3d5b4de2425e9da6390c08628a46b571eb496ac514f93eee1"
+  },
+  {
+    "id": "tls-ca-screen-9",
+    "src": "/tls-lab/screens/tls-ca-screen-9.svg",
+    "title": "Publish only the public response files",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "b228b32a00781bd52b192b64ac91bf684f61e3e23b475e5bd9e13105ebee1fb6"
+  },
+  {
+    "id": "tls-install-screen-1",
+    "src": "/tls-lab/screens/tls-install-screen-1.svg",
+    "title": "Receive the public response on the application",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "17d9523e9550e43b0f7636c24775fac2ff5fc31310b57bcb60152dc093758fe3"
+  },
+  {
+    "id": "tls-install-screen-2",
+    "src": "/tls-lab/screens/tls-install-screen-2.svg",
+    "title": "Inspect the returned leaf and CA chain",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "e638adb2e9254e95ebdd4c143d6f060cb953d66c4b4930b3aa9ef3fe270238fa"
+  },
+  {
+    "id": "tls-install-screen-3",
+    "src": "/tls-lab/screens/tls-install-screen-3.svg",
+    "title": "Verify the certificate and private key match",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "3922b50f9fe7d69ab3c9c72684c28004044f5087ad896fdecba0f4ed2df5690c"
+  },
+  {
+    "id": "tls-install-screen-4",
+    "src": "/tls-lab/screens/tls-install-screen-4.svg",
+    "title": "Build the chain in the correct order",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "e266ff5c8a3588da46d215c7a9ed8361ce9278678475f122d7b49fe4af5af384"
+  },
+  {
+    "id": "tls-install-screen-5",
+    "src": "/tls-lab/screens/tls-install-screen-5.svg",
+    "title": "Back up configuration before the first edit",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "923fbbe7ab96759d54d9ea74212258840775f068a9ed2db48c901b87ee69df8e"
+  },
+  {
+    "id": "tls-install-screen-6",
+    "src": "/tls-lab/screens/tls-install-screen-6.svg",
+    "title": "Install public files and secure metadata",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "58e8905e2c9867252ce50e4ef1d22444fd7b89c99b4168817b13615784201ccf"
+  },
+  {
+    "id": "tls-install-screen-7",
+    "src": "/tls-lab/screens/tls-install-screen-7.svg",
+    "title": "Check SELinux labels instead of disabling protection",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "71f4b0ea50ea6220e35dff52e50a0ce1d9b84551fab890519b233557de7f097a"
+  },
+  {
+    "id": "tls-install-screen-8",
+    "src": "/tls-lab/screens/tls-install-screen-8.svg",
+    "title": "Create the HTTPS server block",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "350dd6aba070d85fdb627b0c61ec83690824f09e06b73ce5d8214471a7fc1db6"
+  },
+  {
+    "id": "tls-install-screen-9",
+    "src": "/tls-lab/screens/tls-install-screen-9.svg",
+    "title": "Test first, then reload gracefully",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "f687f23646a4988e9dc1987e95f590e228e0905d03c1b94f15a6abde515409ed"
+  },
+  {
+    "id": "tls-install-screen-10",
+    "src": "/tls-lab/screens/tls-install-screen-10.svg",
+    "title": "Allow HTTPS on the private practice adapter",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "1c069cc707ce098c68f11baa1f34561d53e0f5f92cfa4aefc25af49dc2cb6a9e"
+  },
+  {
+    "id": "tls-install-screen-11",
+    "src": "/tls-lab/screens/tls-install-screen-11.svg",
+    "title": "Verify the served certificate with SNI and trust",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "d521dae2a0b9ab49bfd0a869882b40adef86e334522f9b368f0a2ba7089c87c1"
+  },
+  {
+    "id": "tls-install-screen-12",
+    "src": "/tls-lab/screens/tls-install-screen-12.svg",
+    "title": "Copy the public root to Windows",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "6b4f8557a5776fe964b3ffcd353daaa077de0ae76ad3f348484a66cdbfe265ff"
+  },
+  {
+    "id": "tls-install-screen-13",
+    "src": "/tls-lab/screens/tls-install-screen-13.svg",
+    "title": "Map the fictional website name only on this PC",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "576a5d0ccd6ea42b0b2cd493966b5a86e745feb1fadb2d9fe3bf717251e3666e"
+  },
+  {
+    "id": "tls-install-screen-14",
+    "src": "/tls-lab/screens/tls-install-screen-14.svg",
+    "title": "Check HTTPS from Windows without a bypass",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "c6d87d07c4c1bda7700f750cc2da486a2e74a3750a25177175042dcd25ccc531"
+  },
+  {
+    "id": "tls-install-screen-15",
+    "src": "/tls-lab/screens/tls-install-screen-15.svg",
+    "title": "Create an isolated Firefox practice profile",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://support.mozilla.org/en-US/kb/profile-manager-create-remove-switch-firefox-profiles",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "9d4a8789c0a2a858b65b7bee7a4ee656dd4e0d2248ef5045f861c317cadcf7c5"
+  },
+  {
+    "id": "tls-install-screen-16",
+    "src": "/tls-lab/screens/tls-install-screen-16.svg",
+    "title": "Trust the checked root in that profile only",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://support.mozilla.org/en-US/kb/setting-certificate-authorities-firefox",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "5f75941766f973c86afcb4521045271efe87e9686c59fda6f88f8647305fa126"
+  },
+  {
+    "id": "tls-renew-existing-screen-1",
+    "src": "/tls-lab/screens/tls-renew-existing-screen-1.svg",
+    "title": "Check whether key reuse is allowed",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "cc03dc0567f11f3c546950c3caadfa4bf9ddaac3641d53a9c47a851f7d3eda14"
+  },
+  {
+    "id": "tls-renew-existing-screen-2",
+    "src": "/tls-lab/screens/tls-renew-existing-screen-2.svg",
+    "title": "Make and transfer the fresh renewal CSR",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "a3c15edccf1245409fab33717a35bc2578a00b0c1fead5caccc5698a37cbb2bb"
+  },
+  {
+    "id": "tls-renew-existing-screen-3",
+    "src": "/tls-lab/screens/tls-renew-existing-screen-3.svg",
+    "title": "Approve and return the renewal certificate",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "5e13f4524c737dff9336563070050092269f7572c6ff13107faf60389f682e7b"
+  },
+  {
+    "id": "tls-renew-existing-screen-4",
+    "src": "/tls-lab/screens/tls-renew-existing-screen-4.svg",
+    "title": "Receive, verify and build the renewed chain",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "bc87521f0c16342b5b93566e286320d43256130c12a115975ccb823e8218d73f"
+  },
+  {
+    "id": "tls-renew-existing-screen-5",
+    "src": "/tls-lab/screens/tls-renew-existing-screen-5.svg",
+    "title": "Change only the certificate path and reload",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "7f2956040e5060a765b226ecb7f65771a560d1f51d8fa9523e90063b548f211a"
+  },
+  {
+    "id": "tls-renew-existing-screen-6",
+    "src": "/tls-lab/screens/tls-renew-existing-screen-6.svg",
+    "title": "Keep a usable rollback, not an expired shortcut",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "a017632d08356919a093a63e7d567ca7c35e5479e233e76ef2556deef17cfadd"
+  },
+  {
+    "id": "tls-renew-new-screen-1",
+    "src": "/tls-lab/screens/tls-renew-new-screen-1.svg",
+    "title": "Create a fresh version 3 request and key",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "77f93e230e8c464a1f61582d4a8796ee0782021498d519e20719c9077a8716b7"
+  },
+  {
+    "id": "tls-renew-new-screen-2",
+    "src": "/tls-lab/screens/tls-renew-new-screen-2.svg",
+    "title": "Issue the version 3 certificate",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "e9941eefadcac567a19f9458173b4a788e02dda1eeed7f02eb93ae449c2b86a5"
+  },
+  {
+    "id": "tls-renew-new-screen-3",
+    "src": "/tls-lab/screens/tls-renew-new-screen-3.svg",
+    "title": "Validate and stage both new paths",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "00832fad67e732f9998abbca95d481e8a4a248cfea28bec22c23d2e34ef3cb0f"
+  },
+  {
+    "id": "tls-renew-new-screen-4",
+    "src": "/tls-lab/screens/tls-renew-new-screen-4.svg",
+    "title": "Activate the certificate and key together",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "9e0444f34b7784ddba3e811b8dd0b1b657230be130a0cb16bbdff6d1ac60f407"
+  },
+  {
+    "id": "tls-renew-new-screen-5",
+    "src": "/tls-lab/screens/tls-renew-new-screen-5.svg",
+    "title": "Record the result and retain a safe recovery pair",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "d04c0cbe35af03219ee02dc19a31dcee37fc69b24dade929b5cd12b37e74c713"
+  },
+  {
+    "id": "tls-troubleshoot-screen-1",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-1.svg",
+    "title": "The certificate is expired",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "1df8c235070c7c1b19ba89090b5d20f8a064a2a194c22fc9eaf0ada18791d4e1"
+  },
+  {
+    "id": "tls-troubleshoot-screen-2",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-2.svg",
+    "title": "The private key does not match",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "c433146b143eea7201704a25784175c5c9fc8d3f34294765fa8d6df4ea458356"
+  },
+  {
+    "id": "tls-troubleshoot-screen-3",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-3.svg",
+    "title": "An intermediate certificate is missing",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "90f55dc539a1807268e9d4b255a30997385f7226dfa00e049bd14d6f1c50f636"
+  },
+  {
+    "id": "tls-troubleshoot-screen-4",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-4.svg",
+    "title": "The certificate chain is invalid",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "5e8a06b27496b78f28dd6779816bad584ddb39011b5166abd9f500ed09b5c9a3"
+  },
+  {
+    "id": "tls-troubleshoot-screen-5",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-5.svg",
+    "title": "The DNS name is wrong",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "a8f7b82b57823af0789552ba97eeff11238d48a6d4224381ab89545868001d81"
+  },
+  {
+    "id": "tls-troubleshoot-screen-6",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-6.svg",
+    "title": "NGINX cannot read the key file",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "44aded19f074122f6ae92d8d521ad7e68afd16f1551e8cbecd0612293f7efc46"
+  },
+  {
+    "id": "tls-troubleshoot-screen-7",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-7.svg",
+    "title": "SELinux denies access",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "00f3907dd65ee6e449d652037da2451c5135227dbf7a3b4c03a06ab3bdf7af32"
+  },
+  {
+    "id": "tls-troubleshoot-screen-8",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-8.svg",
+    "title": "The configuration test fails",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "41cea3389cb811b471ecdce936b1fcdeaab87aedd3d8f9dc22f7f8c8ed820718"
+  },
+  {
+    "id": "tls-troubleshoot-screen-9",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-9.svg",
+    "title": "The reload failed",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "83dd6e5ff64044c2836d146bbc5ca03de52456bc9483ce2a3f68fba6c1f21b4d"
+  },
+  {
+    "id": "tls-troubleshoot-screen-10",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-10.svg",
+    "title": "The browser warns about trust",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "c904d80e825e664dcfd666047e0d672d8474baff0e925f8bcdb2a040886708a8"
+  },
+  {
+    "id": "tls-troubleshoot-screen-11",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-11.svg",
+    "title": "The server presents the wrong certificate",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "239ba1b22a23efdecf7736fb28bb3c47128670e1a5f45aa36bf3ff62ef83e7ee"
+  },
+  {
+    "id": "tls-troubleshoot-screen-12",
+    "src": "/tls-lab/screens/tls-troubleshoot-screen-12.svg",
+    "title": "A load balancer ends TLS before RHEL",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "8cbf0a12c97d07edacdf92f6067b119666d2750e86cdc95a3966551816fbec69"
+  },
+  {
+    "id": "tls-enterprise-screen-1",
+    "src": "/tls-lab/screens/tls-enterprise-screen-1.svg",
+    "title": "Know the real DoD and STIG boundaries",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://www.cyber.mil/pki-pke/for-admins-integrators-and-developers",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "458651960d4988b7fee5e5479064068f57b6562b4ffc1cfe51ef17b394d08adf"
+  },
+  {
+    "id": "tls-enterprise-screen-2",
+    "src": "/tls-lab/screens/tls-enterprise-screen-2.svg",
+    "title": "Create an inventory with named owners",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "01b518c49db154310a7d2403e27cfc8936f9a01ce9103d4de40e33c27d1fce55"
+  },
+  {
+    "id": "tls-enterprise-screen-3",
+    "src": "/tls-lab/screens/tls-enterprise-screen-3.svg",
+    "title": "Run a simple local expiry check",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "962a377868622c0b0fa777dcbb2184c2e16c7af987f578d694083fa53f6c638f"
+  },
+  {
+    "id": "tls-enterprise-screen-4",
+    "src": "/tls-lab/screens/tls-enterprise-screen-4.svg",
+    "title": "Monitor the actual endpoint, not a stale filename",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "313f7a920757c203885f6a50703d77bcf54394ba41fc4d953182292e74dd63cf"
+  },
+  {
+    "id": "tls-enterprise-screen-5",
+    "src": "/tls-lab/screens/tls-enterprise-screen-5.svg",
+    "title": "Schedule the check and inspect its result",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "d1556f2c788f2abdc650e15885015850d63239b26defb4e559ac50269df65efc"
+  },
+  {
+    "id": "tls-enterprise-screen-6",
+    "src": "/tls-lab/screens/tls-enterprise-screen-6.svg",
+    "title": "Collect evidence and manage the next change",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "92577734ca6938349f658014438434cd8db6540182293e3b7a09ee175b011ebc"
+  },
+  {
+    "id": "tls-final-screen-1",
+    "src": "/tls-lab/screens/tls-final-screen-1.svg",
+    "title": "Save a known-valid recovery point",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "8bdd1fefb7e5c34a7f03a5af05e2886ec184e0d36a7aac539494e58f51fcbde7"
+  },
+  {
+    "id": "tls-final-screen-2",
+    "src": "/tls-lab/screens/tls-final-screen-2.svg",
+    "title": "Get the expired-certificate fixture helper",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "351175769989043d85b74f5fe475c5e0398502798c5507baa6ddc19fd429ec5b"
+  },
+  {
+    "id": "tls-final-screen-3",
+    "src": "/tls-lab/screens/tls-final-screen-3.svg",
+    "title": "Create the deliberately expired leaf at the CA",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "f443b79033a990bcfb502ac2a1b30ea3763e7b946c490add4459b7ba7aac6331"
+  },
+  {
+    "id": "tls-final-screen-4",
+    "src": "/tls-lab/screens/tls-final-screen-4.svg",
+    "title": "Activate the expired fixture only in this lab",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "b2d9167a1953184fb45a289e4654191b5dc6ca783168ab0bbb72da3b8e9f29b9"
+  },
+  {
+    "id": "tls-final-screen-5",
+    "src": "/tls-lab/screens/tls-final-screen-5.svg",
+    "title": "Investigate and identify the actual pair",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "630d470f4cdc89dc44577aaffc05b8817b32cb3d930cef59244eb654b0cf9648"
+  },
+  {
+    "id": "tls-final-screen-6",
+    "src": "/tls-lab/screens/tls-final-screen-6.svg",
+    "title": "Generate and submit the final new-key CSR",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "7743b7ea76188438b3d2550dc44887e39ab79566edd45530e6df547f4419ccab"
+  },
+  {
+    "id": "tls-final-screen-7",
+    "src": "/tls-lab/screens/tls-final-screen-7.svg",
+    "title": "Approve and return the final certificate",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "d4f81ff55ae9500c9d8bfd37d6ce1a537061c1d9a42e4f95e6c0d99df088b52d"
+  },
+  {
+    "id": "tls-final-screen-8",
+    "src": "/tls-lab/screens/tls-final-screen-8.svg",
+    "title": "Validate and stage the replacement",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "bc1c4754beb2c8101a89f1cdfc8a81987d25374b5c7da2635b3bc31257951038"
+  },
+  {
+    "id": "tls-final-screen-9",
+    "src": "/tls-lab/screens/tls-final-screen-9.svg",
+    "title": "Activate, test and reload the repaired site",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "ef6594f518179c28c0b098f0d85e0fe5be365bf908070808ef075117adeec150"
+  },
+  {
+    "id": "tls-final-screen-10",
+    "src": "/tls-lab/screens/tls-final-screen-10.svg",
+    "title": "Prove repair from the learner’s browser",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "b0e660dc5ae0860ebe0606f0567839c1448cffd0f7b55667d4bbefdec33150cc"
+  },
+  {
+    "id": "tls-final-screen-11",
+    "src": "/tls-lab/screens/tls-final-screen-11.svg",
+    "title": "Resume monitoring and finish the change record",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "2bd5e6430f95206eca705dedb80438677317f5b1adc74baea0fac0ac60f27297"
+  },
+  {
+    "id": "tls-final-screen-12",
+    "src": "/tls-lab/screens/tls-final-screen-12.svg",
+    "title": "Clean up only when you are done practicing",
+    "platform": "RHEL/Windows instructional mockup · not a live capture",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/deploying_web_servers_and_reverse_proxies/index",
+    "credit": "CloudSeam Tech · authored instructional mockup",
+    "note": "Clearly labeled instructional mockup of the named environment and exact lab values, based on the written step and linked documentation. Not a genuine product screenshot, proof of a successful command, DoD endorsement or a real private key. Sample dates, hashes and prompts must be compared with your own result.",
+    "sha256": "dcc0c46a0b1c8afef7286634a3e2eb6b2abe74a4ac5c938ad66a600be6609f17"
+  }
+]

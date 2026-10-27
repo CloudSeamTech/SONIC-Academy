@@ -1,0 +1,2 @@
+service,dns_name,environment,endpoint,tls_terminator,certificate_path,key_reference,issuer,serial,sans,not_after_utc,owner,backup_owner,renew_before_utc,change_id,rollback_reference,last_verified_utc,result
+TLS practice,app.example.mil,private training,10.90.0.10:443,TLS-APP01 NGINX,/etc/pki/tls/certs/app-v3-fullchain.pem,/etc/pki/tls/private/app-v3.key,RECORD ACTUAL,RECORD ACTUAL,app.example.mil,RECORD ACTUAL,ASSIGN OWNER,ASSIGN BACKUP,SET POLICY DATE,LAB-CHANGE-001,/root/tls-rollbacks/before-key-rotation.conf,RECORD ACTUAL,RECORD ACTUAL

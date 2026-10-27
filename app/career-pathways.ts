@@ -41,7 +41,7 @@ export const careerPathways = [
     id: 'linux-system-administration',
     title: 'Linux System Administration',
     description:
-      'Learn server administration, troubleshoot Linux and build your everyday AlmaLinux desktop.',
+      'Learn Linux administration, manage RHEL NGINX certificates, troubleshoot servers and build your everyday AlmaLinux desktop.',
     subjects: ['linux', 'alma'],
   },
 ];
