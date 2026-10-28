@@ -7,6 +7,12 @@ Fallback address: https://sonic-academy-cloud-seam.vercel.app/. See [custom doma
 
 For Google/GitHub sign-in and database setup, follow the [Supabase owner guide](docs/SUPABASE-SETUP.md). Public social sign-in is not connected yet.
 
+## PKI Certificate Management
+
+The dedicated `/pki` pathway contains two separate application-server classes: `/pki/alma-nginx` and `/pki/windows-iis`. Each has seven chapters beginning with plain-language explanations, followed by CSR creation, PKI-team handoff, certificate/chain inspection, trust-store decisions, HTTPS activation and client validation, expiration tracking, renewal and rollback. New `pki-alma-*` and `pki-iis-*` lesson IDs use the existing progress store without resetting older completion. The existing `/tls` RHEL 9 practice-CA course remains available.
+
+Seven genuine, numbered lab references are embedded in the relevant steps before Next step. AlmaLinux captures are explicitly supplemental **10.2 / OpenSSL 3.5.5**; Windows Server 2022 captures show certificate-store navigation. NGINX/IIS endpoint and binding captures remain incomplete and are labeled capture needed. These classes assume existing prepared application servers; they do not install IIS, NGINX or osTicket automatically, and the IIS class is separate from a domain controller. See [course delivery and verification limits](docs/PKI-COURSES.md).
+
 ## Self-paced academy
 
 The dashboard uses the CloudSeamTech cream, purple and orange visual system, with searchable subjects, resume learning, bookmarks, recent activity, and progress calculated from the curriculum. Course readers retain their existing routes, screenshot references and verification checks.

@@ -1,0 +1,1035 @@
+{
+  "id": "pki-alma-nginx",
+  "title": "AlmaLinux / NGINX Certificate Management",
+  "description": "Request a website certificate, work with the PKI team, install the chain, verify HTTPS and plan renewal.",
+  "baseline": "RHEL-style NGINX workflow · genuine supplemental AlmaLinux 10.2 / OpenSSL 3.5.5 captures · NGINX endpoint capture pending",
+  "prerequisite": "Start with the explanation page. This class assumes an existing private NGINX application server; it does not install NGINX or change your VMs automatically.",
+  "supplies": [
+    "A private AlmaLinux application VM with a healthy, already installed NGINX application and authorized sudo access.",
+    "A recovery point, the correct application URL, an approved PKI team or a separate disposable practice CA, and a private test client.",
+    "Our captured guest is AlmaLinux 10.2. Its OpenSSL mechanics were tested; its NGINX service is not installed. Live NGINX steps and missing screenshots remain unverified in that guest."
+  ],
+  "sources": [
+    {
+      "title": "req",
+      "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+    },
+    {
+      "title": "verify",
+      "url": "https://docs.openssl.org/3.5/man1/openssl-verify/"
+    },
+    {
+      "title": "nginx",
+      "url": "https://nginx.org/en/docs/http/configuring_https_servers.html"
+    },
+    {
+      "title": "trust",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks"
+    },
+    {
+      "title": "certreq",
+      "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+    },
+    {
+      "title": "iis",
+      "url": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "pki-alma-explain",
+      "title": "Start here: certificates in everyday words",
+      "module": "Start here: certificates in everyday words",
+      "description": "Meet the website’s name badge, secret key and signing team before touching a server.",
+      "what": "Meet the website’s name badge, secret key and signing team before touching a server.",
+      "why": "Understanding the pieces helps you choose the right file and keep the secret one safe.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "You can explain which certificate identifies the website and which authority is the trust anchor.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Which file do you normally send to the PKI team?",
+          "options": [
+            "The checked CSR",
+            "The private key",
+            "A new root CA key"
+          ],
+          "answer": 0,
+          "explanation": "The CSR contains the public request. The private key stays protected on the application server."
+        }
+      ],
+      "steps": [
+        {
+          "title": "A certificate is a website’s checked name badge",
+          "where": "Read here · no server changes",
+          "actions": [
+            "Imagine visiting a school office. A name badge tells you who someone says they are. A website certificate is a digital name badge, signed by a trusted organization.",
+            "HTTPS also protects the trip between the browser and the server. A valid badge alone does not prove the application behind it works.",
+            "The browser checks the website name, the dates and the signing chain. All three must be right. An unexpired certificate with the wrong website name still fails."
+          ],
+          "guide": {
+            "what": "A certificate is a website’s checked name badge",
+            "why": "A browser needs a way to check who answered.",
+            "verify": "You can name three checks: correct name, valid dates and a trusted chain.",
+            "failure": "If the words are new, repeat the badge example before moving on."
+          },
+          "expected": "You can name three checks: correct name, valid dates and a trusted chain.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "You can name three checks: correct name, valid dates and a trusted chain."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · A certificate is a website’s checked name badge",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "The private key stays home; the CSR asks for a badge",
+          "where": "Read here · application server and PKI team",
+          "actions": [
+            "The private key is like a secret stamp kept by the application server. It helps the server prove it owns the certificate. Never send it to the PKI team.",
+            "A public key can be shared. A CSR, short for Certificate Signing Request, carries that public key and requested identity. Its signature shows possession of the matching private key.",
+            "The PKI team is the group that checks and signs requests. You send the CSR through its approved ticket or enrollment portal. It returns the signed website certificate and the public CA chain.",
+            "A CSR is not yet a usable website certificate. A .pfx or .p12 file can contain a private key; it needs separate protected handling."
+          ],
+          "guide": {
+            "what": "The private key stays home; the CSR asks for a badge",
+            "why": "A CSR lets someone sign your request without receiving your secret.",
+            "verify": "You can point to the file that may leave the server: the checked CSR.",
+            "failure": "If a ticket asks for the private key, stop and confirm the approved process."
+          },
+          "expected": "You can point to the file that may leave the server: the checked CSR.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "You can point to the file that may leave the server: the checked CSR."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · The private key stays home; the CSR asks for a badge",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Root, intermediate and leaf have different jobs",
+          "where": "Read here · trust-chain example",
+          "actions": [
+            "The root CA is the top signing authority your organization deliberately trusts. An intermediate CA is a signing office authorized beneath that root. The leaf is the certificate for your website.",
+            "For an ordinary website, ask for a server/leaf certificate. You do not need a new root or intermediate just because your website certificate expired.",
+            "NGINX presents the leaf first, then its intermediate certificates. Clients normally already trust the root. The operating system trust store is a separate list of authorities this machine trusts as a client.",
+            "Install a root only when the organization approves that exact root and its fingerprint. A fingerprint is a digest used to compare identity. Never make an arbitrary leaf or intermediate a trusted root to hide an error.",
+            "In a disposable practice lab, a separate practice CA can act as the pretend PKI team. It is not a production CA and must never become a trusted authority on unrelated computers."
+          ],
+          "guide": {
+            "what": "Root, intermediate and leaf have different jobs",
+            "why": "The website badge and the signing offices do not belong in the same place.",
+            "verify": "You can explain which certificate identifies the website and which authority is the trust anchor.",
+            "failure": "If you cannot identify a file’s role, inspect it and ask the PKI team before importing it."
+          },
+          "expected": "You can explain which certificate identifies the website and which authority is the trust anchor.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "You can explain which certificate identifies the website and which authority is the trust anchor."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "alma-10.2-chain",
+            "title": "Genuine lab reference · Root, intermediate and leaf have different jobs",
+            "instructions": "The image shows the actual captured platform and fixture. Compare names and paths with this step; it does not prove your result. Read its capture limits below."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-alma-plan",
+      "title": "Prepare the change and find the current certificate",
+      "module": "Prepare the change and find the current certificate",
+      "description": "Record the application name, actual files and a recovery plan.",
+      "what": "Record the application name, actual files and a recovery plan.",
+      "why": "A certificate change should not accidentally move the application or replace a working key.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "You know the active site’s paths and have a recoverable pre-change configuration.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "What should happen when NGINX is absent?",
+          "options": [
+            "Stop and record the missing prerequisite",
+            "Mark HTTPS verified",
+            "Disable TLS checks"
+          ],
+          "answer": 0,
+          "explanation": "This class changes an existing application server; missing software is not successful validation."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Identify the machine and the TLS endpoint",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "Open Terminal inside AlmaLinux, or connect through your approved SSH client. Confirm the operating system first; do not assume AlmaLinux 9 from an old screenshot.",
+            "Record the exact URL users type, its owner and which component ends HTTPS. This class uses fictional app.example.mil only inside the private lab; never request or publish a real .mil name.",
+            "Run the inventory commands. If NGINX is absent, stop the server-configuration route. You may read and inspect the supplied OpenSSL example captures without pretending NGINX is present."
+          ],
+          "command": "hostname\ncat /etc/os-release\nrpm -q nginx openssl",
+          "guide": {
+            "what": "Identify the machine and the TLS endpoint",
+            "why": "The application’s TLS certificate may actually live on a proxy or load balancer.",
+            "verify": "Your notes identify the actual OS and whether the application is served by NGINX.",
+            "failure": "A missing package is a prerequisite gap, not a reason to install software on an unrelated server."
+          },
+          "expected": "Your notes identify the actual OS and whether the application is served by NGINX.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "Your notes identify the actual OS and whether the application is served by NGINX."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "alma-10.2-inventory",
+            "title": "Genuine lab reference · Identify the machine and the TLS endpoint",
+            "instructions": "The image shows the actual captured platform and fixture. Compare names and paths with this step; it does not prove your result. Read its capture limits below."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Find the active paths and preserve recovery",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "On the prepared application server, run nginx -T locally. Its configuration can include sensitive values: do not upload the entire output.",
+            "Find the server block for your exact hostname and record ssl_certificate and ssl_certificate_key. If HTTPS does not exist yet, record that and plan a new binding.",
+            "Take an approved VM recovery point. Copy /etc/nginx into a protected backup and retain the previous valid certificate/key pair. Record the old paths and rollback commands in your change notes.",
+            "Use versioned filenames for the new pair. If a proposed filename already exists, inspect it and choose another version rather than overwriting it."
+          ],
+          "command": "sudo nginx -T\nsudo install -d -m 0700 /root/sonic-pki-backup\nsudo test ! -e /root/sonic-pki-backup/nginx-before-change && sudo cp -a /etc/nginx /root/sonic-pki-backup/nginx-before-change",
+          "guide": {
+            "what": "Find the active paths and preserve recovery",
+            "why": "A configuration test checks syntax; it does not establish client trust.",
+            "verify": "You know the active site’s paths and have a recoverable pre-change configuration.",
+            "failure": "If the backup directory already contains an earlier change, choose a new protected backup name. Stop if nginx -T fails."
+          },
+          "expected": "You know the active site’s paths and have a recoverable pre-change configuration.",
+          "breakdown": [
+            {
+              "term": "sudo",
+              "meaning": "Run this command with approved administrator privileges; enter your password only locally."
+            },
+            {
+              "term": "&&",
+              "meaning": "Continue to the next command only if the preceding command succeeded."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Find the active paths and preserve recovery",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-alma-csr",
+      "title": "Generate and inspect the CSR",
+      "module": "Generate and inspect the CSR",
+      "description": "Create a protected key and a request containing the right DNS name.",
+      "what": "Create a protected key and a request containing the right DNS name.",
+      "why": "The returned certificate must match the key and the name users visit.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "Signature verification succeeds, SAN is correct and both public-key digests match.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Does a successful CSR signature check prove the name is correct?",
+          "options": [
+            "No; inspect SAN and compare with the approved name",
+            "Yes; every signed CSR has the right name"
+          ],
+          "answer": 0,
+          "explanation": "The signature and requested identity are different checks."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Prepare the request settings",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "Create ~/pki-work. Download the CSR settings file below into that folder as req.cnf.",
+            "Open it in your text editor. In this private example CN and DNS.1 are app.example.mil. For an organization request, use only its approved real name and required subject fields. Keep the CN and SAN consistent.",
+            "Confirm every needed DNS name with the application owner and PKI team. Adding a name to a CSR does not create DNS or authorize ownership."
+          ],
+          "command": "mkdir -p ~/pki-work\nchmod 700 ~/pki-work\ncat ~/pki-work/req.cnf",
+          "guide": {
+            "what": "Prepare the request settings",
+            "why": "SAN is the list of website names the certificate should cover.",
+            "verify": "The request settings contain the approved DNS names and no password or private key.",
+            "failure": "If the file is missing, download it first. Do not paste a screenshot as configuration."
+          },
+          "expected": "The request settings contain the approved DNS names and no password or private key.",
+          "breakdown": [
+            {
+              "term": "mkdir",
+              "meaning": "Create a folder. -p also permits an already existing parent folder."
+            },
+            {
+              "term": "chmod",
+              "meaning": "Set file permissions: 700 limits a directory to its owner; 600 protects a key; 644 permits reading a public file."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Prepare the request settings",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ],
+          "downloads": [
+            {
+              "title": "Download req.cnf",
+              "href": "/pki-lab/req.cnf"
+            }
+          ]
+        },
+        {
+          "title": "Generate a new key and request once",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "On the approved application VM, run the block once. It refuses to overwrite sonic-app-v1.key. If that key already exists, stop and inspect the change record.",
+            "RSA 3072 is the practice choice; follow the PKI team’s supported algorithm policy for real requests. -sha256 selects the request-signature digest.",
+            "The key stays root-owned with mode 600. The CSR is written in your working folder. Do not display or photograph the private-key contents."
+          ],
+          "command": "sudo sh -c 'umask 077; test ! -e /etc/pki/tls/private/sonic-app-v1.key && openssl genpkey -algorithm RSA -pkeyopt rsa_keygen_bits:3072 -out /etc/pki/tls/private/sonic-app-v1.key' &&\nsudo chmod 600 /etc/pki/tls/private/sonic-app-v1.key &&\nsudo openssl req -new -sha256 -key /etc/pki/tls/private/sonic-app-v1.key -out \"$HOME/pki-work/app-v1.csr\" -config \"$HOME/pki-work/req.cnf\" &&\nsudo chmod 644 \"$HOME/pki-work/app-v1.csr\"",
+          "guide": {
+            "what": "Generate a new key and request once",
+            "why": "The key is secret; the CSR is the public request.",
+            "verify": "A new key and CSR exist without overwriting the prior pair.",
+            "failure": "If generation fails or the key already exists, stop; never regenerate it after submitting the CSR."
+          },
+          "expected": "A new key and CSR exist without overwriting the prior pair.",
+          "breakdown": [
+            {
+              "term": "sudo",
+              "meaning": "Run this command with approved administrator privileges; enter your password only locally."
+            },
+            {
+              "term": "chmod",
+              "meaning": "Set file permissions: 700 limits a directory to its owner; 600 protects a key; 644 permits reading a public file."
+            },
+            {
+              "term": "openssl req",
+              "meaning": "Create or inspect a Certificate Signing Request. -new creates it; -config selects the request settings."
+            },
+            {
+              "term": "genpkey",
+              "meaning": "Generate a private key; RSA 3072 is the selected practice algorithm and key size."
+            },
+            {
+              "term": "-key",
+              "meaning": "Choose the existing private key. It is read locally, not printed or sent to the PKI team."
+            },
+            {
+              "term": "-sha256",
+              "meaning": "Use SHA-256 for the request or certificate signature digest."
+            },
+            {
+              "term": "&&",
+              "meaning": "Continue to the next command only if the preceding command succeeded."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Generate a new key and request once",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Check the signature, names and matching public keys",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "Verify the CSR signature and inspect its subject and Subject Alternative Name. Look for the exact intended hostname.",
+            "Compare the two complete public-key digests below. They must match. These are public-key digests, not private-key contents.",
+            "The genuine screenshot uses the earlier supplemental fixture filenames app-v1.key/app-v1.csr. The course’s protected key path differs; the same checks apply."
+          ],
+          "command": "openssl req -in ~/pki-work/app-v1.csr -noout -verify -subject -text\nset -o pipefail\nopenssl req -in ~/pki-work/app-v1.csr -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256\nsudo openssl pkey -in /etc/pki/tls/private/sonic-app-v1.key -pubout -outform DER | openssl dgst -sha256",
+          "guide": {
+            "what": "Check the signature, names and matching public keys",
+            "why": "A typo can produce a perfectly signed certificate for the wrong website.",
+            "verify": "Signature verification succeeds, SAN is correct and both public-key digests match.",
+            "failure": "Correct a bad CSR before submission. A digest mismatch means the wrong key/request pair; do not proceed."
+          },
+          "expected": "Signature verification succeeds, SAN is correct and both public-key digests match.",
+          "breakdown": [
+            {
+              "term": "sudo",
+              "meaning": "Run this command with approved administrator privileges; enter your password only locally."
+            },
+            {
+              "term": "openssl req",
+              "meaning": "Create or inspect a Certificate Signing Request. -new creates it; -config selects the request settings."
+            },
+            {
+              "term": "-sha256",
+              "meaning": "Use SHA-256 for the request or certificate signature digest."
+            },
+            {
+              "term": "-pubkey",
+              "meaning": "Extract only a public key for comparison; this does not expose the private key."
+            },
+            {
+              "term": "-noout",
+              "meaning": "Suppress the encoded certificate/request body; combine it with the requested inspection fields."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "alma-10.2-csr",
+            "title": "Genuine lab reference · Check the signature, names and matching public keys",
+            "instructions": "The image shows the actual captured platform and fixture. Compare names and paths with this step; it does not prove your result. Read its capture limits below."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-alma-handoff",
+      "title": "Send the request and check the response",
+      "module": "Send the request and check the response",
+      "description": "Use the approved PKI handoff, then inspect the returned public files.",
+      "what": "Use the approved PKI handoff, then inspect the returned public files.",
+      "why": "A new unexpired certificate still needs the correct identity, chain and key.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "The new unexpired leaf verifies for the approved name and matches the retained private key.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Which response belongs on the website?",
+          "options": [
+            "The verified leaf matching the website key",
+            "The root CA private key",
+            "Any certificate with a future expiry"
+          ],
+          "answer": 0,
+          "explanation": "The server identity must match its name, intended use, chain and key."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Send only the checked request",
+          "where": "Application owner · approved PKI ticket or enrollment portal",
+          "actions": [
+            "Download the handoff checklist below. Fill in the application URL, owner, environment, requested SANs, server-auth purpose, algorithm, desired validity, change window and renewal contact.",
+            "Attach app-v1.csr through your organization’s approved portal. Keep the ticket number and CSR SHA-256 in your change record. Do not send the key, a PFX or a screenshot of secret material.",
+            "Ask the team to return the leaf certificate, intermediate chain, approved root fingerprint and format instructions. Do not create a root just because you need a new leaf.",
+            "For disposable practice only, a separate signing operator can use the existing /tls practice-CA lesson. The same CSR-in/public-response-out boundary applies. A production ticket is never simulated by claiming a real submission happened."
+          ],
+          "command": "sha256sum ~/pki-work/app-v1.csr",
+          "guide": {
+            "what": "Send only the checked request",
+            "why": "The PKI team approves the identity and issuance policy.",
+            "verify": "Your ticket records the request, owner and expected response; no private key left the application server.",
+            "failure": "If issuance is pending or rejected, keep the working certificate active. Resolve the rejection with the PKI team."
+          },
+          "expected": "Your ticket records the request, owner and expected response; no private key left the application server.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "Your ticket records the request, owner and expected response; no private key left the application server."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Send only the checked request",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ],
+          "downloads": [
+            {
+              "title": "PKI handoff checklist",
+              "href": "/pki-lab/pki-handoff.txt"
+            }
+          ]
+        },
+        {
+          "title": "Inspect the new leaf and public CA chain",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "Save the returned PEM files in ~/pki-work as app-v1.crt, intermediate.crt and root.crt. Obtain the root identity through a trusted channel separate from the downloaded files.",
+            "Inspect subject, issuer, SAN, dates, extended key usage and CA constraints. The website leaf must not be a CA and must permit server authentication.",
+            "Check the current clock. Verify the chain, server purpose and hostname. Then compare the certificate’s public-key digest with the key digest from the previous chapter."
+          ],
+          "command": "date -u\nopenssl x509 -in ~/pki-work/app-v1.crt -noout -subject -issuer -dates -ext subjectAltName,extendedKeyUsage,basicConstraints\nopenssl x509 -in ~/pki-work/root.crt -noout -fingerprint -sha256\nopenssl verify -CAfile ~/pki-work/root.crt -untrusted ~/pki-work/intermediate.crt -purpose sslserver -verify_hostname app.example.mil ~/pki-work/app-v1.crt\nopenssl x509 -in ~/pki-work/app-v1.crt -pubkey -noout | openssl pkey -pubin -outform DER | openssl dgst -sha256",
+          "guide": {
+            "what": "Inspect the new leaf and public CA chain",
+            "why": "Dates, key matching, purpose and names all matter.",
+            "verify": "The new unexpired leaf verifies for the approved name and matches the retained private key.",
+            "failure": "Stop on a wrong name, expiry, untrusted root or mismatched key. Ask for corrected issuance instead of bypassing verification."
+          },
+          "expected": "The new unexpired leaf verifies for the approved name and matches the retained private key.",
+          "breakdown": [
+            {
+              "term": "-sha256",
+              "meaning": "Use SHA-256 for the request or certificate signature digest."
+            },
+            {
+              "term": "-pubkey",
+              "meaning": "Extract only a public key for comparison; this does not expose the private key."
+            },
+            {
+              "term": "-noout",
+              "meaning": "Suppress the encoded certificate/request body; combine it with the requested inspection fields."
+            },
+            {
+              "term": "openssl verify",
+              "meaning": "Check a certificate chain. -purpose sslserver also checks its suitability for a TLS server."
+            },
+            {
+              "term": "-CAfile",
+              "meaning": "Select the explicitly trusted root file for this check; this does not change system trust."
+            },
+            {
+              "term": "-untrusted",
+              "meaning": "Supply intermediate certificates for building the chain; this does not make them trusted roots."
+            },
+            {
+              "term": "-verify_hostname",
+              "meaning": "Require the certificate to match the named website. SNI alone is not name verification."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "alma-10.2-verify",
+            "title": "Genuine lab reference · Inspect the new leaf and public CA chain",
+            "instructions": "The image shows the actual captured platform and fixture. Compare names and paths with this step; it does not prove your result. Read its capture limits below."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-alma-install",
+      "title": "Install the chain and choose trust deliberately",
+      "module": "Install the chain and choose trust deliberately",
+      "description": "Stage the website pair and understand the separate client trust store.",
+      "what": "Stage the website pair and understand the separate client trust store.",
+      "why": "Serving a chain and trusting a root are different jobs.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "An approved root is either already managed or deliberately added on the chosen client; the website leaf is not a trust anchor.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Does NGINX’s fullchain normally include the private key?",
+          "options": [
+            "No; the key uses a separate protected path",
+            "Yes; publish it in the chain"
+          ],
+          "answer": 0,
+          "explanation": "The leaf and intermediates are public. The private key remains secret."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Build and stage the server chain",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "Join the leaf and intermediate PEM certificates in that order. For this one-intermediate example the bundle contains two certificates. Do not append the private key.",
+            "Stage the public leaf and full chain under versioned names. Restore the expected SELinux labels on the new files and key.",
+            "Do not replace the old files or edit the active server block until the next chapter."
+          ],
+          "command": "cat ~/pki-work/app-v1.crt ~/pki-work/intermediate.crt > ~/pki-work/app-v1-fullchain.pem\ngrep -c \"BEGIN CERTIFICATE\" ~/pki-work/app-v1-fullchain.pem\nsudo install -m 0644 ~/pki-work/app-v1.crt /etc/pki/tls/certs/sonic-app-v1.crt\nsudo install -m 0644 ~/pki-work/app-v1-fullchain.pem /etc/pki/tls/certs/sonic-app-v1-fullchain.pem\nsudo restorecon -v /etc/pki/tls/certs/sonic-app-v1.crt /etc/pki/tls/certs/sonic-app-v1-fullchain.pem /etc/pki/tls/private/sonic-app-v1.key",
+          "guide": {
+            "what": "Build and stage the server chain",
+            "why": "NGINX needs the leaf first, followed by the issuing intermediates.",
+            "verify": "A two-certificate public bundle and a protected matching key are staged under the intended paths.",
+            "failure": "If the chain has extra issuers, preserve their correct order and adjust the expected count. Stop on label or permission errors."
+          },
+          "expected": "A two-certificate public bundle and a protected matching key are staged under the intended paths.",
+          "breakdown": [
+            {
+              "term": "sudo",
+              "meaning": "Run this command with approved administrator privileges; enter your password only locally."
+            },
+            {
+              "term": "restorecon",
+              "meaning": "Apply the expected SELinux labels; do not disable SELinux to hide an access problem."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Build and stage the server chain",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Add an approved root only if this client needs it",
+          "where": "AlmaLinux application VM · Terminal · your authorized account · only on an approved disposable trust-test machine",
+          "actions": [
+            "First test with --cacert or -CAfile; no system-wide trust change is needed for that test. NGINX serving its certificate does not by itself require a new system root.",
+            "If your organization already distributes the correct root, leave it alone. If you are explicitly authorized to add this exact private root on the practice client, compare its SHA-256 fingerprint with the PKI team’s trusted record first.",
+            "Only after approval, run the optional import block on that client. A leaf or an ordinary intermediate must not be placed in anchors to make an error disappear. Browser-managed stores may need separate approved configuration.",
+            "For recovery, remove only the uniquely named root file added by this exercise and rerun update-ca-trust extract; never remove the entire anchors directory."
+          ],
+          "command": "openssl x509 -in ~/pki-work/root.crt -noout -fingerprint -sha256\n# Optional: only after the exact root is approved for this client\nsudo install -m 0644 ~/pki-work/root.crt /etc/pki/ca-trust/source/anchors/sonic-practice-root.crt\nsudo update-ca-trust extract",
+          "guide": {
+            "what": "Add an approved root only if this client needs it",
+            "why": "A system trust import changes which authorities local clients accept.",
+            "verify": "An approved root is either already managed or deliberately added on the chosen client; the website leaf is not a trust anchor.",
+            "failure": "If approval or fingerprint is uncertain, stop before the sudo commands and use explicit -CAfile verification instead."
+          },
+          "expected": "An approved root is either already managed or deliberately added on the chosen client; the website leaf is not a trust anchor.",
+          "breakdown": [
+            {
+              "term": "sudo",
+              "meaning": "Run this command with approved administrator privileges; enter your password only locally."
+            },
+            {
+              "term": "-sha256",
+              "meaning": "Use SHA-256 for the request or certificate signature digest."
+            },
+            {
+              "term": "-noout",
+              "meaning": "Suppress the encoded certificate/request body; combine it with the requested inspection fields."
+            },
+            {
+              "term": "update-ca-trust",
+              "meaning": "Rebuild this machine’s shared CA trust after an explicitly approved root change."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Add an approved root only if this client needs it",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-alma-validate",
+      "title": "Activate HTTPS and prove the application works",
+      "module": "Activate HTTPS and prove the application works",
+      "description": "Point the existing NGINX site at the staged pair and test the served result.",
+      "what": "Point the existing NGINX site at the staged pair and test the served result.",
+      "why": "A disk file can be correct while the running endpoint still serves an old certificate.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "The served leaf is the new one, name/chain checks pass and the expected application works from an allowed client.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "What proves activation?",
+          "options": [
+            "The live endpoint serves the new serial and the application works",
+            "The certificate file exists",
+            "nginx -t alone passes"
+          ],
+          "answer": 0,
+          "explanation": "Syntax, live TLS identity and application behavior are separate acceptance checks."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Update only the intended site and test before reload",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "Open the recorded site configuration with sudoedit. In its existing HTTPS server block, set ssl_certificate to /etc/pki/tls/certs/sonic-app-v1-fullchain.pem and ssl_certificate_key to /etc/pki/tls/private/sonic-app-v1.key.",
+            "For a previously HTTP-only prepared application, add its approved private HTTPS binding with listen 443 ssl and server_name app.example.mil while preserving the real application locations. Do not paste a static-site block over an application proxy.",
+            "Run nginx -t. Reload only if it passes. Check service status and logs. Do not disable SELinux, firewalld or validation to obtain a green result."
+          ],
+          "command": "sudo nginx -t && sudo systemctl reload nginx\nsudo systemctl --no-pager status nginx",
+          "guide": {
+            "what": "Update only the intended site and test before reload",
+            "why": "Keep the application configuration and old recovery pair intact.",
+            "verify": "The intended configuration tests successfully and NGINX reloads without losing the application.",
+            "failure": "If the test or reload fails, restore the recorded prior config and valid pair, retest syntax and reload. Inspect journalctl -u nginx; do not delete the backup."
+          },
+          "expected": "The intended configuration tests successfully and NGINX reloads without losing the application.",
+          "breakdown": [
+            {
+              "term": "sudo",
+              "meaning": "Run this command with approved administrator privileges; enter your password only locally."
+            },
+            {
+              "term": "nginx -t",
+              "meaning": "Check NGINX configuration before attempting a reload. It does not test the client trust chain."
+            },
+            {
+              "term": "reload nginx",
+              "meaning": "Ask NGINX to load the tested configuration gracefully."
+            },
+            {
+              "term": "&&",
+              "meaning": "Continue to the next command only if the preceding command succeeded."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Update only the intended site and test before reload",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Check the actual endpoint from a client",
+          "where": "Private test client · Terminal with OpenSSL and curl",
+          "actions": [
+            "Set APP_IP to the application server’s verified private address at the prompt. Use a client that is allowed through the existing private firewall policy.",
+            "Run s_client with the real hostname, root and verification options. Compare the served certificate serial and dates with the issued leaf; a valid result for an old certificate is not renewal proof.",
+            "Use curl --resolve to test the right hostname without changing DNS. Expect the actual application page, not merely any HTTP 200. In a browser with the approved trust chain and name resolution, check certificate details and exercise the application workflow."
+          ],
+          "command": "read -r -p \"Verified private application IP: \" APP_IP\nopenssl s_client -connect \"$APP_IP:443\" -servername app.example.mil -CAfile ~/pki-work/root.crt -verify_return_error -verify_hostname app.example.mil < /dev/null\ncurl --cacert ~/pki-work/root.crt --resolve \"app.example.mil:443:$APP_IP\" --fail --show-error https://app.example.mil/",
+          "guide": {
+            "what": "Check the actual endpoint from a client",
+            "why": "SNI selects the named site; hostname and trust checks verify its identity.",
+            "verify": "The served leaf is the new one, name/chain checks pass and the expected application works from an allowed client.",
+            "failure": "A timeout is a route/listener/firewall check. A name error is a SAN/SNI check. A chain error needs issuer/trust inspection. Never use -k as the pass check."
+          },
+          "expected": "The served leaf is the new one, name/chain checks pass and the expected application works from an allowed client.",
+          "breakdown": [
+            {
+              "term": "-CAfile",
+              "meaning": "Select the explicitly trusted root file for this check; this does not change system trust."
+            },
+            {
+              "term": "-verify_hostname",
+              "meaning": "Require the certificate to match the named website. SNI alone is not name verification."
+            },
+            {
+              "term": "--resolve",
+              "meaning": "Tell curl which private address to use for a hostname while preserving the HTTPS hostname check."
+            },
+            {
+              "term": "--cacert",
+              "meaning": "Use this approved CA root for curl validation; certificate checks remain enabled."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Check the actual endpoint from a client",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-alma-renew",
+      "title": "Track expiration, renew and recover",
+      "module": "Track expiration, renew and recover",
+      "description": "Keep a named owner and verify replacement before the old certificate expires.",
+      "what": "Keep a named owner and verify replacement before the old certificate expires.",
+      "why": "The expiry date is a deadline, not a reminder to begin troubleshooting.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "A tested replacement is active and a usable recovery plan is retained; the old pair is retired only under policy.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Where should expiry monitoring look?",
+          "options": [
+            "At the live endpoint as well as the recorded certificate",
+            "Only at an old downloaded file"
+          ],
+          "answer": 0,
+          "explanation": "A correct file on disk can differ from the certificate a user actually receives."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Record dates and schedule useful reminders",
+          "where": "AlmaLinux application VM · Terminal · your authorized account · certificate inventory",
+          "actions": [
+            "Download the inventory CSV. Record website, endpoint, serial, issuer, expiry in UTC, key version, owner, backup owner, renewal ticket, change window and actual validation date.",
+            "Use the local date check below. -checkend exits nonzero when expiry is inside the interval. Thirty days is an example, not a universal policy; choose reminders that allow your PKI team’s lead time.",
+            "Monitor the actual served endpoint as well as staged files. Name who receives alerts and test alert delivery. A website checkbox is not monitoring."
+          ],
+          "command": "openssl x509 -in ~/pki-work/app-v1.crt -noout -serial -dates\nopenssl x509 -in ~/pki-work/app-v1.crt -noout -checkend 2592000",
+          "guide": {
+            "what": "Record dates and schedule useful reminders",
+            "why": "Someone needs time to request, approve and test a replacement.",
+            "verify": "The inventory has accountable owners, an actual expiry and a renewal date before the deadline.",
+            "failure": "If the reminder would arrive too late, move it earlier and escalate the pending renewal now."
+          },
+          "expected": "The inventory has accountable owners, an actual expiry and a renewal date before the deadline.",
+          "breakdown": [
+            {
+              "term": "-noout",
+              "meaning": "Suppress the encoded certificate/request body; combine it with the requested inspection fields."
+            },
+            {
+              "term": "-checkend",
+              "meaning": "Return a failure status when the certificate expires within the given number of seconds."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "alma-10.2-expiry",
+            "title": "Genuine lab reference · Record dates and schedule useful reminders",
+            "instructions": "The image shows the actual captured platform and fixture. Compare names and paths with this step; it does not prove your result. Read its capture limits below."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ],
+          "downloads": [
+            {
+              "title": "Certificate inventory CSV",
+              "href": "/pki-lab/certificate-inventory.csv"
+            }
+          ]
+        },
+        {
+          "title": "Renew with overlap and retain a valid rollback",
+          "where": "AlmaLinux application VM · Terminal · your authorized account",
+          "actions": [
+            "Before expiry, confirm key-reuse policy. Prefer a new versioned key when required or when the old key may be exposed. Generate a new CSR with the same approved names, using v2 filenames throughout the CSR chapter.",
+            "Submit the new request; verify the returned leaf, chain, dates and key; stage the new full chain. Do not overwrite or delete the current valid pair.",
+            "For new-key renewal change both certificate and key paths together. Test syntax, reload and repeat client checks, comparing the new serial. Update inventory only after the live application passes.",
+            "If the change fails, restore the prior configuration and still-valid uncompromised pair, retest and reload. An expired or exposed old pair is not a safe rollback: escalate for a valid emergency replacement."
+          ],
+          "guide": {
+            "what": "Renew with overlap and retain a valid rollback",
+            "why": "A new certificate is not active until the endpoint proves it.",
+            "verify": "A tested replacement is active and a usable recovery plan is retained; the old pair is retired only under policy.",
+            "failure": "If the old certificate has already expired or its key is compromised, follow the PKI incident process rather than claiming rollback restored trust."
+          },
+          "expected": "A tested replacement is active and a usable recovery plan is retained; the old pair is retired only under policy.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "A tested replacement is active and a usable recovery plan is retained; the old pair is retired only under policy."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Renew with overlap and retain a valid rollback",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    }
+  ]
+}
