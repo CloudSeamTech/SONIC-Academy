@@ -1,4 +1,5 @@
 'use client';
+import Link from 'next/link';
 import { ServerRoleText } from '../server-role-text';
 import { TlsText } from '../tls/tls-text';
 import { TlsCourseExtras } from '../tls/tls-interactives';
@@ -14,7 +15,11 @@ import { LessonWelcome } from '../lesson-welcome';
 import { MaintenanceRehearsal } from '../azure-operations/maintenance-rehearsal';
 import { SecurityBudget } from '../security/security-budget';
 import { CourseScreenshot } from '../course-screenshot';
-import { guidedCourses, guidedCourseHref } from '@/lib/guided-courses';
+import {
+  guidedCourses,
+  guidedCourseHref,
+  pkiCourses,
+} from '@/lib/guided-courses';
 import { ConsoleReaderShell } from '../console-reader-shell';
 import {
   nessusCourses,
@@ -470,21 +475,23 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
     course.id,
   );
   const isTls = course.id === 'rhel-nginx-tls';
+  const isPki = course.id.startsWith('pki-');
   const isSplunk = course.id === 'splunk-core-user';
   const isDmz = course.id === 'windows-dmz';
   const isLandingZone = course.id === 'azure-landing-zone';
   const isMaintenance = course.id === 'azure-maintenance';
   const isHelpdesk = course.id === 'iis-helpdesk';
   const isSecurity = course.id === 'budget-cloud-security';
-  const relatedCourses =
-    isTls ||
-    isSplunk ||
-    isDmz ||
-    isEnterprise ||
-    isLandingZone ||
-    isMaintenance ||
-    isHelpdesk ||
-    isSecurity
+  const relatedCourses = isPki
+    ? pkiCourses
+    : isTls ||
+        isSplunk ||
+        isDmz ||
+        isEnterprise ||
+        isLandingZone ||
+        isMaintenance ||
+        isHelpdesk ||
+        isSecurity
       ? [course]
       : nessusCourses;
   const [id, setId] = useState(course.lessons[0].id);
@@ -544,17 +551,19 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
               : '')
           }
           aria-label={
-            isTls || isSplunk || isEnterprise || isDmz
-              ? course.title
-              : isLandingZone
-                ? 'Azure landing zone course'
-                : isSecurity
-                  ? 'Cloud security course'
-                  : isMaintenance
-                    ? 'Azure maintenance course'
-                    : isHelpdesk
-                      ? 'IIS help desk course'
-                      : 'Nessus courses'
+            isPki
+              ? 'PKI Certificate Management classes'
+              : isTls || isSplunk || isEnterprise || isDmz
+                ? course.title
+                : isLandingZone
+                  ? 'Azure landing zone course'
+                  : isSecurity
+                    ? 'Cloud security course'
+                    : isMaintenance
+                      ? 'Azure maintenance course'
+                      : isHelpdesk
+                        ? 'IIS help desk course'
+                        : 'Nessus courses'
           }
         >
           {relatedCourses.map((item, i) => (
@@ -570,7 +579,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         </nav>
         <header className="alma-header">
           <span className="eyebrow">
-            {isTls || isSplunk || isEnterprise || isDmz
+            {isPki || isTls || isSplunk || isEnterprise || isDmz
               ? course.title.toUpperCase()
               : isLandingZone
                 ? 'YOUR FIRST AZURE LANDING ZONE'
@@ -690,6 +699,22 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
               Paste SPL into Splunk Web’s Search bar, not the SONIC terminal or
               PowerShell. A reference picture shows real vendor controls, not
               your own result.
+            </p>
+          </section>
+        )}
+        {isPki && (
+          <section className="teaching-callout" aria-label="PKI class context">
+            <Link href="/pki">← PKI Certificate Management pathway</Link>
+            <p>
+              Two separate classes, each with its own chapter progress. Start at
+              the explanation page, then follow the request, PKI handoff, trust,
+              validation and renewal chapters.
+            </p>
+            <p>
+              Genuine images identify their captured OS and limits. Missing
+              NGINX/IIS screens remain marked capture needed. The website does
+              not install software, inspect your VM or verify your results
+              automatically.
             </p>
           </section>
         )}

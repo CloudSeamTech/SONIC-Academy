@@ -3,6 +3,13 @@ import { learningPathways, pathwayLessons } from './learning-pathways.ts';
 /** Career groups organize subjects without changing lesson routes or progress keys. */
 export const careerPathways = [
   {
+    id: 'pki-certificate-management',
+    title: 'PKI Certificate Management',
+    description:
+      'Two separate application-server classes: AlmaLinux / NGINX and Windows Server / IIS. Learn requests, PKI handoff, trust, HTTPS validation and renewal.',
+    subjects: ['pki-alma-nginx', 'pki-windows-iis'],
+  },
+  {
     id: 'windows-system-administration',
     title: 'Windows System Administration',
     description:

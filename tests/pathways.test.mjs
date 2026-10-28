@@ -1,4 +1,5 @@
 import {
+  pkiCourses,
   tlsCourse,
   splunkCourse,
   dmzCourse,
@@ -29,6 +30,7 @@ test('pathways retain every existing lesson exactly once with its original reade
     new Set(ids),
     new Set(
       [
+        ...pkiCourses.flatMap((course) => course.lessons),
         ...tlsCourse.lessons,
         ...lessons,
         ...migrationCurriculum,
@@ -48,7 +50,7 @@ test('pathways retain every existing lesson exactly once with its original reade
   for (const lesson of entries) {
     assert.equal(
       lesson.href,
-      `${['tls', 'nessus', 'azure-lab', 'helpdesk', 'security-lab', 'landing-zone', 'enterprise'].includes(lesson.source) ? lesson.href.split('#')[0] : lesson.source === 'alma' ? '/alma' : lesson.source === 'linux' ? '/' : '/migration'}#lesson=${lesson.id}`,
+      `${['pki', 'tls', 'nessus', 'azure-lab', 'helpdesk', 'security-lab', 'landing-zone', 'enterprise'].includes(lesson.source) ? lesson.href.split('#')[0] : lesson.source === 'alma' ? '/alma' : lesson.source === 'linux' ? '/' : '/migration'}#lesson=${lesson.id}`,
     );
     assert.ok(lesson.title && lesson.description && lesson.steps.length);
   }
@@ -58,6 +60,8 @@ test('core route builds the domain controllers before SQL, then Azure and migrat
   assert.deepEqual(
     learningPathways.map((pathway) => pathway.id),
     [
+      'pki-alma-nginx',
+      'pki-windows-iis',
       'windows',
       'active-directory',
       'sql',

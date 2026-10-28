@@ -1,4 +1,5 @@
 import {
+  pkiCourses,
   tlsCourse,
   splunkCourse,
   dmzCourse,
@@ -25,6 +26,7 @@ export type ConsoleLesson = {
   href: string;
   source:
     | 'tls'
+    | 'pki'
     | 'linux'
     | 'migration'
     | 'alma'
@@ -340,6 +342,23 @@ function standaloneLessons(
   }));
 }
 export const learningPathways: LearningPathway[] = [
+  ...pkiCourses.map((course) => ({
+    id: course.id,
+    title: course.title,
+    prerequisite: course.prerequisite,
+    sections: [
+      {
+        title: 'Explain, Request, Install, Validate and Renew',
+        lessons: standaloneLessons(
+          course,
+          course.id === 'pki-alma-nginx'
+            ? '/pki/alma-nginx'
+            : '/pki/windows-iis',
+          'pki',
+        ),
+      },
+    ],
+  })),
   {
     id: 'windows',
     title: 'Windows Server & VMware',
@@ -707,6 +726,12 @@ export const pathwayLessons = (pathway: LearningPathway) =>
 // Core lesson pagination follows the prerequisite route. Optional extensions
 // stay within their own sequence instead of interrupting the core route.
 export function lessonSequenceFor(id: string): ConsoleLesson[] {
+  if (id.startsWith('pki-')) {
+    const pathway = learningPathways.find((path) =>
+      pathwayLessons(path).some((lesson) => lesson.id === id),
+    );
+    return pathway ? pathwayLessons(pathway) : [];
+  }
   if (id.startsWith('tls-')) return standaloneLessons(tlsCourse, '/tls', 'tls');
   if (id.startsWith('dmz-'))
     return pathwayLessons(learningPathways.find((path) => path.id === 'dmz')!);
@@ -748,9 +773,16 @@ export function lessonSequenceFor(id: string): ConsoleLesson[] {
   const sections = learningPathways
     .filter(
       (pathway) =>
-        !['linux', 'alma', 'mecm', 'wsus', 'splunk', 'dmz'].includes(
-          pathway.id,
-        ) && !pathway.id.startsWith('nessus-'),
+        ![
+          'pki-alma-nginx',
+          'pki-windows-iis',
+          'linux',
+          'alma',
+          'mecm',
+          'wsus',
+          'splunk',
+          'dmz',
+        ].includes(pathway.id) && !pathway.id.startsWith('nessus-'),
     )
     .flatMap((pathway) => pathway.sections)
     .filter((section) =>

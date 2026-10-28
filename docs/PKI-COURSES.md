@@ -1,0 +1,15 @@
+# PKI Certificate Management
+
+Routes: `/pki`, `/pki/alma-nginx`, `/pki/windows-iis`. A new career pathway groups the two independent subjects/classes. Each class has seven chapters and separate `pki-alma-*` or `pki-iis-*` lesson IDs. Existing routes, lesson IDs, completion keys and account synchronization remain unchanged. Adding available chapters can change the total completion percentage without removing older completion.
+
+Both classes start with everyday explanations of the certificate, public/private key, CSR, PKI team, root, intermediate, leaf, names and dates. The main route is a real workplace handoff: create/inspect the request, submit only the CSR using the approved process, receive/inspect public response files, decide trust deliberately, associate the leaf with its key, activate the correct server binding, test the live endpoint/application, record expiration, renew with overlap and recover using a valid pair. A separate disposable practice CA can substitute for the PKI operator; the existing `/tls` class provides that optional separate scenario.
+
+The Windows scenario is an existing IIS-hosted application, with osTicket as the intended application example. It is not a domain-controller certificate or an IIS/osTicket installation class. The user explicitly prohibited installing IIS in the lab, and this website change does not alter either VM.
+
+Genuine captures: five AlmaLinux 10.2/OpenSSL 3.5.5 inspections and two Windows Server 2022 certificate-store navigation views. The original PNGs and numbered SVG references are retained under `public/pki-lab/captures`; provenance/hashes are in `content/pki/references.json`. Screenshots render through the shared CourseScreenshot component before the result checkbox and Next step button. Their actual version and validation limits are visible. No generated image is presented as a screenshot.
+
+Incomplete live validation: NGINX configuration/reload/HTTPS, Windows CSR acceptance and private-key association, trust imports, IIS bindings, osTicket HTTPS, service renewal and rollback screenshots. These steps are documented but remain explicit capture gaps. A file-verification result is not proof of a working HTTPS application. AlmaLinux 10.2 testing is supplemental and does not claim RHEL 9 validation.
+
+Checks: 120 application tests pass using the existing suite with the Windows-unavailable `python3` offline-crypto test excluded. Companion regression suite: 7 passed, 1 WSL test skipped. TypeScript passes. The Vercel production build passes with the repository's documented Nitro adapter. Local browser checks cover both class routes, chapter/step switching, and genuine images before step navigation. The Vercel adapter's path comparison was made portable for Windows local builds; Linux behavior is retained.
+
+Authoring: `node tools/author-pki-courses.mjs` regenerates the two course JSON files from their authored steps and command glossary. `node tools/annotate-pki-captures.mjs` rebuilds numbered SVG references from the unchanged originals. The generators create training assets only; they do not connect to a VM, execute lesson commands, or install software.

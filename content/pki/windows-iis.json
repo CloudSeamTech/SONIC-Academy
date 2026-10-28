@@ -1,0 +1,935 @@
+{
+  "id": "pki-windows-iis",
+  "title": "Windows Server / IIS Certificate Management",
+  "description": "Request and install a certificate for an IIS-hosted application, verify trust and bindings, and renew safely.",
+  "baseline": "Windows Server 2022 · Local Computer certificate stores · IIS-hosted application / planned osTicket scenario · IIS captures pending",
+  "prerequisite": "Start with the explanation page. Use a dedicated application-server VM with IIS and the application already working. Do not use a domain controller. This certificate class does not install IIS or osTicket.",
+  "supplies": [
+    "A healthy private Windows Server application VM with IIS Manager, an existing named application site, and an authorized Administrator account.",
+    "A recovery point, the application owner’s approved DNS name, a PKI team or separate disposable practice CA, and an allowed test client.",
+    "The captured Windows guest has no IIS installation. Its genuine images show certificate-store navigation only; CSR issuance, IIS bindings and application HTTPS remain capture/validation gaps."
+  ],
+  "sources": [
+    {
+      "title": "req",
+      "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+    },
+    {
+      "title": "verify",
+      "url": "https://docs.openssl.org/3.5/man1/openssl-verify/"
+    },
+    {
+      "title": "nginx",
+      "url": "https://nginx.org/en/docs/http/configuring_https_servers.html"
+    },
+    {
+      "title": "trust",
+      "url": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks"
+    },
+    {
+      "title": "certreq",
+      "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+    },
+    {
+      "title": "iis",
+      "url": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "pki-iis-explain",
+      "title": "Start here: certificates in everyday words",
+      "module": "Start here: certificates in everyday words",
+      "description": "Meet the website’s name badge, secret key and signing team before touching a server.",
+      "what": "Meet the website’s name badge, secret key and signing team before touching a server.",
+      "why": "Understanding the pieces helps you choose the right file and keep the secret one safe.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "You can explain which certificate identifies the website and which authority is the trust anchor.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Which file do you normally send to the PKI team?",
+          "options": [
+            "The checked CSR",
+            "The private key",
+            "A new root CA key"
+          ],
+          "answer": 0,
+          "explanation": "The CSR contains the public request. The private key stays protected on the application server."
+        }
+      ],
+      "steps": [
+        {
+          "title": "A certificate is a website’s checked name badge",
+          "where": "Read here · no server changes",
+          "actions": [
+            "Imagine visiting a school office. A name badge tells you who someone says they are. A website certificate is a digital name badge, signed by a trusted organization.",
+            "HTTPS also protects the trip between the browser and the server. A valid badge alone does not prove the application behind it works.",
+            "The browser checks the website name, the dates and the signing chain. All three must be right. An unexpired certificate with the wrong website name still fails."
+          ],
+          "guide": {
+            "what": "A certificate is a website’s checked name badge",
+            "why": "A browser needs a way to check who answered.",
+            "verify": "You can name three checks: correct name, valid dates and a trusted chain.",
+            "failure": "If the words are new, repeat the badge example before moving on."
+          },
+          "expected": "You can name three checks: correct name, valid dates and a trusted chain.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "You can name three checks: correct name, valid dates and a trusted chain."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · A certificate is a website’s checked name badge",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "The private key stays home; the CSR asks for a badge",
+          "where": "Read here · application server and PKI team",
+          "actions": [
+            "The private key is like a secret stamp kept by the application server. It helps the server prove it owns the certificate. Never send it to the PKI team.",
+            "A public key can be shared. A CSR, short for Certificate Signing Request, carries that public key and requested identity. Its signature shows possession of the matching private key.",
+            "The PKI team is the group that checks and signs requests. You send the CSR through its approved ticket or enrollment portal. It returns the signed website certificate and the public CA chain.",
+            "A CSR is not yet a usable website certificate. A .pfx or .p12 file can contain a private key; it needs separate protected handling."
+          ],
+          "guide": {
+            "what": "The private key stays home; the CSR asks for a badge",
+            "why": "A CSR lets someone sign your request without receiving your secret.",
+            "verify": "You can point to the file that may leave the server: the checked CSR.",
+            "failure": "If a ticket asks for the private key, stop and confirm the approved process."
+          },
+          "expected": "You can point to the file that may leave the server: the checked CSR.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "You can point to the file that may leave the server: the checked CSR."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · The private key stays home; the CSR asks for a badge",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Root, intermediate and leaf have different jobs",
+          "where": "Read here · trust-chain example",
+          "actions": [
+            "The root CA is the top signing authority your organization deliberately trusts. An intermediate CA is a signing office authorized beneath that root. The leaf is the certificate for your website.",
+            "For an ordinary website, ask for a server/leaf certificate. You do not need a new root or intermediate just because your website certificate expired.",
+            "Windows stores approved roots in Trusted Root Certification Authorities, intermediate CAs in Intermediate Certification Authorities, and the website certificate plus matching key in Local Computer → Personal.",
+            "Install a root only when the organization approves that exact root and its fingerprint. A fingerprint is a digest used to compare identity. Never make an arbitrary leaf or intermediate a trusted root to hide an error.",
+            "In a disposable practice lab, a separate practice CA can act as the pretend PKI team. It is not a production CA and must never become a trusted authority on unrelated computers."
+          ],
+          "guide": {
+            "what": "Root, intermediate and leaf have different jobs",
+            "why": "The website badge and the signing offices do not belong in the same place.",
+            "verify": "You can explain which certificate identifies the website and which authority is the trust anchor.",
+            "failure": "If you cannot identify a file’s role, inspect it and ask the PKI team before importing it."
+          },
+          "expected": "You can explain which certificate identifies the website and which authority is the trust anchor.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "You can explain which certificate identifies the website and which authority is the trust anchor."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "windows-2022-stores",
+            "title": "Genuine lab reference · Root, intermediate and leaf have different jobs",
+            "instructions": "The image shows the actual captured platform and fixture. Compare names and paths with this step; it does not prove your result. Read its capture limits below."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-iis-plan",
+      "title": "Prepare the application and recovery plan",
+      "module": "Prepare the application and recovery plan",
+      "description": "Identify the right IIS site and record the binding before changing it.",
+      "what": "Identify the right IIS site and record the binding before changing it.",
+      "why": "A working domain controller and a web application are different lab roles.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "Your notes and IIS backup preserve the original binding and its recovery requirements.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Is an IIS configuration backup a private-key backup?",
+          "options": [
+            "No; key and application recovery need their own protection",
+            "Yes; it includes every secret"
+          ],
+          "answer": 0,
+          "explanation": "The IIS configuration and certificate/key stores are separate recovery concerns."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Confirm the application-server prerequisite",
+          "where": "Windows application VM · Administrator PowerShell",
+          "actions": [
+            "Check the machine name and OS. This class uses tickets.lab.example.test as a fictional private application name. Substitute only an application name approved for your environment.",
+            "Confirm this is the dedicated application VM, not your domain controller. Run the role check. If Web-Server or Web-Mgmt-Console is not Installed, stop this route; do not install it on another server to get a screenshot.",
+            "Open IIS Manager from Server Manager → Tools → Internet Information Services (IIS) Manager. Select Sites and identify the application by name and physical path. Confirm the application already works over its existing approved route."
+          ],
+          "command": "hostname\nGet-CimInstance Win32_OperatingSystem | Format-List Caption,Version,BuildNumber\nGet-WindowsFeature Web-Server,Web-Mgmt-Console | Format-Table Name,InstallState",
+          "guide": {
+            "what": "Confirm the application-server prerequisite",
+            "why": "Certificate work belongs on the server hosting the intended TLS endpoint.",
+            "verify": "The selected machine is an application server and the real IIS site is identified.",
+            "failure": "If the prerequisites are absent, read the certificate lessons but leave their live checks unverified."
+          },
+          "expected": "The selected machine is an application server and the real IIS site is identified.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "The selected machine is an application server and the real IIS site is identified."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Confirm the application-server prerequisite",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Save the current configuration and binding",
+          "where": "Windows application VM · Administrator PowerShell · IIS Manager",
+          "actions": [
+            "Take an approved recovery point. Record the site name, IP, HTTPS port, hostname, SNI setting and selected certificate thumbprint. If HTTPS is absent, explicitly record that this change creates the first binding.",
+            "Run an IIS configuration backup with a unique name. This saves IIS configuration, not the certificate private key or the application/database. Include those in the approved application recovery plan.",
+            "Do not delete the old certificate or change HTTP/application settings as part of this certificate task."
+          ],
+          "command": "& \"$env:WINDIRSystem32inetsrvappcmd.exe\" add backup SONIC-before-PKI\nImport-Module WebAdministration\nGet-WebBinding | Format-List protocol,bindingInformation,sslFlags,certificateHash,certificateStoreName",
+          "guide": {
+            "what": "Save the current configuration and binding",
+            "why": "The previous binding identifies the pair you can restore during a failed change.",
+            "verify": "Your notes and IIS backup preserve the original binding and its recovery requirements.",
+            "failure": "If the backup name already exists, choose a fresh one. Stop if you cannot identify a valid previous certificate/key for an existing HTTPS site."
+          },
+          "expected": "Your notes and IIS backup preserve the original binding and its recovery requirements.",
+          "breakdown": [
+            {
+              "term": "Get-WebBinding",
+              "meaning": "Inspect website bindings; this does not replace a client-side application test."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Save the current configuration and binding",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-iis-csr",
+      "title": "Create a machine key and CSR",
+      "module": "Create a machine key and CSR",
+      "description": "Use a SAN-aware request on the application server.",
+      "what": "Use a SAN-aware request on the application server.",
+      "why": "The new certificate must return to the machine that holds its private key.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "The machine-context request contains the approved SAN and its hash is recorded.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Which machine completes this request when the response returns?",
+          "options": [
+            "The application server holding its matching machine private key",
+            "Any server with the CSR text",
+            "The domain controller by default"
+          ],
+          "answer": 0,
+          "explanation": "Installing a public response must associate it with the retained matching private key."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Prepare the SAN-aware request file",
+          "where": "Windows application VM · Administrator PowerShell",
+          "actions": [
+            "Create C:\\SONIC-PKI on the application VM. Download iis-request.inf below into that folder.",
+            "Open the INF in Notepad. Confirm Subject CN and the DNS SAN are tickets.lab.example.test for private practice, or your organization’s approved names. Confirm the key algorithm and PKI policy.",
+            "MachineKeySet = TRUE creates the machine-context key; Exportable = FALSE keeps this practice key non-exportable. HashAlgorithm = sha256 signs the request. These are not the validity dates of the returned certificate.",
+            "The IIS Manager Create Certificate Request wizard is another entry point, but do not assume its subject form adds your required SANs. This class uses certreq and then verifies the actual request."
+          ],
+          "command": "New-Item -ItemType Directory -Path C:\\SONIC-PKI -Force\nGet-Content C:\\SONIC-PKI\\iis-request.inf",
+          "guide": {
+            "what": "Prepare the SAN-aware request file",
+            "why": "The browser matches DNS names in Subject Alternative Name.",
+            "verify": "The approved application name appears in both the subject and SAN configuration.",
+            "failure": "A missing or wrong SAN must be corrected before submission. Do not invent names to complete the form."
+          },
+          "expected": "The approved application name appears in both the subject and SAN configuration.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "The approved application name appears in both the subject and SAN configuration."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Prepare the SAN-aware request file",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ],
+          "downloads": [
+            {
+              "title": "Download iis-request.inf",
+              "href": "/pki-lab/iis-request.inf"
+            }
+          ]
+        },
+        {
+          "title": "Generate and inspect the request",
+          "where": "Windows application VM · Administrator PowerShell",
+          "actions": [
+            "Run certreq once for v1. If either request filename already exists, stop and inspect it rather than silently generating another key.",
+            "Inspect the request dump. Find the subject, public-key algorithm, signature algorithm and DNS SAN. Compare them with the approved request notes.",
+            "Keep this application VM and its machine key intact while issuance is pending. Moving only the CSR to another server does not move its private key. Never screenshot or transmit private-key contents."
+          ],
+          "command": "if (Test-Path C:\\SONIC-PKI\\iis-v1.csr) { throw 'CSR exists; inspect it before generating another key.' }\ncertreq.exe -new -machine C:\\SONIC-PKI\\iis-request.inf C:\\SONIC-PKI\\iis-v1.csr\nif ($LASTEXITCODE -ne 0) { throw 'CSR creation failed. Stop here.' }\ncertutil.exe -dump C:\\SONIC-PKI\\iis-v1.csr\nGet-FileHash C:\\SONIC-PKI\\iis-v1.csr -Algorithm SHA256",
+          "guide": {
+            "what": "Generate and inspect the request",
+            "why": "The CSR can travel; the machine private key stays on this server.",
+            "verify": "The machine-context request contains the approved SAN and its hash is recorded.",
+            "failure": "If certreq fails, stop. If the request has the wrong name or key policy, correct the INF and deliberately create a new version; do not submit a bad request."
+          },
+          "expected": "The machine-context request contains the approved SAN and its hash is recorded.",
+          "breakdown": [
+            {
+              "term": "certreq.exe -new",
+              "meaning": "Create the request and matching machine private key from the INF settings."
+            },
+            {
+              "term": "-machine",
+              "meaning": "Use Local Computer key/certificate context instead of only the signed-in user’s store."
+            },
+            {
+              "term": "certutil.exe -dump",
+              "meaning": "Read the public certificate/request details without installing it."
+            },
+            {
+              "term": "Get-FileHash",
+              "meaning": "Compute a file digest for the request/change record. A file digest is not always a certificate fingerprint."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Generate and inspect the request",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-iis-handoff",
+      "title": "Work with the PKI team and inspect the response",
+      "module": "Work with the PKI team and inspect the response",
+      "description": "Submit the checked CSR and identify the returned leaf and CA chain.",
+      "what": "Submit the checked CSR and identify the returned leaf and CA chain.",
+      "why": "A certificate with a future date can still be the wrong certificate.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "The response has the intended leaf and CA roles, valid dates and an approved trust anchor.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Does renewing a leaf normally require creating a new root?",
+          "options": [
+            "No; request a replacement leaf under the approved PKI",
+            "Yes; every website needs its own root"
+          ],
+          "answer": 0,
+          "explanation": "Root and intermediate lifecycles are managed by the PKI team, separately from a website leaf."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Submit through the approved enrollment process",
+          "where": "Application owner · approved PKI ticket/portal",
+          "actions": [
+            "Use the handoff checklist. Attach iis-v1.csr with the approved SAN list, application owner, environment, server-auth purpose, algorithm, validity request, contact and change window.",
+            "Record the ticket number and request hash. Send neither the private key nor an unsolicited PFX. For lab practice, a separate practice-CA operator may act as the PKI team; do not install a CA role on the application VM for this class.",
+            "Ask for the website leaf, public intermediate chain and the root fingerprint through a trusted channel. Wait for approval and issuance; a submitted CSR is not a new certificate."
+          ],
+          "guide": {
+            "what": "Submit through the approved enrollment process",
+            "why": "Issuance needs ownership, policy and a tracked handoff.",
+            "verify": "A tracked request is pending/issued through the intended team and the application private key remains on the server.",
+            "failure": "Resolve pending or rejected requests with the signing operator while retaining the current valid binding."
+          },
+          "expected": "A tracked request is pending/issued through the intended team and the application private key remains on the server.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "A tracked request is pending/issued through the intended team and the application private key remains on the server."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Submit through the approved enrollment process",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ],
+          "downloads": [
+            {
+              "title": "PKI handoff checklist",
+              "href": "/pki-lab/pki-handoff.txt"
+            }
+          ]
+        },
+        {
+          "title": "Inspect the returned certificate before import",
+          "where": "Windows application VM · Administrator PowerShell",
+          "actions": [
+            "Save the public response files in C:\\SONIC-PKI as iis-v1.cer, intermediate.cer and root.cer. Follow the PKI team’s format instructions if it returns a PKCS#7 bundle instead.",
+            "Inspect all three. The leaf names tickets.lab.example.test, permits Server Authentication, is not a CA, and is currently valid. The intermediate is a CA below the approved root.",
+            "Compare the root certificate’s SHA-256 fingerprint printed by the final block with the trusted PKI record. The block hashes the certificate’s DER data, so a PEM file and the same DER certificate have the same fingerprint. This is different from hashing an arbitrary download file."
+          ],
+          "command": "certutil.exe -dump C:\\SONIC-PKI\\iis-v1.cer\ncertutil.exe -dump C:\\SONIC-PKI\\intermediate.cer\ncertutil.exe -dump C:\\SONIC-PKI\\root.cer\n$rootCertificate = New-Object System.Security.Cryptography.X509Certificates.X509Certificate2('C:\\SONIC-PKI\\root.cer')\n$sha256 = [System.Security.Cryptography.SHA256]::Create()\ntry { [BitConverter]::ToString($sha256.ComputeHash($rootCertificate.RawData)).Replace('-', '') } finally { $sha256.Dispose(); $rootCertificate.Dispose() }",
+          "guide": {
+            "what": "Inspect the returned certificate before import",
+            "why": "Read the role, name, purpose and dates before selecting a store.",
+            "verify": "The response has the intended leaf and CA roles, valid dates and an approved trust anchor.",
+            "failure": "Stop on a wrong name, expired/not-yet-valid response, CA-role confusion or uncertain root identity."
+          },
+          "expected": "The response has the intended leaf and CA roles, valid dates and an approved trust anchor.",
+          "breakdown": [
+            {
+              "term": "certutil.exe -dump",
+              "meaning": "Read the public certificate/request details without installing it."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Inspect the returned certificate before import",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-iis-stores",
+      "title": "Complete the request and place the chain correctly",
+      "module": "Complete the request and place the chain correctly",
+      "description": "Associate the response with its key and use the correct Local Computer stores.",
+      "what": "Associate the response with its key and use the correct Local Computer stores.",
+      "why": "Importing the wrong file into the wrong store can hide the real problem.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "The new machine leaf has HasPrivateKey=True and the correct identity and chain.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Where does the application leaf belong?",
+          "options": [
+            "Local Computer → Personal, with its matching key",
+            "Trusted Root to make it trusted",
+            "Current User only"
+          ],
+          "answer": 0,
+          "explanation": "The leaf identifies the application; roots establish approved trust."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Find the Local Computer stores",
+          "where": "Windows application VM · Certificates (Local Computer)",
+          "actions": [
+            "Open Start, search Manage computer certificates, and open it as Administrator. Verify the title says Certificates - Local Computer. certlm.msc is the equivalent console name.",
+            "Expand Personal: its Certificates folder holds the application leaf with the associated private key.",
+            "Trusted Root Certification Authorities holds approved root anchors. Intermediate Certification Authorities holds issuing intermediates. The screenshot is genuine Windows Server 2022 navigation; it does not demonstrate any import."
+          ],
+          "guide": {
+            "what": "Find the Local Computer stores",
+            "why": "IIS reads machine certificates, not just the signed-in user’s personal store.",
+            "verify": "You can distinguish Personal, Trusted Root and Intermediate under Local Computer.",
+            "failure": "If the title says Current User, close that console and open Local Computer instead."
+          },
+          "expected": "You can distinguish Personal, Trusted Root and Intermediate under Local Computer.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "You can distinguish Personal, Trusted Root and Intermediate under Local Computer."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "windows-2022-stores",
+            "title": "Genuine lab reference · Find the Local Computer stores",
+            "instructions": "The image shows the actual captured platform and fixture. Compare names and paths with this step; it does not prove your result. Read its capture limits below."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Add only an approved missing CA chain",
+          "where": "Windows application VM · Certificates (Local Computer)",
+          "actions": [
+            "If the organization already manages the root and intermediate, verify them and skip duplicate imports. If the root is not approved, stop here.",
+            "For an explicitly approved missing root: expand Trusted Root Certification Authorities → right-click Certificates → All Tasks → Import. Click Next, browse to root.cer, confirm the selected store is Trusted Root Certification Authorities, then review and finish.",
+            "For a missing intermediate: repeat Import under Intermediate Certification Authorities → Certificates using intermediate.cer. Never import the website leaf as a root.",
+            "Record the exact thumbprints and stores changed. Clients also need the approved trust chain; importing on the server does not automatically update every browser."
+          ],
+          "guide": {
+            "what": "Add only an approved missing CA chain",
+            "why": "Trust changes should be deliberate and limited to the right role.",
+            "verify": "The correct approved CA certificates are present in their intended machine stores.",
+            "failure": "For rollback remove only a newly added, recorded lab certificate when authorized and not used by other applications. Do not remove shared organizational roots."
+          },
+          "expected": "The correct approved CA certificates are present in their intended machine stores.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "The correct approved CA certificates are present in their intended machine stores."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "windows-2022-root-navigation",
+            "title": "Genuine lab reference · Add only an approved missing CA chain",
+            "instructions": "The image shows the actual captured platform and fixture. Compare names and paths with this step; it does not prove your result. Read its capture limits below."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Complete the pending request and verify its key",
+          "where": "Windows application VM · Administrator PowerShell · then certificate properties",
+          "actions": [
+            "On the original application server, accept the response in machine context. This installs the response and links it to the pending machine private key.",
+            "In Local Computer → Personal → Certificates, open the new leaf. The General tab should say you have a private key corresponding to this certificate. Check SAN, dates, server-auth purpose and Certification Path.",
+            "Record the leaf thumbprint. If using IIS Manager Complete Certificate Request instead, select the returned leaf, a unique friendly name and the Personal store, then perform the same key and chain checks. Do not accept a disappearing certificate as success."
+          ],
+          "command": "certreq.exe -accept -machine C:\\SONIC-PKI\\iis-v1.cer\nif ($LASTEXITCODE -ne 0) { throw 'Response acceptance failed. Stop before binding.' }\nGet-ChildItem Cert:\\LocalMachine\\My | Where-Object Subject -Like \"*tickets.lab.example.test*\" | Format-List Subject,Thumbprint,NotBefore,NotAfter,HasPrivateKey",
+          "guide": {
+            "what": "Complete the pending request and verify its key",
+            "why": "A public leaf without its private key cannot serve this website.",
+            "verify": "The new machine leaf has HasPrivateKey=True and the correct identity and chain.",
+            "failure": "If the key is missing, stop before binding. Confirm this is the original CSR machine and response. Do not repair association by guessing a certificate/key."
+          },
+          "expected": "The new machine leaf has HasPrivateKey=True and the correct identity and chain.",
+          "breakdown": [
+            {
+              "term": "-machine",
+              "meaning": "Use Local Computer key/certificate context instead of only the signed-in user’s store."
+            },
+            {
+              "term": "certreq.exe -accept",
+              "meaning": "Install a signed response and associate it with its pending matching private key."
+            },
+            {
+              "term": "HasPrivateKey",
+              "meaning": "Whether Windows has the matching private key associated with this installed certificate."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Complete the pending request and verify its key",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-iis-bind",
+      "title": "Bind HTTPS and validate the actual application",
+      "module": "Bind HTTPS and validate the actual application",
+      "description": "Select the new leaf for the correct IIS site, then test from a client.",
+      "what": "Select the new leaf for the correct IIS site, then test from a client.",
+      "why": "A certificate installed in a store is not automatically used by an IIS website.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "The live endpoint presents the new leaf, the client validates it and the expected application works.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "Does HasPrivateKey=True prove IIS is using that certificate?",
+          "options": [
+            "No; verify the binding and live endpoint",
+            "Yes; every site uses the newest leaf"
+          ],
+          "answer": 0,
+          "explanation": "Store installation, HTTPS binding and client validation are separate checks."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Choose the intended HTTPS binding",
+          "where": "Windows application VM · IIS Manager",
+          "actions": [
+            "Open IIS Manager. In Connections expand the server → Sites → select the existing application site. In Actions choose Bindings.",
+            "For existing HTTPS select its recorded row → Edit. For the first approved HTTPS endpoint choose Add → Type https. Keep the approved private IP/All Unassigned choice, port 443 and tickets.lab.example.test hostname.",
+            "Use Require Server Name Indication when your approved design shares the IP/port by hostname; preserve the recorded SNI choice for an existing site. Select the new leaf using its friendly name and verified thumbprint.",
+            "Review the exact site and values, click OK, then Close. Keep the prior certificate installed. Do not restart all IIS services or rewrite osTicket/PHP settings just to change a binding."
+          ],
+          "guide": {
+            "what": "Choose the intended HTTPS binding",
+            "why": "The IP, port, hostname and SNI setting choose which site answers.",
+            "verify": "The intended site’s HTTPS binding selects the verified new leaf.",
+            "failure": "If the leaf is absent, recheck Local Computer Personal, private-key association and server-auth purpose; do not select an unrelated certificate."
+          },
+          "expected": "The intended site’s HTTPS binding selects the verified new leaf.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "The intended site’s HTTPS binding selects the verified new leaf."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Choose the intended HTTPS binding",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        },
+        {
+          "title": "Verify TLS identity and application behavior",
+          "where": "Allowed private test client · browser and PowerShell",
+          "actions": [
+            "Resolve tickets.lab.example.test to the verified private application address using your approved private DNS or a temporary lab hosts entry. Do not change public DNS.",
+            "From a client with the approved CA trust, browse to https://tickets.lab.example.test. View the certificate and compare its serial/thumbprint and dates with the issued leaf. Test the actual application, including the agreed osTicket page/login or test-ticket workflow once osTicket exists.",
+            "Run the request below without certificate-validation bypasses. An HTTP response alone is not proof the right application or new certificate answered.",
+            "If there is a TLS warning, investigate name, dates, chain and client trust. A 500/application error after successful TLS belongs to the application layer; do not keep replacing certificates."
+          ],
+          "command": "Invoke-WebRequest -UseBasicParsing -Uri https://tickets.lab.example.test/",
+          "guide": {
+            "what": "Verify TLS identity and application behavior",
+            "why": "Users need a trusted HTTPS connection to the intended application.",
+            "verify": "The live endpoint presents the new leaf, the client validates it and the expected application works.",
+            "failure": "For a timeout check address, listener, route and approved firewall rules. For the wrong certificate inspect SNI and IIS/HTTP.sys bindings. Do not disable validation."
+          },
+          "expected": "The live endpoint presents the new leaf, the client validates it and the expected application works.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "The live endpoint presents the new leaf, the client validates it and the expected application works."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Verify TLS identity and application behavior",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "pki-iis-renew",
+      "title": "Maintain expiration and rehearse rollback",
+      "module": "Maintain expiration and rehearse rollback",
+      "description": "Renew early, test the new binding and retain a valid recovery option.",
+      "what": "Renew early, test the new binding and retain a valid recovery option.",
+      "why": "The application owner needs enough time for PKI approval and deployment.",
+      "needs": [
+        "Complete the preceding chapter and keep your change notes beside you."
+      ],
+      "bestPractices": [
+        "Work only on the named application lab machine. Stop at a failed check.",
+        "Keep private keys and passwords off chat, tickets and screenshots."
+      ],
+      "commonMistakes": [
+        "Treating a file import or green command result as proof the browser reaches the correct application."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The result differs from this lesson.",
+          "fix": "Use the current step’s recovery note. Check the machine, filename, website name and clock before continuing."
+        }
+      ],
+      "pass": "The live binding uses the tested replacement, monitoring is updated and the recovery procedure is documented.",
+      "exercise": "Repeat this chapter’s checks in your own lab. Record the machine, actual result and any remaining gap before marking it verified.",
+      "quiz": [
+        {
+          "question": "When is renewal complete?",
+          "options": [
+            "After the live application presents and validates the new certificate",
+            "When the PKI team sends an email",
+            "When the CSR is created"
+          ],
+          "answer": 0,
+          "explanation": "Issuance is only one part of renewal; deployment, client testing and monitoring complete it."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Maintain the certificate inventory",
+          "where": "Windows application VM · Administrator PowerShell · change record",
+          "actions": [
+            "Download the inventory CSV. Record hostname, site, endpoint, leaf thumbprint/serial, issuer, UTC expiry, private-key location/context, owner, backup owner, ticket and renewal due date.",
+            "Inspect certificates nearing expiry with the example 30-day filter. Choose reminder windows that include your PKI team’s lead time and a change/recovery window.",
+            "Monitor the real HTTPS endpoint and alert delivery as well. A certificate in Personal might be unused; an endpoint might be served by a proxy. Assign who reviews and acts on alerts."
+          ],
+          "command": "Get-ChildItem Cert:\\LocalMachine\\My | Where-Object { $_.NotAfter -le (Get-Date).AddDays(30) } | Select-Object Subject,Thumbprint,NotAfter,HasPrivateKey",
+          "guide": {
+            "what": "Maintain the certificate inventory",
+            "why": "A named owner and earlier reminders prevent expiry surprises.",
+            "verify": "Inventory and tested monitoring identify the owner and renewal deadline for the actual endpoint.",
+            "failure": "If the deadline is too close, escalate immediately instead of waiting for a scheduled reminder."
+          },
+          "expected": "Inventory and tested monitoring identify the owner and renewal deadline for the actual endpoint.",
+          "breakdown": [
+            {
+              "term": "HasPrivateKey",
+              "meaning": "Whether Windows has the matching private key associated with this installed certificate."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Maintain the certificate inventory",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ],
+          "downloads": [
+            {
+              "title": "Certificate inventory CSV",
+              "href": "/pki-lab/certificate-inventory.csv"
+            }
+          ]
+        },
+        {
+          "title": "Renew with overlap, then verify or roll back",
+          "where": "Windows application VM · IIS Manager",
+          "actions": [
+            "Confirm key-reuse policy. For a new key repeat the CSR chapter with iis-v2 filenames and retain the current leaf/key while the PKI team issues the replacement.",
+            "Inspect and accept the returned v2 response on the same machine. Confirm its private key, SAN, dates, server-auth purpose and path before editing the binding.",
+            "In the application site’s Bindings → https → Edit select the new leaf. Test the client again and compare the new serial/thumbprint. Record the actual activation and next expiry.",
+            "If validation or the application fails, edit the same binding back to the recorded prior still-valid uncompromised leaf and retest. Do not remove the new or old keys until the change is resolved and retention policy permits it.",
+            "If the prior leaf is expired or its key is exposed, it is not a safe rollback. Request a valid emergency replacement and follow the incident process. Remove a temporary lab hosts entry only after recording what it changed."
+          ],
+          "guide": {
+            "what": "Renew with overlap, then verify or roll back",
+            "why": "A new-key renewal needs the new leaf associated with its new machine key.",
+            "verify": "The live binding uses the tested replacement, monitoring is updated and the recovery procedure is documented.",
+            "failure": "If GUI state differs from what the client receives, inspect Get-WebBinding and netsh http show sslcert before making more changes."
+          },
+          "expected": "The live binding uses the tested replacement, monitoring is updated and the recovery procedure is documented.",
+          "breakdown": [
+            {
+              "term": "Check before continuing",
+              "meaning": "The live binding uses the tested replacement, monitoring is updated and the recovery procedure is documented."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Capture needed · Renew with overlap, then verify or roll back",
+            "instructions": "A genuine screenshot of this exact action/result is still needed. No successful lab execution or screenshot is claimed for this step."
+          },
+          "sources": [
+            "https://docs.openssl.org/3.5/man1/openssl-req/",
+            "https://docs.openssl.org/3.5/man1/openssl-verify/",
+            "https://nginx.org/en/docs/http/configuring_https_servers.html",
+            "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks",
+            "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1",
+            "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+          ]
+        }
+      ]
+    }
+  ]
+}

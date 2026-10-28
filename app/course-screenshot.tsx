@@ -4,6 +4,7 @@
 import { useRef } from 'react';
 import { ScreenshotSurface } from './screenshot-surface';
 import tlsReferences from '../content/tls/references.json';
+import pkiReferences from '../content/pki/references.json';
 import dmzReferences from '../content/dmz/references.json';
 import splunkReferences from '@/content/splunk/references.json';
 import azureReferences from '@/content/azure/maintenance-references.json';
@@ -13,6 +14,7 @@ import landingZoneReferences from '@/content/landing-zone/references.json';
 import enterpriseReferences from '@/content/enterprise/references.json';
 import coreReferences from '@/content/screenshots/interface-references.json';
 const references = [
+  ...pkiReferences,
   ...tlsReferences,
   ...dmzReferences,
   ...splunkReferences,
@@ -71,6 +73,7 @@ export function CourseScreenshot({
         onZoom={() => dialog.current?.showModal()}
       />
       <figcaption className="picture-source-note">
+        {'reviewed' in asset && <p>{asset.note}</p>}
         {screenshot.status === 'reference' && <p>{screenshot.instructions}</p>}
         <a href={asset.source} target="_blank" rel="noreferrer">
           {screenshot.status === 'illustration'

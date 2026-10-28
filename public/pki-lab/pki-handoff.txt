@@ -1,0 +1,21 @@
+SONIC-Academy / CloudSeam Tech — PKI handoff checklist
+Practice worksheet, not an actual submitted ticket.
+
+Application / environment:
+Owner / backup owner / renewal contact:
+Exact URL and approved DNS SANs:
+Where TLS ends (application / proxy / load balancer):
+Server and machine key location/context (no key contents):
+Requested algorithm, server-auth purpose and validity policy:
+CSR filename and SHA-256:
+Approved enrollment portal / ticket number:
+Requested response format (PEM leaf and chain / Windows response):
+Trusted channel for root certificate fingerprint:
+Change window / renewal due date:
+Previous valid binding and recovery plan:
+Response leaf serial/thumbprint and validity UTC:
+Live endpoint serial/thumbprint and application test:
+
+Attach only the checked CSR and approved non-secret request information.
+Never attach private keys, passwords or an unsolicited PFX/P12.
+Root/intermediate authority lifecycle belongs to the PKI team.
