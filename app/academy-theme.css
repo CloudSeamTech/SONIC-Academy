@@ -3634,3 +3634,21 @@ html body .academy-shell.academy-shell .academy-dashboard .resume-lesson h3 {
     padding: 18px;
   }
 }
+/* Chakra Petch headings and Inter reading text; navigation retains its own font. */
+html body .academy-shell.academy-shell .reader-workspace,
+html body .academy-shell.academy-shell .reader-workspace :is(p,a,button,summary,label,li,dd,dt,span,strong,b,small,div,section,article,header,nav,aside,footer,td,th,legend,output,input,textarea,select) {
+  font-family: var(--font-academy-reading), Arial, sans-serif !important;
+  text-transform: none !important;
+}
+html body .academy-shell.academy-shell .reader-workspace :is(h1,h2,h3,h4,h5,h6),
+html body .academy-shell.academy-shell .reader-workspace :is(h1,h2,h3,h4,h5,h6) * {
+  font-family: var(--font-academy-heading), Arial, sans-serif !important;
+  font-weight: 600 !important;
+  text-transform: none !important;
+  letter-spacing: 0 !important;
+}
+html body .academy-shell.academy-shell .reader-workspace :is(pre,code,kbd,samp,.terminal-output,.terminal-input-row,.xterm,.monaco-editor,.cm-editor),
+html body .academy-shell.academy-shell .reader-workspace :is(pre,code,kbd,samp,.terminal-output,.terminal-input-row,.xterm,.monaco-editor,.cm-editor) * {
+  font-family: var(--font-ibm-plex-mono), Consolas, monospace !important;
+  text-transform: none !important;
+}
