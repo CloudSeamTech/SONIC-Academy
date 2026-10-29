@@ -26,7 +26,7 @@ test('career groups include each existing subject and lesson exactly once', () =
   assert.ok(lessons.every((lesson) => lesson.href.includes('#lesson=')));
   assert.deepEqual(
     careerSubjects('windows-system-administration').map((p) => p.id),
-    ['windows', 'active-directory', 'sql', 'helpdesk', 'dmz', 'wsus', 'mecm'],
+    ['vsphere', 'windows', 'active-directory', 'sql', 'helpdesk', 'dmz', 'wsus', 'mecm'],
   );
   assert.ok(careerSubjects('cyber-analyst').some((p) => p.id === 'splunk'));
   assert.ok(

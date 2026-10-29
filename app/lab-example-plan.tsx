@@ -1,4 +1,5 @@
 export function LabExamplePlan({ lessonId }: { lessonId: string }) {
+  const vsphere = lessonId.startsWith('vsphere-');
   const tls = lessonId.startsWith('tls-');
   const dmz = lessonId.startsWith('dmz-');
   const helpdesk = lessonId.startsWith('helpdesk-');
@@ -8,7 +9,9 @@ export function LabExamplePlan({ lessonId }: { lessonId: string }) {
   const azure = /^(lz-|sec-|azure-|az-)/.test(lessonId);
   const splunk = lessonId.startsWith('splunk-');
   const scanner = lessonId.startsWith('nessus-');
-  const example = tls
+  const example = vsphere
+    ? 'esx01.lab.example.test = the ESXi host that runs virtual machines. vc01.lab.example.test = the optional authorized vCenter management appliance. LAB-APP01 and LAB-APP02 = disposable guest servers. LAB-Isolated = a same-host VM network with no external uplink. These names do not create DNS records or reserve addresses; use your written private lab plan. ESXi Host Client manages one host; vSphere Client connects to vCenter.'
+    : tls
     ? 'Application server (TLS-APP01), 10.90.0.10 = RHEL 9, NGINX and the hosted practice page. Practice CA server (TLS-CA01), 10.90.0.20 = a separate simulated signing office. app.example.mil = the fictional website name, resolved only inside this private lab. Never send its requests to a real DoD CA.'
     : dmz
       ? 'app-dmz.lab.example.test = the name a practice visitor uses. iis-backend.lab.example.test = the private IIS website name. PROXY01 = the gateway in the DMZ. IIS-DMZ01 = the private server that hosts the test page.'

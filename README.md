@@ -7,6 +7,10 @@ Fallback address: https://sonic-academy-cloud-seam.vercel.app/. See [custom doma
 
 For Google/GitHub sign-in and database setup, follow the [Supabase owner guide](docs/SUPABASE-SETUP.md). Public social sign-in is not connected yet.
 
+## VMware vSphere System Administration
+
+VMware vSphere System Administration is available at `/vsphere`, under Windows System Administration: 22 concise chapters from ESXi setup and vCenter access to networking, storage, templates and daily operations. Eleven numbered official VMware/Broadcom screenshot references are attributed and distinguished from live lab evidence. No vCenter evaluation is assumed; standalone ESXi and authorized vCenter/hosted-lab routes have explicit capability limits. See [class scope and screenshot provenance](docs/VSPHERE-CLASS.md).
+
 ## PKI Certificate Management
 
 The dedicated `/pki` pathway contains two separate application-server classes: `/pki/alma-nginx` and `/pki/windows-iis`. Each has seven chapters beginning with plain-language explanations, followed by CSR creation, PKI-team handoff, certificate/chain inspection, trust-store decisions, HTTPS activation and client validation, expiration tracking, renewal and rollback. New `pki-alma-*` and `pki-iis-*` lesson IDs use the existing progress store without resetting older completion. The existing `/tls` RHEL 9 practice-CA course remains available.

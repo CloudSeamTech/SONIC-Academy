@@ -1,0 +1,381 @@
+[
+  {
+    "id": "vsphere-dcui-network",
+    "src": "/vsphere-lab/dcui-network.svg",
+    "title": "ESXi management network menu",
+    "platform": "ESXi 8.0.3 DCUI \u00b7 official source reference",
+    "source": "https://knowledge.broadcom.com/external/article/411275",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 411275",
+    "note": "Actual vendor ESXi 8.0.3 screen. VLAN is highlighted in the source; use IPv4 and DNS entries for their own settings. It does not show a successfully configured management connection. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/dcui-network.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=1994179427986",
+    "originalSha256": "dd7a22ef83fe93c28a8aa3127e7274483216ddd4ce52a795aeb74376c5005179",
+    "sha256": "cf023eb5d63fd1f14d5f998db3603849896b6e03b30b9654b2d54ec39a221706",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.47,
+        "y": 0.16,
+        "label": "IPv4 configuration: enter only the planned management address."
+      },
+      {
+        "number": 2,
+        "x": 0.47,
+        "y": 0.21,
+        "label": "DNS configuration: use your approved name and DNS servers."
+      },
+      {
+        "number": 3,
+        "x": 0.82,
+        "y": 0.98,
+        "label": "Read the actual ESXi release and build at the bottom."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-host-precheck",
+    "src": "/vsphere-lab/host-precheck.svg",
+    "title": "Read the exact Add Host precheck error",
+    "platform": "vCenter 8.0 / 8.0.1 \u00b7 official compatibility-failure example",
+    "source": "https://knowledge.broadcom.com/external/article/313403",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 313403",
+    "note": "Vendor error example involving old ESXi 7 versions, not a recommended combination or a successful add-host result. License warnings and source redactions are preserved. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/host-precheck.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=1679108224559",
+    "originalSha256": "879b3dcb58e53043181ef73d69c6473132ecc1c78c87fdf4d0eeeeafc6b5c488",
+    "sha256": "3f90a72424bf02a36b2c67f9a62da0f55d4b413e0d7605ee1137a767f5960195",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.18,
+        "y": 0.24,
+        "label": "Confirm the selected inventory object."
+      },
+      {
+        "number": 2,
+        "x": 0.66,
+        "y": 0.4,
+        "label": "Read the expanded host/lifecycle compatibility failure."
+      },
+      {
+        "number": 3,
+        "x": 0.85,
+        "y": 0.68,
+        "label": "Use Recent Tasks for the failed operation and its details."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-uplink-warning",
+    "src": "/vsphere-lab/uplink-warning.svg",
+    "title": "Recognize the standard-switch uplink warning",
+    "platform": "vSphere 8.x networking wizard \u00b7 official reference",
+    "source": "https://knowledge.broadcom.com/external/article/443156",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 443156",
+    "note": "The published warning overlays adapter selection. No active uplink can mean intentional same-host isolation or an incomplete external path. Never move a management uplink to imitate this image. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/uplink-warning.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=2267288538065",
+    "originalSha256": "0ad3cf1492472f1c7b72752cef52bf63813bfcf4c390f049dd8143a88e71da2f",
+    "sha256": "208d26b3a7b8d11462106e9c55f5a2d666c0de7a6e6cc96f84b917bfc79c8b3d",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.2,
+        "y": 0.33,
+        "label": "The wizard is creating a standard switch."
+      },
+      {
+        "number": 2,
+        "x": 0.43,
+        "y": 0.35,
+        "label": "Unclaimed is not the same as Active."
+      },
+      {
+        "number": 3,
+        "x": 0.35,
+        "y": 0.78,
+        "label": "Read the warning and verify the intended isolation or uplink design."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-disk-partitions",
+    "src": "/vsphere-lab/disk-partitions.svg",
+    "title": "Inspect existing partitions before any format",
+    "platform": "ESXi shell partition listing \u00b7 build not stated in source image",
+    "source": "https://knowledge.broadcom.com/external/article/410154",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 410154",
+    "note": "This is a vendor shell-output screenshot, not the Host Client. It shows existing partitions in a missing-datastore diagnosis; it is NOT a blank disk or an instruction to erase it. No shell command execution is required in this class. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/disk-partitions.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=1983247038732",
+    "originalSha256": "40879a8c78151b157bd481c7877e3a57012dcc9e47dd4489cc81ca2e22fa9f8b",
+    "sha256": "7cc17942c0027b003f437c03498195d8eb34a96705aee13ffdff7d8a52a39b3d",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.02,
+        "y": 0.2,
+        "label": "The command targets a specific storage device; do not copy it."
+      },
+      {
+        "number": 2,
+        "x": 0.02,
+        "y": 0.62,
+        "label": "Existing partition records require an ownership check."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-vm-datastore",
+    "src": "/vsphere-lab/vm-datastore.svg",
+    "title": "Locate a VM disk and its datastore",
+    "platform": "vSphere Client Edit Settings \u00b7 historical vendor reference; exact build unstated",
+    "source": "https://knowledge.broadcom.com/external/article/344559",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 344559",
+    "note": "Vendor example shows VM_deploy and an iscsi2 datastore. A bracketed datastore name and snapshot-backed disk file are visible. This is not a CloudSeam VM, a new VM recipe or a recommendation to alter the file. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/vm-datastore.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=1651618655257",
+    "originalSha256": "2c930873391d42c9a533a62a6c7572d1179127d4e27239606ef86deea8303607",
+    "sha256": "b875ba0efef9a8bd4f5562cda96617f6dabd2889e7bd59dea2f2b72791a26ef4",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.05,
+        "y": 0.38,
+        "label": "Expand the virtual disk to inspect its settings."
+      },
+      {
+        "number": 2,
+        "x": 0.37,
+        "y": 0.82,
+        "label": "The bracketed name identifies the backing datastore."
+      },
+      {
+        "number": 3,
+        "x": 0.78,
+        "y": 0.82,
+        "label": "The disk filename can indicate a snapshot-backed disk."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-vm-network",
+    "src": "/vsphere-lab/vm-network.svg",
+    "title": "Check a VM network adapter connection",
+    "platform": "VMware ESXi / vCenter Edit Settings \u00b7 exact source build unstated",
+    "source": "https://knowledge.broadcom.com/external/article/413851",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 413851",
+    "note": "Official diagnostic example: Connected and Connect At Power On are unchecked. Published black redactions are unchanged. Do not copy its CPU, RAM, disk or network values. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/vm-network.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=2013116034728",
+    "originalSha256": "8ef1bd25f8dd07f6807f579f1bf0422541004f88978230b98249fbe325967861",
+    "sha256": "58284559326ee975b2d4fc9652c5e92eb593cb067b460cb5252007c91f7d7962",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.36,
+        "y": 0.77,
+        "label": "Expand the intended network adapter and confirm its backing."
+      },
+      {
+        "number": 2,
+        "x": 0.91,
+        "y": 0.77,
+        "label": "Connected describes the current virtual cable state."
+      },
+      {
+        "number": 3,
+        "x": 0.35,
+        "y": 0.88,
+        "label": "Connect At Power On controls the next boot."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-vm-cdrom",
+    "src": "/vsphere-lab/vm-cdrom.svg",
+    "title": "Recognize installer-media connection settings",
+    "platform": "VMware VM CD/DVD settings \u00b7 exact source build unstated",
+    "source": "https://knowledge.broadcom.com/external/article/413851",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 413851",
+    "note": "Official diagnostic example shows Host Device and unavailable media, not a selected installation ISO. The lesson requires the approved datastore ISO during install and disconnection after it is no longer needed. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/vm-cdrom.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=2013124045631",
+    "originalSha256": "8188ee0cafeb946b7af74c4b8853fb81da859720ce3214cdfec409b476d853a9",
+    "sha256": "7805b720a71e6c52fc754c5daf1b3323fc594e3870a6d4b2a5ab757d838387be",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.93,
+        "y": 0.11,
+        "label": "Connected describes the current virtual CD/DVD connection."
+      },
+      {
+        "number": 2,
+        "x": 0.38,
+        "y": 0.27,
+        "label": "Connect At Power On controls boot-time connection."
+      },
+      {
+        "number": 3,
+        "x": 0.78,
+        "y": 0.46,
+        "label": "Inspect the actual media backing; this example is unavailable."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-snapshot-manager",
+    "src": "/vsphere-lab/snapshot-manager.svg",
+    "title": "Read Manage Snapshots before acting",
+    "platform": "vSphere Client Manage Snapshots \u00b7 historical July 2020 example; exact build unstated",
+    "source": "https://knowledge.broadcom.com/external/article/344559",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 344559",
+    "note": "Source shows a memory-enabled snapshot of VM_deploy. Our first exercise uses a cleanly powered-off disposable VM. Memory and quiescing values in this screenshot are examples, not settings to copy. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/snapshot-manager.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=1651610178271",
+    "originalSha256": "c17a07abf3a9d0c22df3a09c9d1ff26a182f802235e126fa2297b92ad47472be",
+    "sha256": "04df19a0398191e2317ea41569b7348068ebbb5cd9acda3a00118fa8c807a7d4",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.18,
+        "y": 0.15,
+        "label": "The tree lists the snapshot and current position."
+      },
+      {
+        "number": 2,
+        "x": 0.3,
+        "y": 0.77,
+        "label": "Delete removes a checkpoint; it is not Revert."
+      },
+      {
+        "number": 3,
+        "x": 0.42,
+        "y": 0.77,
+        "label": "Revert returns to the selected snapshot state."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-vm-disk-settings",
+    "src": "/vsphere-lab/vm-disk-settings.svg",
+    "title": "Recognize a snapshot-backed disk filename",
+    "platform": "vSphere Client Edit Settings \u00b7 historical vendor reference; exact build unstated",
+    "source": "https://knowledge.broadcom.com/external/article/344559",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 344559",
+    "note": "Source highlights a virtual disk filename ending in -000001.vmdk. This is snapshot-chain evidence only. Never delete, rename or edit disk-chain files by hand. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/vm-disk-settings.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=1651623025393",
+    "originalSha256": "4a2ffc5bfd5efc742085b75e3f8988c30bc9d79b7aa3cf10374c5a64bd61c560",
+    "sha256": "07f4d49f59f2f8656f7ff3ef9753cf765dd515edaf51fcfbc8e1978ea7a90f55",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.16,
+        "y": 0.46,
+        "label": "The selected device is a virtual disk, not a physical host disk."
+      },
+      {
+        "number": 2,
+        "x": 0.39,
+        "y": 0.91,
+        "label": "The bracketed part is the datastore."
+      },
+      {
+        "number": 3,
+        "x": 0.78,
+        "y": 0.91,
+        "label": "A numbered VMDK may be snapshot-backed; preserve the full chain."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-backup-home",
+    "src": "/vsphere-lab/backup-home.svg",
+    "title": "Find the vCenter appliance backup page",
+    "platform": "vCenter Server 8.0 VAMI \u00b7 official reference",
+    "source": "https://knowledge.broadcom.com/external/article/375278",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 375278",
+    "note": "Vendor page shows no configured schedule and no listed jobs. This is a starting state, not proof of protection. VAMI protects the appliance configuration/database, not all application VM disks. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/backup-home.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=1628347077074",
+    "originalSha256": "4290b2f618f2631b717746833fe48595288157acd2c84378b2841bc47ef41e1b",
+    "sha256": "9cba2365ac7439e3d536c6ffdeb4fdb7238f6f472b93fea412c0ccae42551842",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.11,
+        "y": 0.88,
+        "label": "Backup is an appliance-management page."
+      },
+      {
+        "number": 2,
+        "x": 0.93,
+        "y": 0.16,
+        "label": "Configure creates the backup schedule."
+      },
+      {
+        "number": 3,
+        "x": 0.93,
+        "y": 0.39,
+        "label": "Backup Now starts a separate on-demand job."
+      }
+    ]
+  },
+  {
+    "id": "vsphere-backup-status",
+    "src": "/vsphere-lab/backup-status.svg",
+    "title": "Verify the appliance backup activity",
+    "platform": "vCenter Server 8.0 VAMI \u00b7 official historical backup example",
+    "source": "https://knowledge.broadcom.com/external/article/375278",
+    "credit": "Official VMware/Broadcom screenshot \u00b7 KB 375278",
+    "note": "Vendor example shows a completed job and published redactions. It is not our backup result. Confirm your own timestamp, destination files and isolated restore test separately. Original retained unchanged; numbered overlay and reading key added by CloudSeam Tech.",
+    "originalSrc": "/vsphere-lab/originals/backup-status.png",
+    "downloadUrl": "https://api-broadcomcms-software.wolkenservicedesk.com/es/attachments/get_attachment_content?uniqueFileId=1629307105352",
+    "originalSha256": "4c770d795fd3c920c478a8251e14ab7e4b755b8a94f4a990b4488f2126e88f90",
+    "sha256": "417436cd9766de990ab772fee0aa977899f7218176057c14779fcaa5cd69305e",
+    "reviewed": true,
+    "reviewedAt": "2026-10-29",
+    "markers": [
+      {
+        "number": 1,
+        "x": 0.24,
+        "y": 0.36,
+        "label": "Check the actual job state, not just schedule creation."
+      },
+      {
+        "number": 2,
+        "x": 0.57,
+        "y": 0.36,
+        "label": "Review transfer size and duration for the job."
+      },
+      {
+        "number": 3,
+        "x": 0.53,
+        "y": 0.59,
+        "label": "Verify the intended destination and corresponding files."
+      }
+    ]
+  }
+]
