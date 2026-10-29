@@ -1,4 +1,5 @@
 import {
+  vsphereCourse,
   pkiCourses,
   tlsCourse,
   splunkCourse,
@@ -27,6 +28,7 @@ export type ConsoleLesson = {
   source:
     | 'tls'
     | 'pki'
+    | 'vsphere'
     | 'linux'
     | 'migration'
     | 'alma'
@@ -342,6 +344,15 @@ function standaloneLessons(
   }));
 }
 export const learningPathways: LearningPathway[] = [
+  {
+    id: 'vsphere',
+    title: vsphereCourse.title,
+    prerequisite: vsphereCourse.prerequisite,
+    sections: [{
+      title: 'From first host to daily administration',
+      lessons: standaloneLessons(vsphereCourse, '/vsphere', 'vsphere'),
+    }],
+  },
   ...pkiCourses.map((course) => ({
     id: course.id,
     title: course.title,
@@ -726,6 +737,7 @@ export const pathwayLessons = (pathway: LearningPathway) =>
 // Core lesson pagination follows the prerequisite route. Optional extensions
 // stay within their own sequence instead of interrupting the core route.
 export function lessonSequenceFor(id: string): ConsoleLesson[] {
+  if (id.startsWith('vsphere-')) return standaloneLessons(vsphereCourse, '/vsphere', 'vsphere');
   if (id.startsWith('pki-')) {
     const pathway = learningPathways.find((path) =>
       pathwayLessons(path).some((lesson) => lesson.id === id),
@@ -774,6 +786,7 @@ export function lessonSequenceFor(id: string): ConsoleLesson[] {
     .filter(
       (pathway) =>
         ![
+          'vsphere',
           'pki-alma-nginx',
           'pki-windows-iis',
           'linux',

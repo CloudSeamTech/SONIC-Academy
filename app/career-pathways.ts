@@ -13,8 +13,9 @@ export const careerPathways = [
     id: 'windows-system-administration',
     title: 'Windows System Administration',
     description:
-      'Build Windows servers, manage Active Directory and DNS, then operate SQL, IIS, a DMZ, WSUS and MECM.',
+      'Build VMware vSphere and Windows servers, manage Active Directory and DNS, then operate SQL, IIS, a DMZ, WSUS and MECM.',
     subjects: [
+      'vsphere',
       'windows',
       'active-directory',
       'sql',

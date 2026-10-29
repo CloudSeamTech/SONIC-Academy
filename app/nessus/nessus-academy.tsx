@@ -475,6 +475,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
     course.id,
   );
   const isTls = course.id === 'rhel-nginx-tls';
+  const isVsphere = course.id === 'vsphere-administration';
   const isPki = course.id.startsWith('pki-');
   const isSplunk = course.id === 'splunk-core-user';
   const isDmz = course.id === 'windows-dmz';
@@ -484,7 +485,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
   const isSecurity = course.id === 'budget-cloud-security';
   const relatedCourses = isPki
     ? pkiCourses
-    : isTls ||
+    : isVsphere || isTls ||
         isSplunk ||
         isDmz ||
         isEnterprise ||
@@ -539,7 +540,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         <nav
           className={
             'nessus-course-switcher' +
-            (isTls ||
+            (isVsphere || isTls ||
             isSplunk ||
             isDmz ||
             isEnterprise ||
@@ -553,7 +554,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
           aria-label={
             isPki
               ? 'PKI Certificate Management classes'
-              : isTls || isSplunk || isEnterprise || isDmz
+              : isVsphere || isTls || isSplunk || isEnterprise || isDmz
                 ? course.title
                 : isLandingZone
                   ? 'Azure landing zone course'
@@ -579,7 +580,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         </nav>
         <header className="alma-header">
           <span className="eyebrow">
-            {isPki || isTls || isSplunk || isEnterprise || isDmz
+            {isVsphere || isPki || isTls || isSplunk || isEnterprise || isDmz
               ? course.title.toUpperCase()
               : isLandingZone
                 ? 'YOUR FIRST AZURE LANDING ZONE'
@@ -613,6 +614,14 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             self-verified
           </small>
         </header>
+        {isVsphere && (
+          <section className="teaching-callout" aria-label="vSphere access and screenshot context">
+            <h2>Choose your practice route</h2>
+            <p>Read the official-screen walkthrough without a local vCenter download, practice standalone tasks on permitted ESXi, or use an authorized vCenter / VMware Hands-on Labs environment. Free ESXi cannot be managed by vCenter; templates, clusters and migrations require the appropriate environment and licensing.</p>
+            <p>Numbered images are official VMware/Broadcom references with their original context and attribution. They are not CloudSeam lab captures or proof of your result. Missing exact-step captures remain labeled. This class does not install software or change your machines.</p>
+            <Link href="https://knowledge.broadcom.com/external/article/408578" target="_blank" rel="noreferrer">Official Hands-on Labs access guidance →</Link>
+          </section>
+        )}
         {isTls && (
           <section
             className="tls-course-progress teaching-callout"

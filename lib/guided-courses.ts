@@ -1,4 +1,5 @@
 import tls from '../content/tls/course.json' with { type: 'json' };
+import vsphere from '../content/vsphere/course.json' with { type: 'json' };
 import pkiAlma from '../content/pki/alma-nginx.json' with { type: 'json' };
 import pkiIis from '../content/pki/windows-iis.json' with { type: 'json' };
 import dmz from '../content/dmz/course.json' with { type: 'json' };
@@ -15,6 +16,7 @@ import {
   type NessusCourse,
 } from './nessus-curriculum.ts';
 export const tlsCourse = tls as NessusCourse;
+export const vsphereCourse = vsphere as NessusCourse;
 export const pkiCourses = [pkiAlma, pkiIis] as NessusCourse[];
 export const dmzCourse = dmz as NessusCourse;
 export const splunkCourse = splunk as NessusCourse;
@@ -25,6 +27,7 @@ export const maintenanceCourse = maintenance as NessusCourse;
 export const helpdeskCourse = helpdesk as NessusCourse;
 export const securityCourse = security as NessusCourse;
 export const guidedCourses = [
+  vsphereCourse,
   ...pkiCourses,
   tlsCourse,
   dmzCourse,
@@ -38,6 +41,7 @@ export const guidedCourses = [
   wsusCourse,
 ];
 export const guidedLessons = [
+  ...vsphereCourse.lessons,
   ...pkiCourses.flatMap((course) => course.lessons),
   ...tlsCourse.lessons,
   ...dmzCourse.lessons,
@@ -51,7 +55,9 @@ export const guidedLessons = [
   ...wsusCourse.lessons,
 ];
 export const guidedCourseHref = (id: string) =>
-  id === 'pki-alma-nginx'
+  id === 'vsphere-administration'
+    ? '/vsphere'
+    : id === 'pki-alma-nginx'
     ? '/pki/alma-nginx'
     : id === 'pki-windows-iis'
       ? '/pki/windows-iis'

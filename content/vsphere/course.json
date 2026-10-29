@@ -1,0 +1,2556 @@
+{
+  "id": "vsphere-administration",
+  "title": "VMware vSphere System Administration",
+  "description": "From first host to daily operations: ESXi, vCenter, port groups, datastores, servers, templates, monitoring and recovery.",
+  "baseline": "vSphere 8 workflow baseline · official VMware/Broadcom reference screenshots · no local vCenter evaluation required · exact-version checks required",
+  "prerequisite": "Start with the everyday explanations. Choose official-screen walkthrough, permitted standalone ESXi practice, or an available authorized vCenter/Hands-on Labs environment. Free ESXi cannot be managed by vCenter.",
+  "supplies": [
+    "A private authorized lab or the walkthrough route; this website does not install or administer a host.",
+    "A written network/storage plan and recovery access before any change. Existing Windows and AlmaLinux VMs are not repurposed.",
+    "Vendor screenshots are attributed references with visible version/context limits. No live ESXi/vCenter validation is claimed by CloudSeam Tech."
+  ],
+  "sources": [
+    {
+      "title": "vSphere 8 documentation: installation, networking, storage and VM administration",
+      "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+    },
+    {
+      "title": "vCenter downloads require product entitlement",
+      "url": "https://knowledge.broadcom.com/external/article/366685"
+    },
+    {
+      "title": "Free ESXi capabilities and limits",
+      "url": "https://knowledge.broadcom.com/external/article/399823"
+    },
+    {
+      "title": "Access VMware Hands-on Labs",
+      "url": "https://knowledge.broadcom.com/external/article/408578"
+    },
+    {
+      "title": "Create a datacenter and add a host",
+      "url": "https://knowledge.broadcom.com/external/article/308382"
+    },
+    {
+      "title": "Standard switch uplink selection",
+      "url": "https://knowledge.broadcom.com/external/article/443156"
+    },
+    {
+      "title": "VMFS device selection and existing partitions",
+      "url": "https://knowledge.broadcom.com/external/article/410154"
+    },
+    {
+      "title": "Templates and Content Libraries",
+      "url": "https://knowledge.broadcom.com/external/article/396400"
+    },
+    {
+      "title": "Snapshot behavior and limits",
+      "url": "https://knowledge.broadcom.com/external/article/342618"
+    },
+    {
+      "title": "Find snapshots and associated disks",
+      "url": "https://knowledge.broadcom.com/external/article/344559"
+    },
+    {
+      "title": "VM network and CD connection settings",
+      "url": "https://knowledge.broadcom.com/external/article/413851"
+    },
+    {
+      "title": "vCenter 8 file-based backup",
+      "url": "https://knowledge.broadcom.com/external/article/375278"
+    },
+    {
+      "title": "Windows Sysprep overview",
+      "url": "https://learn.microsoft.com/en-us/windows-hardware/manufacture/desktop/sysprep--system-preparation--overview"
+    }
+  ],
+  "lessons": [
+    {
+      "id": "vsphere-basics",
+      "title": "Meet the virtual server building",
+      "module": "Meet the virtual server building",
+      "description": "Learn what ESXi, vCenter, a VM, a port group and a datastore do.",
+      "what": "Learn what ESXi, vCenter, a VM, a port group and a datastore do.",
+      "why": "Think of a building: ESXi is the building manager, VMs are rooms, networking is the hallway, and storage is the cupboard.",
+      "needs": [
+        "No previous VMware experience. Read the access lesson before changing a system."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "Your notes identify the VM and the separate resources it uses.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Which tool centrally manages multiple ESXi hosts?",
+          "options": [
+            "vCenter Server",
+            "The guest operating system",
+            "A datastore"
+          ],
+          "answer": 0,
+          "explanation": "vCenter Server"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Give each piece a job",
+          "where": "Read here · no changes",
+          "actions": [
+            "A physical server is a real computer. ESXi runs directly on it and shares CPU, memory, disks and network connections among virtual machines. Each VM behaves like its own computer.",
+            "vCenter is the central office that manages several ESXi hosts. Its web interface is the vSphere Client at https://your-vcenter/ui. A single host has its own ESXi Host Client at https://your-host/ui.",
+            "A datastore stores VM files. A virtual disk is one file-backed disk belonging to a VM. A port group is a named network connection choice. A template is a prepared master used to create new VMs."
+          ],
+          "expected": "You can explain host, VM, vCenter, datastore and port group without mixing them up.",
+          "guide": {
+            "what": "Give each piece a job",
+            "why": "Names become easier when each one has a simple job.",
+            "verify": "You can explain host, VM, vCenter, datastore and port group without mixing them up.",
+            "failure": "Return to the building example. Workstation is a desktop lab tool, not the vCenter interface."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You can explain host, VM, vCenter, datastore and port group without mixing them up."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Return to the building example. Workstation is a desktop lab tool, not the vCenter interface."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Give each piece a job",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Read a VM’s home address",
+          "where": "Official vendor VM storage reference",
+          "actions": [
+            "Use the picture’s numbered key to find the selected VM and its datastore. A datastore is not the Windows C: drive inside that VM.",
+            "On your own permitted VM, open Summary and record its host, datastore, network, CPU and memory. Keep the VM powered as it was; this is inspection only."
+          ],
+          "expected": "Your notes identify the VM and the separate resources it uses.",
+          "guide": {
+            "what": "Read a VM’s home address",
+            "why": "A VM has both a compute home and a storage home.",
+            "verify": "Your notes identify the VM and the separate resources it uses.",
+            "failure": "If no lab is available, label your notes vendor-screen observations, not live results."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Your notes identify the VM and the separate resources it uses."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If no lab is available, label your notes vendor-screen observations, not live results."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-vm-datastore",
+            "title": "Official VMware/Broadcom reference · Read a VM’s home address",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/344559"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-access",
+      "title": "Choose a lab without a vCenter trial",
+      "module": "Choose a lab without a vCenter trial",
+      "description": "Pick a study route that matches the software and permissions you actually have.",
+      "what": "Pick a study route that matches the software and permissions you actually have.",
+      "why": "A picture of a swimming pool can teach the layout; it does not mean you have already swum.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "You can distinguish an ESXi task from a vCenter-only or separately licensed task.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Can free standalone ESXi be added to vCenter?",
+          "options": [
+            "No; the free edition does not support vCenter management",
+            "Yes; every ESXi edition can be managed centrally"
+          ],
+          "answer": 0,
+          "explanation": "No; the free edition does not support vCenter management"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Choose walkthrough, standalone, or hosted practice",
+          "where": "Your browser · official download and Hands-on Labs pages",
+          "actions": [
+            "Walkthrough route: read the steps and numbered official VMware/Broadcom images. Record a proposed change and expected result. This does not require ESXi, vCenter or a trial.",
+            "Standalone route: if you lawfully have compatible ESXi hardware or an approved nested lab, use the Host Client for VMs, standard port groups and datastores. Verify the actual edition and build before proceeding.",
+            "vCenter practice route: use an existing authorized vCenter environment or visit VMware Hands-on Labs → Explore Catalog, then search Virtualization 101 or vSphere. Registration, available labs and session time limits apply; follow that lab’s own permitted actions.",
+            "Broadcom’s vCenter ISO download instructions require entitlement. Do not assume a free vCenter trial is obtainable. Do not reset evaluations, use unofficial ISOs or bypass licensing."
+          ],
+          "expected": "Your notes state the chosen route and which actions you may actually perform.",
+          "guide": {
+            "what": "Choose walkthrough, standalone, or hosted practice",
+            "why": "The class must work without assuming a downloadable vCenter evaluation.",
+            "verify": "Your notes state the chosen route and which actions you may actually perform.",
+            "failure": "If a download is not entitled, stop that route. Continue the attributed walkthrough or use an available hosted lab."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Your notes state the chosen route and which actions you may actually perform."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If a download is not entitled, stop that route. Continue the attributed walkthrough or use an available hosted lab."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Choose walkthrough, standalone, or hosted practice",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/366685",
+            "https://knowledge.broadcom.com/external/article/408578"
+          ]
+        },
+        {
+          "title": "Know where standalone practice stops",
+          "where": "Host Client → Host → Manage → Licensing; vCenter inventory if available",
+          "actions": [
+            "Record the product, build and license edition; hide the actual license key in screenshots. The free ESXi 8.0 U3e option is standalone and cannot be managed by vCenter.",
+            "Free standalone ESXi does not provide vMotion, HA, DRS or VADP backup integration. Its documented limits include two physical CPUs and eight vCPUs per VM; confirm current terms for your actual release.",
+            "vCenter templates, Content Libraries, centralized permissions and cluster workflows require the vCenter route. Mark these as walkthrough-only when it is unavailable. A cluster can also require additional licensed capabilities."
+          ],
+          "expected": "You can distinguish an ESXi task from a vCenter-only or separately licensed task.",
+          "guide": {
+            "what": "Know where standalone practice stops",
+            "why": "A visible menu does not guarantee a licensed feature.",
+            "verify": "You can distinguish an ESXi task from a vCenter-only or separately licensed task.",
+            "failure": "If a feature is missing, check edition and privileges before treating it as a fault."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You can distinguish an ESXi task from a vCenter-only or separately licensed task."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If a feature is missing, check edition and privileges before treating it as a fault."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Know where standalone practice stops",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/399823"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-plan",
+      "title": "Plan the small training environment",
+      "module": "Plan the small training environment",
+      "description": "Write names, networks, storage and recovery before installing anything.",
+      "what": "Write names, networks, storage and recovery before installing anything.",
+      "why": "Draw the rooms and hallways before building the house.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "You know which objects can change and how to regain the host console.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "What should you identify before installing ESXi?",
+          "options": [
+            "The exact target boot device and a recovery plan",
+            "Only the server name"
+          ],
+          "answer": 0,
+          "explanation": "The exact target boot device and a recovery plan"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Fill in the lab planning sheet",
+          "where": "Downloadable lab-plan.md · your change record",
+          "actions": [
+            "Download the lab plan below. Use fictional names such as esx01.lab.example.test, vc01.lab.example.test and LAB-APP01. Replace every <planned-value> with an approved value; example.test names need your private DNS.",
+            "Record reserved management addresses, mask, gateway, DNS, time source, allowed admin workstation and the management recovery console. Document VM, storage and optional vMotion networks separately.",
+            "List the boot device and a separate blank practice datastore device by stable ID and capacity. Check hardware compatibility, firmware and sizing in the official documentation for the exact version. Nested virtualization is a training option only when supported by your hardware and lab design."
+          ],
+          "expected": "The plan names every object, device and network before a wizard opens.",
+          "guide": {
+            "what": "Fill in the lab planning sheet",
+            "why": "A written map prevents duplicate addresses and wrong-disk mistakes.",
+            "verify": "The plan names every object, device and network before a wizard opens.",
+            "failure": "Resolve duplicate IPs, unknown devices and resource shortages before installing."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The plan names every object, device and network before a wizard opens."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Resolve duplicate IPs, unknown devices and resource shortages before installing."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Fill in the lab planning sheet",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ],
+          "downloads": [
+            {
+              "title": "Download the lab plan",
+              "href": "/vsphere-lab/lab-plan.md"
+            }
+          ]
+        },
+        {
+          "title": "Define a safe practice boundary",
+          "where": "Lab plan · out-of-band or VM console",
+          "actions": [
+            "Use a disposable environment and a named recovery point. Never reinstall ESXi over the Windows or AlmaLinux VMs used for other classes.",
+            "Keep the management interface on the recorded network. For the first networking exercise, use a new isolated virtual switch with no physical uplink and two test VMs on the same host.",
+            "Record the owner, allowed change window, backup location and stop conditions. In a hosted lab, use the provided objects and instructions instead of imposing this example topology."
+          ],
+          "expected": "You know which objects can change and how to regain the host console.",
+          "guide": {
+            "what": "Define a safe practice boundary",
+            "why": "Management access is your way back when a network change fails.",
+            "verify": "You know which objects can change and how to regain the host console.",
+            "failure": "If recovery access or permission is missing, stay in walkthrough mode."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You know which objects can change and how to regain the host console."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If recovery access or permission is missing, stay in walkthrough mode."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Define a safe practice boundary",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-install",
+      "title": "Install ESXi on the intended server",
+      "module": "Install ESXi on the intended server",
+      "description": "Install a hypervisor without overwriting the wrong disk.",
+      "what": "Install a hypervisor without overwriting the wrong disk.",
+      "why": "The installer puts the building manager on one chosen device; it must not clear someone else’s cupboard.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "The host boots to DCUI from its own boot device and its build is recorded.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "An unfamiliar disk appears in the installer. What next?",
+          "options": [
+            "Stop and identify it before confirmation",
+            "Select the largest disk and continue"
+          ],
+          "answer": 0,
+          "explanation": "Stop and identify it before confirmation"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Prepare and select the installation device",
+          "where": "ESXi server console · approved boot media",
+          "actions": [
+            "Obtain an authorized installer compatible with your server, NIC and storage controller. Verify its publisher checksum and the selected OEM image when required. Boot only the named disposable host from that ISO or approved USB media.",
+            "At the installer, choose the install entry, read the welcome screen and license agreement, and continue only when authorized to accept it. Compare the disk model, capacity and identifier against the lab plan.",
+            "Select the planned boot device. Stop if any existing datastore or upgrade/preserve choice is unexpected. Do not choose erase or fresh install to fix an unexplained disk listing."
+          ],
+          "expected": "The selected boot device matches the recorded device, with no unknown data at risk.",
+          "guide": {
+            "what": "Prepare and select the installation device",
+            "why": "Installation can overwrite existing partitions.",
+            "verify": "The selected boot device matches the recorded device, with no unknown data at risk.",
+            "failure": "Cancel before confirmation if the target is uncertain. Check controller visibility and compatibility rather than trying another disk."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The selected boot device matches the recorded device, with no unknown data at risk."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Cancel before confirmation if the target is uncertain. Check controller visibility and compatibility rather than trying another disk."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Prepare and select the installation device",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Complete the install and first console check",
+          "where": "ESXi installer and Direct Console User Interface (DCUI)",
+          "actions": [
+            "Choose the intended keyboard and set a unique strong root password locally; never place it in course notes. Review the installation warning and confirm only the planned device.",
+            "After the successful install prompt, disconnect the installation media and reboot. Read the DCUI product/build and initial management information.",
+            "Record the installed build and installation result. Do not interpret the console’s displayed address as proof that DNS, routing or browser access works."
+          ],
+          "expected": "The host boots to DCUI from its own boot device and its build is recorded.",
+          "guide": {
+            "what": "Complete the install and first console check",
+            "why": "The host must boot independently before remote administration starts.",
+            "verify": "The host boots to DCUI from its own boot device and its build is recorded.",
+            "failure": "If it boots back into the installer, check boot order/media. For a boot or driver failure, preserve evidence and return to the supported hardware plan."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The host boots to DCUI from its own boot device and its build is recorded."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If it boots back into the installer, check boot order/media. For a boot or driver failure, preserve evidence and return to the supported hardware plan."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Complete the install and first console check",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-host",
+      "title": "Give the host a reliable management connection",
+      "module": "Give the host a reliable management connection",
+      "description": "Set management identity, DNS and time, then open the Host Client.",
+      "what": "Set management identity, DNS and time, then open the Host Client.",
+      "why": "The host needs an address, a name and a correct clock, just like an office needs an address and working schedule.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "The verified Host Client opens, the actual build is recorded, and time synchronization is healthy.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Where should a failed management change be recovered?",
+          "options": [
+            "Through the recorded host console using the previous settings",
+            "By changing the VM application address at random"
+          ],
+          "answer": 0,
+          "explanation": "Through the recorded host console using the previous settings"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Configure and test management in DCUI",
+          "where": "Host console → F2 → Configure Management Network",
+          "actions": [
+            "Sign in locally. In Network Adapters confirm the planned management NIC by its MAC/uplink record. Set the management VLAN only if the physical or nested network plan requires tagged traffic.",
+            "Open IPv4 Configuration and enter the reserved address, mask and gateway. In DNS Configuration enter approved DNS servers and the host name; set the suffix under Custom DNS Suffixes when needed.",
+            "Review before applying. Applying management changes may interrupt access; do it from the console. Run Test Management Network against the planned gateway, DNS and hostname. Check forward and reverse DNS from the administrator workstation."
+          ],
+          "expected": "The planned management address and DNS resolution work from the allowed workstation.",
+          "guide": {
+            "what": "Configure and test management in DCUI",
+            "why": "A stable management path prevents losing the host during later work.",
+            "verify": "The planned management address and DNS resolution work from the allowed workstation.",
+            "failure": "Use the console to restore the recorded NIC/VLAN/IP settings. Do not reset all networking as the first response."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The planned management address and DNS resolution work from the allowed workstation."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Use the console to restore the recorded NIC/VLAN/IP settings. Do not reset all networking as the first response."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-dcui-network",
+            "title": "Official VMware/Broadcom reference · Configure and test management in DCUI",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/328870",
+            "https://knowledge.broadcom.com/external/article/411275"
+          ]
+        },
+        {
+          "title": "Open Host Client and set time",
+          "where": "Browser → https://<host-fqdn>/ui → Host → Manage → System → Time & date",
+          "actions": [
+            "Open the planned private FQDN. Verify any certificate warning through the host’s trusted console or approved certificate process; never blindly accept an unexpected identity. Enter credentials only in the verified local interface.",
+            "Record Summary → version/build. Under the time settings, edit NTP configuration using approved reachable time servers and choose the approved service startup policy. In Services confirm the NTP service is running.",
+            "Compare host time with the trusted source and inspect recent events. Keep SSH disabled unless an approved task requires it; close it when finished."
+          ],
+          "expected": "The verified Host Client opens, the actual build is recorded, and time synchronization is healthy.",
+          "guide": {
+            "what": "Open Host Client and set time",
+            "why": "Correct identity and time support logins, certificates and clear event records.",
+            "verify": "The verified Host Client opens, the actual build is recorded, and time synchronization is healthy.",
+            "failure": "For a browser timeout check route, DNS and management tests. For clock drift check NTP reachability and service state, not just the displayed timezone."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The verified Host Client opens, the actual build is recorded, and time synchronization is healthy."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For a browser timeout check route, DNS and management tests. For clock drift check NTP reachability and service state, not just the displayed timezone."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Open Host Client and set time",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-vcenter",
+      "title": "Understand and deploy vCenter when entitled",
+      "module": "Understand and deploy vCenter when entitled",
+      "description": "Walk through the appliance deployment without depending on a free trial.",
+      "what": "Walk through the appliance deployment without depending on a free trial.",
+      "why": "vCenter is the central office; it is itself a VM with its own resources and recovery needs.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "You can explain stage 1 versus stage 2, SSO versus appliance root, and /ui versus :5480.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Which statement is correct?",
+          "options": [
+            "The vSphere Client manages inventory; VAMI manages the appliance",
+            "They are the same page with the same purpose"
+          ],
+          "answer": 0,
+          "explanation": "The vSphere Client manages inventory; VAMI manages the appliance"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Check the appliance deployment prerequisites",
+          "where": "Authorized vCenter environment or walkthrough · installer stage 1",
+          "actions": [
+            "If you lack the authorized installer and entitlement, read this chapter as a walkthrough or use the hosted lab. The free ESXi edition cannot supply a vCenter-managed lab.",
+            "For an authorized new installation, verify compatible ESXi/vCenter versions, sizing, private DNS forward/reverse records, a reserved appliance address and time sources. Obtain a supported target datastore with enough real free space.",
+            "Mount the authorized VCSA ISO on the admin workstation. Open vcsa-ui-installer for that operating system → Installer → Install. Read the stages and license terms. Enter the planned destination ESXi host and local credentials only in the verified installer."
+          ],
+          "expected": "You can state the legal access route, target host, appliance identity and sizing.",
+          "guide": {
+            "what": "Check the appliance deployment prerequisites",
+            "why": "A working ESXi host, DNS and resource plan come first.",
+            "verify": "You can state the legal access route, target host, appliance identity and sizing.",
+            "failure": "Stop on entitlement, version, name-resolution, certificate-identity or capacity failures."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You can state the legal access route, target host, appliance identity and sizing."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Stop on entitlement, version, name-resolution, certificate-identity or capacity failures."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Check the appliance deployment prerequisites",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Finish the two stages and distinguish the interfaces",
+          "where": "VCSA installer → Deploy appliance, then Set up appliance",
+          "actions": [
+            "In stage 1, name the appliance VM, set its root password locally, choose the documented deployment size, datastore and network. Enter the planned FQDN, address, prefix/mask, gateway and DNS. Review everything before Finish.",
+            "In stage 2, configure time synchronization and the intended SSO domain. The SSO domain is vCenter’s login directory, not your Active Directory domain. Set its administrator password locally and keep recovery records protected.",
+            "After completion, open https://<vcenter-fqdn>/ui for vSphere inventory. Open https://<vcenter-fqdn>:5480 for appliance management (VAMI). Verify each identity, sign in to the proper interface, and record service health and build."
+          ],
+          "expected": "You can explain stage 1 versus stage 2, SSO versus appliance root, and /ui versus :5480.",
+          "guide": {
+            "what": "Finish the two stages and distinguish the interfaces",
+            "why": "Creating the VM and configuring its services are separate stages.",
+            "verify": "You can explain stage 1 versus stage 2, SSO versus appliance root, and /ui versus :5480.",
+            "failure": "Inspect the failed stage’s error and logs. Do not deploy another appliance with the same name/IP or delete the target datastore to retry."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You can explain stage 1 versus stage 2, SSO versus appliance root, and /ui versus :5480."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Inspect the failed stage’s error and logs. Do not deploy another appliance with the same name/IP or delete the target datastore to retry."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Finish the two stages and distinguish the interfaces",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-connect",
+      "title": "Create inventory and connect ESXi",
+      "module": "Create inventory and connect ESXi",
+      "description": "Add only a known host to an authorized vCenter.",
+      "what": "Add only a known host to an authorized vCenter.",
+      "why": "A datacenter is a filing cabinet for inventory, not a new physical building created by a button.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "Your troubleshooting notes separate identity, access, license and compatibility checks.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "The Add Host wizard reports an incompatible version. What next?",
+          "options": [
+            "Check the supported combination and exact precheck",
+            "Retry with a different unrelated datastore"
+          ],
+          "answer": 0,
+          "explanation": "Check the supported combination and exact precheck"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Create the training inventory and add a host",
+          "where": "vCenter route · vSphere Client → Hosts and Clusters",
+          "actions": [
+            "In vSphere Client, right-click the intended vCenter → New Datacenter; enter LAB-DC. Right-click LAB-DC → Add Host. Enter the planned ESXi FQDN and its authorized administrator credentials.",
+            "Check any presented host fingerprint using the trusted host console or established certificate record. Review discovered identity, VMs, license and lifecycle/image choices against the lab plan. Do not change lockdown or management policy blindly.",
+            "Review Ready to complete → Finish. In Recent Tasks wait for success, then open the host Summary. Confirm Connected state, correct build, management name, expected datastores and VMs."
+          ],
+          "expected": "The intended host is Connected under LAB-DC, with matching identity and inventory.",
+          "guide": {
+            "what": "Create the training inventory and add a host",
+            "why": "Organized inventory and verified host identity make later actions safer.",
+            "verify": "The intended host is Connected under LAB-DC, with matching identity and inventory.",
+            "failure": "If connection fails, check DNS from vCenter, time, version compatibility, required network paths and license. Never remove a working production host to practice."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The intended host is Connected under LAB-DC, with matching identity and inventory."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If connection fails, check DNS from vCenter, time, version compatibility, required network paths and license. Never remove a working production host to practice."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Create the training inventory and add a host",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/308382",
+            "https://knowledge.broadcom.com/external/article/411381"
+          ]
+        },
+        {
+          "title": "Learn from an official host compatibility failure",
+          "where": "Official vCenter 8 Add standalone host reference",
+          "actions": [
+            "Read the numbered vendor image. This specific example concerns old ESXi 7 builds and image management in vCenter 8. It is not a recommended version combination.",
+            "For your build, use the interoperability and lifecycle documentation. Resolve the exact precheck cause before retrying; do not bypass licensing or force a mismatched image."
+          ],
+          "expected": "Your troubleshooting notes separate identity, access, license and compatibility checks.",
+          "guide": {
+            "what": "Learn from an official host compatibility failure",
+            "why": "A wizard failure can mean incompatible versions rather than a bad password.",
+            "verify": "Your troubleshooting notes separate identity, access, license and compatibility checks.",
+            "failure": "Keep the host in its known working state while you resolve the precheck."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Your troubleshooting notes separate identity, access, license and compatibility checks."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Keep the host in its known working state while you resolve the precheck."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-host-precheck",
+            "title": "Official VMware/Broadcom reference · Learn from an official host compatibility failure",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/313403"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-network",
+      "title": "Understand switches, uplinks and VMkernel ports",
+      "module": "Understand switches, uplinks and VMkernel ports",
+      "description": "Draw the network path before editing a port group.",
+      "what": "Draw the network path before editing a port group.",
+      "why": "A virtual switch is a hallway, an uplink is the door outside, and a port group labels which hallway a VM may use.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "You can explain whether no uplink is intentional isolation or an actual configuration error.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Does a VM port group give the ESXi host its management IP?",
+          "options": [
+            "No; the host uses a VMkernel interface",
+            "Yes; every port group is a host IP"
+          ],
+          "answer": 0,
+          "explanation": "No; the host uses a VMkernel interface"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Read the current network without changing it",
+          "where": "Host Client → Networking; vCenter → host → Configure → Networking",
+          "actions": [
+            "List standard switches, physical NICs (vmnic), VMkernel interfaces (vmk) and VM port groups. Mark which vmk carries management; do not edit it for this exercise.",
+            "Trace one VM: its virtual NIC → port group → virtual switch → physical uplink → physical switch/VLAN. For two VMs on an isolated same-host switch, the path stays inside the host.",
+            "A VMkernel interface belongs to the host for services such as management, NFS/iSCSI or vMotion. It is not the Windows or Linux VM’s own network address. A distributed switch is centrally managed by vCenter and needs the relevant licensing."
+          ],
+          "expected": "Your sketch identifies management separately from the test VMs and their uplink path.",
+          "guide": {
+            "what": "Read the current network without changing it",
+            "why": "Management, VM, storage and migration traffic do different jobs.",
+            "verify": "Your sketch identifies management separately from the test VMs and their uplink path.",
+            "failure": "If you cannot identify management traffic, stop before making any network change."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Your sketch identifies management separately from the test VMs and their uplink path."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If you cannot identify management traffic, stop before making any network change."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Read the current network without changing it",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Interpret an uplink warning correctly",
+          "where": "Official VMware/Broadcom networking wizard reference",
+          "actions": [
+            "The numbered reference shows the Add Networking adapter selection and its warning. Inspect whether adapters are unclaimed, active, standby or unused.",
+            "For a network meant to reach outside the host, assign only the planned spare adapter and verify physical configuration. Never move the only management uplink for this beginner exercise.",
+            "For our intentionally isolated same-host lab, no uplink is expected. Document that exception: this switch cannot reach other hosts or an external gateway."
+          ],
+          "expected": "You can explain whether no uplink is intentional isolation or an actual configuration error.",
+          "guide": {
+            "what": "Interpret an uplink warning correctly",
+            "why": "A NIC shown in a list may not be assigned to the switch.",
+            "verify": "You can explain whether no uplink is intentional isolation or an actual configuration error.",
+            "failure": "Cancel if the wizard would remove an active management connection. Return to the recorded network map."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You can explain whether no uplink is intentional isolation or an actual configuration error."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Cancel if the wizard would remove an active management connection. Return to the recorded network map."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-uplink-warning",
+            "title": "Official VMware/Broadcom reference · Interpret an uplink warning correctly",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/443156"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-portgroups",
+      "title": "Create an isolated switch and port group",
+      "module": "Create an isolated switch and port group",
+      "description": "Give test VMs a network without touching management.",
+      "what": "Give test VMs a network without touching management.",
+      "why": "Build a small practice hallway first; do not rebuild the main entrance while people are using it.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "Your plan describes the same VLAN path through VM, vSwitch, uplink and physical network.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Two isolated switches on different hosts have the same name. Can the VMs talk across hosts?",
+          "options": [
+            "No; a shared name does not provide an uplink path",
+            "Yes; the label joins them automatically"
+          ],
+          "answer": 0,
+          "explanation": "No; a shared name does not provide an uplink path"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Create the isolated standard switch",
+          "where": "Standalone Host Client → Networking → Virtual switches; vCenter equivalent noted below",
+          "actions": [
+            "In Host Client choose Add standard virtual switch. Name it vSwitch-LAB-Isolated, leave MTU at the documented default (1500), and leave uplinks unassigned for this same-host exercise. Review and add.",
+            "In vCenter the equivalent entry is host → Configure → Networking → Virtual switches → Add Networking → Virtual Machine Port Group for a Standard Switch → New standard switch. Do not select existing management NICs.",
+            "An explicit no-uplink warning is expected only for this planned isolated exercise. Confirm its meaning before proceeding. This network has no external gateway or cross-host connectivity."
+          ],
+          "expected": "The new switch has the intended name, no uplink, and the management switch is unchanged.",
+          "guide": {
+            "what": "Create the isolated standard switch",
+            "why": "An isolated test switch avoids changing the host’s existing uplink.",
+            "verify": "The new switch has the intended name, no uplink, and the management switch is unchanged.",
+            "failure": "Delete only the unused newly created lab switch if it was wrong; do not delete or modify the original switch."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The new switch has the intended name, no uplink, and the management switch is unchanged."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Delete only the unused newly created lab switch if it was wrong; do not delete or modify the original switch."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-uplink-warning",
+            "title": "Official VMware/Broadcom reference · Create the isolated standard switch",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/443156"
+          ]
+        },
+        {
+          "title": "Create LAB-Isolated and attach only test VMs",
+          "where": "Host Client → Networking → Port groups → Add port group",
+          "actions": [
+            "Enter LAB-Isolated, select vSwitch-LAB-Isolated and VLAN ID 0 for the untagged exercise. Keep security policies at their defaults. In vCenter, complete Connection settings with the same network label and untagged VLAN choice.",
+            "Edit two disposable VMs on the same host. Select LAB-Isolated for each network adapter and connect the adapter. In the guests use two unused addresses in the same planned private subnet; no gateway is needed for their same-subnet test.",
+            "Test the intended service between the two VMs. If using ping, remember a guest firewall can block it. This isolated switch does not permit an internet test, and matching port-group names on another host do not connect the hosts."
+          ],
+          "expected": "Both same-host test VMs use LAB-Isolated and reach the agreed test service while management stays reachable.",
+          "guide": {
+            "what": "Create LAB-Isolated and attach only test VMs",
+            "why": "VMs choose a port group, not a physical cable directly.",
+            "verify": "Both same-host test VMs use LAB-Isolated and reach the agreed test service while management stays reachable.",
+            "failure": "Restore each VM’s recorded prior port group. Check guest IP/firewall and NIC state before changing host networking."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Both same-host test VMs use LAB-Isolated and reach the agreed test service while management stays reachable."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Restore each VM’s recorded prior port group. Check guest IP/firewall and NIC state before changing host networking."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Create LAB-Isolated and attach only test VMs",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Use VLANs only with an end-to-end plan",
+          "where": "Network map · optional external port group design",
+          "actions": [
+            "For a later approved external exercise, obtain the VLAN and switchport design from the network owner. An access port and a tagged trunk require different guest/port-group choices; never guess from the screenshot.",
+            "Record port-group name, VLAN, vSwitch and intended uplink on each participating host. A standard port group is configured per host. Do not use VLAN 4095 as a generic fix; it has special guest-tagging meaning."
+          ],
+          "expected": "Your plan describes the same VLAN path through VM, vSwitch, uplink and physical network.",
+          "guide": {
+            "what": "Use VLANs only with an end-to-end plan",
+            "why": "A VLAN number alone cannot create physical connectivity.",
+            "verify": "Your plan describes the same VLAN path through VM, vSwitch, uplink and physical network.",
+            "failure": "If tagging is unclear, remain on the isolated lab network and ask the network owner."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Your plan describes the same VLAN path through VM, vSwitch, uplink and physical network."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If tagging is unclear, remain on the isolated lab network and ask the network owner."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Use VLANs only with an end-to-end plan",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-storage",
+      "title": "Inspect disks and create a practice VMFS datastore",
+      "module": "Inspect disks and create a practice VMFS datastore",
+      "description": "Tell a device, a datastore and a VM disk apart before formatting.",
+      "what": "Tell a device, a datastore and a VM disk apart before formatting.",
+      "why": "The storage device is the cupboard; the datastore organizes it; a VM disk is one box inside.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "Your record distinguishes actual free space, promised space and the three growth layers.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Does thin provisioning create extra physical storage?",
+          "options": [
+            "No; actual datastore capacity still limits growth",
+            "Yes; thin disks can never fill a datastore"
+          ],
+          "answer": 0,
+          "explanation": "No; actual datastore capacity still limits growth"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Identify the storage device safely",
+          "where": "Host Client → Storage → Devices and Datastores",
+          "actions": [
+            "Record the boot device, existing datastores and the separate blank practice device. Compare its stable ID, capacity and existing partitions with the plan. Device names can change; capacity alone is not enough.",
+            "The vendor reference shows a disk/partition view used to diagnose unavailable storage. Existing partitions are a reason to stop and identify ownership, not permission to clear them.",
+            "If a device is missing, inspect controller/path visibility and rescan only under your approved procedure. Do not clear partition tables or force-mount unfamiliar storage to make a wizard offer it."
+          ],
+          "expected": "One explicitly blank disposable device is positively identified and is separate from boot and existing data.",
+          "guide": {
+            "what": "Identify the storage device safely",
+            "why": "Formatting the wrong device can destroy several VMs at once.",
+            "verify": "One explicitly blank disposable device is positively identified and is separate from boot and existing data.",
+            "failure": "Stop if the disk is in use or its origin is uncertain. Keep all existing partitions intact."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "One explicitly blank disposable device is positively identified and is separate from boot and existing data."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Stop if the disk is in use or its origin is uncertain. Keep all existing partitions intact."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-disk-partitions",
+            "title": "Official VMware/Broadcom reference · Identify the storage device safely",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/410154"
+          ]
+        },
+        {
+          "title": "Create VMFS only on that blank device",
+          "where": "Host Client → Storage → Datastores → New datastore",
+          "actions": [
+            "Choose Create new VMFS datastore, enter LAB-VMFS01 and select only the recorded blank device. In vCenter use host → Actions → Storage → New Datastore → VMFS.",
+            "Choose VMFS 6 for this vSphere 8 lab. Inspect the partition preview and final target identifier before Finish. Creation formats the selected capacity; continue only on the approved disposable device.",
+            "After the task succeeds, inspect capacity, free space and accessible host(s). Create a small folder such as LAB-ISOs in the datastore browser. A local device is not shared storage just because vCenter can display it."
+          ],
+          "expected": "LAB-VMFS01 is accessible on the intended host with expected capacity; existing datastores remain intact.",
+          "guide": {
+            "what": "Create VMFS only on that blank device",
+            "why": "VMFS organizes block storage for VM files.",
+            "verify": "LAB-VMFS01 is accessible on the intended host with expected capacity; existing datastores remain intact.",
+            "failure": "Cancel before Finish if any identifier differs. After creation, do not format again to resolve a refresh delay."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "LAB-VMFS01 is accessible on the intended host with expected capacity; existing datastores remain intact."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Cancel before Finish if any identifier differs. After creation, do not format again to resolve a refresh delay."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Create VMFS only on that blank device",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/410154"
+          ]
+        },
+        {
+          "title": "Keep capacity headroom and grow carefully",
+          "where": "Datastore → Summary / capacity; VM → Edit Settings",
+          "actions": [
+            "Compare datastore capacity, used/free space and provisioned VM disk sizes. Thin provisioning grows as data is written; it does not create physical capacity. Reserve headroom for snapshots, swap, operations and expected growth.",
+            "To expand storage later, first follow the storage owner’s supported device expansion procedure, then the datastore’s Increase capacity workflow. Verify the stable device ID and new capacity. Do not add arbitrary extents.",
+            "Growing a VM disk, a datastore and a guest partition are three separate actions. Do not assume any can be safely shrunk through the same wizard."
+          ],
+          "expected": "Your record distinguishes actual free space, promised space and the three growth layers.",
+          "guide": {
+            "what": "Keep capacity headroom and grow carefully",
+            "why": "Thin disks can promise more space than is currently free.",
+            "verify": "Your record distinguishes actual free space, promised space and the three growth layers.",
+            "failure": "For low capacity, stop new allocations and identify growth. Never delete unidentified VMDKs or snapshot files to free space."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Your record distinguishes actual free space, promised space and the three growth layers."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For low capacity, stop new allocations and identify growth. Never delete unidentified VMDKs or snapshot files to free space."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Keep capacity headroom and grow carefully",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-nfs",
+      "title": "Mount and check a shared NFS datastore",
+      "module": "Mount and check a shared NFS datastore",
+      "description": "Connect an existing approved export without formatting it.",
+      "what": "Connect an existing approved export without formatting it.",
+      "why": "NFS is a shared cupboard in another room; mounting it means opening the door, not rebuilding it.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "All intended hosts access the same export and a harmless write/read check passes.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Does mounting NFS format the NAS share?",
+          "options": [
+            "No; it connects to an existing export",
+            "Yes; mount always clears the share"
+          ],
+          "answer": 0,
+          "explanation": "No; it connects to an existing export"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Check the storage path before mounting",
+          "where": "Storage plan · NAS owner · ESXi network view",
+          "actions": [
+            "Obtain the NAS address, export path, supported NFS version and allowed host addresses from the storage owner. Confirm a host VMkernel path can reach that storage network.",
+            "Use the NAS’s approved permissions and identity design. NFS 3 and NFS 4.1 have different setup requirements; do not substitute one because the wizard fails.",
+            "For several hosts, document exactly which hosts must access the same backing export. Our isolated VM-only switch is not a storage uplink."
+          ],
+          "expected": "The export, NFS version, allowed hosts and network path are documented.",
+          "guide": {
+            "what": "Check the storage path before mounting",
+            "why": "The host needs a permitted path to the exact export.",
+            "verify": "The export, NFS version, allowed hosts and network path are documented.",
+            "failure": "Resolve routing, export permissions and version requirements before creating mount entries."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The export, NFS version, allowed hosts and network path are documented."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Resolve routing, export permissions and version requirements before creating mount entries."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Check the storage path before mounting",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Add the approved NFS datastore and validate access",
+          "where": "Host Client → Storage → New datastore → Mount NFS datastore",
+          "actions": [
+            "Enter LAB-NFS01, the planned server and exact share path; choose the supported version. In vCenter select New Datastore → NFS, then the version and permitted hosts. Review before Finish.",
+            "Confirm accessible state and expected capacity on every intended host. With approval, create a uniquely named small test folder/file and verify it is visible from the participating hosts.",
+            "Remove only the test artifact after recording success. Unmounting a datastore is a separate maintenance operation; never unmount while VMs, ISO mounts, swap or other dependencies still use it."
+          ],
+          "expected": "All intended hosts access the same export and a harmless write/read check passes.",
+          "guide": {
+            "what": "Add the approved NFS datastore and validate access",
+            "why": "A mount should expose the existing share without erasing it.",
+            "verify": "All intended hosts access the same export and a harmless write/read check passes.",
+            "failure": "For read-only or inaccessible mounts inspect permissions and network reachability. Do not change the export to world-writable."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "All intended hosts access the same export and a harmless write/read check passes."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For read-only or inaccessible mounts inspect permissions and network reachability. Do not change the export to world-writable."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Add the approved NFS datastore and validate access",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-vm",
+      "title": "Create a small application-server VM",
+      "module": "Create a small application-server VM",
+      "description": "Choose compute, disks and network deliberately.",
+      "what": "Choose compute, disks and network deliberately.",
+      "why": "A VM is a new room. Give it only the furniture it needs.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "The intended NIC and installer settings are visible and the VM creation task succeeds.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "What does Connect at power on control?",
+          "options": [
+            "Whether that virtual device connects when the VM starts",
+            "The ESXi management address"
+          ],
+          "answer": 0,
+          "explanation": "Whether that virtual device connects when the VM starts"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Open the new VM wizard and choose its home",
+          "where": "Host Client → Virtual Machines → Create/Register VM; vCenter → New Virtual Machine",
+          "actions": [
+            "Choose Create a new virtual machine and enter LAB-APP01. In vCenter select the training folder and intended host/cluster; in Host Client the current host is the compute destination.",
+            "Select compatibility supported by the actual target hosts and the correct guest OS family/version. Choose LAB-VMFS01 or the approved lab datastore and the intended storage policy when offered.",
+            "Set a modest OS-supported starting CPU and memory size using your resource plan. More vCPUs are not automatically faster. Choose the planned virtual disk size and provisioning policy, leaving growth headroom."
+          ],
+          "expected": "The summary names the intended VM, compute location, OS type and datastore.",
+          "guide": {
+            "what": "Open the new VM wizard and choose its home",
+            "why": "The wizard assigns both compute and storage.",
+            "verify": "The summary names the intended VM, compute location, OS type and datastore.",
+            "failure": "Before Finish, correct an unexpected host, policy or storage destination; do not compensate by moving unrelated workloads."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The summary names the intended VM, compute location, OS type and datastore."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Before Finish, correct an unexpected host, policy or storage destination; do not compensate by moving unrelated workloads."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Open the new VM wizard and choose its home",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Connect the correct network and installer",
+          "where": "New VM → Customize hardware / VM → Edit Settings",
+          "actions": [
+            "Choose LAB-Isolated for the first network adapter. For a powered-on test VM, Connected controls its present cable state; Connect at power on controls the next boot. Use the approved NIC model for the guest.",
+            "For an OS install select the authorized datastore ISO in CD/DVD settings and Connect at power on. Use a clean supported ISO; verify its checksum before upload. Review VM options and firmware against OS requirements.",
+            "Finish, wait for the task, and open the console before powering on. The official picture is a NIC connection reference, not proof an OS was installed."
+          ],
+          "expected": "The intended NIC and installer settings are visible and the VM creation task succeeds.",
+          "guide": {
+            "what": "Connect the correct network and installer",
+            "why": "An unplugged virtual cable looks like a network failure inside the server.",
+            "verify": "The intended NIC and installer settings are visible and the VM creation task succeeds.",
+            "failure": "If network or ISO is absent, check the selected backing and both connection flags. Do not attach a test VM to management to get internet."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The intended NIC and installer settings are visible and the VM creation task succeeds."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If network or ISO is absent, check the selected backing and both connection flags. Do not attach a test VM to management to get internet."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-vm-network",
+            "title": "Official VMware/Broadcom reference · Connect the correct network and installer",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/413851"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-guest",
+      "title": "Install and validate the guest server",
+      "module": "Install and validate the guest server",
+      "description": "Turn a created VM into a healthy, identifiable operating system.",
+      "what": "Turn a created VM into a healthy, identifiable operating system.",
+      "why": "An empty room is not yet a working office.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "The guest has a unique identity and the agreed peer/service test succeeds.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "A VM is Powered on. Is the application proven healthy?",
+          "options": [
+            "No; test the guest and actual service",
+            "Yes; power state proves the application works"
+          ],
+          "answer": 0,
+          "explanation": "No; test the guest and actual service"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Install the operating system and guest tools",
+          "where": "LAB-APP01 console · OS installer",
+          "actions": [
+            "Boot the authorized OS media. Confirm the installer sees only the VM’s intended virtual disk. Select that virtual disk, set the unique guest name and administrator credentials locally, and finish the OS-specific installation.",
+            "After successful boot, install supported VMware Tools on Windows or the distribution-supported open-vm-tools on Linux. Apply OS updates using an approved temporary update path or offline repository; the isolated exercise has no internet route.",
+            "Disconnect the installation ISO after use so later migrations do not depend on an old datastore. Preserve the approved boot disk and firmware settings."
+          ],
+          "expected": "The correct OS boots from its virtual disk, guest tools report healthy, and installer media is disconnected.",
+          "guide": {
+            "what": "Install the operating system and guest tools",
+            "why": "The hypervisor creates hardware; the guest installer creates the server.",
+            "verify": "The correct OS boots from its virtual disk, guest tools report healthy, and installer media is disconnected.",
+            "failure": "For No boot device, check firmware, boot order, ISO and disk selection. Do not recreate the disk or change controller types blindly."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The correct OS boots from its virtual disk, guest tools report healthy, and installer media is disconnected."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For No boot device, check firmware, boot order, ISO and disk selection. Do not recreate the disk or change controller types blindly."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-vm-cdrom",
+            "title": "Official VMware/Broadcom reference · Install the operating system and guest tools",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/413851"
+          ]
+        },
+        {
+          "title": "Check identity and network from inside the guest",
+          "where": "Guest console and approved peer VM",
+          "actions": [
+            "Windows: run hostname and ipconfig /all. Linux: run hostnamectl and ip -br address. Compare the actual hostname and IP with the lab plan.",
+            "Verify the intended DNS/time settings and guest firewall rules. On the isolated same-host lab, test the agreed service with the peer VM; an external gateway test is not expected to pass.",
+            "Record vCenter/Host Client Tools state, guest identity, disk free space and the service test. Avoid hard Power off; use Shut down guest OS when tools and the guest are responsive."
+          ],
+          "expected": "The guest has a unique identity and the agreed peer/service test succeeds.",
+          "guide": {
+            "what": "Check identity and network from inside the guest",
+            "why": "Powered on is not the same as a working service.",
+            "verify": "The guest has a unique identity and the agreed peer/service test succeeds.",
+            "failure": "Check disconnected NIC, port group, same-subnet IP and guest firewall in that order before changing the host."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The guest has a unique identity and the agreed peer/service test succeeds."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Check disconnected NIC, port group, same-subnet IP and guest firewall in that order before changing the host."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Check identity and network from inside the guest",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-templates",
+      "title": "Prepare and deploy a reusable template",
+      "module": "Prepare and deploy a reusable template",
+      "description": "Make clean copies without duplicating server identity.",
+      "what": "Make clean copies without duplicating server identity.",
+      "why": "A template is a clean recipe, not yesterday’s running meal.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "The deployed VM has both unique identity and a tested connection on the right port group.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Should the template contain the production server’s fixed hostname and IP for every clone?",
+          "options": [
+            "No; each deployed server needs its planned unique identity",
+            "Yes; duplicates make deployment easier"
+          ],
+          "answer": 0,
+          "explanation": "No; each deployed server needs its planned unique identity"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Prepare a safe golden VM",
+          "where": "vCenter route · dedicated non-domain-controller golden VM",
+          "actions": [
+            "Use a separate nonproduction golden VM, not a domain controller, PKI CA or existing application database. Patch the OS, install supported guest tools and record its OS/build and purpose.",
+            "Remove personal files, cached deployment secrets and unneeded ISO connections. Plan OS-specific guest customization: Windows uses the supported Sysprep workflow; Linux must receive unique host keys, machine identity and network settings through its supported customization process.",
+            "Do not manually strip identities with guessed commands. Check the guest OS customization support matrix and the approved image preparation procedure. Shut the prepared VM down cleanly."
+          ],
+          "expected": "The golden VM has documented preparation, unique-identity handling and no unintended attached media.",
+          "guide": {
+            "what": "Prepare a safe golden VM",
+            "why": "A template must not carry production secrets or duplicate identity.",
+            "verify": "The golden VM has documented preparation, unique-identity handling and no unintended attached media.",
+            "failure": "Do not clone a running production server as a shortcut. Return to a disposable golden VM and validated OS preparation."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The golden VM has documented preparation, unique-identity handling and no unintended attached media."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Do not clone a running production server as a shortcut. Return to a disposable golden VM and validated OS preparation."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Prepare a safe golden VM",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Clone to template and deploy a test copy",
+          "where": "vSphere Client → VMs and Templates → golden VM → Clone",
+          "actions": [
+            "Right-click the prepared VM → Clone → Clone to Template. Choose a versioned name such as LAB-Alma-Golden-v1, training folder, compute resource and datastore. Review storage capacity and wait for the clone task.",
+            "Right-click the template → New VM from This Template. Name the new VM LAB-APP02, choose its folder, compute and storage, and select the approved guest customization specification when appropriate. Review NIC mapping before first power-on.",
+            "Boot on the isolated lab network first. Verify the new hostname, IP, OS identity, guest tools and application baseline; verify the golden VM remains unchanged. Templates are vCenter functionality, not a promised free Host Client feature."
+          ],
+          "expected": "A new VM boots with unique identity and correct resources while the master stays unchanged.",
+          "guide": {
+            "what": "Clone to template and deploy a test copy",
+            "why": "A copy should become a new server, not impersonate the original.",
+            "verify": "A new VM boots with unique identity and correct resources while the master stays unchanged.",
+            "failure": "For a duplicate IP or identity, disconnect the clone’s NIC and correct customization. For a missing template option check interface, privileges and license."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "A new VM boots with unique identity and correct resources while the master stays unchanged."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For a duplicate IP or identity, disconnect the clone’s NIC and correct customization. For a missing template option check interface, privileges and license."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Clone to template and deploy a test copy",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Confirm the clone’s virtual cable before blaming customization",
+          "where": "VM → Edit Settings → Network Adapter",
+          "actions": [
+            "Compare the template and deployed VM’s intended port group. Check Connected for a running clone and Connect at power on for future boots.",
+            "Enable networking only after identity conflicts are ruled out. Use the guest console to verify the actual address, then test the agreed service. A green cloning task does not prove connectivity."
+          ],
+          "expected": "The deployed VM has both unique identity and a tested connection on the right port group.",
+          "guide": {
+            "what": "Confirm the clone’s virtual cable before blaming customization",
+            "why": "A correctly customized server can still have its virtual cable disconnected.",
+            "verify": "The deployed VM has both unique identity and a tested connection on the right port group.",
+            "failure": "Keep the NIC disconnected while duplicate identity or IP issues remain."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The deployed VM has both unique identity and a tested connection on the right port group."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Keep the NIC disconnected while duplicate identity or IP issues remain."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-vm-network",
+            "title": "Official VMware/Broadcom reference · Confirm the clone’s virtual cable before blaming customization",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/413851"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-library",
+      "title": "Organize templates and installation media",
+      "module": "Organize templates and installation media",
+      "description": "Use Content Libraries without confusing them with backup.",
+      "what": "Use Content Libraries without confusing them with backup.",
+      "why": "A library is a shelf of approved recipes; it still needs storage and an owner.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "A test deployment validates the new version, and the previous accepted version remains recoverable.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Is a Content Library a backup of all running VMs?",
+          "options": [
+            "No; it catalogs deployment artifacts",
+            "Yes; it automatically protects every guest disk"
+          ],
+          "answer": 0,
+          "explanation": "No; it catalogs deployment artifacts"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Create a local Content Library when vCenter is available",
+          "where": "vSphere Client → Menu → Content Libraries → Create",
+          "actions": [
+            "Choose a descriptive name such as LAB-Approved-Images, select the intended vCenter and a Local content library. Leave publishing disabled for this private exercise. Select the approved backing datastore and review before Finish.",
+            "Import only approved ISO/OVF/OVA artifacts using the library’s Import item action. Verify publisher, checksum, size and expected network/disk mappings before deploying an appliance.",
+            "Record item version, owner and purpose. OVF/OVA library items and VM Template (VMTX) items have different lifecycle and synchronization behavior. A library is not an independent backup of a running VM."
+          ],
+          "expected": "The local library contains only approved versioned items on the intended storage.",
+          "guide": {
+            "what": "Create a local Content Library when vCenter is available",
+            "why": "A managed catalog helps people choose known versions.",
+            "verify": "The local library contains only approved versioned items on the intended storage.",
+            "failure": "If import fails, inspect privileges, free space, format and reachability. Do not publish the library publicly to fix access."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The local library contains only approved versioned items on the intended storage."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If import fails, inspect privileges, free space, format and reachability. Do not publish the library publicly to fix access."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Create a local Content Library when vCenter is available",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/396400",
+            "https://knowledge.broadcom.com/external/article/423112"
+          ]
+        },
+        {
+          "title": "Update an image and retain a known-good version",
+          "where": "Content Library or VMs and Templates · test clone",
+          "actions": [
+            "Create a new versioned golden image through the supported workflow; patch and test a disposable clone before making it the recommended image. Preserve the last known-good master until the new one is accepted.",
+            "For VM templates in Content Libraries, use the supported check-out/check-in workflow when available for that version and permissions. Do not assume that synchronizing OVF items also synchronizes all VMTX templates.",
+            "Deleting a VMTX library item can remove its template inventory object. Retire only the recorded unused item after checking dependencies and retention; never delete the whole datastore to clean a library."
+          ],
+          "expected": "A test deployment validates the new version, and the previous accepted version remains recoverable.",
+          "guide": {
+            "what": "Update an image and retain a known-good version",
+            "why": "A bad master repeats the same mistake on every deployment.",
+            "verify": "A test deployment validates the new version, and the previous accepted version remains recoverable.",
+            "failure": "If a new version fails, stop publishing/deploying it and select the retained tested version."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "A test deployment validates the new version, and the previous accepted version remains recoverable."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If a new version fails, stop publishing/deploying it and select the retained tested version."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Update an image and retain a known-good version",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/396400"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-snapshots",
+      "title": "Use snapshots for short changes, not backup",
+      "module": "Use snapshots for short changes, not backup",
+      "description": "Take a small recovery point and clean it up correctly.",
+      "what": "Take a small recovery point and clean it up correctly.",
+      "why": "A snapshot is a temporary bookmark in the same book; it is not another copy stored safely elsewhere.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "You can explain the buttons, the guest works, and no abandoned practice snapshot or consolidation alert remains.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "What does deleting a snapshot normally do?",
+          "options": [
+            "Remove the checkpoint while keeping the current disk state",
+            "Automatically return the VM to the old state"
+          ],
+          "answer": 0,
+          "explanation": "Remove the checkpoint while keeping the current disk state"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Take a temporary snapshot of a disposable VM",
+          "where": "VM → Snapshots → Take Snapshot",
+          "actions": [
+            "Check real datastore headroom and existing snapshots first. For a simple practice change, shut down the test guest cleanly, then take a snapshot named LAB-before-change with an owner, reason and removal deadline.",
+            "For powered-on workloads, choose memory or guest filesystem quiescing according to the application-approved procedure; they are not interchangeable and are mutually exclusive in this workflow. Do not assume a snapshot is application-consistent.",
+            "Wait for task success and inspect Manage Snapshots. Use the numbered vendor reference to identify the snapshot list and current state; do not copy the vendor’s example names."
+          ],
+          "expected": "The intended VM has one recorded short-lived recovery point and enough datastore space remains.",
+          "guide": {
+            "what": "Take a temporary snapshot of a disposable VM",
+            "why": "A short change checkpoint can help only while its disk chain and storage stay healthy.",
+            "verify": "The intended VM has one recorded short-lived recovery point and enough datastore space remains.",
+            "failure": "For snapshot errors or low free space, stop changes and investigate. Do not delete delta files from the datastore browser."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The intended VM has one recorded short-lived recovery point and enough datastore space remains."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For snapshot errors or low free space, stop changes and investigate. Do not delete delta files from the datastore browser."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-snapshot-manager",
+            "title": "Official VMware/Broadcom reference · Take a temporary snapshot of a disposable VM",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/342618",
+            "https://knowledge.broadcom.com/external/article/344559"
+          ]
+        },
+        {
+          "title": "Understand Revert versus Delete and Consolidate",
+          "where": "Disposable VM → Snapshots → Manage Snapshots",
+          "actions": [
+            "Make a harmless guest test-file change. Revert only in this disposable exercise when losing changes since the snapshot is intended. Confirm the exact snapshot and recovery consequence before accepting.",
+            "After accepting the desired current state, Delete removes a snapshot checkpoint while preserving current disk changes through consolidation; it does not mean revert. Wait for completion and verify the guest again.",
+            "Check for a consolidation-needed alert and sufficient free space; use the supported Consolidate workflow only after reviewing the cause and dependencies. Never remove a VMDK or delta file by hand."
+          ],
+          "expected": "You can explain the buttons, the guest works, and no abandoned practice snapshot or consolidation alert remains.",
+          "guide": {
+            "what": "Understand Revert versus Delete and Consolidate",
+            "why": "These buttons do different things to the VM’s history.",
+            "verify": "You can explain the buttons, the guest works, and no abandoned practice snapshot or consolidation alert remains.",
+            "failure": "For a failed consolidation, preserve the disk chain and collect task/storage errors. Escalate rather than manually unlinking files."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You can explain the buttons, the guest works, and no abandoned practice snapshot or consolidation alert remains."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For a failed consolidation, preserve the disk chain and collect task/storage errors. Escalate rather than manually unlinking files."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-vm-disk-settings",
+            "title": "Official VMware/Broadcom reference · Understand Revert versus Delete and Consolidate",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/342618",
+            "https://knowledge.broadcom.com/external/article/344559"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-mobility",
+      "title": "Move VMs and understand clusters",
+      "module": "Move VMs and understand clusters",
+      "description": "Know when migration, HA and DRS are different tools.",
+      "what": "Know when migration, HA and DRS are different tools.",
+      "why": "Moving a room, restarting it after a building fault, and balancing busy rooms are different jobs.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "The intended location changes and the agreed guest service works after the move.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Is HA the same as vMotion?",
+          "options": [
+            "No; HA may restart after failure, while vMotion moves a running VM under supported conditions",
+            "Yes; both are backups"
+          ],
+          "answer": 0,
+          "explanation": "No; HA may restart after failure, while vMotion moves a running VM under supported conditions"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Create a cluster only when the prerequisites exist",
+          "where": "vCenter route → Hosts and Clusters → LAB-DC → New Cluster",
+          "actions": [
+            "For an authorized two-host lab, confirm compatible hosts, licensing, networking, accessible storage and spare capacity. Right-click the lab datacenter → New Cluster and name LAB-Cluster. Enable HA/DRS only when those capabilities and their prerequisites are approved.",
+            "Follow the cluster workflow to add the intended hosts and review compatibility, lifecycle image and resource settings. Do not move management networking or apply vSAN/NSX changes as part of this beginner exercise.",
+            "HA can restart affected VMs after a host failure; it is not continuous application availability or backup. DRS balances placement/resources; it does not repair application faults. Review HA admission control so a surviving host has capacity."
+          ],
+          "expected": "You can explain cluster membership, spare capacity, HA restart and DRS placement separately.",
+          "guide": {
+            "what": "Create a cluster only when the prerequisites exist",
+            "why": "A cluster groups hosts; it does not create extra capacity or a backup.",
+            "verify": "You can explain cluster membership, spare capacity, HA restart and DRS placement separately.",
+            "failure": "Without two permitted compatible hosts and licensed features, complete this as a design walkthrough."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You can explain cluster membership, spare capacity, HA restart and DRS placement separately."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Without two permitted compatible hosts and licensed features, complete this as a design walkthrough."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Create a cluster only when the prerequisites exist",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Perform a small permitted migration",
+          "where": "Disposable VM → Migrate",
+          "actions": [
+            "Before vMotion, verify compatible CPU/EVC design, supported licensing, working vMotion VMkernel paths, destination port group/VLAN and destination storage visibility. With our isolated no-uplink switch, cross-host guest connectivity is not available.",
+            "Choose Migrate → Change compute resource only for an approved compute move, then select the destination and read every compatibility check. Storage-only and combined moves have separate requirements; do not assume shared storage is always required for every migration type.",
+            "Finish only a clean precheck in the permitted lab. Watch Recent Tasks, verify the new host/datastore/network as applicable, then test the actual guest service. If live migration is unavailable, use an approved cold migration with documented downtime or remain in walkthrough mode."
+          ],
+          "expected": "The intended location changes and the agreed guest service works after the move.",
+          "guide": {
+            "what": "Perform a small permitted migration",
+            "why": "Compute migration and storage migration solve different problems.",
+            "verify": "The intended location changes and the agreed guest service works after the move.",
+            "failure": "Do not force failed prechecks. If guest networking fails, inspect the destination port group/VLAN path and return by the approved recovery procedure."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The intended location changes and the agreed guest service works after the move."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Do not force failed prechecks. If guest networking fails, inspect the destination port group/VLAN path and return by the approved recovery procedure."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Perform a small permitted migration",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-monitor",
+      "title": "Do the daily health check",
+      "module": "Do the daily health check",
+      "description": "Look at tasks, capacity and symptoms before changing settings.",
+      "what": "Look at tasks, capacity and symptoms before changing settings.",
+      "why": "Check the dashboard lights, then find the cause; hiding the light does not repair the engine.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "You have a time-aligned symptom, suspected layer and a test that can confirm or reject it.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Does acknowledging an alarm repair its cause?",
+          "options": [
+            "No; it records that someone is handling it",
+            "Yes; acknowledgment fixes the server"
+          ],
+          "answer": 0,
+          "explanation": "No; it records that someone is handling it"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Review health and the latest task failure",
+          "where": "Host/cluster/VM → Summary and Monitor → Tasks and Events",
+          "actions": [
+            "Start with disconnected hosts, hardware/storage/network health, datastore free space, old snapshots and failed backup jobs. Note object, time, severity and the first relevant error.",
+            "For a failed operation open Recent Tasks or Monitor → Tasks and Events. Read the full error and related event timeline; distinguish a warning from the actual failure.",
+            "Acknowledge an alarm only to show an owner is investigating. Do not reset to green until its underlying condition and recovery are verified."
+          ],
+          "expected": "Your daily record names real findings, owner and next action rather than only a green screenshot.",
+          "guide": {
+            "what": "Review health and the latest task failure",
+            "why": "The exact failed task is often more useful than a general alarm color.",
+            "verify": "Your daily record names real findings, owner and next action rather than only a green screenshot.",
+            "failure": "For missing metrics confirm the selected object, time range and permissions before restarting services."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Your daily record names real findings, owner and next action rather than only a green screenshot."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For missing metrics confirm the selected object, time range and permissions before restarting services."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Review health and the latest task failure",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        },
+        {
+          "title": "Troubleshoot one slow VM by evidence",
+          "where": "VM → Monitor → Performance; guest operating system",
+          "actions": [
+            "Record when the symptom occurs and the affected service. Compare guest CPU/memory/disk with host utilization, CPU scheduling pressure, memory reclamation and datastore latency over the same time window.",
+            "Check whether only one VM or several VMs on the same datastore/host are affected. Check recent changes and snapshot growth before adding resources.",
+            "Change one approved variable at a time and retest the service. Adding vCPUs, disabling security or power-cycling the host is not a first diagnostic step."
+          ],
+          "expected": "You have a time-aligned symptom, suspected layer and a test that can confirm or reject it.",
+          "guide": {
+            "what": "Troubleshoot one slow VM by evidence",
+            "why": "CPU, memory, storage and the application can each cause slowness.",
+            "verify": "You have a time-aligned symptom, suspected layer and a test that can confirm or reject it.",
+            "failure": "If the evidence does not identify a cause, collect performance/task logs and escalate without making broad changes."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You have a time-aligned symptom, suspected layer and a test that can confirm or reject it."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If the evidence does not identify a cause, collect performance/task logs and escalate without making broad changes."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Troubleshoot one slow VM by evidence",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-permissions",
+      "title": "Give administrators the access they need",
+      "module": "Give administrators the access they need",
+      "description": "Use named accounts, scoped roles and protected management access.",
+      "what": "Use named accounts, scoped roles and protected management access.",
+      "why": "A person needs a key to the right room, not the master key to the whole building.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "The management path, named accounts, certificate owner and temporary-service policy are documented.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "A deployment lacks one privilege. Should you make the user global Administrator?",
+          "options": [
+            "No; grant only the validated required scope",
+            "Yes; it is the normal fix"
+          ],
+          "answer": 0,
+          "explanation": "No; grant only the validated required scope"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Assign a small scoped role and test it",
+          "where": "vCenter → inventory object → Permissions; Administration → Roles",
+          "actions": [
+            "Use the organization’s approved identity source and named administrator groups. For practice, use a dedicated test account and training VM folder; never use a shared root account for daily vCenter work.",
+            "Start with the approved read-only role on that lab folder. Set propagation intentionally, then test what the account can see and do. Additional VM deployment rights may also be required on datastore, network and compute objects.",
+            "Record effective scope and keep emergency access protected and tested. Do not grant global Administrator merely to make a single deployment work."
+          ],
+          "expected": "The test account has the intended access to the intended lab objects and cannot modify unrelated objects.",
+          "guide": {
+            "what": "Assign a small scoped role and test it",
+            "why": "Least privilege reduces accidental changes and improves accountability.",
+            "verify": "The test account has the intended access to the intended lab objects and cannot modify unrelated objects.",
+            "failure": "If a task is denied, inspect the specific missing privilege and relevant objects before changing the role."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The test account has the intended access to the intended lab objects and cannot modify unrelated objects."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If a task is denied, inspect the specific missing privilege and relevant objects before changing the role."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Assign a small scoped role and test it",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/423112"
+          ]
+        },
+        {
+          "title": "Keep certificates and management services under control",
+          "where": "Host and vCenter administration · approved security process",
+          "actions": [
+            "Restrict management access to approved private networks. Use trusted certificates and monitor their expiry; follow the separate PKI class for certificate concepts rather than disabling validation.",
+            "Keep SSH and ESXi Shell off unless needed for a named task. Document any temporary enablement, time limit and closure. Apply supported MFA/identity controls through the organization’s supported design.",
+            "Review login failures, certificate dates and account lifecycle. Never put license keys, passwords or authentication tokens in screenshots or support notes."
+          ],
+          "expected": "The management path, named accounts, certificate owner and temporary-service policy are documented.",
+          "guide": {
+            "what": "Keep certificates and management services under control",
+            "why": "Management is powerful and should not be exposed as a public website.",
+            "verify": "The management path, named accounts, certificate owner and temporary-service policy are documented.",
+            "failure": "For an unexpected certificate or access request, verify identity and authorization before proceeding."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The management path, named accounts, certificate owner and temporary-service policy are documented."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "For an unexpected certificate or access request, verify identity and authorization before proceeding."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Keep certificates and management services under control",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-patching",
+      "title": "Plan maintenance and patch one host safely",
+      "module": "Plan maintenance and patch one host safely",
+      "description": "Protect capacity and recoverability before remediation.",
+      "what": "Protect capacity and recoverability before remediation.",
+      "why": "Close one classroom for repairs only after its students have a safe place to go.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "The host returns on the intended build with healthy dependencies and tested workloads.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "What must happen before rebooting a single standalone host?",
+          "options": [
+            "Account for and cleanly shut down its guests, with planned downtime",
+            "Nothing; HA always exists on every host"
+          ],
+          "answer": 0,
+          "explanation": "Account for and cleanly shut down its guests, with planned downtime"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Run a version, license and recovery preflight",
+          "where": "Change record · host/cluster → Updates / Lifecycle Manager when licensed",
+          "actions": [
+            "Record current and target builds, supported upgrade path, hardware compatibility, OEM add-on, firmware and extension requirements. Confirm authorized software/repository access and the approved vCenter/ESXi upgrade order.",
+            "Check recent backups and restore evidence, free datastore capacity, management recovery access, active tasks and cluster spare capacity. vCenter file-based backup and VM workload backups are separate.",
+            "Free ESXi is not managed by vCenter Lifecycle Manager. Follow only the supported standalone procedure for its exact edition and available software. Do not turn entitlement errors into requests to reset trials or force an unsupported patch."
+          ],
+          "expected": "The preflight records the supported target, dependencies, access and recovery procedure.",
+          "guide": {
+            "what": "Run a version, license and recovery preflight",
+            "why": "A supported update needs compatible firmware, drivers, versions and a way back.",
+            "verify": "The preflight records the supported target, dependencies, access and recovery procedure.",
+            "failure": "Stop for failed compatibility, missing entitled software, no restore path or insufficient evacuation capacity."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The preflight records the supported target, dependencies, access and recovery procedure."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Stop for failed compatibility, missing entitled software, no restore path or insufficient evacuation capacity."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Run a version, license and recovery preflight",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/399823",
+            "https://knowledge.broadcom.com/external/article/416328"
+          ]
+        },
+        {
+          "title": "Evacuate, maintain, verify and return",
+          "where": "Authorized lab host → Maintenance Mode; approved update workflow",
+          "actions": [
+            "On a standalone host, shut down each guest cleanly and document downtime. On a compatible licensed cluster, evacuate VMs through the approved migration workflow and verify the destination service state.",
+            "Enter Maintenance Mode and confirm no unexpected workload remains. vSAN, NSX and VCF systems require their own product-specific procedures; do not apply a generic maintenance recipe to them.",
+            "Run the approved update/remediation, watch prechecks and reboot through the documented process. Verify build, hardware/storage/network/time health before exiting Maintenance Mode and returning test workloads.",
+            "Test the guest service and monitor for new alarms. If boot or driver checks fail, use the preapproved console/recovery procedure and preserve logs; do not improvise an unsupported downgrade."
+          ],
+          "expected": "The host returns on the intended build with healthy dependencies and tested workloads.",
+          "guide": {
+            "what": "Evacuate, maintain, verify and return",
+            "why": "Running VMs must be accounted for before a host reboot.",
+            "verify": "The host returns on the intended build with healthy dependencies and tested workloads.",
+            "failure": "Keep the host out of workload service if postchecks fail; escalate using the recorded recovery plan."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The host returns on the intended build with healthy dependencies and tested workloads."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Keep the host out of workload service if postchecks fail; escalate using the recorded recovery plan."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Evacuate, maintain, verify and return",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-backup",
+      "title": "Back up vCenter and test real recovery",
+      "module": "Back up vCenter and test real recovery",
+      "description": "Separate appliance backup, VM backup and snapshots.",
+      "what": "Separate appliance backup, VM backup and snapshots.",
+      "why": "A recovery plan needs a spare copy and a practiced way to use it.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "You have backup-file evidence and a documented, isolated restore test with clear scope and owner.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "Does a vCenter file-based backup protect all application VM disks?",
+          "options": [
+            "No; workload backups are separate",
+            "Yes; it automatically includes every virtual disk"
+          ],
+          "answer": 0,
+          "explanation": "No; workload backups are separate"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Configure a protected vCenter file-based backup",
+          "where": "vCenter route · VAMI https://<vcenter-fqdn>:5480 → Backup",
+          "actions": [
+            "Use the verified VAMI interface and the permitted appliance administrator account. Select Backup → Backup Now or the supported schedule configuration.",
+            "Enter an approved remote backup destination such as sftp://backup.lab.example.test/<approved-folder>. Provide its least-privilege credentials locally and use the approved encryption/secret-retention policy. Do not use a datastore on the same single host as your only recovery copy.",
+            "Review data selection, schedule, retention and destination reachability. Start the backup and inspect the result; creating a schedule alone does not prove a backup exists."
+          ],
+          "expected": "A protected independent destination is configured and an actual backup job is recorded.",
+          "guide": {
+            "what": "Configure a protected vCenter file-based backup",
+            "why": "The central office needs its own recovery copy outside the appliance.",
+            "verify": "A protected independent destination is configured and an actual backup job is recorded.",
+            "failure": "On failure inspect the job message, path, credentials, transport and capacity; preserve previous good backups."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "A protected independent destination is configured and an actual backup job is recorded."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "On failure inspect the job message, path, credentials, transport and capacity; preserve previous good backups."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-backup-home",
+            "title": "Official VMware/Broadcom reference · Configure a protected vCenter file-based backup",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/375278"
+          ]
+        },
+        {
+          "title": "Verify backup files and plan an isolated restore",
+          "where": "VAMI Backup → Activity; backup repository; recovery runbook",
+          "actions": [
+            "Inspect the job status, timestamp and destination, then confirm expected files exist on the backup system. Keep encryption secrets in the approved secret store, not beside the public course worksheet.",
+            "Record the compatible installer/build and supported file-based restore procedure. Rehearse in an isolated authorized recovery network; never start a restored vCenter beside the live instance using the same identity.",
+            "Separately protect VM workloads with supported guest/application or image-level backups and test a restored test service. Free ESXi lacks VADP integration; do not promise a commercial image-backup workflow will work with it."
+          ],
+          "expected": "You have backup-file evidence and a documented, isolated restore test with clear scope and owner.",
+          "guide": {
+            "what": "Verify backup files and plan an isolated restore",
+            "why": "A successful task is useful evidence, but only a restore test proves recovery.",
+            "verify": "You have backup-file evidence and a documented, isolated restore test with clear scope and owner.",
+            "failure": "If no restore was performed, label recovery untested. A vCenter configuration backup does not mean the application VM disks are backed up."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "You have backup-file evidence and a documented, isolated restore test with clear scope and owner."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If no restore was performed, label recovery untested. A vCenter configuration backup does not mean the application VM disks are backed up."
+            }
+          ],
+          "screenshot": {
+            "status": "reference",
+            "assetId": "vsphere-backup-status",
+            "title": "Official VMware/Broadcom reference · Verify backup files and plan an isolated restore",
+            "instructions": "Follow the numbered key below the image. This is a vendor-published screen, not our lab or your result. Its names, build and example values can differ. Use the values in your own approved plan."
+          },
+          "sources": [
+            "https://knowledge.broadcom.com/external/article/375278",
+            "https://knowledge.broadcom.com/external/article/399823"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "vsphere-capstone",
+      "title": "Complete the junior administrator handoff",
+      "module": "Complete the junior administrator handoff",
+      "description": "Build or rehearse one small server service and explain its recovery.",
+      "what": "Build or rehearse one small server service and explain its recovery.",
+      "why": "A good administrator leaves a clear map so the next person can help.",
+      "needs": [
+        "Use the named disposable lab objects and the access route chosen in chapter 2."
+      ],
+      "bestPractices": [
+        "Read the object name and recovery note before clicking Finish.",
+        "Record the real outcome. A screenshot or saved checkbox does not prove a server works."
+      ],
+      "commonMistakes": [
+        "Copying a screenshot’s IP address, device identifier or VLAN instead of using the lab plan."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The button or result differs.",
+          "fix": "Check whether you opened ESXi Host Client or vCenter vSphere Client, then check version, license and permissions. Use the current step’s recovery note."
+        }
+      ],
+      "pass": "Another administrator can find the service, understand its limits and follow a documented recovery path.",
+      "exercise": "In your permitted lab, repeat the checks and record actual evidence. Without a lab, write a proposed procedure and label it walkthrough only; do not claim a live pass. Keep passwords, keys and license strings out of notes and screenshots.",
+      "quiz": [
+        {
+          "question": "What is the strongest completion evidence?",
+          "options": [
+            "A tested service with documented identity, dependencies and recovery limits",
+            "A green power icon alone"
+          ],
+          "answer": 0,
+          "explanation": "A tested service with documented identity, dependencies and recovery limits"
+        }
+      ],
+      "steps": [
+        {
+          "title": "Build the evidence pack",
+          "where": "Downloadable administrator-checklist.md · your actual lab record",
+          "actions": [
+            "Record access route, actual versions and licenses, host identity, management/DNS/time checks, datastore device and capacity, port-group path and the test VM’s resources.",
+            "Add screenshots of the actual VM, network and storage checks with secrets hidden. Keep vendor references labeled vendor references. Without a lab, submit a design walkthrough instead of invented execution evidence.",
+            "For a vCenter-capable lab add template deployment with unique identity, a permitted migration, role check, maintenance preflight and independent backup/restore evidence. For standalone ESXi mark unsupported tasks as not available under this edition."
+          ],
+          "expected": "The evidence pack distinguishes passed live checks, walkthroughs, unsupported features and remaining gaps.",
+          "guide": {
+            "what": "Build the evidence pack",
+            "why": "Clear evidence shows what was done and what remains untested.",
+            "verify": "The evidence pack distinguishes passed live checks, walkthroughs, unsupported features and remaining gaps.",
+            "failure": "Do not mark a live pass merely because the quiz is correct or the screenshot resembles the guide."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "The evidence pack distinguishes passed live checks, walkthroughs, unsupported features and remaining gaps."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "Do not mark a live pass merely because the quiz is correct or the screenshot resembles the guide."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Build the evidence pack",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ],
+          "downloads": [
+            {
+              "title": "Administrator evidence and handoff checklist",
+              "href": "/vsphere-lab/administrator-checklist.md"
+            }
+          ]
+        },
+        {
+          "title": "Hand off the service and its recovery steps",
+          "where": "Test client · owner/change record",
+          "actions": [
+            "From the permitted client test the agreed service and record the expected response. State who owns the guest OS, application, host, network, storage and backup.",
+            "Record the previous known-good state, recovery triggers and exact objects involved. Identify expired snapshots, capacity alarms, update windows, backup retention and certificate renewals that need follow-up.",
+            "Clean up only named disposable artifacts after checking dependencies. Confirm the management connection and unrelated VMs remain healthy. Preserve the plan and restore evidence for the next administrator."
+          ],
+          "expected": "Another administrator can find the service, understand its limits and follow a documented recovery path.",
+          "guide": {
+            "what": "Hand off the service and its recovery steps",
+            "why": "The point is a working, maintainable service—not only a powered-on VM.",
+            "verify": "Another administrator can find the service, understand its limits and follow a documented recovery path.",
+            "failure": "If any required check fails, record the fault, owner and next action instead of declaring the environment complete."
+          },
+          "breakdown": [
+            {
+              "term": "Success check",
+              "meaning": "Another administrator can find the service, understand its limits and follow a documented recovery path."
+            },
+            {
+              "term": "If it goes wrong",
+              "meaning": "If any required check fails, record the fault, owner and next action instead of declaring the environment complete."
+            }
+          ],
+          "screenshot": {
+            "status": "capture-needed",
+            "title": "Exact-step capture pending · Hand off the service and its recovery steps",
+            "instructions": "The written procedure is supplied; an exact screenshot for this step has not been added. No live execution is claimed. Compare your result with the Success check."
+          },
+          "sources": [
+            "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+          ]
+        }
+      ]
+    }
+  ]
+}
