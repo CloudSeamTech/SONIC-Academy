@@ -31,6 +31,12 @@ html
     .lab-map-detail,
     .notebook-entry,
     .test-explanation,
+    .maintenance-practice,
+    .security-budget,
+    .certificate-journey,
+    .dmz-practice-files,
+    .profile-section,
+    .verify,
     .dashboard-metrics > div,
     .dashboard-metrics > article
   ) {
@@ -275,7 +281,7 @@ html
     body
     .academy-shell.academy-shell.console-reader.console-reader
     .reader-workspace.reader-workspace
-    :is(button, a.path-card):hover {
+    :is(button, a.path-card, .migration-task-card, .stage-progress-card):hover {
     transform: none !important;
   }
 }
@@ -284,7 +290,7 @@ html
   body
   .academy-shell.academy-shell.console-reader.console-reader
   .reader-workspace.reader-workspace
-  :is(.guided-command, .sonic-terminal, .terminal-window) {
+  :is(.guided-command, .sonic-terminal, .terminal-window, .cyber-map) {
   border-radius: 8px !important;
   box-shadow:
     inset 0 1px 0 #ffffff24,
