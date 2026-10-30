@@ -1,0 +1,31 @@
+.admin-decision {
+  margin-top: 24px;
+  min-width: 0;
+}
+.admin-decision [role='group'] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 18px;
+}
+.admin-decision button {
+  flex: 1 1 220px;
+  padding: 14px 18px;
+  min-height: 48px;
+  font: inherit;
+  white-space: normal;
+  text-align: left;
+  overflow-wrap: anywhere;
+  background: #d7c8b2;
+  color: #292929;
+  border: 1px solid #82715d;
+  border-radius: 8px;
+}
+.admin-decision button[aria-pressed='true'] {
+  background: #7040a8;
+  color: #fff;
+}
+.admin-decision button:focus-visible {
+  outline: 3px solid #292929;
+  outline-offset: 3px;
+}

@@ -1,0 +1,762 @@
+[
+  {
+    "id": "daily-start-1",
+    "src": "/linux-admin/screens/daily-start-1.svg",
+    "title": "Open the terminal inside the VM",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "ec81144792ef806a55944da9188d33db236559482877348ed79a70456da10cd9"
+  },
+  {
+    "id": "daily-start-2",
+    "src": "/linux-admin/screens/daily-start-2.svg",
+    "title": "Check your administrator key",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "70c1df4439ba26ffd4922ebcc1ef808fcc6a0ec25540c20ff3c0c9f594177de1"
+  },
+  {
+    "id": "daily-start-3",
+    "src": "/linux-admin/screens/daily-start-3.svg",
+    "title": "Make a small practice area",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "5c24808d6e23468f998a160a5cfc2025d800d10df52777b365084a320f25ec8b"
+  },
+  {
+    "id": "daily-start-4",
+    "src": "/linux-admin/screens/daily-start-4.svg",
+    "title": "Prepare tools and a recovery point",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "3714869fcf6e48d283c8541cf28a94d7d3f3135568a4da7e893b5cf202e3c43f"
+  },
+  {
+    "id": "daily-files-1",
+    "src": "/linux-admin/screens/daily-files-1.svg",
+    "title": "See where you are",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "b8b033a2dc010cf8822bb26bea5a6f003b976725d45d465bb7eeede08a264e23"
+  },
+  {
+    "id": "daily-files-2",
+    "src": "/linux-admin/screens/daily-files-2.svg",
+    "title": "Copy a file before editing it",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "790277690095e4d713c5d1d486d64c9fadaa99a7ba0c18cfb7d394866ad7e5af"
+  },
+  {
+    "id": "daily-files-3",
+    "src": "/linux-admin/screens/daily-files-3.svg",
+    "title": "Read long files without editing",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "74170b0921c68e59381eeb7853fed32229e7c2cc10686cee687fd741d590830c"
+  },
+  {
+    "id": "daily-files-4",
+    "src": "/linux-admin/screens/daily-files-4.svg",
+    "title": "Ask a command for help",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "476d9bd19f8742b4f31b82500502cc846d27a554753649da239b694c7adfe69a"
+  },
+  {
+    "id": "daily-morning-1",
+    "src": "/linux-admin/screens/daily-morning-1.svg",
+    "title": "Check time, uptime and failed services",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "eb12827441a018f6ca69e134cd4ae5b4666fcaba866dd7776fe58abadb47e757"
+  },
+  {
+    "id": "daily-morning-2",
+    "src": "/linux-admin/screens/daily-morning-2.svg",
+    "title": "Check capacity, memory and CPU count",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "4cfb45cdb3780945776e530eba9be7a3e3e1b26157abaa313f558bc392ca0612"
+  },
+  {
+    "id": "daily-morning-3",
+    "src": "/linux-admin/screens/daily-morning-3.svg",
+    "title": "Save a baseline without secrets",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "9a8f3830c79b812c54bc9f0149aab82174353b98cb160b7d95003deb4b68eed4"
+  },
+  {
+    "id": "daily-morning-4",
+    "src": "/linux-admin/screens/daily-morning-4.svg",
+    "title": "Practice a useful handoff",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "ff285bf69832ba94eddf1f471b0fcf12cde61b55ef45c59ca3c2b4d81f1075ba"
+  },
+  {
+    "id": "daily-space-1",
+    "src": "/linux-admin/screens/daily-space-1.svg",
+    "title": "Find the affected filesystem",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "eb278c68e65b30f54ef8ea9885b4a0094af8f6414338bc0f4aa4b13f91baf47f"
+  },
+  {
+    "id": "daily-space-2",
+    "src": "/linux-admin/screens/daily-space-2.svg",
+    "title": "Create a small disposable growth example",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "e9a10840242f39b786fa7a4520210aa0cce12a875ee1568e1f8a14f05564b40f"
+  },
+  {
+    "id": "daily-space-3",
+    "src": "/linux-admin/screens/daily-space-3.svg",
+    "title": "Find the large folder one level at a time",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "e535c63d6bc2d7f585cd6f759597c27935abbc95cbe7edffdae5f256b5f3c06f"
+  },
+  {
+    "id": "daily-space-4",
+    "src": "/linux-admin/screens/daily-space-4.svg",
+    "title": "Remove only the known sample and verify",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "7fbd5163d92758b0c2f0770c019a126dbc0d0b88949aefc4953729b2695f2937"
+  },
+  {
+    "id": "daily-deleted-1",
+    "src": "/linux-admin/screens/daily-deleted-1.svg",
+    "title": "Create a tiny file held open by one process",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "e1a52796974a7d64711d5da57251fd49abc0a07892ca79ac6791df717e7a30e1"
+  },
+  {
+    "id": "daily-deleted-2",
+    "src": "/linux-admin/screens/daily-deleted-2.svg",
+    "title": "Remove the filename, not the running program",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "67107bd1c0a2606a70b10bf222b2534662950b889df2c248217d0d63631d39b9"
+  },
+  {
+    "id": "daily-deleted-3",
+    "src": "/linux-admin/screens/daily-deleted-3.svg",
+    "title": "Verify the saved process before stopping it",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "4593b913e6f5d7b9ccb5a86583e61c988f2141e5af640f430b727e1314f0fa1d"
+  },
+  {
+    "id": "daily-deleted-4",
+    "src": "/linux-admin/screens/daily-deleted-4.svg",
+    "title": "Release only the practice holder",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "7a120577955c18fbd98208b588f564473535636a93eeec1c57639c01353ca9b9"
+  },
+  {
+    "id": "daily-lvm-1",
+    "src": "/linux-admin/screens/daily-lvm-1.svg",
+    "title": "Add a separate practice disk in VMware",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "602382871059b745410defac2a1a84532553ade46c6444841d2f260821eb7577"
+  },
+  {
+    "id": "daily-lvm-2",
+    "src": "/linux-admin/screens/daily-lvm-2.svg",
+    "title": "Select and double-check the empty disk",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "23ae6a6947997c2b162f8ac5e47e5c894df61d150d9be96ae9a5db42ff0f69f9"
+  },
+  {
+    "id": "daily-lvm-3",
+    "src": "/linux-admin/screens/daily-lvm-3.svg",
+    "title": "Build only the new practice storage",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "21dc19fa62d2a108e84c9bdaa7713a9b2b3cd867f447f58c358d7f9cb956ab64"
+  },
+  {
+    "id": "daily-lvm-4",
+    "src": "/linux-admin/screens/daily-lvm-4.svg",
+    "title": "Grow the logical volume and XFS in order",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "9e95f85e6f34bd3f3e946d39050c73b59288014c2ba1b498d41b8168f5e4068e"
+  },
+  {
+    "id": "daily-lvm-5",
+    "src": "/linux-admin/screens/daily-lvm-5.svg",
+    "title": "Unmount the practice volume and choose cleanup",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "bc90efabaf2d38bf94df753366b155a82e47fcb8f39c8170ee505866cfc63416"
+  },
+  {
+    "id": "daily-services-1",
+    "src": "/linux-admin/screens/daily-services-1.svg",
+    "title": "Create a deliberately broken practice unit",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "cb53ee1c1f5ab756f8b53aa841f18a724a6b97ff73b6efc26a95ba9727d65f26"
+  },
+  {
+    "id": "daily-services-2",
+    "src": "/linux-admin/screens/daily-services-2.svg",
+    "title": "Read status and this unit\u2019s journal",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "419caac85405cb41259f5e2487e65be0ad062f9600f4248a0f8d245fff40ba91"
+  },
+  {
+    "id": "daily-services-3",
+    "src": "/linux-admin/screens/daily-services-3.svg",
+    "title": "Inspect the configured command",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "220850031d74aca7da02c4c7fc18b2e220c562c7150f09ca53adfd48d3a55ec1"
+  },
+  {
+    "id": "daily-services-4",
+    "src": "/linux-admin/screens/daily-services-4.svg",
+    "title": "Fix one line, reload, and retest",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "5f131fa17a18a7c2a0b9581035c96641ad69e67ade56d3e1787a4816e7791f70"
+  },
+  {
+    "id": "daily-logs-1",
+    "src": "/linux-admin/screens/daily-logs-1.svg",
+    "title": "Find the correct boot and time window",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "61a33822e73d94915cda50315871c59ed6bb274507524bc31d7134113a7f4080"
+  },
+  {
+    "id": "daily-logs-2",
+    "src": "/linux-admin/screens/daily-logs-2.svg",
+    "title": "Write and retrieve a practice event",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "ce8e94fc66ee55f67e29064145bcfcc68a7ebc51c715d822472a01460b0abccd"
+  },
+  {
+    "id": "daily-logs-3",
+    "src": "/linux-admin/screens/daily-logs-3.svg",
+    "title": "Measure logs before choosing retention",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "9beddfff0fb02b6661706d6383c8b9217fe87e1ea0f4142e000fd98aa9c12c6b"
+  },
+  {
+    "id": "daily-performance-1",
+    "src": "/linux-admin/screens/daily-performance-1.svg",
+    "title": "Ask what is slow, then inspect processes",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "9b545aad184eb123f6b9b075993a63fa8c9edf496e2d327b32b6f602666b5778"
+  },
+  {
+    "id": "daily-performance-2",
+    "src": "/linux-admin/screens/daily-performance-2.svg",
+    "title": "Separate cache from memory pressure",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "b6cf798ce79f98d781a4e339dc61a09e53a41dea8e0576385c83efb24ce52a30"
+  },
+  {
+    "id": "daily-performance-3",
+    "src": "/linux-admin/screens/daily-performance-3.svg",
+    "title": "Look for storage delays",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "32519390f5a245ece60a2868182c0622ab1c1c8383182f2dc257261dd2164350"
+  },
+  {
+    "id": "daily-performance-4",
+    "src": "/linux-admin/screens/daily-performance-4.svg",
+    "title": "Practice observing a harmless busy process",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "22a06b8d06115a68dd508c2782877cf4b3ee0d3574e79e5fa50281d0b05aabb6"
+  },
+  {
+    "id": "daily-network-1",
+    "src": "/linux-admin/screens/daily-network-1.svg",
+    "title": "Check address and route from the console",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "7bb70885b88b70380aa948d190a444e99ef8a650e63221c88db21a2f821b2208"
+  },
+  {
+    "id": "daily-network-2",
+    "src": "/linux-admin/screens/daily-network-2.svg",
+    "title": "Check name resolution separately",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "cbba08232c3a893d2e1cef26a9153e5c8c9e11dfe8978d69a0ade418808eda3a"
+  },
+  {
+    "id": "daily-network-3",
+    "src": "/linux-admin/screens/daily-network-3.svg",
+    "title": "Check a client connection with a timeout",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "b4ede6f15b9422e68a610c92f0e670a59e5fe47cd2f01d82f9098288ee64006b"
+  },
+  {
+    "id": "daily-network-4",
+    "src": "/linux-admin/screens/daily-network-4.svg",
+    "title": "See listeners without changing the firewall",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "a49e7bda8e589ab06d6b80471eb1016fc255158baeb68a72d141e20e8f896dab"
+  },
+  {
+    "id": "daily-ssh-1",
+    "src": "/linux-admin/screens/daily-ssh-1.svg",
+    "title": "Check SSH from the console before changing anything",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/securing_networks/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "45bd6b74e1a338c84f0318eb463bc453f724e6f4c62c2bf3e56c2e0925e93df8"
+  },
+  {
+    "id": "daily-ssh-2",
+    "src": "/linux-admin/screens/daily-ssh-2.svg",
+    "title": "Read the server fingerprint at the trusted console",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/securing_networks/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "20312d19a47fd0154479389621f05184b401de62144119d7af81ffdb2f36d494"
+  },
+  {
+    "id": "daily-ssh-3",
+    "src": "/linux-admin/screens/daily-ssh-3.svg",
+    "title": "Connect from the physical Windows computer",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/securing_networks/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "f0627db5f17da510ead00506f1dbbfad3597b689a70dd744d3780a42a8b9b8f2"
+  },
+  {
+    "id": "daily-ssh-4",
+    "src": "/linux-admin/screens/daily-ssh-4.svg",
+    "title": "Diagnose login failure without locking yourself out",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/securing_networks/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "bc205979f9abe56161e706f3d25d9dc4e6bfe3f16ad2fdf8a1984884d112ce52"
+  },
+  {
+    "id": "daily-web-1",
+    "src": "/linux-admin/screens/daily-web-1.svg",
+    "title": "Inspect NGINX before starting it",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://nginx.org/en/docs/beginners_guide.html",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "761a34151486045890151930ef642a2d2613567aab303d5f92b2e7ce451a65fe"
+  },
+  {
+    "id": "daily-web-2",
+    "src": "/linux-admin/screens/daily-web-2.svg",
+    "title": "Create a uniquely named practice page",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://nginx.org/en/docs/beginners_guide.html",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "bb2f8528eae3c26ce1c1f156e1436058e9929c4c76da67cb48cc54348c29e93c"
+  },
+  {
+    "id": "daily-web-3",
+    "src": "/linux-admin/screens/daily-web-3.svg",
+    "title": "Trace failure through logs and listeners",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://nginx.org/en/docs/beginners_guide.html",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "349276d157a6118525ecbdddd5280dded929d0ebb7713a7b26760b07b028dc73"
+  },
+  {
+    "id": "daily-web-4",
+    "src": "/linux-admin/screens/daily-web-4.svg",
+    "title": "Verify a reload without causing an outage",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://nginx.org/en/docs/beginners_guide.html",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "0629c7509d7a7ae483db6c5a04d0d55c93ab3458f01a47507787e5246cd98217"
+  },
+  {
+    "id": "daily-permissions-1",
+    "src": "/linux-admin/screens/daily-permissions-1.svg",
+    "title": "Inspect your identity and a private practice file",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "5b85afa79ad165a04b7c28cfbe39313119e5a44952484ff76b5ccaba7982cdfb"
+  },
+  {
+    "id": "daily-permissions-2",
+    "src": "/linux-admin/screens/daily-permissions-2.svg",
+    "title": "Make and repair a safe access failure",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "a3cd2888ee8624e4ec7f56dd8fc64c568b361212466aa19f075407c1cc38c367"
+  },
+  {
+    "id": "daily-permissions-3",
+    "src": "/linux-admin/screens/daily-permissions-3.svg",
+    "title": "Check ACLs before changing ownership",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "810231ca6c47f504cd0692ed78947c04b4ae666614a755dbdb7e4cc67cf3157c"
+  },
+  {
+    "id": "daily-accounts-1",
+    "src": "/linux-admin/screens/daily-accounts-1.svg",
+    "title": "Inspect an account and its login status",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "06b48def50a92c78902f95004ee7aeebee91d0ef9fa909213ab0e8f128d03251"
+  },
+  {
+    "id": "daily-accounts-2",
+    "src": "/linux-admin/screens/daily-accounts-2.svg",
+    "title": "Create a non-login practice identity",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "96cf0628468cdbf34c19c27b4313e05959f31a8e71d5d0648f0949563568b31d"
+  },
+  {
+    "id": "daily-accounts-3",
+    "src": "/linux-admin/screens/daily-accounts-3.svg",
+    "title": "Inspect group and sudo policy safely",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "3feaf127a990b9701b9bf2215b073209ef001e34fc2b66af3fcffefacd98d87a"
+  },
+  {
+    "id": "daily-selinux-1",
+    "src": "/linux-admin/screens/daily-selinux-1.svg",
+    "title": "Inspect enforcement and labels",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "6ed394a7877f570a01404ded2e831f5b173641a25301156b84d64defa042f5a5"
+  },
+  {
+    "id": "daily-selinux-2",
+    "src": "/linux-admin/screens/daily-selinux-2.svg",
+    "title": "Reproduce a label mismatch on only the practice page",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "fd7928ce0ccdffc5aa26b1caf8659210ae9066f510d8bacdd35f47cb42a496cd"
+  },
+  {
+    "id": "daily-selinux-3",
+    "src": "/linux-admin/screens/daily-selinux-3.svg",
+    "title": "Restore the policy label and verify content",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "f0f4b2fc9c7bef87dca8a69ad30f5bcdd74cf835e5c9b3897f9baec64dcfe759"
+  },
+  {
+    "id": "daily-updates-1",
+    "src": "/linux-admin/screens/daily-updates-1.svg",
+    "title": "Inventory and review available updates",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "74287b0a6304ed54fd434ff75e55c77e2c3047b3a0fa6e6d72aea2ad0c3d134a"
+  },
+  {
+    "id": "daily-updates-2",
+    "src": "/linux-admin/screens/daily-updates-2.svg",
+    "title": "Preview one package transaction",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "226ea45c3f4365e1d8d44d765c14bd027e2aa460f4a568491550d55e3c99769e"
+  },
+  {
+    "id": "daily-updates-3",
+    "src": "/linux-admin/screens/daily-updates-3.svg",
+    "title": "Apply only the reviewed pilot update",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "0e8511a20860c8ad49e7715a2d3e829e1ebcb4cb0af0feeb56f337b22f5f5829"
+  },
+  {
+    "id": "daily-updates-4",
+    "src": "/linux-admin/screens/daily-updates-4.svg",
+    "title": "Plan a rolling maintenance window",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "740802527337b254771cb227148f6bac45f56d04e855eb1c636196c1b06326f1"
+  },
+  {
+    "id": "daily-backup-1",
+    "src": "/linux-admin/screens/daily-backup-1.svg",
+    "title": "Archive only the practice folder",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "856e73e31674cf3deb56b96c572eb4c1829568659335c8e626c7fa3892c4b266"
+  },
+  {
+    "id": "daily-backup-2",
+    "src": "/linux-admin/screens/daily-backup-2.svg",
+    "title": "Record and check its checksum",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "6591655529cb4e5b7a2e565c20496d320d66e4e9821895a203a47ff4d08c80a4"
+  },
+  {
+    "id": "daily-backup-3",
+    "src": "/linux-admin/screens/daily-backup-3.svg",
+    "title": "Restore to a new folder and compare",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "8c1290acb7b84f527dd7b583b34d5f633c7eaf1902585fec3cc641545ae6c1a1"
+  },
+  {
+    "id": "daily-time-jobs-1",
+    "src": "/linux-admin/screens/daily-time-jobs-1.svg",
+    "title": "Check the system clock and time source",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "f99dde5f447512e2c928dac4968e6d4e741493c8fafa09985fa367d2d64306d1"
+  },
+  {
+    "id": "daily-time-jobs-2",
+    "src": "/linux-admin/screens/daily-time-jobs-2.svg",
+    "title": "Create a harmless scheduled health marker",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "760f7364616f81f202d899031ac339d824a842715e38a8bacac45b4b258d5201"
+  },
+  {
+    "id": "daily-time-jobs-3",
+    "src": "/linux-admin/screens/daily-time-jobs-3.svg",
+    "title": "Test the job, then enable the alarm",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "1bd411fef3043bb522951ef433fda3db86ce1fc418a96635d052a7415a9ebd7e"
+  },
+  {
+    "id": "daily-interview-1",
+    "src": "/linux-admin/screens/daily-interview-1.svg",
+    "title": "Drill: writes fail but CPU is quiet",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "0ff59cbfed86d8176040c75d5e9e05d68eff0bfaa707652a2bb6a564b5f42376"
+  },
+  {
+    "id": "daily-interview-2",
+    "src": "/linux-admin/screens/daily-interview-2.svg",
+    "title": "Drill: website failed after a change",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "97f13690dd60e949e0a6288955f3adf44dfa043f4c168e35641489f2a2c78061"
+  },
+  {
+    "id": "daily-interview-3",
+    "src": "/linux-admin/screens/daily-interview-3.svg",
+    "title": "Drill: permission denied after a file move",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "272edacb61ab426ab04b9c724a3e3f4bfe55f6dcf9950ebd072112f51b73c0bc"
+  },
+  {
+    "id": "daily-interview-4",
+    "src": "/linux-admin/screens/daily-interview-4.svg",
+    "title": "Write a short incident report",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "3e000b0289b67461acf49ae1c4e51345fb3af6e841cb4e2067d1d82193726e67"
+  },
+  {
+    "id": "daily-final-1",
+    "src": "/linux-admin/screens/daily-final-1.svg",
+    "title": "Complete a practical shift without the answer list",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "ad2fc8b359fd54ecf9c83064b54954dc7a298c22aa4cfb94199ce7a139b6d0e5"
+  },
+  {
+    "id": "daily-final-2",
+    "src": "/linux-admin/screens/daily-final-2.svg",
+    "title": "Remove the two practice systemd jobs",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "0cd26867e57b38e6b462ae0f3cf2b365cdd2ba26fb4d082f7955c4fb9a1a4d7a"
+  },
+  {
+    "id": "daily-final-3",
+    "src": "/linux-admin/screens/daily-final-3.svg",
+    "title": "Remove the practice identity and web page",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "77963792d79d176387416243fb6341db44d683afe75191fda2e5e598f35b759d"
+  },
+  {
+    "id": "daily-final-4",
+    "src": "/linux-admin/screens/daily-final-4.svg",
+    "title": "Remove LVM objects only if you want to discard this lab disk",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "5864aecc922633aee5eac71acbabc8142a38f1073ed00d427d85b327bf4db1ab"
+  },
+  {
+    "id": "daily-final-5",
+    "src": "/linux-admin/screens/daily-final-5.svg",
+    "title": "Keep the evidence, explain your next learning goal",
+    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
+    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
+    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
+    "sha256": "c2fa12b6f0b4b53650cc2efe8b334b8869b5d2cc39c25ba4955b83822f5f6d19"
+  }
+]

@@ -1,6 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { ServerRoleText } from '../server-role-text';
+import { AdminPractice } from '../linux-admin/admin-practice';
+import '../linux-admin/admin.css';
 import { TlsText } from '../tls/tls-text';
 import { TlsCourseExtras } from '../tls/tls-interactives';
 import { WorkspaceStart } from '../workspace-start';
@@ -113,7 +115,9 @@ function KnowledgeCheck({
   return (
     <section className="nessus-quiz" aria-label="Knowledge check">
       <h2>
-        {lesson.id === 'tls-final' ? 'Final assessment' : 'Knowledge check'}
+        {['tls-final', 'daily-final'].includes(lesson.id)
+          ? 'Final assessment'
+          : 'Knowledge check'}
       </h2>
       <p>Try these before continuing. You can look back and try again.</p>
       {lesson.quiz.map((question, index) => (
@@ -474,6 +478,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
   const isEnterprise = ['mecm-operations', 'wsus-operations'].includes(
     course.id,
   );
+  const isDaily = course.id === 'linux-daily-admin';
   const isTls = course.id === 'rhel-nginx-tls';
   const isVsphere = course.id === 'vsphere-administration';
   const isPki = course.id.startsWith('pki-');
@@ -485,7 +490,9 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
   const isSecurity = course.id === 'budget-cloud-security';
   const relatedCourses = isPki
     ? pkiCourses
-    : isVsphere || isTls ||
+    : isDaily ||
+        isVsphere ||
+        isTls ||
         isSplunk ||
         isDmz ||
         isEnterprise ||
@@ -540,7 +547,9 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         <nav
           className={
             'nessus-course-switcher' +
-            (isVsphere || isTls ||
+            (isDaily ||
+            isVsphere ||
+            isTls ||
             isSplunk ||
             isDmz ||
             isEnterprise ||
@@ -554,7 +563,12 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
           aria-label={
             isPki
               ? 'PKI Certificate Management classes'
-              : isVsphere || isTls || isSplunk || isEnterprise || isDmz
+              : isDaily ||
+                  isVsphere ||
+                  isTls ||
+                  isSplunk ||
+                  isEnterprise ||
+                  isDmz
                 ? course.title
                 : isLandingZone
                   ? 'Azure landing zone course'
@@ -580,7 +594,13 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         </nav>
         <header className="alma-header">
           <span className="eyebrow">
-            {isVsphere || isPki || isTls || isSplunk || isEnterprise || isDmz
+            {isVsphere ||
+            isPki ||
+            isDaily ||
+            isTls ||
+            isSplunk ||
+            isEnterprise ||
+            isDmz
               ? course.title.toUpperCase()
               : isLandingZone
                 ? 'YOUR FIRST AZURE LANDING ZONE'
@@ -614,12 +634,41 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             self-verified
           </small>
         </header>
+        {isDaily && (
+          <AdminPractice
+            key={`admin-${lesson.id}`}
+            lessonId={lesson.id}
+            done={done}
+            total={course.lessons.length}
+          />
+        )}
         {isVsphere && (
-          <section className="teaching-callout" aria-label="vSphere access and screenshot context">
+          <section
+            className="teaching-callout"
+            aria-label="vSphere access and screenshot context"
+          >
             <h2>Choose your practice route</h2>
-            <p>Read the official-screen walkthrough without a local vCenter download, practice standalone tasks on permitted ESXi, or use an authorized vCenter / VMware Hands-on Labs environment. Free ESXi cannot be managed by vCenter; templates, clusters and migrations require the appropriate environment and licensing.</p>
-            <p>Numbered images are official VMware/Broadcom references with their original context and attribution. They are not CloudSeam lab captures or proof of your result. Missing exact-step captures remain labeled. This class does not install software or change your machines.</p>
-            <Link href="https://knowledge.broadcom.com/external/article/408578" target="_blank" rel="noreferrer">Official Hands-on Labs access guidance →</Link>
+            <p>
+              Read the official-screen walkthrough without a local vCenter
+              download, practice standalone tasks on permitted ESXi, or use an
+              authorized vCenter / VMware Hands-on Labs environment. Free ESXi
+              cannot be managed by vCenter; templates, clusters and migrations
+              require the appropriate environment and licensing.
+            </p>
+            <p>
+              Numbered images are official VMware/Broadcom references with their
+              original context and attribution. They are not CloudSeam lab
+              captures or proof of your result. Missing exact-step captures
+              remain labeled. This class does not install software or change
+              your machines.
+            </p>
+            <Link
+              href="https://knowledge.broadcom.com/external/article/408578"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Official Hands-on Labs access guidance →
+            </Link>
           </section>
         )}
         {isTls && (

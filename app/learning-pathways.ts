@@ -1,4 +1,5 @@
 import {
+  dailyAdminCourse,
   vsphereCourse,
   pkiCourses,
   tlsCourse,
@@ -26,6 +27,7 @@ export type ConsoleLesson = {
   description: string;
   href: string;
   source:
+    | 'linux-admin'
     | 'tls'
     | 'pki'
     | 'vsphere'
@@ -348,10 +350,12 @@ export const learningPathways: LearningPathway[] = [
     id: 'vsphere',
     title: vsphereCourse.title,
     prerequisite: vsphereCourse.prerequisite,
-    sections: [{
-      title: 'From first host to daily administration',
-      lessons: standaloneLessons(vsphereCourse, '/vsphere', 'vsphere'),
-    }],
+    sections: [
+      {
+        title: 'From first host to daily administration',
+        lessons: standaloneLessons(vsphereCourse, '/vsphere', 'vsphere'),
+      },
+    ],
   },
   ...pkiCourses.map((course) => ({
     id: course.id,
@@ -623,8 +627,16 @@ export const learningPathways: LearningPathway[] = [
     id: 'linux',
     title: 'Linux Administration',
     prerequisite:
-      'Choose Azure RHEL/Wazuh labs or local VMware SSL/TLS; each class lists its own prerequisites.',
+      'Start with Linux Daily Admin Tasks for local RHEL / AlmaLinux 9 practice. Azure RHEL/Wazuh and SSL/TLS classes list their own prerequisites.',
     sections: [
+      {
+        title: 'Linux Daily Admin Tasks · start here',
+        lessons: standaloneLessons(
+          dailyAdminCourse,
+          '/linux-admin',
+          'linux-admin',
+        ),
+      },
       ...modules
         .filter((module) => module.lessonIds.length)
         .map((module) => ({
@@ -737,13 +749,16 @@ export const pathwayLessons = (pathway: LearningPathway) =>
 // Core lesson pagination follows the prerequisite route. Optional extensions
 // stay within their own sequence instead of interrupting the core route.
 export function lessonSequenceFor(id: string): ConsoleLesson[] {
-  if (id.startsWith('vsphere-')) return standaloneLessons(vsphereCourse, '/vsphere', 'vsphere');
+  if (id.startsWith('vsphere-'))
+    return standaloneLessons(vsphereCourse, '/vsphere', 'vsphere');
   if (id.startsWith('pki-')) {
     const pathway = learningPathways.find((path) =>
       pathwayLessons(path).some((lesson) => lesson.id === id),
     );
     return pathway ? pathwayLessons(pathway) : [];
   }
+  if (id.startsWith('daily-'))
+    return standaloneLessons(dailyAdminCourse, '/linux-admin', 'linux-admin');
   if (id.startsWith('tls-')) return standaloneLessons(tlsCourse, '/tls', 'tls');
   if (id.startsWith('dmz-'))
     return pathwayLessons(learningPathways.find((path) => path.id === 'dmz')!);
