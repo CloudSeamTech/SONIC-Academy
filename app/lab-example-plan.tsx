@@ -1,4 +1,5 @@
 export function LabExamplePlan({ lessonId }: { lessonId: string }) {
+  const daily = lessonId.startsWith('daily-');
   const vsphere = lessonId.startsWith('vsphere-');
   const tls = lessonId.startsWith('tls-');
   const dmz = lessonId.startsWith('dmz-');
@@ -9,7 +10,9 @@ export function LabExamplePlan({ lessonId }: { lessonId: string }) {
   const azure = /^(lz-|sec-|azure-|az-)/.test(lessonId);
   const splunk = lessonId.startsWith('splunk-');
   const scanner = lessonId.startsWith('nessus-');
-  const example = vsphere
+  const example = daily
+    ? 'Your practice VM is your own RHEL 9 or AlmaLinux 9 server. Use the username and hostname you measured; learner in pictures is only a sample. $HOME means your own home folder. sonic-admin holds your practice files and evidence. sonicpractice is a disposable non-login account, not your administrator account. sonic-practice and sonic-daily-check are disposable systemd jobs. sonic_lab_vg belongs only on the separate empty LVM practice disk. None of these names creates another server or changes public DNS.'
+    : vsphere
     ? 'esx01.lab.example.test = the ESXi host that runs virtual machines. vc01.lab.example.test = the optional authorized vCenter management appliance. LAB-APP01 and LAB-APP02 = disposable guest servers. LAB-Isolated = a same-host VM network with no external uplink. These names do not create DNS records or reserve addresses; use your written private lab plan. ESXi Host Client manages one host; vSphere Client connects to vCenter.'
     : tls
     ? 'Application server (TLS-APP01), 10.90.0.10 = RHEL 9, NGINX and the hosted practice page. Practice CA server (TLS-CA01), 10.90.0.20 = a separate simulated signing office. app.example.mil = the fictional website name, resolved only inside this private lab. Never send its requests to a real DoD CA.'

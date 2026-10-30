@@ -627,7 +627,7 @@ export const learningPathways: LearningPathway[] = [
     id: 'linux',
     title: 'Linux Administration',
     prerequisite:
-      'Choose Azure RHEL/Wazuh labs or local VMware SSL/TLS; each class lists its own prerequisites.',
+      'Start with Linux Daily Admin Tasks for local RHEL / AlmaLinux 9 practice. Azure RHEL/Wazuh and SSL/TLS classes list their own prerequisites.',
     sections: [
       {
         title: 'Linux Daily Admin Tasks · start here',

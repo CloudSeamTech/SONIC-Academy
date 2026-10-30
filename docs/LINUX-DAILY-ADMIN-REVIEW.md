@@ -18,7 +18,7 @@ Every step explains what, why, where, exact commands, arguments, expected observ
 
 Created: `app/linux-admin/{page.tsx,admin-practice.tsx,admin.css}`, `content/linux-admin/{course.json,references.json}`, 76 `public/linux-admin/screens/*.svg`, `tools/render-linux-admin-screens.py`, `tools/check-linux-admin-course.mjs`, `tests/linux-daily-admin.test.mjs`, this review and `.agents/skills/linux-lab-authoring/SKILL.md`.
 
-Modified: guided-course registration, Linux pathway/lesson sequencing, screenshot registry and shared reader for the new class's header/progress/practice/final assessment. Existing pathway and tier-count regression tests now include the new course. No account tier, billing, authentication or deployment settings changed.
+Modified: guided-course registration, Linux pathway/lesson sequencing, screenshot registry, accurate class-specific example-name guidance and shared reader for the new class's header/progress/practice/final assessment. Existing pathway and tier-count regression tests now include the new course. No account tier, billing, authentication or deployment settings changed.
 
 The local repository skill is reusable guidance for future Codex work, not an installation into every ChatGPT conversation. Existing plugin-management, cloud-environment and React guidance were reviewed; no additional plugin is required or installed.
 
