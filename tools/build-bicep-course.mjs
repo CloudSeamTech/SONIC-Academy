@@ -53,9 +53,13 @@ for (const [id,module,title,concept,code,task,expected,terms,question,options,an
   const wrap = (text, width) => text.split(' ').reduce((rows,word)=>{if((rows.at(-1)+' '+word).trim().length>width)rows.push(word);else rows[rows.length-1]=(rows.at(-1)+' '+word).trim();return rows;},['']);
   const cards=terms.map(([term,meaning],i)=>{
     const y=105+i*125;
-    const found=fullLines.findIndex(line=>line.includes(term.split(' / ')[0].replace(/^\"|\"$/g,'')));
-    const match=found>=start&&found<start+12;
-    const arrow=match?`<path d="M820 ${y+25} L785 ${y+25} L750 ${117+(found-start)*30}" stroke="#bb92e5" stroke-width="2" fill="none" marker-end="url(#arrow)"/>`:'';
+    const token=term.split(' / ')[0].replace(/^\"|\"$/g,'');
+    const found=fullLines.findIndex(line=>line.includes(token));
+    const column=found>=0?fullLines[found].indexOf(token):-1;
+    const match=found>=start&&found<start+12&&column+Math.min(token.length,12)<=67;
+    const targetX=Math.round(65+column*9.6+Math.min(token.length,12)*4.8);
+    const targetY=125+(found-start)*30;
+    const arrow=match?`<path d="M820 ${y+25} L785 ${y+25} L785 ${targetY} L${targetX} ${targetY}" stroke="#bb92e5" stroke-width="2" fill="none" marker-end="url(#arrow)"/>`:'';
     return `${arrow}<rect x="820" y="${y}" width="350" height="112" rx="6" fill="#f4ead7"/><circle cx="842" cy="${y+22}" r="14" fill="#7141a5"/><text x="842" y="${y+28}" text-anchor="middle" fill="white" font-family="sans-serif" font-size="18">${i+1}</text>${wrap(term,33).slice(0,2).map((line,n)=>`<text x="865" y="${y+26+n*20}" fill="#402259" font-family="sans-serif" font-size="16" font-weight="bold">${escape(line)}</text>`).join('')}${wrap(meaning,42).slice(0,3).map((line,n)=>`<text x="838" y="${y+65+n*18}" fill="#302634" font-family="sans-serif" font-size="15">${escape(line)}</text>`).join('')}</text>`;
   }).join('');
   const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="${height}" viewBox="0 0 1200 ${height}"><defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto"><path d="M0 0L6 3L0 6" fill="none" stroke="#bb92e5"/></marker></defs><rect width="1200" height="${height}" rx="10" fill="#241735"/><text x="28" y="38" fill="#e8d8ff" font-family="sans-serif" font-size="23">${escape(title)}</text><text x="28" y="68" fill="#c8bdcc" font-family="sans-serif" font-size="16">main.bicep · ${fullLines.length>12?`lines ${start+1}–${Math.min(start+12,fullLines.length)}; full file below`:'complete example'} · authored teaching illustration</text>${lines.map((line,i)=>`<text x="24" y="${117+i*30}" fill="#b5a3c7" font-family="monospace" font-size="16">${String(start+i+1).padStart(2,'0')}</text><text x="65" y="${117+i*30}" fill="#fff6e7" font-family="monospace" font-size="16">${escape(line.length>70?line.slice(0,67)+'…':line)}</text>`).join('')}${cards.replaceAll('</text></text>','</text>')}</svg>`;

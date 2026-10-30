@@ -19,6 +19,8 @@ test('Beginner Bicep route has twenty ordered lessons, five complete module test
   for(const step of lesson.steps){assert.ok(step.actions.length&&step.expected&&step.breakdown.length);assert.equal(step.screenshot.status,'illustration');}
   const ref=refs.find(r=>r.id===lesson.id);assert.ok(ref.note.includes('not a captured'));
   assert.equal(createHash('sha256').update(fs.readFileSync(new URL('../public'+ref.src,import.meta.url))).digest('hex'),ref.sha256);
+  const svg=fs.readFileSync(new URL('../public'+ref.src,import.meta.url),'utf8');
+  for(const arrow of svg.matchAll(/d="M820 [^"]* L(\d+) (\d+)" stroke="#bb92e5"/g)) assert.ok(Number(arrow[1])<750,'Arrow must reach a code token, not the blank margin.');
  }
 });
 test('Compiler is real, isolated, pinned and makes no Azure deployment calls',()=>{

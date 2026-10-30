@@ -6,7 +6,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview",
     "original": "/bicep/bicep-first-words.svg",
-    "sha256": "b0fb3bd56e0f493f966a93168a73b8c5d40f66c9b222838e4493e19edd0035cf",
+    "sha256": "b3107d290fe649c7b7eea9b9b8c0b9c0adeadd10df92b0d4140d9011f6143c74",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -50,7 +50,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters",
     "original": "/bicep/bicep-inputs.svg",
-    "sha256": "b07e044fe670f0bafedbfceb73d731ba87191920ac6996a0acfd589b6040e135",
+    "sha256": "76bc49e86db36a9368328f1daba678a4d469427adc2f25d327eef048fa43e00d",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -72,7 +72,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-declaration",
     "original": "/bicep/bicep-resource.svg",
-    "sha256": "e9575d060dd1634a61b4cc2c33cb439601ebdaeecc17e3ee667a55e172eca116",
+    "sha256": "70fe164aed078ba14ab3a3cd7362d6d8cd8717d00d93f205af132fda5ebc964d",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -94,7 +94,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters",
     "original": "/bicep/bicep-guards.svg",
-    "sha256": "a3e0c995a4d2108409849275319c32653666e9fbcf07bfe0752933a05ba7f771",
+    "sha256": "f23432a750a505123e1d119407d011640138d1c0e0a0635572b6c8f368fa47fd",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -105,7 +105,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-dependencies",
     "original": "/bicep/bicep-dependencies.svg",
-    "sha256": "818b4da28069bf3e2aac08a8210ec45d1e8e3c961294975e1a5cf92db2a89b47",
+    "sha256": "eaee687916bb4b0593515c8d57cae21ba5b212221a110454fa760ecc36e84358",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -116,7 +116,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview",
     "original": "/bicep/bicep-network.svg",
-    "sha256": "dd1def0af5754315e5fe63d3e821b1e825d679b1def31f6ee0c56ed4a77ac619",
+    "sha256": "d9573f5e6eca402607fea8e444b8d481662d60f6e8b7ad7bbe3c3c6a7f0441b1",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -127,7 +127,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/existing-resource",
     "original": "/bicep/bicep-existing.svg",
-    "sha256": "22cc4296b4f0d2ece38a68ffaa34598c52edf4eeca31d6f0e73c23090422befb",
+    "sha256": "42e0aee46fda99a40400c18d34b28240f26927b629797e3fbb5169144ef93a56",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -138,7 +138,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/loops",
     "original": "/bicep/bicep-loops.svg",
-    "sha256": "aad51ff5ec8c5c3b9487ab3e11402d67ff828cd18c147e952d1b42037848149d",
+    "sha256": "171e554102dacf88d60f4b3fecff07374b537f4ffc192ffcf809838ae4eebadb",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -149,7 +149,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachines",
     "original": "/bicep/bicep-server-settings.svg",
-    "sha256": "ef1c6555498ee72038d550e7118156bfee8f97b5bee8641a16b254f696e9abdc",
+    "sha256": "65f235dd2aacc364f55f6b8c3d2f168b51ebbd98a3040238b3a0517a6aa84bdf",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -160,7 +160,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/using-cloud-init",
     "original": "/bicep/bicep-software.svg",
-    "sha256": "b06b393585879eaa03483ac65f305f8989b1384282d814092532e6b831f29d00",
+    "sha256": "2e9cb8a407ff616f7e296a343cf647c9fa63c4d5353e33bf422034328703104a",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
@@ -171,7 +171,7 @@
     "platform": "Bicep / ARM instructional illustration",
     "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/modules",
     "original": "/bicep/bicep-modules.svg",
-    "sha256": "4cb2b996bfed67be7c69fce4295ca678185eaa8766518e579b723d63f0752ced",
+    "sha256": "5dc4aafbfe820da2b80dc4c2208fe026b8e81358f532b8b2cf7025fe0f273eb7",
     "credit": "CloudSeam Tech · original annotated code illustration",
     "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
   },
