@@ -105,8 +105,8 @@ export function LabPassport({
       )}
       <p className="passport-note">
         Record your own lab values. Saved on this device under your{' '}
-        {academy.user ? 'signed-in profile' : 'guest profile'}; cross-device
-        Supabase sync is not connected yet. No passwords or keys.
+        {academy.user ? 'signed-in profile' : 'guest profile'}. Sync across
+        devices is not available yet. No passwords or keys.
       </p>
       <form
         onSubmit={(event) => {
