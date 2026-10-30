@@ -76,7 +76,10 @@ export function InstructionScreenshots({ stepId }: { stepId: string }) {
               })
             }
           />
-          <p>{capture.provenance}</p>
+          <details className="lesson-support">
+            <summary>Capture details</summary>
+            <p>{capture.provenance}</p>
+          </details>
         </figure>
       )}
       {!capture &&
@@ -95,7 +98,10 @@ export function InstructionScreenshots({ stepId }: { stepId: string }) {
               onZoom={() => open(shot)}
             />
             <figcaption>
-              <p>{shot.note}</p>
+              <details className="lesson-support">
+                <summary>Image context and limitations</summary>
+                <p>{shot.note}</p>
+              </details>
               <a href={shot.source} target="_blank" rel="noreferrer">
                 {shot.credit} ↗
               </a>

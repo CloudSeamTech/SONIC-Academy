@@ -1,6 +1,6 @@
 'use client';
-import { ServerRoleText } from './server-role-text';
 import { WorkspaceStart } from './workspace-start';
+import { VisualChecklist } from './visual-checklist';
 import { learnerActions } from '../lib/learner-directions';
 import { FocusStepControl } from './focus-step-control';
 
@@ -249,10 +249,10 @@ export function SonicWalkthrough({
   variant?: string;
 }) {
   const [activeStep, setActiveStep] = useState(0);
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(true);
   useEffect(() => {
     setActiveStep(0);
-    setFocused(false);
+    setFocused(true);
   }, [lessonId, variant]);
   const chooseFocused = (next: number) => {
     setActiveStep(next);
@@ -266,7 +266,7 @@ export function SonicWalkthrough({
   };
   return (
     <section
-      className="sonic-walkthrough"
+      className="sonic-walkthrough lesson-compact"
       data-step-focus={focused}
       aria-label="Step-by-step walkthrough"
     >
@@ -304,30 +304,37 @@ export function SonicWalkthrough({
                 </strong>
               </h4>
               <div className="sonic-action-body">
-                <p className="walkthrough-location">
-                  WHERE TO WORK: {step.where}
-                </p>
-                {(index === 0 || step.where !== steps[index - 1].where) && (
-                  <WorkspaceStart
-                    where={step.where}
-                    action={step.actions.join(' ')}
-                  />
+                <p className="walkthrough-location">Work in: {step.where}</p>
+                {lessonId && (
+                  <section className="sonic-action-visual">
+                    <InstructionScreenshots
+                      stepId={`${lessonId}:${variant}:${index + 1}`}
+                    />
+                  </section>
                 )}
-                <StepTeachingNotes
-                  lessonId={lessonId || 'linux'}
-                  title={step.title}
-                  action={step.actions.join(' ')}
-                  command={step.command}
-                  expected={step.expected}
+                {(index === 0 || step.where !== steps[index - 1].where) && (
+                  <details className="lesson-support">
+                    <summary>Help opening this workspace</summary>
+                    <WorkspaceStart
+                      where={step.where}
+                      action={step.actions.join(' ')}
+                    />
+                  </details>
+                )}
+                <details className="lesson-support">
+                  <summary>Why this matters / command help</summary>
+                  <StepTeachingNotes
+                    lessonId={lessonId || 'linux'}
+                    title={step.title}
+                    action={step.actions.join(' ')}
+                    command={step.command}
+                    expected={step.expected}
+                  />
+                </details>
+                <VisualChecklist
+                  stepId={`${lessonId}:${variant}:${index + 1}`}
+                  actions={step.actions.flatMap(learnerActions)}
                 />
-                <b className="sonic-action-label">Let’s try it</b>
-                <ul className="learner-action-list">
-                  {step.actions
-                    .flatMap(learnerActions)
-                    .map((action, actionIndex) => (
-                      <li key={`${actionIndex}-${action}`}><ServerRoleText text={action} /></li>
-                    ))}
-                </ul>
                 {step.command && (
                   <SonicTerminal
                     shell={step.where}
@@ -341,14 +348,6 @@ export function SonicWalkthrough({
                     <br />
                     {step.expected}
                   </p>
-                )}
-                {lessonId && (
-                  <section className="sonic-action-visual">
-                    <h4>See it on screen</h4>
-                    <InstructionScreenshots
-                      stepId={`${lessonId}:${variant}:${index + 1}`}
-                    />
-                  </section>
                 )}
               </div>
             </section>

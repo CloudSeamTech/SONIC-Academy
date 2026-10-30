@@ -47,14 +47,13 @@ export function CourseScreenshot({
         aria-label="Screenshot capture needed"
         data-capture-status="capture-needed"
       >
-        <span className="eyebrow">SCREENSHOT TO ADD · CAPTURE CHECKLIST</span>
-        <h4>{screenshot.title}</h4>
-        <p>{screenshot.instructions}</p>
-        <small>
-          We still need a real picture of this step. This checklist is not a
-          screenshot. You can follow the written directions and compare your
-          result with the check above.
-        </small>
+        <p>
+          <strong>Screenshot pending:</strong> {screenshot.title}
+        </p>
+        <details className="lesson-support">
+          <summary>What this picture needs to show</summary>
+          <p>{screenshot.instructions}</p>
+        </details>
       </section>
     );
   return (
@@ -62,23 +61,30 @@ export function CourseScreenshot({
       className="guided-screenshot"
       data-capture-status={screenshot.status}
     >
-      <figcaption>
-        <strong>{screenshot.title}</strong>
-        <p>
-          {screenshot.status === 'illustration'
-            ? 'Illustrated training reference · not a live capture'
-            : 'Here’s the interface to look for'}{' '}
-          · {asset.platform}
-        </p>
-      </figcaption>
       <ScreenshotSurface
         src={asset.src}
         alt={asset.title}
         onZoom={() => dialog.current?.showModal()}
       />
       <figcaption className="picture-source-note">
-        {'reviewed' in asset && <p>{asset.note}</p>}
-        {screenshot.status === 'reference' && <p>{screenshot.instructions}</p>}
+        <p>
+          {screenshot.status === 'illustration'
+            ? 'Illustration · not a live capture'
+            : 'Reference screenshot'}{' '}
+          · {asset.platform}
+        </p>
+        {'reviewed' in asset && (
+          <details className="lesson-support">
+            <summary>Image context and limitations</summary>
+            <p>{asset.note}</p>
+          </details>
+        )}
+        {screenshot.status === 'reference' && (
+          <details className="lesson-support">
+            <summary>What to compare</summary>
+            <p>{screenshot.instructions}</p>
+          </details>
+        )}
         <a href={asset.source} target="_blank" rel="noreferrer">
           {screenshot.status === 'illustration'
             ? 'Documentation used for this illustration'

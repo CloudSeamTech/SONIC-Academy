@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 export function LabStepNav({
   titles,
   current,
@@ -12,17 +12,8 @@ export function LabStepNav({
   onChoose: (index: number) => void;
 }) {
   const [expanded, setExpanded] = useState(false);
-  useEffect(() => {
-    const desktop = window.matchMedia('(min-width: 1200px)');
-    const update = () => setExpanded(desktop.matches);
-    update();
-    desktop.addEventListener('change', update);
-    return () => desktop.removeEventListener('change', update);
-  }, []);
   return (
     <nav className="lab-step-nav" aria-label="Lab steps">
-      <h2>In this lab</h2>
-      <p>Jump to a step to review it.</p>
       <details
         open={expanded}
         onToggle={(event) => setExpanded(event.currentTarget.open)}
