@@ -143,6 +143,11 @@ html
   flex: none;
   background: transparent;
 }
+html body .academy-shell.academy-shell .reader-workspace .path-icon.path-icon {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
 .vendor-course-mark img {
   display: block;
   width: auto;
