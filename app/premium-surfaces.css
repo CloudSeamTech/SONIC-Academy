@@ -1,0 +1,315 @@
+/* A shared depth hierarchy. Content cards rise; fields sit inside them.
+   The navigation rail and unboxed vendor logos are deliberately outside this scope. */
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace {
+  --surface-light: #faf3e6;
+  --surface-base: #e8dbc3;
+  --surface-edge: #c5b18d;
+  --surface-purple: #7141a5;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(
+    .nessus-exercise,
+    .nessus-quiz,
+    .alma-verify,
+    .teaching-callout,
+    .information-panel,
+    .dashboard-panel,
+    .path-card,
+    .resume-card,
+    .recent-card,
+    .quick-card,
+    .account-card,
+    .migration-task-card,
+    .stage-progress-card,
+    .bicep-practice,
+    .lab-map-detail,
+    .notebook-entry,
+    .test-explanation,
+    .maintenance-practice,
+    .security-budget,
+    .certificate-journey,
+    .dmz-practice-files,
+    .profile-section,
+    .verify,
+    .dashboard-metrics > div,
+    .dashboard-metrics > article
+  ) {
+  border: 1px solid var(--surface-edge) !important;
+  border-radius: 10px !important;
+  background: linear-gradient(
+    145deg,
+    var(--surface-light),
+    var(--surface-base)
+  ) !important;
+  box-shadow:
+    inset 0 1px 0 #fffaf2,
+    inset 0 -1px 0 #d6c49f,
+    0 4px 0 #c5b18d,
+    0 12px 22px #48342610 !important;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.nessus-exercise, .nessus-quiz, .alma-verify) {
+  --surface-light: #e5d8c0;
+  --surface-base: #d8c8ad;
+  background: linear-gradient(145deg, #e5d8c0, #d8c8ad) !important;
+  padding: clamp(18px, 3vw, 32px) !important;
+  margin-block: 24px !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(
+    .lesson-support,
+    .lab-passport,
+    .clickable-lab-map,
+    .private-notebook,
+    .module-test,
+    .lesson-result,
+    .guided-check,
+    .nessus-explanation,
+    .nessus-best,
+    .nessus-mistakes,
+    .nessus-troubleshooting,
+    .coaching-brief,
+    .coaching-why,
+    .coaching-effect,
+    .coaching-command,
+    .guided-context,
+    .guided-expected,
+    .guided-production,
+    .guided-rollback,
+    .guided-final,
+    .guided-evidence,
+    .workspace-start,
+    .lab-notebook,
+    .troubleshooting-category,
+    .troubleshooting-tip,
+    .troubleshooting-scenario,
+    .sonic-action-assist,
+    .sonic-readout,
+    .sonic-click-path,
+    .sonic-breakdown,
+    .walkthrough-check,
+    .walkthrough-location,
+    .nessus-quiz fieldset,
+    .module-test fieldset
+  ) {
+  border: 1px solid #c5b18d !important;
+  border-radius: 8px !important;
+  background: linear-gradient(145deg, #f3ead9, #e3d4ba) !important;
+  box-shadow:
+    inset 0 1px 0 #fff9ed,
+    0 2px 0 #c9b795,
+    0 5px 12px #48342608 !important;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.lesson-result, .nessus-quiz fieldset, .module-test fieldset) {
+  padding: clamp(14px, 2vw, 22px) !important;
+  margin-block: 18px !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.nessus-quiz, .module-test)
+  legend {
+  max-width: 100%;
+  padding-inline: 8px;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.nessus-quiz, .module-test)
+  fieldset
+  > label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 13px 15px !important;
+  margin-block: 10px !important;
+  border: 1px solid #c8b693 !important;
+  border-radius: 6px !important;
+  background: linear-gradient(#fff8ec, #eee1cc) !important;
+  box-shadow:
+    inset 0 1px 0 #fffdf6,
+    0 2px 0 #cfbd9b !important;
+  cursor: pointer;
+  line-height: 1.6;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(
+    .guided-check,
+    .nessus-quiz fieldset > label,
+    .module-test fieldset > label
+  ):has(input:checked) {
+  border-color: #8053a6 !important;
+  background: linear-gradient(135deg, #eee3f7, #dfcee9) !important;
+  box-shadow:
+    inset 4px 0 0 #7141a5,
+    inset 0 1px 0 #fbf5ff,
+    0 2px 0 #b49ac7 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(
+    .guided-check,
+    .nessus-quiz fieldset > label,
+    .module-test fieldset > label
+  ):has(input:focus-visible) {
+  outline: 3px solid #7141a5 !important;
+  outline-offset: 3px;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(input[type='radio'], input[type='checkbox']) {
+  flex-shrink: 0;
+  accent-color: #7141a5;
+  margin-top: 5px;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(button, .path-card, .migration-task-card, .stage-progress-card):not(
+    .guided-image-button
+  ):not(.screen-marker) {
+  border-radius: 6px !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff38,
+    0 2px 0 #4b2a642b,
+    0 5px 10px #4530240a !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(
+    .lesson-support,
+    .lab-passport,
+    .clickable-lab-map,
+    .private-notebook,
+    .module-test
+  )
+  > summary {
+  padding: 14px 16px !important;
+  border-radius: 7px;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  details[open]
+  > summary {
+  box-shadow: inset 4px 0 0 #7141a5;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(input:not([type='radio']):not([type='checkbox']), select, textarea):not(
+    .terminal-input
+  ) {
+  border-radius: 6px !important;
+  box-shadow:
+    inset 0 2px 4px #5b452318,
+    0 1px 0 #fff8ed !important;
+}
+@media (hover: hover) {
+  html
+    body
+    .academy-shell.academy-shell.console-reader.console-reader
+    .reader-workspace.reader-workspace
+    :is(
+      button:enabled,
+      a.path-card,
+      .migration-task-card,
+      .stage-progress-card
+    ):not(.guided-image-button):not(.screen-marker):hover {
+    transform: translateY(-2px);
+    box-shadow:
+      inset 0 1px 0 #ffffff55,
+      0 4px 0 #4b2a6426,
+      0 9px 16px #45302418 !important;
+  }
+  html
+    body
+    .academy-shell.academy-shell.console-reader.console-reader
+    .reader-workspace.reader-workspace
+    :is(
+      .guided-check,
+      .nessus-quiz fieldset > label,
+      .module-test fieldset > label
+    ):hover {
+    border-color: #a083b7 !important;
+  }
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  button:enabled:not(.guided-image-button):not(.screen-marker):active {
+  transform: translateY(1px);
+  box-shadow: inset 0 2px 3px #38204722 !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html
+    body
+    .academy-shell.academy-shell.console-reader.console-reader
+    .reader-workspace.reader-workspace
+    :is(button, a.path-card, .migration-task-card, .stage-progress-card):hover {
+    transform: none !important;
+  }
+}
+
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.guided-command, .sonic-terminal, .terminal-window, .cyber-map) {
+  border-radius: 8px !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff24,
+    0 3px 0 #47363e33,
+    0 8px 18px #48342612 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(button, a, summary, input, select, textarea):focus-visible {
+  outline: 3px solid #7141a5 !important;
+  outline-color: #7141a5 !important;
+  outline-offset: 3px;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  button:disabled {
+  box-shadow: inset 0 1px 3px #48342616 !important;
+}
