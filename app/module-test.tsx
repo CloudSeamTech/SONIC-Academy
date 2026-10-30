@@ -137,7 +137,7 @@ function Test({ module }: { module: (typeof learningModules)[number] }) {
                     })
                   }
                 />
-                {option}
+                <span>{option}</span>
               </label>
             ))}
             {submitted && (

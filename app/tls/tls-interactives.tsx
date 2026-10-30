@@ -223,7 +223,7 @@ export function TlsTroubleshooting() {
                 setChecked(false);
               }}
             />
-            {choice}
+            <span>{choice}</span>
           </label>
         ))}
       </fieldset>

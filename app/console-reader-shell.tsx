@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Home,
   Layers,
@@ -30,6 +30,7 @@ import './premium-surfaces.css';
 import './split-focus.css';
 import './catalog-surfaces.css';
 import './lesson-geometry.css';
+import './interface-polish.css';
 const allLessons = learningPathways.flatMap(pathwayLessons);
 export function ConsoleReaderShell({
   lessonId,
@@ -43,12 +44,37 @@ export function ConsoleReaderShell({
   activeView?: string;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [desktopNavigation, setDesktopNavigation] = useState(false);
+  const [sidebarMode, setSidebarMode] = useState<'full' | 'compact' | 'hidden'>(
+    'full',
+  );
+  const menuButton = useRef<HTMLButtonElement>(null);
+  function hideSidebar() {
+    setSidebarMode('hidden');
+    setMenuOpen(false);
+    requestAnimationFrame(() =>
+      menuButton.current?.focus({ preventScroll: true }),
+    );
+  }
   useEffect(() => {
+    const media = window.matchMedia('(min-width: 801px)');
+    const sync = () => setDesktopNavigation(media.matches);
+    sync();
+    media.addEventListener('change', sync);
     const close = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') setMenuOpen(false);
+      if (
+        event.key === 'Escape' &&
+        window.matchMedia('(max-width: 800px)').matches
+      ) {
+        setMenuOpen(false);
+        menuButton.current?.focus({ preventScroll: true });
+      }
     };
     window.addEventListener('keydown', close);
-    return () => window.removeEventListener('keydown', close);
+    return () => {
+      media.removeEventListener('change', sync);
+      window.removeEventListener('keydown', close);
+    };
   }, []);
   const academy = useAcademy();
   const course = learningPathways.find((path) =>
@@ -73,6 +99,7 @@ export function ConsoleReaderShell({
       <div
         className="learning-console console-reader academy-shell"
         data-lesson-id={lessonId}
+        data-sidebar-mode={sidebarMode}
       >
         <a className="console-skip" href="#reader-content">
           Skip to learning
@@ -80,7 +107,45 @@ export function ConsoleReaderShell({
         <aside
           className={'console-sidebar' + (menuOpen ? ' is-open' : '')}
           aria-label="Learning navigation"
+          id="academy-navigation"
+          inert={sidebarMode === 'hidden' || (!desktopNavigation && !menuOpen)}
         >
+          <div
+            className="sidebar-window-controls"
+            role="group"
+            aria-label="Navigation window controls"
+          >
+            <button
+              type="button"
+              className="sidebar-dot sidebar-dot-red"
+              aria-label="Hide navigation"
+              title="Hide navigation"
+              onClick={hideSidebar}
+            >
+              ×
+            </button>
+            <button
+              type="button"
+              className="sidebar-dot sidebar-dot-yellow"
+              aria-label="Compact navigation"
+              title="Compact navigation"
+              aria-pressed={sidebarMode === 'compact'}
+              onClick={() =>
+                setSidebarMode(sidebarMode === 'compact' ? 'full' : 'compact')
+              }
+            >
+              −
+            </button>
+            <button
+              type="button"
+              className="sidebar-dot sidebar-dot-green"
+              aria-label="Expand navigation"
+              title="Expand navigation"
+              onClick={() => setSidebarMode('full')}
+            >
+              +
+            </button>
+          </div>
           <button
             type="button"
             className="sidebar-close"
@@ -174,10 +239,23 @@ export function ConsoleReaderShell({
         <div className="reader-workspace" id="reader-content">
           <header className="console-commandbar">
             <button
+              ref={menuButton}
               className="console-menu"
               aria-label="Toggle navigation"
-              aria-expanded={menuOpen}
-              onClick={() => setMenuOpen(!menuOpen)}
+              aria-expanded={
+                sidebarMode !== 'hidden' && (desktopNavigation || menuOpen)
+              }
+              aria-controls="academy-navigation"
+              onClick={() => {
+                if (window.matchMedia('(max-width: 800px)').matches) {
+                  setSidebarMode('full');
+                  setMenuOpen(!menuOpen);
+                } else if (sidebarMode === 'hidden') {
+                  setSidebarMode('full');
+                } else {
+                  hideSidebar();
+                }
+              }}
             >
               <Menu size={20} />
             </button>
