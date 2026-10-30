@@ -156,7 +156,7 @@ function KnowledgeCheck({
                   }));
                 }}
               />
-              {option}
+              <span>{option}</span>
             </label>
           ))}
           {showFeedback && (
