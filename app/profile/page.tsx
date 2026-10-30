@@ -4,6 +4,7 @@ import { useAcademy } from '../academy-provider';
 import { planLabel } from '../../lib/plan-access';
 import { ConsoleReaderShell } from '../console-reader-shell';
 import { LabPassport } from '../lab-passport';
+import { PrivateNotebook } from '../private-notebook';
 export default function Profile() {
   const academy = useAcademy();
   const [email, setEmail] = useState<string | null>(null);
@@ -34,6 +35,7 @@ export default function Profile() {
           <a href="#membership">Subscription</a>
           <a href="#learning">Saved learning</a>
           <a href="#lab-passport">My Lab Passport</a>
+          <a href="#private-notebook">Private notebook</a>
         </nav>
         {!academy.ready ? (
           <p role="status">Loading your profile…</p>
@@ -312,6 +314,7 @@ export default function Profile() {
           </>
         )}
         <LabPassport profile />
+        <PrivateNotebook profile />
         {notice && (
           <p role="status" aria-live="polite">
             {notice}

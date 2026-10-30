@@ -1,0 +1,210 @@
+/* Learning aids stay inside the existing purple / warm-cream design. */
+.notebook-editor-fields {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  min-width: 0;
+}
+.clickable-lab-map,
+.private-notebook,
+.module-assessments {
+  margin-block: 16px 24px;
+  min-width: 0;
+}
+.lab-map-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+  gap: 12px;
+  margin-block: 20px;
+}
+.lab-map-stop {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1 1 170px;
+  min-width: 0;
+}
+.lab-map-stop > button {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  min-height: 150px;
+  padding: 16px;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.lab-map-arrow {
+  flex: none;
+}
+html
+  body
+  .academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .lab-map-nodes
+  button[aria-pressed='true'] {
+  background: #7040a8 !important;
+  color: white !important;
+}
+html
+  body
+  .academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .lab-map-nodes
+  button[aria-pressed='true']
+  :is(svg, strong, small) {
+  color: white !important;
+  -webkit-text-fill-color: white;
+}
+.lab-map-detail,
+.test-explanation {
+  background: #d7c8b2;
+  padding: 18px;
+  margin-block: 16px;
+}
+.lab-map-detail > :first-child {
+  margin-top: 0;
+}
+.lab-map-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.clickable-lab-map label,
+.private-notebook .notebook-editor-fields > label {
+  display: grid;
+  gap: 6px;
+  margin-block: 12px;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell
+  .reader-workspace
+  :is(.clickable-lab-map, .private-notebook)
+  :is(input:not([type='file']), textarea, select) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  border: 1px solid #88765e !important;
+  background: #f6f0e7 !important;
+  color: #292929 !important;
+  padding: 12px;
+  font: inherit;
+}
+.private-notebook textarea {
+  resize: vertical;
+  min-height: 130px;
+}
+.private-notebook input[type='file'] {
+  width: 100%;
+  min-width: 0;
+  font-size: 14px;
+}
+.lab-tool-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-block: 16px;
+}
+.lab-tool-actions button,
+.private-notebook form button,
+.clickable-lab-map form button,
+.module-test button {
+  min-height: 44px;
+  padding: 10px 16px;
+  white-space: normal;
+}
+.notebook-images {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 16px;
+}
+.notebook-images figure {
+  margin: 0;
+  min-width: 0;
+}
+.notebook-images img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  max-height: 260px;
+  object-fit: contain;
+}
+.notebook-images figcaption {
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+.notebook-entry {
+  margin-block: 20px;
+  padding-block: 16px;
+  border-top: 1px solid #b7a58d;
+}
+.notebook-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+html body .academy-shell .reader-workspace .notebook-text {
+  text-transform: none !important;
+}
+.module-test fieldset {
+  border: 0;
+  border-top: 1px solid #b7a58d;
+  padding: 20px 0;
+  margin: 20px 0;
+  min-width: 0;
+}
+.module-test legend {
+  font-weight: 700;
+  line-height: 1.5;
+  max-width: 100%;
+}
+.module-test fieldset > label {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding-block: 10px;
+  overflow-wrap: anywhere;
+}
+.module-test input[type='radio'] {
+  flex: none;
+  margin-top: 5px;
+}
+.module-test fieldset:disabled {
+  opacity: 1;
+}
+.test-score {
+  font-weight: 700;
+}
+html
+  body
+  .academy-shell
+  .reader-workspace
+  :is(.lab-map-detail, .private-notebook)
+  pre {
+  max-width: 100%;
+  overflow-x: auto;
+  white-space: pre;
+}
+.lab-map-nodes button:focus-visible,
+.learning-lab-tools button:focus-visible {
+  outline: 3px solid #7040a8;
+  outline-offset: 3px;
+}
+@media (max-width: 600px) {
+  .lab-map-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .lab-map-arrow {
+    display: none;
+  }
+  .lab-map-stop {
+    flex-basis: 100%;
+  }
+  .lab-map-stop > button {
+    min-height: 110px;
+  }
+}

@@ -1,0 +1,2739 @@
+[
+  {
+    "id": "linux-practice-1",
+    "source": "linux",
+    "tags": [
+      "shell",
+      "identity",
+      "build"
+    ],
+    "question": "Your SSH tab may be on the wrong VM. Which read-only check identifies the account, host and folder?",
+    "options": [
+      "Run whoami, hostname and pwd.",
+      "Run sudo reboot.",
+      "Delete the SSH known_hosts file.",
+      "Assume the tab title is correct."
+    ],
+    "answer": 0,
+    "explanation": "These commands identify the current account, computer and working directory without changing the server.",
+    "objective": "Essential tools · shell identity"
+  },
+  {
+    "id": "linux-practice-2",
+    "source": "linux",
+    "tags": [
+      "folder",
+      "file",
+      "home",
+      "transfer"
+    ],
+    "question": "pwd prints /home/rexuser. What does that tell you?",
+    "options": [
+      "This shell is working in rexuser’s home directory.",
+      "Every file on the server is stored there.",
+      "The shell is running as root.",
+      "The public IP address changed."
+    ],
+    "answer": 0,
+    "explanation": "pwd reports the current directory. It does not report privilege, network addresses or every storage location.",
+    "objective": "Essential tools · directories"
+  },
+  {
+    "id": "linux-practice-3",
+    "source": "linux",
+    "tags": [
+      "permissions",
+      "file",
+      "transfer"
+    ],
+    "question": "A practice file is mode 600. Who can normally read its contents?",
+    "options": [
+      "Its owner; other ordinary users have no permission through these mode bits.",
+      "Every user can read it.",
+      "Only its group can read it.",
+      "No one can read it, including its owner."
+    ],
+    "answer": 0,
+    "explanation": "The first 6 grants owner read and write. The group and other digits are zero. Privileged access and ACLs require separate consideration.",
+    "objective": "Security · standard permissions"
+  },
+  {
+    "id": "linux-practice-4",
+    "source": "linux",
+    "tags": [
+      "permissions",
+      "default",
+      "security"
+    ],
+    "question": "What does umask influence when a program creates a file?",
+    "options": [
+      "Which permission bits are removed from the program’s requested starting mode.",
+      "The file’s network address.",
+      "The password hash of its owner.",
+      "The permissions of every existing file."
+    ],
+    "answer": 0,
+    "explanation": "A umask limits new file and directory modes. It does not retroactively change existing files.",
+    "objective": "Security · default permissions"
+  },
+  {
+    "id": "linux-practice-5",
+    "source": "linux",
+    "tags": [
+      "ssh",
+      "key",
+      "access",
+      "transfer"
+    ],
+    "question": "Which SSH key file stays protected on your workstation?",
+    "options": [
+      "The private key.",
+      "The server’s public host key.",
+      "The public key copied into authorized_keys.",
+      "The public-key fingerprint."
+    ],
+    "answer": 0,
+    "explanation": "The private key proves possession during authentication and must not be copied into tickets or uploaded to the target as a public key.",
+    "objective": "Security · key-based SSH"
+  },
+  {
+    "id": "linux-practice-6",
+    "source": "linux",
+    "tags": [
+      "sudo",
+      "identity",
+      "privilege"
+    ],
+    "question": "A command fails with Permission denied. What is the best next step?",
+    "options": [
+      "Check the target, ownership and required permissions before using extra privilege.",
+      "Run every command with sudo from now on.",
+      "Set every directory to mode 777.",
+      "Disable SELinux immediately."
+    ],
+    "answer": 0,
+    "explanation": "The error is evidence to investigate. Extra privilege or broad permissions can hide the cause and damage the wrong target.",
+    "objective": "Users and groups · privileged access"
+  },
+  {
+    "id": "linux-practice-7",
+    "source": "linux",
+    "tags": [
+      "service",
+      "systemd",
+      "agent",
+      "central",
+      "inventory"
+    ],
+    "question": "A service is enabled but inactive. What does enabled mean?",
+    "options": [
+      "It is configured to start through its enablement links; that does not prove it is running now.",
+      "It is definitely running now.",
+      "Its configuration is valid.",
+      "It has passed an application test."
+    ],
+    "answer": 0,
+    "explanation": "Enablement and runtime state are separate. Check status and the journal, then validate the application.",
+    "objective": "Maintain systems · service startup"
+  },
+  {
+    "id": "linux-practice-8",
+    "source": "linux",
+    "tags": [
+      "logs",
+      "journal",
+      "troubleshoot",
+      "check"
+    ],
+    "question": "Which command reads messages for a known systemd unit without restarting it?",
+    "options": [
+      "journalctl -u UNIT --no-pager",
+      "systemctl restart UNIT",
+      "rm -rf /var/log",
+      "chmod 777 /etc"
+    ],
+    "answer": 0,
+    "explanation": "journalctl reads the journal. Replace UNIT with the discovered unit name and use the relevant time range to preserve useful evidence.",
+    "objective": "Running systems · interpret journals"
+  },
+  {
+    "id": "linux-practice-9",
+    "source": "linux",
+    "tags": [
+      "rpm",
+      "software",
+      "inventory",
+      "install",
+      "agent"
+    ],
+    "question": "What is the purpose of rpm -q PACKAGE?",
+    "options": [
+      "Query whether the named RPM package is installed.",
+      "Install the package.",
+      "Start its service.",
+      "Download all available updates."
+    ],
+    "answer": 0,
+    "explanation": "The -q option queries package information. Installation and service control are separate operations.",
+    "objective": "Software · RPM package management"
+  },
+  {
+    "id": "linux-practice-10",
+    "source": "linux",
+    "tags": [
+      "flatpak",
+      "software",
+      "desktop"
+    ],
+    "question": "What should you check before installing a Flatpak application?",
+    "options": [
+      "The configured remote and the application’s source, permissions and suitability.",
+      "Whether its filename ends in .rpm.",
+      "Whether SELinux is disabled.",
+      "Whether the application can replace the kernel."
+    ],
+    "answer": 0,
+    "explanation": "Flatpak uses remotes and application permissions. Current RHCSA RHEL 10 objectives include managing Flatpak sources and packages.",
+    "objective": "Software · Flatpak repositories and applications"
+  },
+  {
+    "id": "linux-practice-11",
+    "source": "linux",
+    "tags": [
+      "dnf",
+      "software",
+      "install",
+      "repositories"
+    ],
+    "question": "DNF cannot find a package. Which check comes before downloading a random installer?",
+    "options": [
+      "Check the enabled repositories, package name and distribution version.",
+      "Disable package signature verification.",
+      "Run the first script found in a forum.",
+      "Rename a text file to .rpm."
+    ],
+    "answer": 0,
+    "explanation": "Available packages depend on the configured repositories, architecture and release. Keep integrity checks enabled.",
+    "objective": "Software · repositories"
+  },
+  {
+    "id": "linux-practice-12",
+    "source": "linux",
+    "tags": [
+      "storage",
+      "disk",
+      "baseline",
+      "filesystem"
+    ],
+    "question": "Which pair helps distinguish block devices from mounted filesystem free space?",
+    "options": [
+      "lsblk and df -hT",
+      "whoami and passwd",
+      "hostname and date",
+      "touch and echo"
+    ],
+    "answer": 0,
+    "explanation": "lsblk describes the block-device layout; df reports mounted filesystem usage and, with -T, filesystem type.",
+    "objective": "Storage · identify devices and filesystems"
+  },
+  {
+    "id": "linux-practice-13",
+    "source": "linux",
+    "tags": [
+      "xfs",
+      "storage",
+      "grow",
+      "filesystem"
+    ],
+    "question": "A lab needs a smaller XFS filesystem. Which plan is sound?",
+    "options": [
+      "Back up and recreate it at the required size, then restore and validate.",
+      "Shrink it in place with resize2fs.",
+      "Reduce the logical volume first.",
+      "Remove random directories until its size changes."
+    ],
+    "answer": 0,
+    "explanation": "XFS supports growth, not in-place shrinking. Reducing the underlying volume first can destroy data.",
+    "objective": "Filesystems · resizing and safe recovery"
+  },
+  {
+    "id": "linux-practice-14",
+    "source": "linux",
+    "tags": [
+      "mount",
+      "storage",
+      "reboot",
+      "filesystem"
+    ],
+    "question": "Why use a verified UUID in a persistent filesystem mount entry?",
+    "options": [
+      "It identifies the filesystem more reliably than an assumed device enumeration name.",
+      "It automatically creates a backup.",
+      "It disables mount errors.",
+      "It guarantees the disk can never fail."
+    ],
+    "answer": 0,
+    "explanation": "Device names can change. Verify the UUID and filesystem, test the configuration and keep console recovery available before rebooting.",
+    "objective": "Storage · persistent mounts"
+  },
+  {
+    "id": "linux-practice-15",
+    "source": "linux",
+    "tags": [
+      "selinux",
+      "security",
+      "nginx",
+      "troubleshoot"
+    ],
+    "question": "UNIX permissions look correct, but SELinux denies an application. What should you inspect?",
+    "options": [
+      "The denial evidence and relevant file/process contexts.",
+      "Only the desktop wallpaper.",
+      "Whether all files can be made world-writable.",
+      "How to permanently disable SELinux first."
+    ],
+    "answer": 0,
+    "explanation": "SELinux checks contexts and policy in addition to ordinary permissions. Diagnose the denial and apply the specific approved correction.",
+    "objective": "Security · SELinux contexts"
+  },
+  {
+    "id": "linux-practice-16",
+    "source": "linux",
+    "tags": [
+      "selinux",
+      "context",
+      "recover"
+    ],
+    "question": "A file has the wrong default SELinux context. Which tool can restore the policy-defined context?",
+    "options": [
+      "restorecon",
+      "chmod 777",
+      "kill -9",
+      "passwd -d"
+    ],
+    "answer": 0,
+    "explanation": "restorecon applies the default labeling policy for the path. Confirm the intended policy and path before running a change.",
+    "objective": "Security · restore file contexts"
+  },
+  {
+    "id": "linux-practice-17",
+    "source": "linux",
+    "tags": [
+      "firewall",
+      "network",
+      "central",
+      "port"
+    ],
+    "question": "A temporary firewalld rule works. What else must a persistent change consider?",
+    "options": [
+      "The correct zone and source, permanent configuration and post-reload verification.",
+      "Only the terminal color.",
+      "Opening every port permanently.",
+      "Removing the default route."
+    ],
+    "answer": 0,
+    "explanation": "Runtime and permanent rules are separate. Keep access narrowly scoped and verify behavior after applying the persistent configuration.",
+    "objective": "Networking · firewalld persistence"
+  },
+  {
+    "id": "linux-practice-18",
+    "source": "linux",
+    "tags": [
+      "network",
+      "dns",
+      "hostname"
+    ],
+    "question": "A name lookup fails but connecting to the correct IP works. Which layer should you investigate first?",
+    "options": [
+      "Name resolution.",
+      "The filesystem’s inode count.",
+      "The keyboard layout.",
+      "The private key’s comment field."
+    ],
+    "answer": 0,
+    "explanation": "The working IP path narrows the initial investigation toward the resolver, records and the exact hostname used.",
+    "objective": "Networking · hostname resolution"
+  },
+  {
+    "id": "linux-practice-19",
+    "source": "linux",
+    "tags": [
+      "transfer",
+      "checksum",
+      "scp",
+      "sftp"
+    ],
+    "question": "Why compare SHA-256 values after copying a practice file?",
+    "options": [
+      "To check whether the copied bytes match the original.",
+      "To prove the file is malware-free.",
+      "To create a private key.",
+      "To prove the destination service is running."
+    ],
+    "answer": 0,
+    "explanation": "Matching checksums support byte-for-byte integrity. They do not by themselves establish source trust or application health.",
+    "objective": "Running systems · secure transfer"
+  },
+  {
+    "id": "linux-practice-20",
+    "source": "linux",
+    "tags": [
+      "sftp",
+      "transfer",
+      "folder"
+    ],
+    "question": "At an sftp> prompt, what is the difference between pwd and lpwd?",
+    "options": [
+      "pwd shows the remote folder; lpwd shows the local folder.",
+      "Both print the SSH password.",
+      "pwd exits SFTP; lpwd uploads a key.",
+      "Both change the remote folder."
+    ],
+    "answer": 0,
+    "explanation": "SFTP maintains local and remote working directories. Confirm both before using put or get.",
+    "objective": "Essential tools · remote file paths"
+  },
+  {
+    "id": "linux-practice-21",
+    "source": "linux",
+    "tags": [
+      "script",
+      "shell",
+      "condition"
+    ],
+    "question": "What does a shell script’s test or [ expression do?",
+    "options": [
+      "Evaluate a condition that can guide an if branch.",
+      "Always install a package.",
+      "Create a new login shell account.",
+      "Make every command run as root."
+    ],
+    "answer": 0,
+    "explanation": "Conditional expressions return a status that a script can use for decisions. Read the expression and quote variable expansions appropriately.",
+    "objective": "Shell scripts · conditional execution"
+  },
+  {
+    "id": "linux-practice-22",
+    "source": "linux",
+    "tags": [
+      "script",
+      "shell",
+      "loop"
+    ],
+    "question": "Why use a for loop in a small administration script?",
+    "options": [
+      "To apply the same controlled operation to a known set of items.",
+      "To bypass file permissions.",
+      "To guarantee every command succeeds.",
+      "To turn text into a filesystem."
+    ],
+    "answer": 0,
+    "explanation": "Loops repeat a body. Validate the input list, handle failures and avoid unintended targets before applying changes.",
+    "objective": "Shell scripts · loops"
+  },
+  {
+    "id": "linux-practice-23",
+    "source": "linux",
+    "tags": [
+      "cron",
+      "timer",
+      "schedule",
+      "maintain"
+    ],
+    "question": "What should a scheduled administration task record besides its schedule?",
+    "options": [
+      "The execution identity, exact command, required environment and evidence of success or failure.",
+      "Only the creator’s favorite editor.",
+      "A plaintext copy of every password.",
+      "A promise that scheduled means successful."
+    ],
+    "answer": 0,
+    "explanation": "Scheduled jobs have an identity and environment that may differ from an interactive shell. Verify outcomes and preserve useful logs.",
+    "objective": "Maintain systems · task scheduling"
+  },
+  {
+    "id": "linux-practice-24",
+    "source": "linux",
+    "tags": [
+      "backup",
+      "rollback",
+      "recovery",
+      "snapshot"
+    ],
+    "question": "Why is a VM snapshot not a complete backup strategy?",
+    "options": [
+      "It depends on the VM’s underlying storage and may not survive its loss.",
+      "It always creates an off-site copy.",
+      "It restores every external dependency automatically.",
+      "It proves an application-consistent recovery."
+    ],
+    "answer": 0,
+    "explanation": "A snapshot is a point-in-time mechanism within the storage chain. A recovery plan also needs independent protection and a tested restore.",
+    "objective": "Course practice · recovery planning"
+  },
+  {
+    "id": "linux-practice-25",
+    "source": "linux",
+    "tags": [
+      "fault",
+      "agent",
+      "checkin",
+      "validate"
+    ],
+    "question": "After restoring an agent configuration, what best proves recovery?",
+    "options": [
+      "A recent, correctly identified check-in plus the original user-visible function.",
+      "An old screenshot of a green status.",
+      "Only a successful file copy.",
+      "Only an enabled service flag."
+    ],
+    "answer": 0,
+    "explanation": "Correlate the actual host, agent identity and timestamps, then repeat the original acceptance check. Old evidence can describe a different state.",
+    "objective": "Course practice · evidence-based validation"
+  },
+  {
+    "id": "linux-practice-26",
+    "source": "linux",
+    "tags": [
+      "tar",
+      "archive",
+      "backup"
+    ],
+    "question": "What should you do before extracting an unfamiliar archive into a system directory?",
+    "options": [
+      "Inspect its entries and test extraction into a disposable directory.",
+      "Extract as root immediately.",
+      "Delete the directory first.",
+      "Disable all integrity checks."
+    ],
+    "answer": 0,
+    "explanation": "Inspecting paths and testing in a disposable location reduces accidental overwrites and helps verify the archive’s actual structure.",
+    "objective": "Essential tools · archives"
+  },
+  {
+    "id": "azure-practice-1",
+    "source": "azure",
+    "tags": [
+      "scope",
+      "identity",
+      "subscription",
+      "plan"
+    ],
+    "question": "Before changing an Azure VM, which identity and scope checks matter?",
+    "options": [
+      "Confirm the tenant, subscription, resource group and selected VM.",
+      "Check only the browser tab color.",
+      "Assume the last-used subscription is correct.",
+      "Create a new subscription to avoid checking."
+    ],
+    "answer": 0,
+    "explanation": "The same names can exist in different scopes. Confirm the actual target and the permissions required before making a change.",
+    "objective": "AZ-104 · identities and governance"
+  },
+  {
+    "id": "azure-practice-2",
+    "source": "azure",
+    "tags": [
+      "rbac",
+      "identity",
+      "access"
+    ],
+    "question": "An operator needs to manage one resource group. Which role-assignment approach best follows least privilege?",
+    "options": [
+      "Assign a suitable role at that resource-group scope.",
+      "Grant global ownership everywhere.",
+      "Share another person’s account.",
+      "Disable authentication for the group."
+    ],
+    "answer": 0,
+    "explanation": "Azure RBAC combines a principal, role and scope. Use the smallest scope and permissions that satisfy the task.",
+    "objective": "AZ-104 · role assignments"
+  },
+  {
+    "id": "azure-practice-3",
+    "source": "azure",
+    "tags": [
+      "budget",
+      "cost",
+      "plan"
+    ],
+    "question": "Does an Azure budget alert automatically stop every VM when the threshold is reached?",
+    "options": [
+      "No. A budget alerts; automated action requires a separately configured process.",
+      "Yes, every subscription stops instantly.",
+      "Yes, including all retained disks.",
+      "Only if a VM has a public IP."
+    ],
+    "answer": 0,
+    "explanation": "A budget is a monitoring and notification mechanism. Plan any automation explicitly and account for retained resource charges.",
+    "objective": "AZ-104 · cost management"
+  },
+  {
+    "id": "azure-practice-4",
+    "source": "azure",
+    "tags": [
+      "deallocate",
+      "cost",
+      "compute",
+      "close"
+    ],
+    "question": "A VM is Stopped (deallocated). What cost assumption is safe?",
+    "options": [
+      "Compute allocation stops, but retained resources such as disks can still cost money.",
+      "Every associated resource is free.",
+      "All backups are deleted.",
+      "The application remains available."
+    ],
+    "answer": 0,
+    "explanation": "Deallocation and resource deletion are different. Review disks, IP resources, backups and other retained services in the cost plan.",
+    "objective": "AZ-104 · VM lifecycle"
+  },
+  {
+    "id": "azure-practice-5",
+    "source": "azure",
+    "tags": [
+      "network",
+      "subnet",
+      "vnet",
+      "plan"
+    ],
+    "question": "What is a subnet?",
+    "options": [
+      "An address range within a virtual network.",
+      "A backup of every VM.",
+      "An account with owner rights.",
+      "A public certificate authority."
+    ],
+    "answer": 0,
+    "explanation": "A subnet organizes a portion of the virtual network’s address space. Plan ranges and routing without overlap.",
+    "objective": "AZ-104 · virtual networking"
+  },
+  {
+    "id": "azure-practice-6",
+    "source": "azure",
+    "tags": [
+      "nsg",
+      "ssh",
+      "security",
+      "port"
+    ],
+    "question": "A lab permits SSH only from your workstation’s current public IPv4. Which source rule is most appropriate?",
+    "options": [
+      "That verified address as a /32 source, with the required destination port only.",
+      "Any source and every port.",
+      "The whole internet with no expiry or review.",
+      "The guest’s hostname as the source subnet."
+    ],
+    "answer": 0,
+    "explanation": "A /32 identifies a single IPv4 address. Recheck the source when it changes and retain another approved recovery path.",
+    "objective": "AZ-104 · network security groups"
+  },
+  {
+    "id": "azure-practice-7",
+    "source": "azure",
+    "tags": [
+      "dns",
+      "network",
+      "migrate"
+    ],
+    "question": "A migrated application’s hostname resolves to the old server. What should you investigate?",
+    "options": [
+      "The intended DNS record, resolver path and caching/TTL behavior.",
+      "Only the new VM’s wallpaper.",
+      "Whether the browser has more tabs.",
+      "Whether the old server can be deleted immediately."
+    ],
+    "answer": 0,
+    "explanation": "DNS can continue directing clients to the old endpoint. Validate the planned record and propagation before concluding that cutover failed.",
+    "objective": "AZ-104 · DNS and connectivity"
+  },
+  {
+    "id": "azure-practice-8",
+    "source": "azure",
+    "tags": [
+      "storage",
+      "redundancy",
+      "backup"
+    ],
+    "question": "Does storage redundancy replace a backup that protects against accidental deletion?",
+    "options": [
+      "No. Replication and recovery from deletion address different risks.",
+      "Yes, redundancy makes deletion impossible.",
+      "Yes, every replica keeps every old version forever.",
+      "Only if the VM uses two CPUs."
+    ],
+    "answer": 0,
+    "explanation": "Redundancy maintains copies for availability. Recovery features, retention and tested backups are separate controls.",
+    "objective": "AZ-104 · storage protection"
+  },
+  {
+    "id": "azure-practice-9",
+    "source": "azure",
+    "tags": [
+      "sas",
+      "storage",
+      "access"
+    ],
+    "question": "What is a sound approach to a temporary storage SAS?",
+    "options": [
+      "Limit permissions, scope and lifetime, and protect the token.",
+      "Give every permission with no expiry.",
+      "Publish the token in a public screenshot.",
+      "Use it as a replacement for all monitoring."
+    ],
+    "answer": 0,
+    "explanation": "A SAS can grant data access. Restrict it to the task and manage its exposure and expiry deliberately.",
+    "objective": "AZ-104 · storage access"
+  },
+  {
+    "id": "azure-practice-10",
+    "source": "azure",
+    "tags": [
+      "vm",
+      "disk",
+      "compute",
+      "size"
+    ],
+    "question": "Before resizing a production-like VM, what should the plan include?",
+    "options": [
+      "Workload requirements, supported sizes, cost, possible downtime and recovery checks.",
+      "Only the largest available size.",
+      "A promise that every resize is outage-free.",
+      "Deletion of all attached data disks."
+    ],
+    "answer": 0,
+    "explanation": "A resize affects capacity and may require interruption. Check compatibility, dependencies and the acceptance and rollback plan.",
+    "objective": "AZ-104 · VM capacity"
+  },
+  {
+    "id": "azure-practice-11",
+    "source": "azure",
+    "tags": [
+      "monitor",
+      "metrics",
+      "logs",
+      "baseline"
+    ],
+    "question": "An application is slow. Why compare both metrics and logs?",
+    "options": [
+      "Metrics show measured trends; logs can explain events and failures around the same time.",
+      "They are identical copies of the same information.",
+      "Logs always prove the root cause alone.",
+      "Metrics remove the need for timestamps."
+    ],
+    "answer": 0,
+    "explanation": "Use correlated time windows and the correct resource. Different evidence types help test a hypothesis without immediately changing the system.",
+    "objective": "AZ-104 · monitoring"
+  },
+  {
+    "id": "azure-practice-12",
+    "source": "azure",
+    "tags": [
+      "backup",
+      "restore",
+      "recover"
+    ],
+    "question": "Which result best demonstrates that a backup is useful?",
+    "options": [
+      "A permitted restore test followed by validation of the recovered workload.",
+      "A green backup-job label alone.",
+      "The existence of a vault name.",
+      "A screenshot from a different server."
+    ],
+    "answer": 0,
+    "explanation": "A completed backup job is useful evidence, but recoverability also depends on retention, permissions, dependencies and a validated restore.",
+    "objective": "AZ-104 · backup and recovery"
+  },
+  {
+    "id": "azure-practice-13",
+    "source": "azure",
+    "tags": [
+      "migrate",
+      "assessment",
+      "discovery",
+      "plan"
+    ],
+    "question": "What comes before committing to a migration target size?",
+    "options": [
+      "Discover dependencies and assess workload demand and compatibility.",
+      "Choose the cheapest size without measurements.",
+      "Delete the source server.",
+      "Skip application-owner input."
+    ],
+    "answer": 0,
+    "explanation": "Assessment informs sizing, readiness and dependencies. Treat assumptions as items to verify before planning cutover.",
+    "objective": "Azure migration practice · assessment"
+  },
+  {
+    "id": "azure-practice-14",
+    "source": "azure",
+    "tags": [
+      "migration",
+      "cutover",
+      "rollback",
+      "plan"
+    ],
+    "question": "What must be agreed before a migration cutover?",
+    "options": [
+      "Success checks, an outage window, owners and a rollback trigger.",
+      "Only the new server’s display name.",
+      "A rule that rollback is forbidden.",
+      "That replication means the application is already validated."
+    ],
+    "answer": 0,
+    "explanation": "A cutover changes the user’s service path. Agree how to validate it and when to restore the prior working route.",
+    "objective": "Azure migration practice · cutover"
+  },
+  {
+    "id": "azure-practice-15",
+    "source": "azure",
+    "tags": [
+      "migration",
+      "replication",
+      "test"
+    ],
+    "question": "Does successful replication alone prove the migrated application works?",
+    "options": [
+      "No. Test boot, dependencies, identity, networking and the application’s user workflow.",
+      "Yes, replication proves every dependency.",
+      "Yes, DNS can be ignored afterward.",
+      "Only if a VM has a public IP."
+    ],
+    "answer": 0,
+    "explanation": "Replication copies or synchronizes data. Application validation must prove the complete intended service after the move.",
+    "objective": "Azure migration practice · validation"
+  },
+  {
+    "id": "azure-practice-16",
+    "source": "azure",
+    "tags": [
+      "policy",
+      "governance",
+      "landing"
+    ],
+    "question": "How does Azure Policy differ from Azure RBAC?",
+    "options": [
+      "Policy evaluates or enforces resource conditions; RBAC controls who can perform actions.",
+      "Policy is a replacement for every user identity.",
+      "RBAC only controls storage redundancy.",
+      "They are the same feature with different colors."
+    ],
+    "answer": 0,
+    "explanation": "Use RBAC for access and Policy for governance rules. Their effects can combine, so inspect both when diagnosing a denied change.",
+    "objective": "AZ-104 · governance"
+  },
+  {
+    "id": "azure-practice-17",
+    "source": "azure",
+    "tags": [
+      "lock",
+      "delete",
+      "recovery"
+    ],
+    "question": "Why should you inspect resource locks before planned deletion?",
+    "options": [
+      "A lock can block the operation even when RBAC grants permission.",
+      "A lock is a password for the VM.",
+      "Locks create independent backups.",
+      "A lock automatically approves deletion."
+    ],
+    "answer": 0,
+    "explanation": "Locks protect resources against certain changes. Removing one requires the appropriate authority and a reviewed plan, not a security workaround.",
+    "objective": "AZ-104 · resource locks"
+  },
+  {
+    "id": "azure-practice-18",
+    "source": "azure",
+    "tags": [
+      "update",
+      "maintenance",
+      "patch"
+    ],
+    "question": "Why patch a representative pilot before a broad server wave?",
+    "options": [
+      "To catch compatibility and restart effects with limited impact.",
+      "To guarantee the other servers need no checks.",
+      "To remove the need for backups.",
+      "To install every optional change immediately."
+    ],
+    "answer": 0,
+    "explanation": "A pilot tests the change and its validation procedure. Expand only after the agreed checks pass and recovery remains available.",
+    "objective": "Azure operations practice · update management"
+  },
+  {
+    "id": "azure-practice-19",
+    "source": "azure",
+    "tags": [
+      "identity",
+      "secret",
+      "security"
+    ],
+    "question": "What belongs in a private learning note about a connection failure?",
+    "options": [
+      "Sanitized error text, the target role, time and checks performed.",
+      "A private key.",
+      "An administrator password.",
+      "A reusable access token."
+    ],
+    "answer": 0,
+    "explanation": "Useful troubleshooting evidence does not require storing authentication secrets. Remove secrets before saving or sharing screenshots.",
+    "objective": "AZ-104 · secure administration"
+  },
+  {
+    "id": "azure-practice-20",
+    "source": "azure",
+    "tags": [
+      "route",
+      "network",
+      "troubleshoot"
+    ],
+    "question": "A destination is reachable from one subnet but not another. What should you compare?",
+    "options": [
+      "Effective routes, network rules, DNS results and the actual source/destination path.",
+      "Only the VM’s display icon.",
+      "Unrelated storage filenames.",
+      "Whether every firewall can be disabled."
+    ],
+    "answer": 0,
+    "explanation": "Differences between paths narrow the investigation. Collect effective configuration before making targeted changes.",
+    "objective": "AZ-104 · network troubleshooting"
+  },
+  {
+    "id": "windows-practice-1",
+    "source": "windows",
+    "tags": [
+      "dns",
+      "domain",
+      "ad ds"
+    ],
+    "question": "Why must a domain client use the planned AD-aware DNS servers?",
+    "options": [
+      "It needs DNS service records to locate domain services.",
+      "DNS sets the client’s local administrator password.",
+      "DNS replaces every domain controller.",
+      "A public DNS server always contains private AD records."
+    ],
+    "answer": 0,
+    "explanation": "Active Directory depends on correct DNS discovery. Check the client’s resolver configuration and domain records before repeatedly attempting a join.",
+    "objective": "AZ-802 · AD DS and DNS"
+  },
+  {
+    "id": "windows-practice-2",
+    "source": "windows",
+    "tags": [
+      "replication",
+      "controller",
+      "dc02"
+    ],
+    "question": "After adding DC02, what best demonstrates healthy replication?",
+    "options": [
+      "Current replication checks and relevant event evidence from the actual controllers.",
+      "The presence of a second desktop icon.",
+      "An old screenshot showing DC01.",
+      "Only a successful local administrator sign-in."
+    ],
+    "answer": 0,
+    "explanation": "A second VM existing is not evidence that directory replication works. Check the intended controllers, errors and recent timestamps.",
+    "objective": "AZ-802 · AD DS replication"
+  },
+  {
+    "id": "windows-practice-3",
+    "source": "windows",
+    "tags": [
+      "gpo",
+      "policy",
+      "users"
+    ],
+    "question": "A GPO is linked, but one user does not receive it. What should you inspect?",
+    "options": [
+      "The object’s OU, link, filtering, inheritance and resultant policy evidence.",
+      "Delete every GPO.",
+      "Disable the domain firewall on all servers.",
+      "Assume linking proves application."
+    ],
+    "answer": 0,
+    "explanation": "Linking is only one condition. Scope and processing determine whether the policy applies to the intended user or computer.",
+    "objective": "AZ-802 · Group Policy"
+  },
+  {
+    "id": "windows-practice-4",
+    "source": "windows",
+    "tags": [
+      "users",
+      "group",
+      "access"
+    ],
+    "question": "Why assign access through a suitable security group rather than repeatedly adding individual users?",
+    "options": [
+      "It makes membership and permission review more consistent.",
+      "It makes authentication unnecessary.",
+      "It gives every member domain-admin rights automatically.",
+      "It replaces file and application permission checks."
+    ],
+    "answer": 0,
+    "explanation": "Groups organize principals for authorization. Still select the correct group type, scope and least-privilege permissions.",
+    "objective": "AZ-802 · security principals"
+  },
+  {
+    "id": "windows-practice-5",
+    "source": "windows",
+    "tags": [
+      "dhcp",
+      "network",
+      "address"
+    ],
+    "question": "What is the purpose of a DHCP reservation?",
+    "options": [
+      "Provide a planned client with a consistent address from the DHCP configuration.",
+      "Turn every address into a public address.",
+      "Replace DNS records automatically in every environment.",
+      "Bypass subnet planning."
+    ],
+    "answer": 0,
+    "explanation": "Reservations associate a client identifier with a configured address. Verify the scope and avoid conflicts.",
+    "objective": "AZ-802 · IP addressing"
+  },
+  {
+    "id": "windows-practice-6",
+    "source": "windows",
+    "tags": [
+      "vm",
+      "install",
+      "windows",
+      "dc01"
+    ],
+    "question": "Why confirm Desktop Experience before following a lesson with desktop clicks?",
+    "options": [
+      "Server Core does not provide the same graphical desktop workflow.",
+      "Desktop Experience removes the need for updates.",
+      "Server Core cannot run any server role.",
+      "The choice only changes the VM’s public IP."
+    ],
+    "answer": 0,
+    "explanation": "The installation option changes the available management interface. Use the edition and installation mode required by the lesson.",
+    "objective": "Windows lab practice · installation"
+  },
+  {
+    "id": "windows-practice-7",
+    "source": "windows",
+    "tags": [
+      "backup",
+      "controller",
+      "recover"
+    ],
+    "question": "Why does domain-controller recovery need a role-aware plan?",
+    "options": [
+      "Directory state, replication and supported recovery procedures matter beyond copying ordinary files.",
+      "Any desktop screenshot can restore AD DS.",
+      "Copying one log file restores the whole domain.",
+      "A controller never needs backup."
+    ],
+    "answer": 0,
+    "explanation": "Protect the appropriate system state and follow supported recovery procedures. Test the plan in an isolated permitted environment.",
+    "objective": "AZ-802 · recovery planning"
+  },
+  {
+    "id": "windows-practice-8",
+    "source": "windows",
+    "tags": [
+      "iis",
+      "application",
+      "helpdesk",
+      "install"
+    ],
+    "question": "Where should the lab’s application and IIS role normally run?",
+    "options": [
+      "On the dedicated application-server VM identified by the course.",
+      "On a domain controller just because it is already logged in.",
+      "Inside the physical host’s browser process.",
+      "On any random VM with available disk space."
+    ],
+    "answer": 0,
+    "explanation": "Separating roles limits impact and keeps the lab’s identity, application and recovery boundaries clear.",
+    "objective": "Windows application-server practice"
+  },
+  {
+    "id": "windows-practice-9",
+    "source": "windows",
+    "tags": [
+      "iis",
+      "https",
+      "binding",
+      "certificate"
+    ],
+    "question": "An IIS HTTPS binding uses the wrong site name. What should you check?",
+    "options": [
+      "The selected site, IP/port, host name, SNI choice and certificate name.",
+      "Only the screen resolution.",
+      "Whether all root certificates can be deleted.",
+      "Whether DNS can be ignored."
+    ],
+    "answer": 0,
+    "explanation": "A valid certificate must be bound to the intended endpoint, and the client’s requested name must be covered by the certificate.",
+    "objective": "Windows IIS practice · HTTPS"
+  },
+  {
+    "id": "windows-practice-10",
+    "source": "windows",
+    "tags": [
+      "service",
+      "application",
+      "troubleshoot"
+    ],
+    "question": "A Windows service is Running. What still needs validation?",
+    "options": [
+      "The application’s intended user workflow and dependencies.",
+      "Nothing; Running proves every function.",
+      "Only the taskbar color.",
+      "Whether a different server has the same name."
+    ],
+    "answer": 0,
+    "explanation": "A service state describes a process, not every dependency or application outcome. Repeat the agreed acceptance test.",
+    "objective": "AZ-802 · monitoring and troubleshooting"
+  },
+  {
+    "id": "windows-practice-11",
+    "source": "windows",
+    "tags": [
+      "storage",
+      "share",
+      "permissions"
+    ],
+    "question": "A user has share permission but cannot open a file over SMB. What else matters?",
+    "options": [
+      "The file’s NTFS permissions and other effective-access conditions.",
+      "Share permission always overrides every NTFS restriction.",
+      "The user’s desktop background.",
+      "Whether the file extension is uppercase."
+    ],
+    "answer": 0,
+    "explanation": "Network file access combines share and filesystem authorization, along with identity and access conditions. Inspect effective permissions.",
+    "objective": "AZ-802 · file services"
+  },
+  {
+    "id": "windows-practice-12",
+    "source": "windows",
+    "tags": [
+      "wsus",
+      "update",
+      "groups"
+    ],
+    "question": "Why separate WSUS pilot and broad deployment computer groups?",
+    "options": [
+      "To stage approvals and observe impact before updating more machines.",
+      "To avoid all restarts forever.",
+      "To bypass update validation.",
+      "To make every server a domain controller."
+    ],
+    "answer": 0,
+    "explanation": "Deployment groups support controlled waves. Verify membership and policy before approving a change for a larger population.",
+    "objective": "Windows update practice · WSUS"
+  },
+  {
+    "id": "windows-practice-13",
+    "source": "windows",
+    "tags": [
+      "wsus",
+      "client",
+      "policy"
+    ],
+    "question": "A client does not appear in the expected WSUS group. What should you investigate?",
+    "options": [
+      "Client policy, targeting method, reporting time and the actual server configured.",
+      "Approve all updates to every server.",
+      "Disable domain authentication.",
+      "Delete the client’s data disk."
+    ],
+    "answer": 0,
+    "explanation": "Incorrect targeting or policy can place clients in the wrong group or service. Confirm configuration and current reporting evidence first.",
+    "objective": "Windows update practice · WSUS targeting"
+  },
+  {
+    "id": "windows-practice-14",
+    "source": "windows",
+    "tags": [
+      "wsus",
+      "patch",
+      "reboot",
+      "maintain"
+    ],
+    "question": "What should a controlled patching plan specify?",
+    "options": [
+      "Pilot scope, approvals, a maintenance window, restart ownership and post-update checks.",
+      "Only the download size.",
+      "That an update never needs recovery.",
+      "That all users should remain unaware of planned downtime."
+    ],
+    "answer": 0,
+    "explanation": "Patching can affect availability. Plan who acts, when the change happens and how success or rollback is determined.",
+    "objective": "Windows update practice · maintenance"
+  },
+  {
+    "id": "windows-practice-15",
+    "source": "windows",
+    "tags": [
+      "dmz",
+      "proxy",
+      "isolation",
+      "network"
+    ],
+    "question": "Why avoid domain-joining an exposed proxy merely for convenience?",
+    "options": [
+      "It can unnecessarily expand the identity and trust boundary.",
+      "A workgroup proxy cannot send any network traffic.",
+      "Domain membership is a substitute for firewall rules.",
+      "It makes every backend certificate trusted."
+    ],
+    "answer": 0,
+    "explanation": "Keep exposed and trusted zones deliberately separated. Grant only the connectivity and identities required by the approved design.",
+    "objective": "Windows DMZ practice · isolation"
+  },
+  {
+    "id": "windows-practice-16",
+    "source": "windows",
+    "tags": [
+      "dmz",
+      "firewall",
+      "port",
+      "network"
+    ],
+    "question": "Which firewall request is easiest to review and validate?",
+    "options": [
+      "A named source, destination, direction, protocol, port and purpose.",
+      "Allow everything everywhere.",
+      "Any rule with an unfamiliar name.",
+      "A rule with no owner or expiry review."
+    ],
+    "answer": 0,
+    "explanation": "Specific flows make least-privilege access and troubleshooting practical. Validate both allowed and deliberately blocked paths.",
+    "objective": "AZ-802 · network security"
+  },
+  {
+    "id": "windows-practice-17",
+    "source": "windows",
+    "tags": [
+      "migration",
+      "domain",
+      "dns",
+      "trust"
+    ],
+    "question": "Does a trust between domains automatically migrate users and their data?",
+    "options": [
+      "No. Trust and migration are separate tasks.",
+      "Yes, every account and profile moves instantly.",
+      "Yes, including every application secret.",
+      "Only if both domains have the same wallpaper."
+    ],
+    "answer": 0,
+    "explanation": "A trust can support authentication between scopes. Migration still requires explicit identity, data, application and permission planning.",
+    "objective": "Windows migration practice"
+  },
+  {
+    "id": "windows-practice-18",
+    "source": "windows",
+    "tags": [
+      "powershell",
+      "identity",
+      "remote"
+    ],
+    "question": "How can you avoid running a Windows command on the wrong host?",
+    "options": [
+      "Check hostname, whoami and the current session context before changing anything.",
+      "Assume every PowerShell tab is remote.",
+      "Use the first open tab without checking.",
+      "Rename every host to the same name."
+    ],
+    "answer": 0,
+    "explanation": "A PowerShell prompt can be local or remote. Verify identity and target, and use the workspace named in the lesson.",
+    "objective": "AZ-802 · remote management"
+  },
+  {
+    "id": "windows-practice-19",
+    "source": "windows",
+    "tags": [
+      "baseline",
+      "logs",
+      "recovery"
+    ],
+    "question": "Why preserve logs and a starting baseline before troubleshooting changes?",
+    "options": [
+      "They help compare states and test whether the change caused the symptom.",
+      "They guarantee no outage can happen.",
+      "They replace all backups.",
+      "They authorize every possible change."
+    ],
+    "answer": 0,
+    "explanation": "Baseline and timestamped evidence make reasoning and handoff more reliable. Preserve the original evidence before rotating or editing it.",
+    "objective": "AZ-802 · monitoring and troubleshooting"
+  },
+  {
+    "id": "windows-practice-20",
+    "source": "windows",
+    "tags": [
+      "hyper-v",
+      "snapshot",
+      "vm",
+      "checkpoint"
+    ],
+    "question": "A VM checkpoint exists. Which claim is unsafe?",
+    "options": [
+      "It guarantees recovery if the underlying storage is lost.",
+      "It is a point-in-time recovery mechanism.",
+      "Its suitability depends on workload and checkpoint type.",
+      "Its retention and cleanup require planning."
+    ],
+    "answer": 0,
+    "explanation": "Checkpoints depend on the VM’s storage chain. Use independent backups and workload-appropriate recovery tests as well.",
+    "objective": "AZ-802 · VM checkpoints"
+  },
+  {
+    "id": "pki-practice-1",
+    "source": "pki",
+    "tags": [
+      "csr",
+      "request",
+      "key"
+    ],
+    "question": "Which item is normally submitted to the PKI team for signing?",
+    "options": [
+      "The checked CSR and required request details.",
+      "The private key.",
+      "The root CA’s private key.",
+      "The server administrator’s password."
+    ],
+    "answer": 0,
+    "explanation": "A CSR carries public request information. Keep the server’s private key protected and provide the name and approval details required by the PKI team.",
+    "objective": "Certificate practice · CSR handoff"
+  },
+  {
+    "id": "pki-practice-2",
+    "source": "pki",
+    "tags": [
+      "root",
+      "intermediate",
+      "chain",
+      "trust"
+    ],
+    "question": "What is the usual job of an intermediate CA?",
+    "options": [
+      "Issue certificates beneath a trusted root in the certificate hierarchy.",
+      "Act as the website’s private key.",
+      "Replace every server certificate.",
+      "Turn an expired leaf certificate into a valid one."
+    ],
+    "answer": 0,
+    "explanation": "An intermediate links the issuing path to a root trust anchor. The website still needs its own valid leaf certificate and key.",
+    "objective": "Certificate practice · chain roles"
+  },
+  {
+    "id": "pki-practice-3",
+    "source": "pki",
+    "tags": [
+      "root",
+      "trust",
+      "store"
+    ],
+    "question": "When should a private root CA certificate be added to a client trust store?",
+    "options": [
+      "After verifying its identity and receiving approval to trust that CA.",
+      "Whenever any website asks.",
+      "To hide a certificate-name mismatch.",
+      "Instead of checking the server certificate’s expiry."
+    ],
+    "answer": 0,
+    "explanation": "Adding a root changes what the client trusts. Verify the CA through an approved independent channel and install it only in the intended store.",
+    "objective": "Certificate practice · trust decisions"
+  },
+  {
+    "id": "pki-practice-4",
+    "source": "pki",
+    "tags": [
+      "san",
+      "name",
+      "validate",
+      "https"
+    ],
+    "question": "The browser requests helpdesk.lab.example.test. What must the server certificate cover?",
+    "options": [
+      "That exact hostname through an appropriate subject alternative name.",
+      "Only the administrator’s username.",
+      "Only the VM’s private IP when the browser uses a DNS name.",
+      "Any unrelated hostname from the same organization."
+    ],
+    "answer": 0,
+    "explanation": "Name validation uses the requested service identity. Trust and a valid date do not compensate for a name mismatch.",
+    "objective": "Certificate practice · name validation"
+  },
+  {
+    "id": "pki-practice-5",
+    "source": "pki",
+    "tags": [
+      "chain",
+      "install",
+      "intermediate",
+      "nginx"
+    ],
+    "question": "What should a typical server-sent certificate chain include?",
+    "options": [
+      "The server leaf certificate and the required intermediate certificates in the appropriate order.",
+      "Every private key in the organization.",
+      "Only an unrelated root certificate.",
+      "An expired leaf to keep the old application running."
+    ],
+    "answer": 0,
+    "explanation": "Clients need a path from the leaf through the issuing intermediates to a trusted anchor. Follow the product’s chain-file or store requirements.",
+    "objective": "Certificate practice · chain installation"
+  },
+  {
+    "id": "pki-practice-6",
+    "source": "pki",
+    "tags": [
+      "key",
+      "match",
+      "install"
+    ],
+    "question": "Why compare the certificate’s public key with the key used for its CSR?",
+    "options": [
+      "To verify the returned certificate belongs with the intended private key.",
+      "To upload the private key to a public checker.",
+      "To remove the certificate’s expiry.",
+      "To change its subject names."
+    ],
+    "answer": 0,
+    "explanation": "A certificate and an unrelated private key do not form the required server identity pair. Use local checks and do not expose private material.",
+    "objective": "Certificate practice · key matching"
+  },
+  {
+    "id": "pki-practice-7",
+    "source": "pki",
+    "tags": [
+      "expiry",
+      "renew",
+      "maintain"
+    ],
+    "question": "When should renewal planning begin?",
+    "options": [
+      "Before expiry, allowing time for approval, installation, validation and rollback.",
+      "Only after every client connection fails.",
+      "After deleting the old key without a replacement.",
+      "Never, if the certificate was once trusted."
+    ],
+    "answer": 0,
+    "explanation": "Issuance and deployment can take time. Track owners, service names, expiry and reminder dates, then validate the replacement before closing the change.",
+    "objective": "Certificate practice · renewal"
+  },
+  {
+    "id": "pki-practice-8",
+    "source": "pki",
+    "tags": [
+      "nginx",
+      "config",
+      "install",
+      "rollback"
+    ],
+    "question": "After preparing an NGINX certificate change, which sequence is sound?",
+    "options": [
+      "Test configuration, apply the approved reload, then verify the served HTTPS certificate.",
+      "Reload first and never inspect the result.",
+      "Delete the old configuration before making a recovery copy.",
+      "Disable validation to avoid a failed test."
+    ],
+    "answer": 0,
+    "explanation": "A configuration test and a live endpoint test check different things. Keep a reviewed rollback path and verify the actual certificate served.",
+    "objective": "NGINX certificate practice"
+  },
+  {
+    "id": "pki-practice-9",
+    "source": "pki",
+    "tags": [
+      "iis",
+      "store",
+      "private key",
+      "install"
+    ],
+    "question": "Why can a certificate appear in a Windows store but be unusable for a server binding?",
+    "options": [
+      "The intended private key may be missing or inaccessible to the service.",
+      "Every imported certificate automatically gains its original private key.",
+      "The store deletes all subject names.",
+      "IIS never uses private keys."
+    ],
+    "answer": 0,
+    "explanation": "Importing a public certificate does not recreate a missing private key. Check key association, machine/user store and service access.",
+    "objective": "Windows certificate practice"
+  },
+  {
+    "id": "pki-practice-10",
+    "source": "pki",
+    "tags": [
+      "csr",
+      "details",
+      "request"
+    ],
+    "question": "What should be checked before sending a CSR?",
+    "options": [
+      "Requested names, key parameters, intended usage and the approved request information.",
+      "Only the file’s icon.",
+      "Whether it contains an administrator password.",
+      "Whether it was renamed from any text file."
+    ],
+    "answer": 0,
+    "explanation": "Review the decoded request locally. Catch incorrect names and parameters before the certificate is issued.",
+    "objective": "Certificate practice · request review"
+  },
+  {
+    "id": "pki-practice-11",
+    "source": "pki",
+    "tags": [
+      "https",
+      "validate",
+      "troubleshoot"
+    ],
+    "question": "A certificate file on disk is current, but clients see an expired certificate. What is a likely next check?",
+    "options": [
+      "Inspect which endpoint, binding or proxy is actually serving the connection.",
+      "Assume the disk file proves the live connection changed.",
+      "Delete all trusted roots.",
+      "Ignore the browser’s requested hostname."
+    ],
+    "answer": 0,
+    "explanation": "A load balancer, proxy, alternate binding or unreloaded process can serve a different certificate. Inspect the actual service path.",
+    "objective": "Certificate practice · live validation"
+  },
+  {
+    "id": "pki-practice-12",
+    "source": "pki",
+    "tags": [
+      "expiry",
+      "time",
+      "validate"
+    ],
+    "question": "Why check system time when investigating a not-yet-valid certificate?",
+    "options": [
+      "Certificate validity is evaluated against time.",
+      "Changing the date is a proper way to renew a certificate.",
+      "Time removes the need for a trusted issuer.",
+      "Time changes the certificate’s subject names."
+    ],
+    "answer": 0,
+    "explanation": "Correct the clock through the approved time configuration and inspect the certificate’s dates. Do not move the clock merely to bypass validation.",
+    "objective": "Certificate practice · validity dates"
+  },
+  {
+    "id": "pki-practice-13",
+    "source": "pki",
+    "tags": [
+      "rollback",
+      "renew",
+      "backup"
+    ],
+    "question": "What should a certificate rollback plan identify?",
+    "options": [
+      "The prior working configuration and protected key/certificate material, restore steps and validation checks.",
+      "Only the new certificate’s filename.",
+      "A public copy of the private key.",
+      "An instruction to disable HTTPS permanently."
+    ],
+    "answer": 0,
+    "explanation": "Rollback must restore a known working configuration without exposing secrets. Confirm that the prior certificate remains suitable and permitted.",
+    "objective": "Certificate practice · rollback"
+  },
+  {
+    "id": "pki-practice-14",
+    "source": "pki",
+    "tags": [
+      "pem",
+      "der",
+      "pfx",
+      "format"
+    ],
+    "question": "What can a password-protected PFX contain?",
+    "options": [
+      "A certificate, its private key and optionally certificate-chain material.",
+      "Only a public DNS record.",
+      "Only a server’s IP address.",
+      "A guarantee that any importer is authorized."
+    ],
+    "answer": 0,
+    "explanation": "PFX/PKCS#12 can transport private-key material. Protect it, limit access and follow approved import and cleanup procedures.",
+    "objective": "Certificate practice · file formats"
+  },
+  {
+    "id": "pki-practice-15",
+    "source": "pki",
+    "tags": [
+      "practice",
+      "ca",
+      "root"
+    ],
+    "question": "Where should a training CA’s root be trusted?",
+    "options": [
+      "Only in the explicitly approved practice trust boundary.",
+      "On all personal and work devices by default.",
+      "In every production domain without approval.",
+      "Inside public DNS instead of certificate stores."
+    ],
+    "answer": 0,
+    "explanation": "A practice CA is for the lab. Trust anchors affect authentication decisions and must not silently spread into unrelated environments.",
+    "objective": "Certificate practice · practice CA scope"
+  },
+  {
+    "id": "pki-practice-16",
+    "source": "pki",
+    "tags": [
+      "validate",
+      "check",
+      "chain"
+    ],
+    "question": "Which combination best demonstrates successful HTTPS deployment?",
+    "options": [
+      "Correct name, valid dates, trusted chain, intended certificate and a working application request.",
+      "A successful file upload alone.",
+      "A green text label in a tutorial.",
+      "A restart without any client test."
+    ],
+    "answer": 0,
+    "explanation": "Validate both the TLS identity and the application outcome from the intended client path. Preserve sanitized evidence of the result.",
+    "objective": "Certificate practice · acceptance checks"
+  },
+  {
+    "id": "mecm-practice-1",
+    "source": "mecm",
+    "tags": [
+      "collection",
+      "device",
+      "target"
+    ],
+    "question": "Why preview collection membership before deploying an application?",
+    "options": [
+      "To confirm the intended devices are targeted.",
+      "To authorize deployment to every device.",
+      "To remove the need for a pilot.",
+      "To replace application detection rules."
+    ],
+    "answer": 0,
+    "explanation": "Collections define deployment scope. Validate membership, exclusions and a pilot before broad distribution.",
+    "objective": "Configuration Manager · collections"
+  },
+  {
+    "id": "mecm-practice-2",
+    "source": "mecm",
+    "tags": [
+      "boundary",
+      "content",
+      "distribution"
+    ],
+    "question": "A client cannot find content. Which configuration is relevant?",
+    "options": [
+      "Boundary groups, content distribution and the client’s selected content location.",
+      "Only the server’s wallpaper.",
+      "The domain’s password history length alone.",
+      "The certificate renewal reminder text."
+    ],
+    "answer": 0,
+    "explanation": "Content retrieval depends on location and availability. Verify the client’s effective boundary group and that the required content reached a suitable distribution point.",
+    "objective": "Configuration Manager · content"
+  },
+  {
+    "id": "mecm-practice-3",
+    "source": "mecm",
+    "tags": [
+      "detection",
+      "app",
+      "deploy"
+    ],
+    "question": "What is an application detection method used for?",
+    "options": [
+      "Determine whether the specified application state is already present.",
+      "Create every required firewall rule.",
+      "Guarantee an installer is safe.",
+      "Replace the uninstall command."
+    ],
+    "answer": 0,
+    "explanation": "Detection drives compliance and deployment decisions. Test both installed and absent states using an appropriate, reliable indicator.",
+    "objective": "Configuration Manager · applications"
+  },
+  {
+    "id": "mecm-practice-4",
+    "source": "mecm",
+    "tags": [
+      "heartbeat",
+      "client",
+      "health"
+    ],
+    "question": "Does a recent heartbeat alone prove the client can install an application?",
+    "options": [
+      "No. Policy, content, execution and detection need separate checks.",
+      "Yes, every component is proven healthy.",
+      "Yes, including application compatibility.",
+      "Only if the console shows a device name."
+    ],
+    "answer": 0,
+    "explanation": "Heartbeat is one health signal. Follow the actual deployment path and inspect the relevant logs and outcomes.",
+    "objective": "Configuration Manager · client health"
+  },
+  {
+    "id": "mecm-practice-5",
+    "source": "mecm",
+    "tags": [
+      "maintenance",
+      "window",
+      "reboot"
+    ],
+    "question": "What is the role of a maintenance window?",
+    "options": [
+      "Constrain when permitted deployments and related activity may run under the configured rules.",
+      "Guarantee no restart ever occurs.",
+      "Approve every application automatically.",
+      "Replace backup and recovery planning."
+    ],
+    "answer": 0,
+    "explanation": "Windows affect scheduling but must be understood with deployment deadlines, restart behavior and the organization’s change plan.",
+    "objective": "Configuration Manager · maintenance"
+  },
+  {
+    "id": "mecm-practice-6",
+    "source": "mecm",
+    "tags": [
+      "sup",
+      "update",
+      "wsus"
+    ],
+    "question": "What does a software update point contribute to update management?",
+    "options": [
+      "Update synchronization and client update-scanning integration for the configured site.",
+      "An automatic replacement for all distribution points.",
+      "A guarantee every update installs successfully.",
+      "A replacement for device targeting."
+    ],
+    "answer": 0,
+    "explanation": "Synchronization, scanning, content distribution, deployment and installation are separate stages. Diagnose the stage that failed.",
+    "objective": "Configuration Manager · software updates"
+  },
+  {
+    "id": "mecm-practice-7",
+    "source": "mecm",
+    "tags": [
+      "baseline",
+      "compliance",
+      "remediate"
+    ],
+    "question": "Before enabling automatic remediation in a compliance baseline, what should you do?",
+    "options": [
+      "Test detection and the remediation change on a representative pilot.",
+      "Apply it to all servers immediately.",
+      "Assume every noncompliant value is safe to change.",
+      "Remove the rollback procedure."
+    ],
+    "answer": 0,
+    "explanation": "Detection can be wrong and remediation changes configuration. Review scope, side effects and recovery before broad enforcement.",
+    "objective": "Configuration Manager · compliance"
+  },
+  {
+    "id": "mecm-practice-8",
+    "source": "mecm",
+    "tags": [
+      "site",
+      "install",
+      "prerequisite"
+    ],
+    "question": "Why resolve prerequisite-check failures before site installation?",
+    "options": [
+      "They identify unsupported or missing dependencies that can prevent a reliable installation.",
+      "They only change console colors.",
+      "They prove the server should be a domain controller.",
+      "They eliminate the need for capacity planning."
+    ],
+    "answer": 0,
+    "explanation": "Use supported prerequisites and record the selected versions. Do not bypass a failure without an approved, documented reason.",
+    "objective": "Configuration Manager · site preparation"
+  },
+  {
+    "id": "mecm-practice-9",
+    "source": "mecm",
+    "tags": [
+      "client",
+      "enroll",
+      "pilot"
+    ],
+    "question": "What should a test-client enrollment verify?",
+    "options": [
+      "Correct site assignment, policy retrieval and the intended management path.",
+      "Only the presence of a desktop shortcut.",
+      "That every software package is installed.",
+      "That updates can never fail."
+    ],
+    "answer": 0,
+    "explanation": "A client install is not the complete enrollment outcome. Confirm site identity and current communication before trusting deployments.",
+    "objective": "Configuration Manager · clients"
+  },
+  {
+    "id": "mecm-practice-10",
+    "source": "mecm",
+    "tags": [
+      "app",
+      "uninstall",
+      "rollback"
+    ],
+    "question": "Why test an uninstall command before production deployment?",
+    "options": [
+      "It can be part of a safe application rollback or removal plan.",
+      "It guarantees no user data can be affected.",
+      "It substitutes for installation detection.",
+      "It approves every future version."
+    ],
+    "answer": 0,
+    "explanation": "Test removal, exit codes, application behavior and data handling on a permitted pilot. Keep a suitable recovery plan.",
+    "objective": "Configuration Manager · application recovery"
+  },
+  {
+    "id": "mecm-practice-11",
+    "source": "mecm",
+    "tags": [
+      "migration",
+      "move",
+      "plan"
+    ],
+    "question": "Before moving a Configuration Manager role, what must be understood?",
+    "options": [
+      "Dependencies, supported migration paths, client impact and recovery.",
+      "Only the role’s display name.",
+      "That copying one folder migrates all site state.",
+      "That clients require no validation after a move."
+    ],
+    "answer": 0,
+    "explanation": "A site role has databases, content, certificates, identities and clients that may depend on it. Plan and validate the supported transition.",
+    "objective": "Configuration Manager · role migration"
+  },
+  {
+    "id": "mecm-practice-12",
+    "source": "mecm",
+    "tags": [
+      "logs",
+      "troubleshoot",
+      "operations"
+    ],
+    "question": "A deployment fails on one pilot. What evidence helps most?",
+    "options": [
+      "The deployment identity, timestamps, client logs, exit code and detection result.",
+      "A screenshot from an unrelated client.",
+      "A claim that the installer usually works.",
+      "Deleting the client’s logs before review."
+    ],
+    "answer": 0,
+    "explanation": "Correlate evidence for the same device and deployment. Distinguish download, execution, restart and detection failures.",
+    "objective": "Configuration Manager · troubleshooting"
+  },
+  {
+    "id": "splunk-practice-1",
+    "source": "splunk",
+    "tags": [
+      "index",
+      "upload",
+      "data"
+    ],
+    "question": "What does an index organize in Splunk?",
+    "options": [
+      "Stored searchable event data.",
+      "The operating system’s user passwords.",
+      "Only dashboard colors.",
+      "A list of every browser tab."
+    ],
+    "answer": 0,
+    "explanation": "Indexes organize event storage and search scope. Use the intended training index and appropriate permissions.",
+    "objective": "Splunk Core User · data"
+  },
+  {
+    "id": "splunk-practice-2",
+    "source": "splunk",
+    "tags": [
+      "sourcetype",
+      "upload",
+      "parse"
+    ],
+    "question": "Why choose the appropriate sourcetype?",
+    "options": [
+      "It helps Splunk interpret and label the data format correctly.",
+      "It creates an administrator account.",
+      "It guarantees every event is trustworthy.",
+      "It replaces the search time range."
+    ],
+    "answer": 0,
+    "explanation": "Sourcetype influences parsing and field behavior. Confirm timestamp and event boundaries when importing practice data.",
+    "objective": "Splunk Core User · data inputs"
+  },
+  {
+    "id": "splunk-practice-3",
+    "source": "splunk",
+    "tags": [
+      "time",
+      "search",
+      "events"
+    ],
+    "question": "A search returns no results. What quick check should you make?",
+    "options": [
+      "The time range and intended index, before concluding that no data exists.",
+      "Delete the index.",
+      "Disable all access control.",
+      "Assume an empty result proves the system is secure."
+    ],
+    "answer": 0,
+    "explanation": "An empty result may reflect scope, time, syntax or ingestion issues. Check the search context before making changes.",
+    "objective": "Splunk Core User · search"
+  },
+  {
+    "id": "splunk-practice-4",
+    "source": "splunk",
+    "tags": [
+      "stats",
+      "aggregate",
+      "count"
+    ],
+    "question": "What does stats count by host produce?",
+    "options": [
+      "An event count grouped by host for the current search results.",
+      "A reboot of every host.",
+      "A list of file permissions.",
+      "A proof that every host is uncompromised."
+    ],
+    "answer": 0,
+    "explanation": "stats summarizes the events currently in scope. The result depends on the search and time range.",
+    "objective": "Splunk Core User · statistics"
+  },
+  {
+    "id": "splunk-practice-5",
+    "source": "splunk",
+    "tags": [
+      "table",
+      "fields",
+      "search"
+    ],
+    "question": "What is table useful for in an SPL search?",
+    "options": [
+      "Display selected fields as columns.",
+      "Create a database backup.",
+      "Install a forwarder automatically.",
+      "Rewrite every original event."
+    ],
+    "answer": 0,
+    "explanation": "table changes the presentation of selected search results. Confirm that the fields exist and suit the question you are answering.",
+    "objective": "Splunk Core User · fields"
+  },
+  {
+    "id": "splunk-practice-6",
+    "source": "splunk",
+    "tags": [
+      "dashboard",
+      "panel",
+      "report"
+    ],
+    "question": "What should a dashboard panel make clear?",
+    "options": [
+      "The question it answers, its filters and time range.",
+      "Only a visually impressive chart.",
+      "That every displayed count is live forever.",
+      "A private key used to load the data."
+    ],
+    "answer": 0,
+    "explanation": "Clear scope makes a visualization interpretable. A chart without time and filter context can mislead the learner.",
+    "objective": "Splunk Core User · dashboards"
+  },
+  {
+    "id": "splunk-practice-7",
+    "source": "splunk",
+    "tags": [
+      "lookup",
+      "fields",
+      "enrich"
+    ],
+    "question": "What is a lookup commonly used for?",
+    "options": [
+      "Add related information to matching event fields.",
+      "Change every server’s hostname.",
+      "Replace all raw event storage.",
+      "Automatically prove an event is malicious."
+    ],
+    "answer": 0,
+    "explanation": "Lookups enrich results using a defined relationship. Validate keys, types and unmatched values.",
+    "objective": "Splunk Core User · lookups"
+  },
+  {
+    "id": "splunk-practice-8",
+    "source": "splunk",
+    "tags": [
+      "alert",
+      "schedule",
+      "report"
+    ],
+    "question": "What should be tested before enabling a scheduled alert?",
+    "options": [
+      "The search, time window, trigger condition and expected notification behavior.",
+      "Only its icon.",
+      "That it includes every event forever.",
+      "Whether all false positives can be ignored."
+    ],
+    "answer": 0,
+    "explanation": "An alert is a search and decision process run on a schedule. Test matching and nonmatching cases and account for repeated triggers.",
+    "objective": "Splunk practice · scheduled searches"
+  },
+  {
+    "id": "splunk-practice-9",
+    "source": "splunk",
+    "tags": [
+      "investigate",
+      "auth",
+      "security"
+    ],
+    "question": "Several failures followed by a success from one source are observed. What is justified?",
+    "options": [
+      "Investigate the sequence and correlate identity, source and time; it is not proof by itself.",
+      "Immediately claim a confirmed breach without other evidence.",
+      "Delete the successful event.",
+      "Assume all failures are harmless."
+    ],
+    "answer": 0,
+    "explanation": "Event patterns support hypotheses. Correlate additional evidence and document uncertainty before drawing a conclusion.",
+    "objective": "Splunk investigation practice"
+  },
+  {
+    "id": "splunk-practice-10",
+    "source": "splunk",
+    "tags": [
+      "filter",
+      "search",
+      "scope"
+    ],
+    "question": "Why begin a search with a narrow, relevant scope?",
+    "options": [
+      "Reduce unrelated events and make the question easier to investigate.",
+      "Guarantee no relevant event can ever be missed.",
+      "Remove the need to verify the time range.",
+      "Grant extra access automatically."
+    ],
+    "answer": 0,
+    "explanation": "Scope improves relevance and efficiency, but you must review whether filters exclude needed evidence.",
+    "objective": "Splunk Core User · search scope"
+  },
+  {
+    "id": "splunk-practice-11",
+    "source": "splunk",
+    "tags": [
+      "export",
+      "evidence",
+      "report"
+    ],
+    "question": "What should a saved investigation result include?",
+    "options": [
+      "The search text, time range, relevant fields and the meaning of the result.",
+      "Only a cropped number without context.",
+      "The administrator’s password.",
+      "A statement that the result never changes."
+    ],
+    "answer": 0,
+    "explanation": "Reproducible evidence needs enough context to understand how it was obtained and what it supports.",
+    "objective": "Splunk practice · evidence"
+  },
+  {
+    "id": "splunk-practice-12",
+    "source": "splunk",
+    "tags": [
+      "input",
+      "dashboard",
+      "token"
+    ],
+    "question": "A dashboard input changes a panel’s result. What should you verify?",
+    "options": [
+      "The token/filter mapping and that the panel uses the intended value.",
+      "That every panel ignores input values.",
+      "Only the dashboard’s title font.",
+      "That a changed count proves a security incident."
+    ],
+    "answer": 0,
+    "explanation": "Inputs affect searches through configured values. Test representative selections and empty or default states.",
+    "objective": "Splunk dashboard practice"
+  },
+  {
+    "id": "vsphere-practice-1",
+    "source": "vsphere",
+    "tags": [
+      "vcenter",
+      "host",
+      "esxi"
+    ],
+    "question": "Which component centrally manages multiple ESXi hosts?",
+    "options": [
+      "vCenter Server.",
+      "A guest’s text editor.",
+      "A single VMDK file.",
+      "The Windows Start menu."
+    ],
+    "answer": 0,
+    "explanation": "vCenter provides central inventory and management. ESXi runs VMs on an individual host.",
+    "objective": "vSphere fundamentals · management roles"
+  },
+  {
+    "id": "vsphere-practice-2",
+    "source": "vsphere",
+    "tags": [
+      "datastore",
+      "storage",
+      "disk"
+    ],
+    "question": "What is a datastore?",
+    "options": [
+      "A storage container used for VM files and related objects.",
+      "A guest operating-system account.",
+      "A DNS forwarding rule.",
+      "A replacement for all backups."
+    ],
+    "answer": 0,
+    "explanation": "A datastore is the virtualization storage location. Guest filesystems and virtual disks are separate layers.",
+    "objective": "vSphere fundamentals · storage"
+  },
+  {
+    "id": "vsphere-practice-3",
+    "source": "vsphere",
+    "tags": [
+      "port group",
+      "network",
+      "vlan"
+    ],
+    "question": "What does a VM’s selected port group represent?",
+    "options": [
+      "A configured virtual network connection choice.",
+      "A datastore folder.",
+      "The VM’s administrator password.",
+      "The application’s certificate issuer."
+    ],
+    "answer": 0,
+    "explanation": "Port groups define network attachment and associated settings. Verify the intended switch, VLAN and uplink design.",
+    "objective": "vSphere fundamentals · networking"
+  },
+  {
+    "id": "vsphere-practice-4",
+    "source": "vsphere",
+    "tags": [
+      "template",
+      "clone",
+      "deploy"
+    ],
+    "question": "Why use a reviewed VM template?",
+    "options": [
+      "Create consistent new VMs from an approved starting configuration.",
+      "Share one machine identity across every clone without preparation.",
+      "Avoid patching forever.",
+      "Replace every application acceptance test."
+    ],
+    "answer": 0,
+    "explanation": "Templates improve consistency. Still apply the required customization, identity, network settings and post-deployment checks.",
+    "objective": "vSphere fundamentals · templates"
+  },
+  {
+    "id": "vsphere-practice-5",
+    "source": "vsphere",
+    "tags": [
+      "snapshot",
+      "backup",
+      "rollback"
+    ],
+    "question": "Why should snapshots be monitored and cleaned up under a plan?",
+    "options": [
+      "They consume resources and depend on the VM’s storage chain.",
+      "They are always independent backups.",
+      "They never grow.",
+      "They make datastore capacity irrelevant."
+    ],
+    "answer": 0,
+    "explanation": "Snapshots are temporary recovery mechanisms with storage and performance implications. Follow supported consolidation and backup procedures.",
+    "objective": "vSphere fundamentals · snapshots"
+  },
+  {
+    "id": "vsphere-practice-6",
+    "source": "vsphere",
+    "tags": [
+      "host",
+      "connect",
+      "certificate"
+    ],
+    "question": "Before adding an ESXi host to management, what should be verified?",
+    "options": [
+      "The intended host identity, access, network prerequisites and certificate trust.",
+      "Only its label in a spreadsheet.",
+      "That every warning can be ignored.",
+      "That its datastore is empty."
+    ],
+    "answer": 0,
+    "explanation": "Adding a host changes management scope. Verify the correct server and the approved trust and access path.",
+    "objective": "vSphere fundamentals · host onboarding"
+  },
+  {
+    "id": "vsphere-practice-7",
+    "source": "vsphere",
+    "tags": [
+      "capacity",
+      "datastore",
+      "monitor"
+    ],
+    "question": "Why monitor datastore free space before growing VMs?",
+    "options": [
+      "VM disks, snapshots and related operations need adequate capacity.",
+      "Free space never affects VM operations.",
+      "It proves backups are restorable.",
+      "It automatically sizes guest filesystems."
+    ],
+    "answer": 0,
+    "explanation": "Plan growth across the storage layers and leave suitable operational headroom. Monitor actual usage and alarms.",
+    "objective": "vSphere fundamentals · capacity"
+  },
+  {
+    "id": "vsphere-practice-8",
+    "source": "vsphere",
+    "tags": [
+      "ha",
+      "availability",
+      "cluster"
+    ],
+    "question": "Does a highly available VM remove the need for application backups?",
+    "options": [
+      "No. Availability and data recovery solve different problems.",
+      "Yes, HA preserves every deleted record.",
+      "Yes, a restart recreates every lost file.",
+      "Only if the VM has two network adapters."
+    ],
+    "answer": 0,
+    "explanation": "Host-level recovery can improve availability but does not substitute for independent backups and tested application recovery.",
+    "objective": "vSphere fundamentals · availability"
+  },
+  {
+    "id": "vsphere-practice-9",
+    "source": "vsphere",
+    "tags": [
+      "permission",
+      "role",
+      "access"
+    ],
+    "question": "What is a good vSphere permission design for a limited operator?",
+    "options": [
+      "A suitable role scoped to the required inventory objects.",
+      "Administrator permissions everywhere for everyone.",
+      "A shared untracked login.",
+      "No audit trail for changes."
+    ],
+    "answer": 0,
+    "explanation": "Scope and role determine access. Grant the permissions needed for the task and retain accountability.",
+    "objective": "vSphere fundamentals · permissions"
+  },
+  {
+    "id": "vsphere-practice-10",
+    "source": "vsphere",
+    "tags": [
+      "vm",
+      "tools",
+      "guest"
+    ],
+    "question": "What should be checked after deploying a VM from a template?",
+    "options": [
+      "Identity, networking, guest integration, updates and the intended workload.",
+      "Only whether the power icon is green.",
+      "Whether all clones use the same hostname.",
+      "Whether the template’s old IP remains on every VM."
+    ],
+    "answer": 0,
+    "explanation": "A powered-on VM is not a completed application deployment. Validate the guest and service configuration.",
+    "objective": "vSphere fundamentals · VM deployment"
+  },
+  {
+    "id": "vsphere-practice-11",
+    "source": "vsphere",
+    "tags": [
+      "migration",
+      "vmotion",
+      "network"
+    ],
+    "question": "What should be confirmed before a planned VM migration?",
+    "options": [
+      "The supported prerequisites, destination capacity, network compatibility and recovery plan.",
+      "That any two random hosts are compatible.",
+      "Only the VM’s display name.",
+      "That application validation can be skipped."
+    ],
+    "answer": 0,
+    "explanation": "Migration behavior depends on the environment and feature. Check the required compatibility and repeat the workload acceptance test afterward.",
+    "objective": "vSphere fundamentals · migration planning"
+  },
+  {
+    "id": "vsphere-practice-12",
+    "source": "vsphere",
+    "tags": [
+      "maintenance",
+      "host",
+      "evacuate"
+    ],
+    "question": "Before host maintenance, what must the plan account for?",
+    "options": [
+      "The running workloads, evacuation or shutdown path, capacity and return-to-service checks.",
+      "Only the host’s desktop wallpaper.",
+      "That every VM can be stopped without an owner.",
+      "That maintenance mode creates a backup."
+    ],
+    "answer": 0,
+    "explanation": "Host work can affect many guests. Coordinate ownership, supported migration or shutdown steps and application validation.",
+    "objective": "vSphere fundamentals · host operations"
+  },
+  {
+    "id": "nessus-practice-1",
+    "source": "nessus",
+    "tags": [
+      "scope",
+      "scan",
+      "target"
+    ],
+    "question": "What is required before scanning a network target?",
+    "options": [
+      "Explicit permission and a defined target scope.",
+      "Only knowing an IP address.",
+      "A guess that the server is unused.",
+      "A public internet search result."
+    ],
+    "answer": 0,
+    "explanation": "Scanning must be authorized. Define targets, timing, ownership and any operational restrictions before sending scan traffic.",
+    "objective": "Nessus practice · authorization"
+  },
+  {
+    "id": "nessus-practice-2",
+    "source": "nessus",
+    "tags": [
+      "credential",
+      "scan",
+      "auth"
+    ],
+    "question": "Why can an authenticated scan reveal more than an unauthenticated scan?",
+    "options": [
+      "Permitted credentials allow inspection of additional local state.",
+      "It automatically grants unlimited authorization.",
+      "It removes the need to protect credentials.",
+      "It proves every finding is exploitable."
+    ],
+    "answer": 0,
+    "explanation": "Authenticated checks can inspect software and configuration more directly. Use approved least-privilege credentials and protect them.",
+    "objective": "Nessus practice · credentials"
+  },
+  {
+    "id": "nessus-practice-3",
+    "source": "nessus",
+    "tags": [
+      "plugin",
+      "update",
+      "prepare"
+    ],
+    "question": "Why record the scanner and plugin versions?",
+    "options": [
+      "Results depend partly on the checks available when the scan ran.",
+      "Versions determine the target’s password.",
+      "The oldest feed is always best.",
+      "Version notes replace the scan scope."
+    ],
+    "answer": 0,
+    "explanation": "Scanner and feed versions provide context for interpreting and reproducing results.",
+    "objective": "Nessus practice · scanner readiness"
+  },
+  {
+    "id": "nessus-practice-4",
+    "source": "nessus",
+    "tags": [
+      "false positive",
+      "validate",
+      "finding"
+    ],
+    "question": "A severe finding appears. What comes before claiming confirmed impact?",
+    "options": [
+      "Validate the evidence, target identity, applicability and relevant service state.",
+      "Delete the report.",
+      "Assume the score proves exploitation occurred.",
+      "Apply every possible fix without review."
+    ],
+    "answer": 0,
+    "explanation": "A finding is evidence to investigate. Confirm that the condition applies and plan an appropriate remediation and validation.",
+    "objective": "Nessus practice · finding validation"
+  },
+  {
+    "id": "nessus-practice-5",
+    "source": "nessus",
+    "tags": [
+      "safe",
+      "policy",
+      "scan"
+    ],
+    "question": "Why review a scan policy’s settings before use?",
+    "options": [
+      "Some checks and scan loads may affect a target’s availability.",
+      "All scans are guaranteed harmless.",
+      "A policy replaces permission.",
+      "A scan never contacts the target."
+    ],
+    "answer": 0,
+    "explanation": "Match policy and intensity to the approved environment. Use safe, permitted settings and coordinate impact.",
+    "objective": "Nessus practice · policy selection"
+  },
+  {
+    "id": "nessus-practice-6",
+    "source": "nessus",
+    "tags": [
+      "target",
+      "dns",
+      "scope"
+    ],
+    "question": "Why verify a hostname’s resolved address before scanning?",
+    "options": [
+      "DNS may resolve to a different or out-of-scope server.",
+      "It makes authentication unnecessary.",
+      "It turns a public host into a private lab.",
+      "It proves all ports are open."
+    ],
+    "answer": 0,
+    "explanation": "Authorization applies to the approved target, not any address a stale name happens to return.",
+    "objective": "Nessus practice · target identity"
+  },
+  {
+    "id": "nessus-practice-7",
+    "source": "nessus",
+    "tags": [
+      "report",
+      "evidence",
+      "export"
+    ],
+    "question": "What context should accompany an exported scan result?",
+    "options": [
+      "Target scope, time, policy, scanner/feed details and sanitized evidence.",
+      "Only a total vulnerability count.",
+      "The credential password.",
+      "A screenshot of an unrelated scan."
+    ],
+    "answer": 0,
+    "explanation": "Context helps reviewers interpret findings and reproduce the assessment without exposing authentication secrets.",
+    "objective": "Nessus practice · reporting"
+  },
+  {
+    "id": "nessus-practice-8",
+    "source": "nessus",
+    "tags": [
+      "remediate",
+      "rescan",
+      "validate"
+    ],
+    "question": "How should a remediation be checked?",
+    "options": [
+      "Repeat the relevant authorized checks and validate the application still works.",
+      "Assume installing an update closes every finding.",
+      "Delete the finding from a report only.",
+      "Skip the target’s identity check on rescan."
+    ],
+    "answer": 0,
+    "explanation": "Verify both the original security condition and the operational outcome after the change.",
+    "objective": "Nessus practice · remediation validation"
+  },
+  {
+    "id": "nessus-practice-9",
+    "source": "nessus",
+    "tags": [
+      "install",
+      "service",
+      "scanner"
+    ],
+    "question": "A scanner web page does not load. What should be checked in order?",
+    "options": [
+      "The intended host, service, listener and approved network path.",
+      "Disable every security control immediately.",
+      "Reinstall the guest without reading logs.",
+      "Assume the browser is always the cause."
+    ],
+    "answer": 0,
+    "explanation": "Layered checks distinguish a stopped service, wrong address, listener issue and network restriction before changes.",
+    "objective": "Nessus practice · troubleshooting"
+  },
+  {
+    "id": "nessus-practice-10",
+    "source": "nessus",
+    "tags": [
+      "risk",
+      "cvss",
+      "prioritize"
+    ],
+    "question": "Should a severity score be the only remediation priority?",
+    "options": [
+      "No. Also consider exposure, exploitability, asset importance and compensating controls.",
+      "Yes, business context is irrelevant.",
+      "Yes, every low score can be ignored forever.",
+      "Only if the report has many pages."
+    ],
+    "answer": 0,
+    "explanation": "Severity is an input to risk decisions. Use the actual environment and document the rationale.",
+    "objective": "Nessus practice · prioritization"
+  },
+  {
+    "id": "nessus-practice-11",
+    "source": "nessus",
+    "tags": [
+      "windows",
+      "linux",
+      "prepare"
+    ],
+    "question": "Why keep the scanner separate from a domain controller in this lab?",
+    "options": [
+      "To keep scanning software and workload impact outside the domain-controller role.",
+      "A domain controller cannot use networking.",
+      "A separate scanner authorizes all targets.",
+      "It removes the need for patching."
+    ],
+    "answer": 0,
+    "explanation": "Role separation limits impact and makes recovery and access boundaries easier to understand.",
+    "objective": "Nessus practice · deployment boundaries"
+  },
+  {
+    "id": "nessus-practice-12",
+    "source": "nessus",
+    "tags": [
+      "credential",
+      "failure",
+      "logs"
+    ],
+    "question": "A credentialed check fails. What should be investigated?",
+    "options": [
+      "The approved account, target policy, connectivity and scanner diagnostic evidence.",
+      "Publish the password so others can test it.",
+      "Grant permanent domain-admin rights without review.",
+      "Treat the failure as proof that the host has no vulnerabilities."
+    ],
+    "answer": 0,
+    "explanation": "Authentication failure limits the checks that ran. Diagnose the cause and clearly report the resulting coverage limitation.",
+    "objective": "Nessus practice · authenticated coverage"
+  },
+  {
+    "id": "sql-practice-1",
+    "source": "sql",
+    "tags": [
+      "backup",
+      "restore",
+      "recover"
+    ],
+    "question": "What best proves that a SQL Server backup supports recovery?",
+    "options": [
+      "A permitted restore test followed by database and application validation.",
+      "A backup filename alone.",
+      "An old console screenshot.",
+      "A successful browser refresh."
+    ],
+    "answer": 0,
+    "explanation": "A backup job can complete while the recovery plan still lacks required files, permissions or restore steps. Test the actual recovery path.",
+    "objective": "SQL Server practice · recovery"
+  },
+  {
+    "id": "sql-practice-2",
+    "source": "sql",
+    "tags": [
+      "log",
+      "recovery model",
+      "backup"
+    ],
+    "question": "Why must the database recovery model be understood before planning log backups?",
+    "options": [
+      "It affects the supported backup and recovery approach.",
+      "It only changes the database icon.",
+      "It makes all backups unnecessary.",
+      "It determines the server’s public IP."
+    ],
+    "answer": 0,
+    "explanation": "The recovery model and backup chain influence point-in-time recovery options and log management.",
+    "objective": "SQL Server practice · recovery models"
+  },
+  {
+    "id": "sql-practice-3",
+    "source": "sql",
+    "tags": [
+      "ha",
+      "availability",
+      "backup"
+    ],
+    "question": "Does a secondary replica replace a backup strategy?",
+    "options": [
+      "No. Replication can also propagate unwanted changes.",
+      "Yes, accidental deletion cannot reach it.",
+      "Yes, backups are forbidden with HA.",
+      "Only if both servers have the same name."
+    ],
+    "answer": 0,
+    "explanation": "High availability and independent historical recovery address different risks. Plan and test both.",
+    "objective": "SQL Server practice · availability"
+  },
+  {
+    "id": "sql-practice-4",
+    "source": "sql",
+    "tags": [
+      "listener",
+      "ha",
+      "connection"
+    ],
+    "question": "Why test an application through the intended SQL listener or connection name?",
+    "options": [
+      "That is the path users will rely on during normal operation and failover.",
+      "Direct connection to one replica proves every path.",
+      "The listener replaces database permissions.",
+      "It avoids the need to test DNS."
+    ],
+    "answer": 0,
+    "explanation": "Validate the client’s actual endpoint, DNS, authentication and database behavior rather than only an individual instance.",
+    "objective": "SQL Server practice · client connectivity"
+  },
+  {
+    "id": "sql-practice-5",
+    "source": "sql",
+    "tags": [
+      "install",
+      "service",
+      "identity"
+    ],
+    "question": "Why choose a suitable SQL Server service account deliberately?",
+    "options": [
+      "It defines the service’s identity and permitted access to required resources.",
+      "It should always be a shared domain administrator.",
+      "It removes the need for database logins.",
+      "Its password should be saved in a public runbook."
+    ],
+    "answer": 0,
+    "explanation": "Use supported service-account practices and least privilege. Confirm required filesystem and network access without excessive rights.",
+    "objective": "SQL Server practice · service identity"
+  },
+  {
+    "id": "sql-practice-6",
+    "source": "sql",
+    "tags": [
+      "port",
+      "network",
+      "connect"
+    ],
+    "question": "A client cannot connect to SQL Server. What should you verify before broadening firewall rules?",
+    "options": [
+      "The intended instance, actual listener, name resolution, authentication and existing path.",
+      "Open every inbound port.",
+      "Disable all domain policy.",
+      "Delete the database."
+    ],
+    "answer": 0,
+    "explanation": "Connection failures can occur at several layers. Identify the failed layer and apply the smallest appropriate correction.",
+    "objective": "SQL Server practice · connectivity"
+  },
+  {
+    "id": "sql-practice-7",
+    "source": "sql",
+    "tags": [
+      "failover",
+      "ha",
+      "validate"
+    ],
+    "question": "What should a planned failover test include?",
+    "options": [
+      "Application acceptance checks, data state and a documented return or recovery path.",
+      "Only watching the primary label move.",
+      "A guarantee that users never need reconnection logic.",
+      "Deletion of the former primary."
+    ],
+    "answer": 0,
+    "explanation": "Role changes alone do not prove service success. Validate the application path and data expectations after the transition.",
+    "objective": "SQL Server practice · failover"
+  },
+  {
+    "id": "sql-practice-8",
+    "source": "sql",
+    "tags": [
+      "storage",
+      "capacity",
+      "disk"
+    ],
+    "question": "Why monitor database and log storage separately?",
+    "options": [
+      "They have different growth and recovery roles and either can exhaust its available space.",
+      "The log never grows.",
+      "A large data disk prevents every log-space issue.",
+      "Disk space is unrelated to availability."
+    ],
+    "answer": 0,
+    "explanation": "Track actual growth, free space and recovery requirements. Do not delete live database or log files to create room.",
+    "objective": "SQL Server practice · capacity"
+  },
+  {
+    "id": "sql-practice-9",
+    "source": "sql",
+    "tags": [
+      "permission",
+      "login",
+      "security"
+    ],
+    "question": "Why distinguish a server login from a database user?",
+    "options": [
+      "They apply at different identity and authorization scopes.",
+      "They are always the same object.",
+      "A login automatically grants every database permission.",
+      "A database user defines network routing."
+    ],
+    "answer": 0,
+    "explanation": "Server authentication and database access are related but separate. Map identities correctly and grant the required roles or permissions.",
+    "objective": "SQL Server practice · access"
+  },
+  {
+    "id": "sql-practice-10",
+    "source": "sql",
+    "tags": [
+      "integrity",
+      "restore",
+      "check"
+    ],
+    "question": "Why validate database integrity after a recovery rehearsal?",
+    "options": [
+      "To check the recovered database state as well as whether the restore command completed.",
+      "Restore success always proves every table is correct.",
+      "Integrity checking creates missing backups automatically.",
+      "It removes the need for application tests."
+    ],
+    "answer": 0,
+    "explanation": "Recovery acceptance combines the restore sequence, integrity checks and application-level validation.",
+    "objective": "SQL Server practice · recovery validation"
+  },
+  {
+    "id": "sql-practice-11",
+    "source": "sql",
+    "tags": [
+      "witness",
+      "quorum",
+      "ha"
+    ],
+    "question": "Why must quorum behavior be understood in a clustered availability design?",
+    "options": [
+      "It affects which cluster membership can continue operating during failures.",
+      "It stores every SQL backup.",
+      "It replaces the database’s transaction log.",
+      "It guarantees zero data loss in every mode."
+    ],
+    "answer": 0,
+    "explanation": "Cluster membership and quorum influence availability. Review supported topology and failure scenarios without treating a witness as a backup.",
+    "objective": "SQL Server practice · cluster availability"
+  },
+  {
+    "id": "sql-practice-12",
+    "source": "sql",
+    "tags": [
+      "update",
+      "maintenance",
+      "rollback"
+    ],
+    "question": "Before patching a SQL Server lab, what should be ready?",
+    "options": [
+      "A reviewed compatibility, backup, outage, validation and recovery plan.",
+      "Only the installer filename.",
+      "A rule to ignore application owners.",
+      "Deletion of all prior recovery information."
+    ],
+    "answer": 0,
+    "explanation": "Patching changes database infrastructure. Use a representative test, follow supported procedures and verify the original service afterward.",
+    "objective": "SQL Server practice · maintenance"
+  }
+]
