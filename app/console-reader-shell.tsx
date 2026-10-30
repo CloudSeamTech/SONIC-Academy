@@ -29,6 +29,7 @@ import './premium-steps.css';
 import './premium-surfaces.css';
 import './split-focus.css';
 import './catalog-surfaces.css';
+import './lesson-geometry.css';
 const allLessons = learningPathways.flatMap(pathwayLessons);
 export function ConsoleReaderShell({
   lessonId,

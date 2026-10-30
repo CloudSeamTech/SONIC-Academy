@@ -1,0 +1,79 @@
+/* All curricula share the available workspace width and one spacing scale. */
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace {
+  --lesson-gutter: clamp(16px, 1.25vw, 28px);
+  --lesson-panel-space: 24px;
+  --lesson-edge: #c6b794;
+  min-width: 0;
+  padding-inline: var(--lesson-gutter) !important;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace > :is(main, .console-commandbar, .course-progress-strip, .lesson-tools, .lab-passport, .clickable-lab-map, .private-notebook, .module-assessments, .module-test, footer) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none !important;
+  min-width: 0;
+  margin-inline: 0 !important;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.migration-lesson, .lesson-layout, .lesson-content, .guided-workspace, .guided-lab, .sonic-walkthrough) {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: none !important;
+  margin-inline: 0 !important;
+  padding-inline: 0 !important;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.guided-step, .sonic-action-panel, .nessus-exercise, .nessus-quiz, .alma-verify, .verify) {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  margin-inline: 0 !important;
+  padding: var(--lesson-panel-space) !important;
+  border: 1px solid var(--lesson-edge) !important;
+  border-radius: 10px !important;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace .sonic-action-body {
+  padding: 0 !important;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace .split-focus-grid {
+  gap: 24px;
+  align-items: stretch;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.split-focus-reference, .split-focus-actions, .lesson-result, .guided-check, .lesson-support, .private-notebook, .module-test, .lab-passport, .clickable-lab-map, .bicep-practice, .notebook-entry, .lab-map-detail, .test-explanation, .nessus-quiz fieldset, .module-test fieldset) {
+  box-sizing: border-box;
+  min-width: 0;
+  border: 1px solid var(--lesson-edge) !important;
+  border-radius: 10px !important;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.split-focus-reference-body, .split-focus-actions) {
+  padding: 20px;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.guided-screenshot, .step-picture, .guided-visuals, .sonic-action-visual) {
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  margin-inline: 0;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.guided-screenshot figcaption, .step-picture) {
+  padding-inline: 0;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.nessus-quiz fieldset, .module-test fieldset) {
+  margin-inline: 0;
+  padding: 16px;
+}
+@media (min-width: 1180px) {
+  html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace .split-focus-grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(320px, 1fr);
+  }
+}
+@media (max-width: 650px) {
+  html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace {
+    --lesson-gutter: 12px;
+    --lesson-panel-space: 14px;
+  }
+  html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace .split-focus-grid {
+    gap: 16px;
+  }
+  html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.split-focus-reference-body, .split-focus-actions) {
+    padding: 14px;
+  }
+}
