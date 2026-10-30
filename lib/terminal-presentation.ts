@@ -18,19 +18,19 @@ export function contextFor(
     !/Bash|PowerShell/i.test(where)
   )
     return null;
+  if (/sftp.*(?:prompt|session)|sftp>/i.test(where))
+    return {
+      shell: 'sftp',
+      directory: '<remote-pwd>',
+      user: 'your-user',
+      host: 'remote host',
+    };
   if (/PowerShell|Windows Terminal/i.test(where))
     return {
       shell: 'powershell',
       directory: 'C:\\Users\\YourName',
       user: 'your-user',
       host: 'Windows',
-    };
-  if (/sftp.*prompt/i.test(where))
-    return {
-      shell: 'sftp',
-      directory: 'remote directory',
-      user: 'your-user',
-      host: 'remote host',
     };
   if (/Bash|Linux|Alma|SSH|terminal/i.test(where))
     return {
