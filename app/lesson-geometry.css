@@ -34,6 +34,9 @@ html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson
 html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace .sonic-action-body {
   padding: 0 !important;
 }
+html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace .sonic-walkthrough > ol > li {
+  padding: 0 !important;
+}
 html body .academy-shell.academy-shell.console-reader.console-reader[data-lesson-id] .reader-workspace.reader-workspace .split-focus-grid {
   gap: 24px;
   align-items: stretch;
