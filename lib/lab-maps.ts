@@ -45,6 +45,34 @@ const controller: LabNode = {
     'DNS turns names into addresses. AD DS stores domain users, computers and policy.',
 };
 export function nodesForCourse(id: string): LabNode[] {
+  if (id === 'bicep')
+    return [
+      {
+        ...workstation,
+        role: 'Edit main.bicep and run the local CLI here. Browser compilation stays on this computer.',
+        checks: 'Get-Location\naz bicep version',
+      },
+      {
+        id: 'azure-control',
+        title: 'Azure Resource Manager',
+        role: 'Validates and processes approved deployment requests. Browser compilation does not contact your subscription.',
+        workspace:
+          'Your local Azure CLI session, only for optional approved live checks.',
+        checks: '',
+        terms:
+          'A template describes intent. Validation and what-if require a selected subscription and permissions.',
+      },
+      {
+        id: 'planned-workload',
+        title: 'Planned private servers',
+        role: 'VMs, NICs, subnet and NSG described by the blueprint. This map is a plan, not evidence that resources exist.',
+        workspace:
+          'Inspect generated ARM JSON first; verify actual Azure resources only after an approved deployment.',
+        checks: '',
+        terms:
+          'No public IP or open management port is included in the example. Guest software needs separate runtime verification.',
+      },
+    ];
   if (id === 'linux')
     return [
       workstation,

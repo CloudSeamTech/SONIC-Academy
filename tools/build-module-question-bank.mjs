@@ -1863,3 +1863,4 @@ fs.writeFileSync(
 console.log(
   `Authored ${rows.length} original supplemental practice questions.`,
 );
+await import('./build-bicep-questions.mjs');

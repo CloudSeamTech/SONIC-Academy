@@ -1,4 +1,5 @@
 import {
+  bicepCourse,
   dailyAdminCourse,
   vsphereCourse,
   pkiCourses,
@@ -725,9 +726,28 @@ export const learningPathways: LearningPathway[] = [
       },
       {
         title: '05 / Cyber Analyst Investigations and Dashboard Inputs',
-        lessons: enterpriseLessons(splunkCourse, '/splunk').slice(14),
+        lessons: enterpriseLessons(splunkCourse, '/splunk').slice(14, 18),
+      },
+      {
+        title: '06 / Windows Event IDs and Incident Reporting',
+        lessons: enterpriseLessons(splunkCourse, '/splunk').slice(18),
       },
     ],
+  },
+  {
+    id: 'bicep',
+    title: 'Bicep · From Your First Line to Enterprise Plans',
+    prerequisite: bicepCourse.prerequisite,
+    sections: [
+      ...new Set(bicepCourse.lessons.map((lesson) => lesson.module!)),
+    ].map((title) => ({
+      title,
+      lessons: enterpriseLessons(bicepCourse, '/bicep').filter(
+        (lesson) =>
+          bicepCourse.lessons.find((item) => item.id === lesson.id)?.module ===
+          title,
+      ),
+    })),
   },
   ...nessusCourses.map((course) => ({
     id: course.id,
@@ -756,6 +776,7 @@ export const pathwayLessons = (pathway: LearningPathway) =>
 // Core lesson pagination follows the prerequisite route. Optional extensions
 // stay within their own sequence instead of interrupting the core route.
 export function lessonSequenceFor(id: string): ConsoleLesson[] {
+  if (id.startsWith('bicep-')) return enterpriseLessons(bicepCourse, '/bicep');
   if (id.startsWith('vsphere-'))
     return standaloneLessons(vsphereCourse, '/vsphere', 'vsphere');
   if (id.startsWith('pki-')) {
@@ -809,6 +830,7 @@ export function lessonSequenceFor(id: string): ConsoleLesson[] {
       (pathway) =>
         ![
           'vsphere',
+          'bicep',
           'pki-alma-nginx',
           'pki-windows-iis',
           'linux',

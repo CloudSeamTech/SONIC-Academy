@@ -1,4 +1,5 @@
 import {
+  bicepCourse,
   dailyAdminCourse,
   vsphereCourse,
   pkiCourses,
@@ -33,6 +34,7 @@ test('pathways retain every existing lesson exactly once with its original reade
     new Set(
       [
         ...dailyAdminCourse.lessons,
+        ...bicepCourse.lessons,
         ...vsphereCourse.lessons,
         ...pkiCourses.flatMap((course) => course.lessons),
         ...tlsCourse.lessons,
@@ -83,6 +85,7 @@ test('core route builds the domain controllers before SQL, then Azure and migrat
       'linux-daily-admin',
       'alma',
       'splunk',
+      'bicep',
       'nessus-linux',
       'nessus-windows',
       'nessus-scanning',

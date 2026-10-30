@@ -1,4 +1,5 @@
 import daily from '../content/linux-admin/course.json' with { type: 'json' };
+import bicep from '../content/bicep/course.json' with { type: 'json' };
 import tls from '../content/tls/course.json' with { type: 'json' };
 import vsphere from '../content/vsphere/course.json' with { type: 'json' };
 import pkiAlma from '../content/pki/alma-nginx.json' with { type: 'json' };
@@ -17,6 +18,7 @@ import {
   type NessusCourse,
 } from './nessus-curriculum.ts';
 export const dailyAdminCourse = daily as NessusCourse;
+export const bicepCourse = bicep as NessusCourse;
 export const tlsCourse = tls as NessusCourse;
 export const vsphereCourse = vsphere as NessusCourse;
 export const pkiCourses = [pkiAlma, pkiIis] as NessusCourse[];
@@ -29,6 +31,7 @@ export const maintenanceCourse = maintenance as NessusCourse;
 export const helpdeskCourse = helpdesk as NessusCourse;
 export const securityCourse = security as NessusCourse;
 export const guidedCourses = [
+  bicepCourse,
   dailyAdminCourse,
   vsphereCourse,
   ...pkiCourses,
@@ -44,6 +47,7 @@ export const guidedCourses = [
   wsusCourse,
 ];
 export const guidedLessons = [
+  ...bicepCourse.lessons,
   ...dailyAdminCourse.lessons,
   ...vsphereCourse.lessons,
   ...pkiCourses.flatMap((course) => course.lessons),
@@ -59,30 +63,32 @@ export const guidedLessons = [
   ...wsusCourse.lessons,
 ];
 export const guidedCourseHref = (id: string) =>
-  id === 'linux-daily-admin'
-    ? '/linux-admin'
-    : id === 'vsphere-administration'
-      ? '/vsphere'
-      : id === 'pki-alma-nginx'
-        ? '/pki/alma-nginx'
-        : id === 'pki-windows-iis'
-          ? '/pki/windows-iis'
-          : id === 'rhel-nginx-tls'
-            ? '/tls'
-            : id === 'windows-dmz'
-              ? '/dmz'
-              : id === 'splunk-core-user'
-                ? '/splunk'
-                : id === 'mecm-operations'
-                  ? '/mecm'
-                  : id === 'wsus-operations'
-                    ? '/wsus'
-                    : id === 'azure-landing-zone'
-                      ? '/landing-zone'
-                      : id === 'budget-cloud-security'
-                        ? '/security'
-                        : id === 'iis-helpdesk'
-                          ? '/helpdesk'
-                          : id === 'azure-maintenance'
-                            ? '/azure-operations'
-                            : `/nessus/${id.replace('nessus-', '')}`;
+  id === 'bicep-foundations'
+    ? '/bicep'
+    : id === 'linux-daily-admin'
+      ? '/linux-admin'
+      : id === 'vsphere-administration'
+        ? '/vsphere'
+        : id === 'pki-alma-nginx'
+          ? '/pki/alma-nginx'
+          : id === 'pki-windows-iis'
+            ? '/pki/windows-iis'
+            : id === 'rhel-nginx-tls'
+              ? '/tls'
+              : id === 'windows-dmz'
+                ? '/dmz'
+                : id === 'splunk-core-user'
+                  ? '/splunk'
+                  : id === 'mecm-operations'
+                    ? '/mecm'
+                    : id === 'wsus-operations'
+                      ? '/wsus'
+                      : id === 'azure-landing-zone'
+                        ? '/landing-zone'
+                        : id === 'budget-cloud-security'
+                          ? '/security'
+                          : id === 'iis-helpdesk'
+                            ? '/helpdesk'
+                            : id === 'azure-maintenance'
+                              ? '/azure-operations'
+                              : `/nessus/${id.replace('nessus-', '')}`;

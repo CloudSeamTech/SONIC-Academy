@@ -2735,5 +2735,485 @@
     "answer": 0,
     "explanation": "Patching changes database infrastructure. Use a representative test, follow supported procedures and verify the original service afterward.",
     "objective": "SQL Server practice · maintenance"
+  },
+  {
+    "id": "bicep-1-1",
+    "question": "What is a blueprint in this class?",
+    "options": [
+      "A description of the desired Azure resources",
+      "A running virtual machine",
+      "A password store"
+    ],
+    "answer": 0,
+    "explanation": "A Bicep template describes desired infrastructure. Compiling it produces a template; it does not create the infrastructure.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 01 / Start with confidence",
+    "tags": [
+      "01 / start with confidence"
+    ]
+  },
+  {
+    "id": "bicep-1-2",
+    "question": "Which filename should contain Bicep source?",
+    "options": [
+      "main.bicep",
+      "main.bicep.txt",
+      "main.png"
+    ],
+    "answer": 0,
+    "explanation": "The .bicep extension identifies source code. A hidden .txt extension can make a file look correct while the editor and CLI treat it differently.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 01 / Start with confidence",
+    "tags": [
+      "01 / start with confidence"
+    ]
+  },
+  {
+    "id": "bicep-1-3",
+    "question": "What should you type from a displayed PowerShell example?",
+    "options": [
+      "Only the command after the prompt",
+      "The entire PS path and > prefix",
+      "Only the > symbol"
+    ],
+    "answer": 0,
+    "explanation": "The prompt shows context such as the current directory. It is not part of the command and should not be pasted into PowerShell.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 01 / Start with confidence",
+    "tags": [
+      "01 / start with confidence"
+    ]
+  },
+  {
+    "id": "bicep-1-4",
+    "question": "Which tool edits the text but does not deploy by merely saving?",
+    "options": [
+      "VS Code",
+      "Azure Resource Manager deployment create",
+      "A paid Azure VM"
+    ],
+    "answer": 0,
+    "explanation": "Saving source in an editor writes a local file. Deployment is a separate explicit Azure operation that requires an account and permissions.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 01 / Start with confidence",
+    "tags": [
+      "01 / start with confidence"
+    ]
+  },
+  {
+    "id": "bicep-1-5",
+    "question": "What does a compiler diagnostic help locate?",
+    "options": [
+      "A source problem and its position",
+      "The password of an Azure administrator",
+      "The final monthly bill"
+    ],
+    "answer": 0,
+    "explanation": "Compiler diagnostics identify language or template issues, often with a line and column. They are not live Azure billing or identity checks.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 01 / Start with confidence",
+    "tags": [
+      "01 / start with confidence"
+    ]
+  },
+  {
+    "id": "bicep-1-6",
+    "question": "After changing a local file, what should happen before running the CLI build?",
+    "options": [
+      "Save it and confirm the current folder",
+      "Delete the subscription",
+      "Upload a private key"
+    ],
+    "answer": 0,
+    "explanation": "The local CLI reads the file on disk relative to its working directory. Saving and checking Get-Location avoids compiling stale or wrong files.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 01 / Start with confidence",
+    "tags": [
+      "01 / start with confidence"
+    ]
+  },
+  {
+    "id": "bicep-2-1",
+    "question": "Which is a fixed Bicep language keyword?",
+    "options": [
+      "resource",
+      "cs-dev-vm-1",
+      "training-owner"
+    ],
+    "answer": 0,
+    "explanation": "Keywords such as resource and param belong to the language grammar. Your resource names and identifiers are choices subject to applicable rules.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 02 / Read and change the blueprint",
+    "tags": [
+      "02 / read and change the blueprint"
+    ]
+  },
+  {
+    "id": "bicep-2-2",
+    "question": "What is a Bicep variable?",
+    "options": [
+      "An immutable value or expression derived within the file",
+      "A counter that must be repeatedly assigned",
+      "An Azure password vault"
+    ],
+    "answer": 0,
+    "explanation": "A variable names an expression or value and cannot be repeatedly reassigned like a procedural loop counter. Parameters supply external inputs.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 02 / Read and change the blueprint",
+    "tags": [
+      "02 / read and change the blueprint"
+    ]
+  },
+  {
+    "id": "bicep-2-3",
+    "question": "Which value is a boolean literal?",
+    "options": [
+      "false",
+      "'false'",
+      "42"
+    ],
+    "answer": 0,
+    "explanation": "The unquoted values true and false are booleans. Quoting them makes strings, which have different types and may violate a parameter contract.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 02 / Read and change the blueprint",
+    "tags": [
+      "02 / read and change the blueprint"
+    ]
+  },
+  {
+    "id": "bicep-2-4",
+    "question": "What identifies a resource property schema?",
+    "options": [
+      "The resource type and API version",
+      "The time you opened the browser",
+      "The local source filename only"
+    ],
+    "answer": 0,
+    "explanation": "A provider resource type and documented API version define the supported settings. An API version is a schema choice, not the deployment date.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 02 / Read and change the blueprint",
+    "tags": [
+      "02 / read and change the blueprint"
+    ]
+  },
+  {
+    "id": "bicep-2-5",
+    "question": "What should you expect to find in generated ARM JSON?",
+    "options": [
+      "Parameters, resource declarations and outputs",
+      "Evidence that VMs have already booted",
+      "A screenshot of Azure Portal"
+    ],
+    "answer": 0,
+    "explanation": "JSON is the deployment template representation. It may retain ARM expressions, and emitting it is not evidence of any live Azure operation.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 02 / Read and change the blueprint",
+    "tags": [
+      "02 / read and change the blueprint"
+    ]
+  },
+  {
+    "id": "bicep-2-6",
+    "question": "What does a parameter default do?",
+    "options": [
+      "Supplies a value when no override is provided",
+      "Prevents any future override",
+      "Changes every keyword in the file"
+    ],
+    "answer": 0,
+    "explanation": "A default is a fallback input, not a fixed constant. Parameter files or explicit deployment inputs can provide a different allowed value.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 02 / Read and change the blueprint",
+    "tags": [
+      "02 / read and change the blueprint"
+    ]
+  },
+  {
+    "id": "bicep-3-1",
+    "question": "What does @allowed constrain?",
+    "options": [
+      "The accepted values of a parameter",
+      "All Azure subscription costs",
+      "The compiler download location"
+    ],
+    "answer": 0,
+    "explanation": "An allowed-values decorator narrows an input contract. It does not guarantee runtime capacity, permissions, policy compliance or a budget limit.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 03 / Relationships and safe inputs",
+    "tags": [
+      "03 / relationships and safe inputs"
+    ]
+  },
+  {
+    "id": "bicep-3-2",
+    "question": "Why avoid unnecessary dependsOn entries?",
+    "options": [
+      "References already express many dependencies",
+      "Dependencies are never useful",
+      "They encrypt the template"
+    ],
+    "answer": 0,
+    "explanation": "Symbolic references infer many ordering relationships. Redundant dependencies add noise and can reduce parallelism; explicit dependencies still have valid uses.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 03 / Relationships and safe inputs",
+    "tags": [
+      "03 / relationships and safe inputs"
+    ]
+  },
+  {
+    "id": "bicep-3-3",
+    "question": "Which name describes an identity-membership group?",
+    "options": [
+      "Microsoft Entra security group",
+      "Network security group",
+      "Virtual network address space"
+    ],
+    "answer": 0,
+    "explanation": "Entra groups organize identities. An NSG filters network traffic; similar words do not make these resources interchangeable.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 03 / Relationships and safe inputs",
+    "tags": [
+      "03 / relationships and safe inputs"
+    ]
+  },
+  {
+    "id": "bicep-3-4",
+    "question": "Which NSG rule priority is evaluated first?",
+    "options": [
+      "100",
+      "200",
+      "4096"
+    ],
+    "answer": 0,
+    "explanation": "For applicable NSG rules, lower numeric priorities are evaluated before higher numbers. Access depends on the first matching rule and traffic direction.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 03 / Relationships and safe inputs",
+    "tags": [
+      "03 / relationships and safe inputs"
+    ]
+  },
+  {
+    "id": "bicep-3-5",
+    "question": "What does existing change about resource creation?",
+    "options": [
+      "It references a resource without declaring its creation",
+      "It recreates the resource every compile",
+      "It verifies live Azure existence in the browser"
+    ],
+    "answer": 0,
+    "explanation": "An existing declaration represents an external resource. Local compilation constructs references without querying your Azure inventory or automatically creating it.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 03 / Relationships and safe inputs",
+    "tags": [
+      "03 / relationships and safe inputs"
+    ]
+  },
+  {
+    "id": "bicep-3-6",
+    "question": "Why is a secure parameter not enough to protect a hard-coded password?",
+    "options": [
+      "The source still contains the secret",
+      "Secure parameters are automatically public",
+      "A secure parameter disables Azure authentication"
+    ],
+    "answer": 0,
+    "explanation": "Secure typing affects deployment parameter handling. It does not remove a secret embedded in source or make it safe to publish in a repository.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 03 / Relationships and safe inputs",
+    "tags": [
+      "03 / relationships and safe inputs"
+    ]
+  },
+  {
+    "id": "bicep-4-1",
+    "question": "What does nics[i].id connect in the example?",
+    "options": [
+      "A VM to the corresponding NIC in the loop",
+      "A VM directly to every internet address",
+      "An Entra user to a group"
+    ],
+    "answer": 0,
+    "explanation": "The loop index selects the NIC matching that VM. This expresses a resource relationship and avoids accidentally attaching all servers to one interface.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 04 / Reusable enterprise patterns",
+    "tags": [
+      "04 / reusable enterprise patterns"
+    ]
+  },
+  {
+    "id": "bicep-4-2",
+    "question": "Which resource can remain billable after VM compute is stopped?",
+    "options": [
+      "A managed disk",
+      "A line of source code",
+      "A browser textarea"
+    ],
+    "answer": 0,
+    "explanation": "Stopping or deallocating compute does not delete every supporting resource. Disks and other retained services can keep incurring charges.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 04 / Reusable enterprise patterns",
+    "tags": [
+      "04 / reusable enterprise patterns"
+    ]
+  },
+  {
+    "id": "bicep-4-3",
+    "question": "Where does loadTextContent read its companion file?",
+    "options": [
+      "From the compilation file set",
+      "From a running VM disk automatically",
+      "From any private file on the student computer without selection"
+    ],
+    "answer": 0,
+    "explanation": "The compiler reads a named companion file at compile time. The browser workbench supplies only its explicit exercise files, not arbitrary local filesystem access.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 04 / Reusable enterprise patterns",
+    "tags": [
+      "04 / reusable enterprise patterns"
+    ]
+  },
+  {
+    "id": "bicep-4-4",
+    "question": "What must be checked after software provisioning in a real guest?",
+    "options": [
+      "The application service and its actual behavior",
+      "Only whether the Bicep file compiles",
+      "Only whether Base64 text exists"
+    ],
+    "answer": 0,
+    "explanation": "Template compilation cannot prove a guest package download or service start. Runtime checks must inspect provisioning logs and the application itself.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 04 / Reusable enterprise patterns",
+    "tags": [
+      "04 / reusable enterprise patterns"
+    ]
+  },
+  {
+    "id": "bicep-4-5",
+    "question": "What is the purpose of a module input/output contract?",
+    "options": [
+      "Reuse a component through declared values",
+      "Make every private variable globally accessible",
+      "Grant every VM Owner permissions"
+    ],
+    "answer": 0,
+    "explanation": "Declared parameters and outputs form a module interface. This allows reuse without depending on internal implementation details or implicit permissions.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 04 / Reusable enterprise patterns",
+    "tags": [
+      "04 / reusable enterprise patterns"
+    ]
+  },
+  {
+    "id": "bicep-4-6",
+    "question": "Why does this private-server example not provide direct internet SSH access?",
+    "options": [
+      "It has no public IP and denies inbound traffic",
+      "Bicep disables all Azure networking",
+      "A managed identity opens an SSH tunnel automatically"
+    ],
+    "answer": 0,
+    "explanation": "A NIC is private in the example and the NSG explicitly denies inbound traffic. An approved management-access design is a separate planning decision.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 04 / Reusable enterprise patterns",
+    "tags": [
+      "04 / reusable enterprise patterns"
+    ]
+  },
+  {
+    "id": "bicep-5-1",
+    "question": "What selects a blueprint in a .bicepparam file?",
+    "options": [
+      "using",
+      "output",
+      "dependsOn"
+    ],
+    "answer": 0,
+    "explanation": "The using declaration names the Bicep file whose parameters are being provided. A parameter file should match that blueprint’s input contract.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 05 / Validate, practice and hand off",
+    "tags": [
+      "05 / validate, practice and hand off"
+    ]
+  },
+  {
+    "id": "bicep-5-2",
+    "question": "What does provider validation add beyond local compilation?",
+    "options": [
+      "Checks at a selected Azure scope, subject to permissions",
+      "A guarantee of future capacity",
+      "Automatic deployment of all resources"
+    ],
+    "answer": 0,
+    "explanation": "ARM validation can check more Azure-specific conditions at the selected scope. It still cannot guarantee that a later deployment will succeed.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 05 / Validate, practice and hand off",
+    "tags": [
+      "05 / validate, practice and hand off"
+    ]
+  },
+  {
+    "id": "bicep-5-3",
+    "question": "What should you do with unexpected deletes in what-if?",
+    "options": [
+      "Stop and review the scope and proposed changes",
+      "Deploy immediately",
+      "Treat them as compiler warnings only"
+    ],
+    "answer": 0,
+    "explanation": "A preview is a review aid. Unexpected destructive changes require investigation and authorization before any deployment operation is attempted.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 05 / Validate, practice and hand off",
+    "tags": [
+      "05 / validate, practice and hand off"
+    ]
+  },
+  {
+    "id": "bicep-5-4",
+    "question": "What should a professional deployment handoff include?",
+    "options": [
+      "Scope, inputs, checks, costs, verification and recovery",
+      "Only a screenshot of a green check",
+      "A production password in a public note"
+    ],
+    "answer": 0,
+    "explanation": "A reproducible handoff describes both intent and evidence, including limits and recovery. Credentials must remain in approved secret-handling systems.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 05 / Validate, practice and hand off",
+    "tags": [
+      "05 / validate, practice and hand off"
+    ]
+  },
+  {
+    "id": "bicep-5-5",
+    "question": "How should you approach cleanup of a training group?",
+    "options": [
+      "Review the exact disposable scope and obtain required approval",
+      "Delete any group with a similar name",
+      "Assume stopping VMs deletes all data"
+    ],
+    "answer": 0,
+    "explanation": "Resource-group deletion removes resources and can destroy data. Confirm the exact disposable scope, preserve anything needed and follow the required approval process.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 05 / Validate, practice and hand off",
+    "tags": [
+      "05 / validate, practice and hand off"
+    ]
+  },
+  {
+    "id": "bicep-5-6",
+    "question": "What can an accurate completion statement say after local compilation only?",
+    "options": [
+      "The source compiled; Azure and runtime checks are pending",
+      "Every planned server exists and works",
+      "All policy and quota checks passed"
+    ],
+    "answer": 0,
+    "explanation": "Evidence labels must match the actual operation performed. Local compilation provides template evidence, not Azure deployment or guest runtime evidence.",
+    "source": "bicep",
+    "objective": "Bicep fundamentals · 05 / Validate, practice and hand off",
+    "tags": [
+      "05 / validate, practice and hand off"
+    ]
   }
 ]

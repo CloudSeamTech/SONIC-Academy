@@ -15,6 +15,11 @@ export type PracticeQuestion = {
 };
 const references: Record<string, { title: string; url: string; note: string }> =
   {
+    bicep: {
+      title: 'Microsoft · Bicep language and deployment',
+      url: 'https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview',
+      note: 'Original beginner practice aligned to the taught Bicep skills; not a full certification exam or live Azure deployment check.',
+    },
     azure: {
       title: 'AZ-104 · Azure Administrator',
       url: 'https://learn.microsoft.com/en-us/credentials/certifications/resources/study-guides/az-104',
@@ -62,6 +67,7 @@ const references: Record<string, { title: string; url: string; note: string }> =
     },
   };
 export function moduleDomain(course: string) {
+  if (course === 'bicep') return 'bicep';
   if (course.startsWith('pki-')) return 'pki';
   if (['linux', 'linux-daily-admin', 'alma'].includes(course)) return 'linux';
   if (

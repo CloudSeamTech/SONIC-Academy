@@ -59,3 +59,6 @@ Nessus-*.msi
 nessus-updates*.tar.gz
 nessus*.license
 nessus*.lic
+
+# Integrity-checked official compiler assets are downloaded during builds.
+/public/bicep-runtime/

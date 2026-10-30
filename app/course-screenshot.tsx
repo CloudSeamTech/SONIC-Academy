@@ -4,6 +4,7 @@
 import { useRef } from 'react';
 import { ScreenshotSurface } from './screenshot-surface';
 import dailyReferences from '../content/linux-admin/references.json';
+import bicepReferences from '../content/bicep/references.json';
 import tlsReferences from '../content/tls/references.json';
 import vsphereReferences from '../content/vsphere/references.json';
 import pkiReferences from '../content/pki/references.json';
@@ -16,6 +17,7 @@ import landingZoneReferences from '@/content/landing-zone/references.json';
 import enterpriseReferences from '@/content/enterprise/references.json';
 import coreReferences from '@/content/screenshots/interface-references.json';
 const references = [
+  ...bicepReferences,
   ...dailyReferences,
   ...vsphereReferences,
   ...pkiReferences,

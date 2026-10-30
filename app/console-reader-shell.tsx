@@ -25,6 +25,7 @@ import './learner-experience.css';
 import './learning-console.css';
 import './lesson-reading.css';
 import './reader-cleanup.css';
+import './premium-steps.css';
 const allLessons = learningPathways.flatMap(pathwayLessons);
 export function ConsoleReaderShell({
   lessonId,
