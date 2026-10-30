@@ -80,6 +80,7 @@ test('core route builds the domain controllers before SQL, then Azure and migrat
       'security',
       'migrations',
       'linux',
+      'linux-daily-admin',
       'alma',
       'splunk',
       'nessus-linux',

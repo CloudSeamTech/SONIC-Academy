@@ -1,6 +1,7 @@
 'use client';
 import { WorkspaceStart } from './workspace-start';
 import { VisualChecklist } from './visual-checklist';
+import { TerminalExample } from './terminal-example';
 import { learnerActions } from '../lib/learner-directions';
 import { FocusStepControl } from './focus-step-control';
 
@@ -211,9 +212,7 @@ export function SonicTerminal({
           <span>{message === 'Copied' ? 'Copied' : 'Copy'}</span>
         </button>
       </header>
-      <pre aria-label="Scrollable command">
-        <code>{command}</code>
-      </pre>
+      <TerminalExample command={command} where={shell} />
       <div className="terminal-output">
         <span>What you should see · example to compare with your result</span>
         <p>{expected}</p>

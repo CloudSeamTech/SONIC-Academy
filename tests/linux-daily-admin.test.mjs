@@ -16,12 +16,17 @@ import {
   lessonSequenceFor,
 } from '../app/learning-pathways.ts';
 import { canVerifyNessusLesson } from '../lib/nessus-progress.ts';
-test('Daily administration is a complete separate class in the existing Linux pathway', () => {
+test('Daily administration has its own class without changing the original Linux lesson list', () => {
   assert.equal(course.lessons.length, 20);
   assert.equal(course.lessons.flatMap((l) => l.steps).length, 76);
   assert.equal(guidedCourseHref(course.id), '/linux-admin');
   assert.ok(guidedCourses.some((c) => c.id === course.id));
-  const linux = learningPathways.find((p) => p.id === 'linux');
+  const linux = learningPathways.find((p) => p.id === 'linux-daily-admin');
+  assert.ok(
+    pathwayLessons(learningPathways.find((p) => p.id === 'linux')).every(
+      (l) => !l.id.startsWith('daily-'),
+    ),
+  );
   for (const lesson of course.lessons) {
     assert.ok(guidedLessons.some((l) => l.id === lesson.id));
     assert.equal(

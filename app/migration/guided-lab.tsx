@@ -8,6 +8,7 @@ import { LabStepNav } from '../lab-step-nav';
 import { useEffect, useRef, useState } from 'react';
 import type { GuidedLab as Guide } from '@/lib/guided-lab';
 import { VisualChecklist } from '../visual-checklist';
+import { TerminalExample } from '../terminal-example';
 import { learnerActions } from '../../lib/learner-directions';
 import { productionPracticeFor } from '@/lib/lab-production-practice';
 import { explainStep } from '@/lib/step-coaching';
@@ -228,9 +229,10 @@ export function GuidedLab({
                     {copied ? 'Copied ✓' : 'Copy command block'}
                   </button>
                 </header>
-                <pre>
-                  <code>{step.command}</code>
-                </pre>
+                <TerminalExample
+                  command={step.command}
+                  where={step.where ?? guide.where}
+                />
                 <p>Paste into the workspace above, then press Enter.</p>
                 {coaching.commandNotes.length > 0 && (
                   <details className="lesson-support">

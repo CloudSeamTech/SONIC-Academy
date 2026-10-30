@@ -28,10 +28,15 @@ import {
   careerLessons,
 } from './career-pathways';
 import { CyberActivityMap } from './cyber-activity-map';
+import { LearningRhythm } from './learning-rhythm';
+import { CourseBrand } from './course-brand';
+import { brandForCourse } from '../lib/course-brands';
 import { lessonTier } from '../lib/plan-access';
 import { useAcademy } from './academy-provider';
 const lessons = learningPathways.flatMap(pathwayLessons);
 function PathIcon({ id }: { id: string }) {
+  if (brandForCourse(id) || id === 'pki-certificate-management')
+    return <CourseBrand id={id} />;
   const Icon =
     id === 'sql'
       ? Database
@@ -213,6 +218,7 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                       Browse All Courses
                     </a>
                   </div>
+                  <LearningRhythm />
                 </div>
                 <img
                   src="/academy-hero.png"

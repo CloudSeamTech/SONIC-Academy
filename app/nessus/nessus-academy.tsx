@@ -12,6 +12,7 @@ import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
 import { LabOverview } from '../lab-overview';
 import { VisualChecklist } from '../visual-checklist';
+import { TerminalExample } from '../terminal-example';
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { LessonWelcome } from '../lesson-welcome';
@@ -67,9 +68,11 @@ function CommandExample({ step }: { step: NessusStep }) {
               Copy command
             </button>
           </header>
-          <pre>
-            <code>{step.command}</code>
-          </pre>
+          <TerminalExample
+            command={step.command}
+            where={step.where}
+            context={step.terminal}
+          />
           <output aria-live="polite">{notice}</output>
         </section>
       )}

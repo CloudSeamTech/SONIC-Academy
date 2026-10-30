@@ -1,0 +1,47 @@
+{
+  "note": "Vendor marks identify technologies taught, not endorsement. Original proportions and supplied colors are retained. Collection artwork: gilbarbara/logos and Simple Icons; trademarks remain with their owners.",
+  "assets": [
+    {
+      "id": "microsoft",
+      "source": "https://raw.githubusercontent.com/gilbarbara/logos/main/logos/microsoft-icon.svg",
+      "vendor": "https://www.microsoft.com/en-us/legal/intellectualproperty/trademarks",
+      "sha256": "0a70bb4ba26d5cf9bbd377a82c7a14c845cda823032547505f7f8baa9921740a"
+    },
+    {
+      "id": "azure",
+      "source": "https://raw.githubusercontent.com/gilbarbara/logos/main/logos/microsoft-azure.svg",
+      "vendor": "https://learn.microsoft.com/en-us/azure/architecture/icons/",
+      "sha256": "7ccf0a9829dbea0fd6e86262591c23b7ea9a5fa7ad8c7e4e0d431f57e9d02518"
+    },
+    {
+      "id": "redhat",
+      "source": "https://raw.githubusercontent.com/gilbarbara/logos/main/logos/redhat-icon.svg",
+      "vendor": "https://www.redhat.com/en/about/brand/standards/logo",
+      "sha256": "bd3160c71bee6047e504f1d9c8feeb436b96cf584fc3947d717705275a354271"
+    },
+    {
+      "id": "splunk",
+      "source": "https://raw.githubusercontent.com/gilbarbara/logos/main/logos/splunk.svg",
+      "vendor": "https://www.splunk.com/",
+      "sha256": "f51c0938ccbebebc9bcc6ffa6a96fd709506490123093fcec2a2ef4e48ae1592"
+    },
+    {
+      "id": "vmware",
+      "source": "https://raw.githubusercontent.com/gilbarbara/logos/main/logos/vmware.svg",
+      "vendor": "https://www.vmware.com/",
+      "sha256": "458e127aa6efa34ad6a60462475add42a8baeaee39ca49325c93a3ede908ea47"
+    },
+    {
+      "id": "almalinux",
+      "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/almalinux.svg",
+      "vendor": "https://almalinux.org/",
+      "sha256": "d31e95e025c2299efb0fcbf64965081c5815ae32a54ad39db20b0c16327a6ef6"
+    },
+    {
+      "id": "nginx",
+      "source": "https://raw.githubusercontent.com/simple-icons/simple-icons/develop/icons/nginx.svg",
+      "vendor": "https://nginx.org/",
+      "sha256": "236d53b2b746706df75e2a01668cb84e6f3fc7c8923a9ce824f8534db007a438"
+    }
+  ]
+}

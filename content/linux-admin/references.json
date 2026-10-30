@@ -3,760 +3,760 @@
     "id": "daily-start-1",
     "src": "/linux-admin/screens/daily-start-1.svg",
     "title": "Open the terminal inside the VM",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "ec81144792ef806a55944da9188d33db236559482877348ed79a70456da10cd9"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "7306b865df9f481e75faecf870fc1725ce236c37caf3ca16b401a01245862048"
   },
   {
     "id": "daily-start-2",
     "src": "/linux-admin/screens/daily-start-2.svg",
     "title": "Check your administrator key",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "70c1df4439ba26ffd4922ebcc1ef808fcc6a0ec25540c20ff3c0c9f594177de1"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "2d4b3de21f2192b5215d5328b08c38ede56128b3465fdac8d5296ce6f4cd038c"
   },
   {
     "id": "daily-start-3",
     "src": "/linux-admin/screens/daily-start-3.svg",
     "title": "Make a small practice area",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "5c24808d6e23468f998a160a5cfc2025d800d10df52777b365084a320f25ec8b"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "dde0417254818ddfc7d3753811d4004c933f9cbf8e8e3c5db64ebc82f08931dd"
   },
   {
     "id": "daily-start-4",
     "src": "/linux-admin/screens/daily-start-4.svg",
     "title": "Prepare tools and a recovery point",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "3714869fcf6e48d283c8541cf28a94d7d3f3135568a4da7e893b5cf202e3c43f"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "ca78fdd5618373b6951e1e157dfe9fc01ee453d015c10fba43da0e06a9681f7d"
   },
   {
     "id": "daily-files-1",
     "src": "/linux-admin/screens/daily-files-1.svg",
     "title": "See where you are",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "b8b033a2dc010cf8822bb26bea5a6f003b976725d45d465bb7eeede08a264e23"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "02f09881763f465fa4e1c6056c2a1941c6f33f2d8e201121d2180313eb69c224"
   },
   {
     "id": "daily-files-2",
     "src": "/linux-admin/screens/daily-files-2.svg",
     "title": "Copy a file before editing it",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "790277690095e4d713c5d1d486d64c9fadaa99a7ba0c18cfb7d394866ad7e5af"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "3cee9d0a82a2bc9bbff247dbac2cefccb5bcea228df267fb2a521c31c5acd6c7"
   },
   {
     "id": "daily-files-3",
     "src": "/linux-admin/screens/daily-files-3.svg",
     "title": "Read long files without editing",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "74170b0921c68e59381eeb7853fed32229e7c2cc10686cee687fd741d590830c"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "fe4b6608ea120a218f72d4c970062ffcb6cc2388d4d0a2d117e7fb8bb4ee0ded"
   },
   {
     "id": "daily-files-4",
     "src": "/linux-admin/screens/daily-files-4.svg",
     "title": "Ask a command for help",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "476d9bd19f8742b4f31b82500502cc846d27a554753649da239b694c7adfe69a"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "f79b1e23486334484ba9e68d75df68a5f9404e1563003113196ff3622e00f19f"
   },
   {
     "id": "daily-morning-1",
     "src": "/linux-admin/screens/daily-morning-1.svg",
     "title": "Check time, uptime and failed services",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "eb12827441a018f6ca69e134cd4ae5b4666fcaba866dd7776fe58abadb47e757"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "9edeedee0c6fef99005accf6761d6260499743ccdef7e337efb9ac1d64430ef6"
   },
   {
     "id": "daily-morning-2",
     "src": "/linux-admin/screens/daily-morning-2.svg",
     "title": "Check capacity, memory and CPU count",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "4cfb45cdb3780945776e530eba9be7a3e3e1b26157abaa313f558bc392ca0612"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "df706d0eec66f88d2100b3d87939951e5d8f8d591f8907f9eea22e5dbffade7e"
   },
   {
     "id": "daily-morning-3",
     "src": "/linux-admin/screens/daily-morning-3.svg",
     "title": "Save a baseline without secrets",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "9a8f3830c79b812c54bc9f0149aab82174353b98cb160b7d95003deb4b68eed4"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "6af72c002391f0ac65b2f83df79f38a82f0bf9f79f9e2cdd5ad3bb08ed98364f"
   },
   {
     "id": "daily-morning-4",
     "src": "/linux-admin/screens/daily-morning-4.svg",
     "title": "Practice a useful handoff",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "ff285bf69832ba94eddf1f471b0fcf12cde61b55ef45c59ca3c2b4d81f1075ba"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "3cb770c934ec0cdc0b0c0b304dede2d7a6bf6eb44ac6553bfe92897edd72c804"
   },
   {
     "id": "daily-space-1",
     "src": "/linux-admin/screens/daily-space-1.svg",
     "title": "Find the affected filesystem",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "eb278c68e65b30f54ef8ea9885b4a0094af8f6414338bc0f4aa4b13f91baf47f"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "fb298c0a49ee6e18afca27f538be1883d86b5db6f3a3c7db857dc655d11b9f90"
   },
   {
     "id": "daily-space-2",
     "src": "/linux-admin/screens/daily-space-2.svg",
     "title": "Create a small disposable growth example",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "e9a10840242f39b786fa7a4520210aa0cce12a875ee1568e1f8a14f05564b40f"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "a8a2e5ee3a6d3d2ba3339837dc1aea650e2b00db8c3792217bff9697c3ed4082"
   },
   {
     "id": "daily-space-3",
     "src": "/linux-admin/screens/daily-space-3.svg",
     "title": "Find the large folder one level at a time",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "e535c63d6bc2d7f585cd6f759597c27935abbc95cbe7edffdae5f256b5f3c06f"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "acbd26a51f9b30c4c84a10ccd4333026f75baa4ac82f38b982c623107f821400"
   },
   {
     "id": "daily-space-4",
     "src": "/linux-admin/screens/daily-space-4.svg",
     "title": "Remove only the known sample and verify",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "7fbd5163d92758b0c2f0770c019a126dbc0d0b88949aefc4953729b2695f2937"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "20a800d0a4ac66f22c4c3d4716909506b6559034baff8080bd8ad07e157e07d6"
   },
   {
     "id": "daily-deleted-1",
     "src": "/linux-admin/screens/daily-deleted-1.svg",
     "title": "Create a tiny file held open by one process",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "e1a52796974a7d64711d5da57251fd49abc0a07892ca79ac6791df717e7a30e1"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "bf52fa8b7247c27e77c81ba62ef35c1468fddb17c03f1cccc8ada994b0ab1790"
   },
   {
     "id": "daily-deleted-2",
     "src": "/linux-admin/screens/daily-deleted-2.svg",
     "title": "Remove the filename, not the running program",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "67107bd1c0a2606a70b10bf222b2534662950b889df2c248217d0d63631d39b9"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "64f766f68b8290417d41c8b06eb0985ac63fcbdad8548aa20cdaa245a08b1290"
   },
   {
     "id": "daily-deleted-3",
     "src": "/linux-admin/screens/daily-deleted-3.svg",
     "title": "Verify the saved process before stopping it",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "4593b913e6f5d7b9ccb5a86583e61c988f2141e5af640f430b727e1314f0fa1d"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "b478536ea4974a2c82207852ed41f9134000f931928be5c848e6b9134a713978"
   },
   {
     "id": "daily-deleted-4",
     "src": "/linux-admin/screens/daily-deleted-4.svg",
     "title": "Release only the practice holder",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "7a120577955c18fbd98208b588f564473535636a93eeec1c57639c01353ca9b9"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "313559a72b8ef4eced3bb315fe0498993be28846ebb1ce7b13fa180443b1b728"
   },
   {
     "id": "daily-lvm-1",
     "src": "/linux-admin/screens/daily-lvm-1.svg",
     "title": "Add a separate practice disk in VMware",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "602382871059b745410defac2a1a84532553ade46c6444841d2f260821eb7577"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "dba29f2ea82c70bc5aee6e3a6bc185e79e506341979b93ffa8edb93acabf3e2d"
   },
   {
     "id": "daily-lvm-2",
     "src": "/linux-admin/screens/daily-lvm-2.svg",
     "title": "Select and double-check the empty disk",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "23ae6a6947997c2b162f8ac5e47e5c894df61d150d9be96ae9a5db42ff0f69f9"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "c31e4764b13c9dad25eee8c70313dddd27e82a80fef9b99e46f3cc5827732e46"
   },
   {
     "id": "daily-lvm-3",
     "src": "/linux-admin/screens/daily-lvm-3.svg",
     "title": "Build only the new practice storage",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "21dc19fa62d2a108e84c9bdaa7713a9b2b3cd867f447f58c358d7f9cb956ab64"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "4afc7950d21d4bfe1e0dcb7cf70be817d84c5a294fde572c200f5bb13a6eb58f"
   },
   {
     "id": "daily-lvm-4",
     "src": "/linux-admin/screens/daily-lvm-4.svg",
     "title": "Grow the logical volume and XFS in order",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "9e95f85e6f34bd3f3e946d39050c73b59288014c2ba1b498d41b8168f5e4068e"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "3586a6b8e4473f9cfa57eb517db2c434da34929e8eaf8a49ec6be7f31ec9e37e"
   },
   {
     "id": "daily-lvm-5",
     "src": "/linux-admin/screens/daily-lvm-5.svg",
     "title": "Unmount the practice volume and choose cleanup",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_and_managing_logical_volumes/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "bc90efabaf2d38bf94df753366b155a82e47fcb8f39c8170ee505866cfc63416"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "d4850e0f317fa345ddd4786434c2e62a37be31da580894c94fa3febab8b7efd9"
   },
   {
     "id": "daily-services-1",
     "src": "/linux-admin/screens/daily-services-1.svg",
     "title": "Create a deliberately broken practice unit",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "cb53ee1c1f5ab756f8b53aa841f18a724a6b97ff73b6efc26a95ba9727d65f26"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "f90735d733cc08e1a78136734ef097b6e83f7482ac4fc76cd42052a41b3d7e45"
   },
   {
     "id": "daily-services-2",
     "src": "/linux-admin/screens/daily-services-2.svg",
-    "title": "Read status and this unit\u2019s journal",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "title": "Read status and this unit’s journal",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "419caac85405cb41259f5e2487e65be0ad062f9600f4248a0f8d245fff40ba91"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "0e5a85fc18bb83e1702f2e0def8f736dc6a2cc9b83bc9efe6f5513f8aaddde3a"
   },
   {
     "id": "daily-services-3",
     "src": "/linux-admin/screens/daily-services-3.svg",
     "title": "Inspect the configured command",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "220850031d74aca7da02c4c7fc18b2e220c562c7150f09ca53adfd48d3a55ec1"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "a35a2d391561d307f8fe6b6a3f2a015449683d57d5385a70ea4b6b5e9114835f"
   },
   {
     "id": "daily-services-4",
     "src": "/linux-admin/screens/daily-services-4.svg",
     "title": "Fix one line, reload, and retest",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "5f131fa17a18a7c2a0b9581035c96641ad69e67ade56d3e1787a4816e7791f70"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "f8ae37a84f7f0d14e37ddab1be215adb867643105138c8c3deca6cfe925f55e8"
   },
   {
     "id": "daily-logs-1",
     "src": "/linux-admin/screens/daily-logs-1.svg",
     "title": "Find the correct boot and time window",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "61a33822e73d94915cda50315871c59ed6bb274507524bc31d7134113a7f4080"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "8b8c0e56be5e96b229df811bd3ce702aac99f7bfe578485f85e5b8eed985094f"
   },
   {
     "id": "daily-logs-2",
     "src": "/linux-admin/screens/daily-logs-2.svg",
     "title": "Write and retrieve a practice event",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "ce8e94fc66ee55f67e29064145bcfcc68a7ebc51c715d822472a01460b0abccd"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "3e7763fe5593b2a64793be053b5524063a88dc6223ec4ff973f5142fa1a96194"
   },
   {
     "id": "daily-logs-3",
     "src": "/linux-admin/screens/daily-logs-3.svg",
     "title": "Measure logs before choosing retention",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "9beddfff0fb02b6661706d6383c8b9217fe87e1ea0f4142e000fd98aa9c12c6b"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "5183c2fc0a5fb17c37dfe6af606d0717b677d14d9f56c059f372c57d8fb2bfdb"
   },
   {
     "id": "daily-performance-1",
     "src": "/linux-admin/screens/daily-performance-1.svg",
     "title": "Ask what is slow, then inspect processes",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "9b545aad184eb123f6b9b075993a63fa8c9edf496e2d327b32b6f602666b5778"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "c786678afad35872fe9dfc81f3ec447bad310fab699ba94c41d02ef48d3278ec"
   },
   {
     "id": "daily-performance-2",
     "src": "/linux-admin/screens/daily-performance-2.svg",
     "title": "Separate cache from memory pressure",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "b6cf798ce79f98d781a4e339dc61a09e53a41dea8e0576385c83efb24ce52a30"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "f253151e7170a095cabd3f844583bc656990f3c8ba8cd3e7dd685bb97e2ba954"
   },
   {
     "id": "daily-performance-3",
     "src": "/linux-admin/screens/daily-performance-3.svg",
     "title": "Look for storage delays",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "32519390f5a245ece60a2868182c0622ab1c1c8383182f2dc257261dd2164350"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "cf3938367a615702cda4d5ee5904a9eee33f19deeeaaab7cecd6636a3c9e6edc"
   },
   {
     "id": "daily-performance-4",
     "src": "/linux-admin/screens/daily-performance-4.svg",
     "title": "Practice observing a harmless busy process",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "22a06b8d06115a68dd508c2782877cf4b3ee0d3574e79e5fa50281d0b05aabb6"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "3eaced579319489d209940629c248764b8c65290cef8ae6b0495a48bb2e427cf"
   },
   {
     "id": "daily-network-1",
     "src": "/linux-admin/screens/daily-network-1.svg",
     "title": "Check address and route from the console",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "7bb70885b88b70380aa948d190a444e99ef8a650e63221c88db21a2f821b2208"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "19915c718fdda91616caf86ae81bf2b32a2769d69af5b5e12220eebfe71a60bb"
   },
   {
     "id": "daily-network-2",
     "src": "/linux-admin/screens/daily-network-2.svg",
     "title": "Check name resolution separately",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "cbba08232c3a893d2e1cef26a9153e5c8c9e11dfe8978d69a0ade418808eda3a"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "dc61f0ff99a9754570db3030982acbd18c7d691e4f1bc728cd871232a08fc98a"
   },
   {
     "id": "daily-network-3",
     "src": "/linux-admin/screens/daily-network-3.svg",
     "title": "Check a client connection with a timeout",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "b4ede6f15b9422e68a610c92f0e670a59e5fe47cd2f01d82f9098288ee64006b"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "eff3977b54e966815fbbf4991e11a4b2b95da1fdd519e9822b43aedb207b44e7"
   },
   {
     "id": "daily-network-4",
     "src": "/linux-admin/screens/daily-network-4.svg",
     "title": "See listeners without changing the firewall",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "a49e7bda8e589ab06d6b80471eb1016fc255158baeb68a72d141e20e8f896dab"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "096dedca1958a9165c8e4cfeb3b45b39e5b3bfefc4c7dd069548d1d8ce9726f2"
   },
   {
     "id": "daily-ssh-1",
     "src": "/linux-admin/screens/daily-ssh-1.svg",
     "title": "Check SSH from the console before changing anything",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/securing_networks/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "45bd6b74e1a338c84f0318eb463bc453f724e6f4c62c2bf3e56c2e0925e93df8"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "b15574938084da0680d04d2b9cf9ac0bfe66436087c719dff434a5b977ce9b89"
   },
   {
     "id": "daily-ssh-2",
     "src": "/linux-admin/screens/daily-ssh-2.svg",
     "title": "Read the server fingerprint at the trusted console",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/securing_networks/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "20312d19a47fd0154479389621f05184b401de62144119d7af81ffdb2f36d494"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "cf2442267124e179f199814b1c418e8987e739bf61bffbe99e46c11a675a5a6a"
   },
   {
     "id": "daily-ssh-3",
     "src": "/linux-admin/screens/daily-ssh-3.svg",
     "title": "Connect from the physical Windows computer",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/securing_networks/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "f0627db5f17da510ead00506f1dbbfad3597b689a70dd744d3780a42a8b9b8f2"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "5db245502155f990099a126a1d2bc7a0f107bf93ef29e651181f07bdb80ca16c"
   },
   {
     "id": "daily-ssh-4",
     "src": "/linux-admin/screens/daily-ssh-4.svg",
     "title": "Diagnose login failure without locking yourself out",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/securing_networks/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "bc205979f9abe56161e706f3d25d9dc4e6bfe3f16ad2fdf8a1984884d112ce52"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "4eab9ffc322219fe64703f83394d988898f0fa9e87f50927986cb194a31befcf"
   },
   {
     "id": "daily-web-1",
     "src": "/linux-admin/screens/daily-web-1.svg",
     "title": "Inspect NGINX before starting it",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://nginx.org/en/docs/beginners_guide.html",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "761a34151486045890151930ef642a2d2613567aab303d5f92b2e7ce451a65fe"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "08c797d991b238cc2de028dc13c7e525b5b77ace8b9f61fac401ae60b49e48d7"
   },
   {
     "id": "daily-web-2",
     "src": "/linux-admin/screens/daily-web-2.svg",
     "title": "Create a uniquely named practice page",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://nginx.org/en/docs/beginners_guide.html",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "bb2f8528eae3c26ce1c1f156e1436058e9929c4c76da67cb48cc54348c29e93c"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "2b33370967aab84c7f4e8f4085e917b56bb93092102c642041bd868b929c21fa"
   },
   {
     "id": "daily-web-3",
     "src": "/linux-admin/screens/daily-web-3.svg",
     "title": "Trace failure through logs and listeners",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://nginx.org/en/docs/beginners_guide.html",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "349276d157a6118525ecbdddd5280dded929d0ebb7713a7b26760b07b028dc73"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "307a32dd373cccb325082e7c2cd5c7b8ae87fcaed6af1a450fc0f597e61f106c"
   },
   {
     "id": "daily-web-4",
     "src": "/linux-admin/screens/daily-web-4.svg",
     "title": "Verify a reload without causing an outage",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://nginx.org/en/docs/beginners_guide.html",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "0629c7509d7a7ae483db6c5a04d0d55c93ab3458f01a47507787e5246cd98217"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "dcea0841956ddaf5e7191f3a270d5566a3c52b316b26da7eb84f84bc191964e9"
   },
   {
     "id": "daily-permissions-1",
     "src": "/linux-admin/screens/daily-permissions-1.svg",
     "title": "Inspect your identity and a private practice file",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "5b85afa79ad165a04b7c28cfbe39313119e5a44952484ff76b5ccaba7982cdfb"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "d4da5dc129ee599fd28e4439dea99301b1dc50e7a1041c0add02e7c17a675028"
   },
   {
     "id": "daily-permissions-2",
     "src": "/linux-admin/screens/daily-permissions-2.svg",
     "title": "Make and repair a safe access failure",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "a3cd2888ee8624e4ec7f56dd8fc64c568b361212466aa19f075407c1cc38c367"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "808890df3c7250411df71d61f94ccf8365f174897f05a4a36d29aa3607d046d1"
   },
   {
     "id": "daily-permissions-3",
     "src": "/linux-admin/screens/daily-permissions-3.svg",
     "title": "Check ACLs before changing ownership",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "810231ca6c47f504cd0692ed78947c04b4ae666614a755dbdb7e4cc67cf3157c"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "7e310f9fc16690bd8b89cad8dc7200a21a767b6a997506620e0d0d5a3887250b"
   },
   {
     "id": "daily-accounts-1",
     "src": "/linux-admin/screens/daily-accounts-1.svg",
     "title": "Inspect an account and its login status",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "06b48def50a92c78902f95004ee7aeebee91d0ef9fa909213ab0e8f128d03251"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "a6ea68bdb44e9d2426afc6654a705db7e952bfd28c83d46ac4939e37e32c5732"
   },
   {
     "id": "daily-accounts-2",
     "src": "/linux-admin/screens/daily-accounts-2.svg",
     "title": "Create a non-login practice identity",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "96cf0628468cdbf34c19c27b4313e05959f31a8e71d5d0648f0949563568b31d"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "d5f2d1037516d2460349046e666ab89dd3580d2edd48e2c6cd59515b0ca94c69"
   },
   {
     "id": "daily-accounts-3",
     "src": "/linux-admin/screens/daily-accounts-3.svg",
     "title": "Inspect group and sudo policy safely",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "3feaf127a990b9701b9bf2215b073209ef001e34fc2b66af3fcffefacd98d87a"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "2b623b094b089ea30413ef0d24262f5234dca2d151e7131b9d140307e7571ae4"
   },
   {
     "id": "daily-selinux-1",
     "src": "/linux-admin/screens/daily-selinux-1.svg",
     "title": "Inspect enforcement and labels",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "6ed394a7877f570a01404ded2e831f5b173641a25301156b84d64defa042f5a5"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "fdf03da35cedeba175317a09d684cf9d50d7a962ec17b527466d9845d631b6f1"
   },
   {
     "id": "daily-selinux-2",
     "src": "/linux-admin/screens/daily-selinux-2.svg",
     "title": "Reproduce a label mismatch on only the practice page",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "fd7928ce0ccdffc5aa26b1caf8659210ae9066f510d8bacdd35f47cb42a496cd"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "f6284b0db36d0b31319c808ede20d5df504868c9fdd2c4263a224a652eadabfd"
   },
   {
     "id": "daily-selinux-3",
     "src": "/linux-admin/screens/daily-selinux-3.svg",
     "title": "Restore the policy label and verify content",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/using_selinux/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "f0f4b2fc9c7bef87dca8a69ad30f5bcdd74cf835e5c9b3897f9baec64dcfe759"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "58018fe54e0aa94caba9d6a9733c12c4b0d443eeceb1a38d4080a208a0d2b9e4"
   },
   {
     "id": "daily-updates-1",
     "src": "/linux-admin/screens/daily-updates-1.svg",
     "title": "Inventory and review available updates",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "74287b0a6304ed54fd434ff75e55c77e2c3047b3a0fa6e6d72aea2ad0c3d134a"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "af0f15af391fe12e74a7fa912d27f540aded86818846a92e6686e6f95c5baa93"
   },
   {
     "id": "daily-updates-2",
     "src": "/linux-admin/screens/daily-updates-2.svg",
     "title": "Preview one package transaction",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "226ea45c3f4365e1d8d44d765c14bd027e2aa460f4a568491550d55e3c99769e"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "7cae3cd1a0f59704366e1bd88056c12d9b49cc31c3a797f81a9163d4f096d99c"
   },
   {
     "id": "daily-updates-3",
     "src": "/linux-admin/screens/daily-updates-3.svg",
     "title": "Apply only the reviewed pilot update",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "0e8511a20860c8ad49e7715a2d3e829e1ebcb4cb0af0feeb56f337b22f5f5829"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "d2e629dbe0ea6a008a5cc712b6ba3e1edb5a0f151ef35df2480a2eb59ff6db3c"
   },
   {
     "id": "daily-updates-4",
     "src": "/linux-admin/screens/daily-updates-4.svg",
     "title": "Plan a rolling maintenance window",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "740802527337b254771cb227148f6bac45f56d04e855eb1c636196c1b06326f1"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "b2f953a9bf8dd8f7dcc45bb98231379261c66a1c77bd2c2ec024f67145804d10"
   },
   {
     "id": "daily-backup-1",
     "src": "/linux-admin/screens/daily-backup-1.svg",
     "title": "Archive only the practice folder",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "856e73e31674cf3deb56b96c572eb4c1829568659335c8e626c7fa3892c4b266"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "582435dfe05595b5ebd965403b0f434febd04b69b5768598db8c9e422c7eef31"
   },
   {
     "id": "daily-backup-2",
     "src": "/linux-admin/screens/daily-backup-2.svg",
     "title": "Record and check its checksum",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "6591655529cb4e5b7a2e565c20496d320d66e4e9821895a203a47ff4d08c80a4"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "06c9f7a706d5af9803793f2e4c89a5907e1020c803d72a582329573892557547"
   },
   {
     "id": "daily-backup-3",
     "src": "/linux-admin/screens/daily-backup-3.svg",
     "title": "Restore to a new folder and compare",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "8c1290acb7b84f527dd7b583b34d5f633c7eaf1902585fec3cc641545ae6c1a1"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "4bd02a3210b90f8da89b13bcc27fd65420b8f393a45b1c9e61117ee5a97cd9ec"
   },
   {
     "id": "daily-time-jobs-1",
     "src": "/linux-admin/screens/daily-time-jobs-1.svg",
     "title": "Check the system clock and time source",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "f99dde5f447512e2c928dac4968e6d4e741493c8fafa09985fa367d2d64306d1"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "b555ed4b7ee693dbef4edaae624860a947fec61e4101975f1bf3571a92d5c285"
   },
   {
     "id": "daily-time-jobs-2",
     "src": "/linux-admin/screens/daily-time-jobs-2.svg",
     "title": "Create a harmless scheduled health marker",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "760f7364616f81f202d899031ac339d824a842715e38a8bacac45b4b258d5201"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "0750a13312edd20c536f0b911e05be21fc43ac9758a813a14bdec0314f561827"
   },
   {
     "id": "daily-time-jobs-3",
     "src": "/linux-admin/screens/daily-time-jobs-3.svg",
     "title": "Test the job, then enable the alarm",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "1bd411fef3043bb522951ef433fda3db86ce1fc418a96635d052a7415a9ebd7e"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "b862285dfbea5b416dce05aaed52124e2d05959c6375f2a8bbddb54a7a906f45"
   },
   {
     "id": "daily-interview-1",
     "src": "/linux-admin/screens/daily-interview-1.svg",
     "title": "Drill: writes fail but CPU is quiet",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "0ff59cbfed86d8176040c75d5e9e05d68eff0bfaa707652a2bb6a564b5f42376"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "9dd62ef5468bca1dcb8c63ae5e337500f7b0b4cba5d20a0a498c2c120a7dd8cc"
   },
   {
     "id": "daily-interview-2",
     "src": "/linux-admin/screens/daily-interview-2.svg",
     "title": "Drill: website failed after a change",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "97f13690dd60e949e0a6288955f3adf44dfa043f4c168e35641489f2a2c78061"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "d42d66f3f11d4056132fa23df19b62444b7324cfa944f6190d4e0ecd671609d5"
   },
   {
     "id": "daily-interview-3",
     "src": "/linux-admin/screens/daily-interview-3.svg",
     "title": "Drill: permission denied after a file move",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "272edacb61ab426ab04b9c724a3e3f4bfe55f6dcf9950ebd072112f51b73c0bc"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "e23dccb499a3d066ee7e9f61ae0ffa0a7cfa79fbcdbf8ea6b544d360f213a353"
   },
   {
     "id": "daily-interview-4",
     "src": "/linux-admin/screens/daily-interview-4.svg",
     "title": "Write a short incident report",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "3e000b0289b67461acf49ae1c4e51345fb3af6e841cb4e2067d1d82193726e67"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "b0f2baeee629837ed003bc50e7751ff73c646561688183441d9e28b6b81baebd"
   },
   {
     "id": "daily-final-1",
     "src": "/linux-admin/screens/daily-final-1.svg",
     "title": "Complete a practical shift without the answer list",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "ad2fc8b359fd54ecf9c83064b54954dc7a298c22aa4cfb94199ce7a139b6d0e5"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "3aa6c44c858a31027d404a18e5a479a8dd40990cd893ac8c0ec9c34361d97e41"
   },
   {
     "id": "daily-final-2",
     "src": "/linux-admin/screens/daily-final-2.svg",
     "title": "Remove the two practice systemd jobs",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "0cd26867e57b38e6b462ae0f3cf2b365cdd2ba26fb4d082f7955c4fb9a1a4d7a"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "871ec263ee5aa07e54138bd5f9c9d97a0678668a7b67f4082fc802e47e2500e9"
   },
   {
     "id": "daily-final-3",
     "src": "/linux-admin/screens/daily-final-3.svg",
     "title": "Remove the practice identity and web page",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "77963792d79d176387416243fb6341db44d683afe75191fda2e5e598f35b759d"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "593a50b7bf5a2e7f89d584df70b30373adfd26a6c77c4e162ca4442da6e48050"
   },
   {
     "id": "daily-final-4",
     "src": "/linux-admin/screens/daily-final-4.svg",
     "title": "Remove LVM objects only if you want to discard this lab disk",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "5864aecc922633aee5eac71acbabc8142a38f1073ed00d427d85b327bf4db1ab"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "1c0556f96802ee337963bcd1742282ae30ab39036cece1bdd395a905d8103eba"
   },
   {
     "id": "daily-final-5",
     "src": "/linux-admin/screens/daily-final-5.svg",
     "title": "Keep the evidence, explain your next learning goal",
-    "platform": "RHEL / AlmaLinux 9 \u00b7 instructional terminal mockup",
+    "platform": "RHEL / AlmaLinux 9 · instructional terminal mockup",
     "source": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html-single/configuring_basic_system_settings/index",
-    "credit": "CloudSeam Tech \u00b7 authored teaching visual",
-    "note": "Not a screenshot of a running VM. Commands and expected observations illustrate this exact step; actual values vary.",
-    "sha256": "c2fa12b6f0b4b53650cc2efe8b334b8869b5d2cc39c25ba4955b83822f5f6d19"
+    "credit": "CloudSeam Tech · authored teaching visual",
+    "note": "Not a live capture. Prompts, usernames, hostnames and outputs are examples. Start in the shown folder, compare pwd/Get-Location, and copy executable input using the command button.",
+    "sha256": "acb63f56cbf83e8807c62b2e75331ef79278e89e88bebfc3bc6b29918949116b"
   }
 ]
