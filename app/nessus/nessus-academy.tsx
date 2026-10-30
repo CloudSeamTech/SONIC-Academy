@@ -17,6 +17,7 @@ import { LabStepNav } from '../lab-step-nav';
 import { LabOverview } from '../lab-overview';
 import { VisualChecklist } from '../visual-checklist';
 import { TerminalExample } from '../terminal-example';
+import { shouldResumeReader } from '../../lib/reader-resume';
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { LessonWelcome } from '../lesson-welcome';
@@ -38,6 +39,7 @@ import {
   canVerifyNessusLesson,
   nessusSnapshot,
   nessusServerSnapshot,
+  nessusProgressKey,
   subscribeNessus,
   updateNessusProgress,
   type NessusProgress,
@@ -206,8 +208,25 @@ function LessonReader({
   const [index, setIndex] = useState(0);
   const [focused, setFocused] = useState(false);
   useEffect(() => {
-    const resumeStep = () => {
+    let previousChecks = '';
+    const resumeStep = (event?: StorageEvent) => {
+      if (event?.key && event.key !== nessusProgressKey) return;
       const current = JSON.parse(nessusSnapshot()) as NessusProgress;
+      const currentChecks = lesson.steps
+        .map((_, i) =>
+          current.checked.includes(`${lesson.id}:step:${i}`) ? '1' : '0',
+        )
+        .join('');
+      if (
+        !shouldResumeReader(
+          event?.key,
+          nessusProgressKey,
+          previousChecks,
+          currentChecks,
+        )
+      )
+        return;
+      previousChecks = currentChecks;
       const next = lesson.steps.findIndex(
         (_, i) => !current.checked.includes(`${lesson.id}:step:${i}`),
       );
