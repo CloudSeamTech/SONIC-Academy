@@ -31,7 +31,21 @@ if (process.argv.includes('--pin')) {
   for (const item of lock.files) {
     const target = new URL(item.name, out);
     let data = await fs.readFile(target).catch(() => null);
-    if (!data || hash(data) !== item.hash) data = await download(item.name);
+    if (!data || hash(data) !== item.hash) {
+      // Pages replaces its hashed assets on new upstream releases. The last
+      // production build retains our pinned copy; never accept changed bytes.
+      const sources = [base, 'https://cloudseam.tech/bicep-runtime/'];
+      data = null;
+      for (const source of sources) {
+        try {
+          const response = await fetch(source + item.name);
+          if (!response.ok) continue;
+          const candidate = Buffer.from(await response.arrayBuffer());
+          if (hash(candidate) === item.hash) { data = candidate; break; }
+        } catch { /* Try the next public mirror; no credentials are involved. */ }
+      }
+      if (!data) throw new Error(`Cannot obtain the pinned compiler asset: ${item.name}. Review upstream and repin explicitly.`);
+    }
     if (hash(data) !== item.hash) throw new Error(`Pinned Bicep asset changed: ${item.name}. Explicitly review and repin upstream.`);
     await fs.writeFile(target, data);
   }
