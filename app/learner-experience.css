@@ -11,6 +11,32 @@
   font-family: Consolas, monospace !important;
   overflow-wrap: anywhere;
 }
+html
+  body
+  .academy-shell.academy-shell
+  .reader-workspace
+  .terminal-example
+  .terminal-location,
+html
+  body
+  .academy-shell.academy-shell
+  .reader-workspace
+  .terminal-example
+  .terminal-location
+  :is(span, strong) {
+  color: #ffffff !important;
+  -webkit-text-fill-color: #ffffff;
+}
+html
+  body
+  .academy-shell.academy-shell
+  .reader-workspace
+  .terminal-example
+  .lesson-support
+  > summary {
+  color: #633c8c !important;
+  -webkit-text-fill-color: #633c8c;
+}
 .terminal-context-note {
   font-size: 13px !important;
   line-height: 1.5 !important;
