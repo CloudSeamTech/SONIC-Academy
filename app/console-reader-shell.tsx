@@ -18,6 +18,9 @@ import { useAcademy } from './academy-provider';
 import { BrandLogo } from './brand-logo';
 import { LabPassport, LabEnvironmentScope } from './lab-passport';
 import { LessonTools } from './learning-rhythm';
+import { ClickableLabMap } from './clickable-lab-map';
+import { PrivateNotebook } from './private-notebook';
+import { ModuleTest } from './module-test';
 import './learner-experience.css';
 import './learning-console.css';
 import './lesson-reading.css';
@@ -250,9 +253,16 @@ export function ConsoleReaderShell({
             <>
               <LessonTools key={lessonId} />
               <LabPassport lessonId={lessonId} />
+              <ClickableLabMap lessonId={lessonId} />
             </>
           )}
           {children}
+          {lessonId && (
+            <>
+              <PrivateNotebook lessonId={lessonId} />
+              <ModuleTest lessonId={lessonId} />
+            </>
+          )}
           <footer className="academy-footer">
             <span>CloudSeamTech · SONIC-Academy</span>
             <nav aria-label="Support and business information">

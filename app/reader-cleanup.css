@@ -30,7 +30,10 @@ html
     .console-commandbar,
     .course-progress-strip,
     .lesson-tools,
-    .lab-passport
+    .lab-passport,
+    .clickable-lab-map,
+    .private-notebook,
+    .module-assessments
   ) {
   box-sizing: border-box;
   width: 100%;

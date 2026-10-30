@@ -1,9 +1,23 @@
 'use client';
 import { useState } from 'react';
-import { Image, ListChecks, CircleCheck, LifeBuoy } from 'lucide-react';
+import {
+  Image,
+  ListChecks,
+  CircleCheck,
+  LifeBuoy,
+  Network,
+  NotebookPen,
+} from 'lucide-react';
 import './lesson-tools.css';
 
 const destinations = [
+  { id: 'map', label: 'Lab map', Icon: Network, selector: '#lab-map' },
+  {
+    id: 'notebook',
+    label: 'Notebook',
+    Icon: NotebookPen,
+    selector: '#private-notebook',
+  },
   {
     id: 'picture',
     label: 'Picture',
@@ -43,7 +57,10 @@ export function LessonTools() {
       ) ?? [],
     ).find((item) => item.getClientRects().length > 0);
     const candidates = Array.from(
-      (panel ?? root)?.querySelectorAll<HTMLElement>(selector) ?? [],
+      (id === 'map' || id === 'notebook'
+        ? root
+        : (panel ?? root)
+      )?.querySelectorAll<HTMLElement>(selector) ?? [],
     );
     const target =
       id === 'help'
@@ -73,7 +90,7 @@ export function LessonTools() {
         : 'smooth',
     });
     setNotice(
-      `Showing ${destinations.find((item) => item.id === id)?.label.toLowerCase()} for the current step.`,
+      `Showing ${destinations.find((item) => item.id === id)?.label.toLowerCase()}${id === 'map' || id === 'notebook' ? ' for this lab' : ' for the current step'}.`,
     );
   }
   return (
