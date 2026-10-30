@@ -1,0 +1,13 @@
+import fs from 'node:fs';
+import sharp from 'sharp';
+const source=fs.readFileSync('app/brand-logo.tsx','utf8');
+const polygon=source.match(/id=\{`\$\{id\}-cloud`\}><polygon points="([^"]+)"/)?.[1];
+if(!polygon)throw new Error('Current brand logo clip was not found');
+const png=fs.readFileSync('public/cloudseam-logo.png').toString('base64');
+const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 -100 1000 1000"><defs><clipPath id="cloud"><polygon points="${polygon}"/></clipPath></defs><image href="data:image/png;base64,${png}" width="2030" height="775" clip-path="url(#cloud)"/></svg>`;
+for(const size of [32,64,180,192,512]) await sharp(Buffer.from(svg)).resize(size,size).png().toFile(`public/cloudseam-icon-${size}.png`);
+const icon=fs.readFileSync('public/cloudseam-icon-64.png');
+fs.writeFileSync('public/favicon.svg',`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><image href="data:image/png;base64,${icon.toString('base64')}" width="64" height="64"/></svg>\n`);
+const header=Buffer.alloc(22);header.writeUInt16LE(1,2);header.writeUInt16LE(1,4);header[6]=64;header[7]=64;header.writeUInt16LE(1,10);header.writeUInt16LE(32,12);header.writeUInt32LE(icon.length,14);header.writeUInt32LE(22,18);
+fs.writeFileSync('public/favicon.ico',Buffer.concat([header,icon]));
+console.log('Built zipper icons from the current original brand artwork.');

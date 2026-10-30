@@ -627,16 +627,8 @@ export const learningPathways: LearningPathway[] = [
     id: 'linux',
     title: 'Linux Administration',
     prerequisite:
-      'Start with Linux Daily Admin Tasks for local RHEL / AlmaLinux 9 practice. Azure RHEL/Wazuh and SSL/TLS classes list their own prerequisites.',
+      'Choose Azure RHEL/Wazuh labs or local VMware SSL/TLS; each class lists its own prerequisites.',
     sections: [
-      {
-        title: 'Linux Daily Admin Tasks · start here',
-        lessons: standaloneLessons(
-          dailyAdminCourse,
-          '/linux-admin',
-          'linux-admin',
-        ),
-      },
       ...modules
         .filter((module) => module.lessonIds.length)
         .map((module) => ({
@@ -671,6 +663,21 @@ export const learningPathways: LearningPathway[] = [
           ),
         ),
       })),
+    ],
+  },
+  {
+    id: 'linux-daily-admin',
+    title: 'Linux Daily Admin Tasks',
+    prerequisite: dailyAdminCourse.prerequisite,
+    sections: [
+      {
+        title: 'Daily checks, troubleshooting and recovery',
+        lessons: standaloneLessons(
+          dailyAdminCourse,
+          '/linux-admin',
+          'linux-admin',
+        ),
+      },
     ],
   },
   {

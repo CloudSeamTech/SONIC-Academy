@@ -1,0 +1,208 @@
+.terminal-location {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+  padding: 10px 14px;
+  background: #352843;
+  color: #fff;
+}
+.terminal-location strong {
+  font-family: Consolas, monospace !important;
+  overflow-wrap: anywhere;
+}
+.terminal-context-note {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+  margin: 10px 0 !important;
+}
+.terminal-input-example {
+  white-space: pre;
+}
+.terminal-input-example::before {
+  content: attr(data-prompt) ' ';
+  color: #bd9de8;
+  user-select: none;
+}
+.terminal-example > small {
+  display: block;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 8px 0;
+}
+.lab-passport {
+  margin: 12px 0;
+  padding: 10px 16px;
+  border: 1px solid #d4c3ad;
+  border-radius: 10px;
+  background: #f6f0e7;
+}
+.lab-passport > summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  justify-content: space-between;
+  font-weight: 600;
+}
+.passport-preview {
+  font-size: 13px;
+  color: #685176;
+  overflow-wrap: anywhere;
+}
+.passport-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  border: 0;
+  padding: 0;
+  margin: 16px 0;
+}
+.passport-fields label,
+.lab-passport > label,
+.lab-passport select {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+  font-size: 14px;
+}
+.passport-fields input,
+.lab-passport select {
+  width: 100%;
+  padding: 11px 12px;
+  background: #fffaf4;
+  color: #302b32;
+  border: 1px solid #b8a88f;
+  border-radius: 6px;
+  font: inherit;
+}
+.passport-fields button {
+  justify-self: start;
+  grid-column: 1/-1;
+  padding: 11px 18px;
+  background: #7040a8;
+  color: #fff;
+  border: 0;
+  border-radius: 6px;
+  font: inherit;
+}
+.passport-note {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+.learning-rhythm {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  margin: 20px 0;
+  color: #5a3a79;
+  font-size: 14px;
+}
+.learning-rhythm b {
+  font-family: Consolas, monospace;
+  margin-right: 5px;
+  font-size: 12px;
+  color: #8a6a9e;
+}
+.learning-rhythm.is-compact {
+  margin: 8px 0;
+  font-size: 12px;
+}
+.vendor-course-mark {
+  width: 76px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: none;
+  background: transparent;
+}
+.vendor-course-mark img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 76px;
+  max-height: 36px;
+  object-fit: contain;
+}
+.vendor-course-mark.is-pair {
+  gap: 8px;
+}
+.vendor-course-mark.is-pair img {
+  max-width: 32px;
+  max-height: 32px;
+}
+html body .academy-shell.academy-shell .reader-workspace .path-card {
+  grid-template-columns: 80px minmax(0, 1fr);
+}
+html
+  body
+  .academy-shell.academy-shell
+  .reader-workspace
+  .path-icon:has(.vendor-course-mark) {
+  width: 80px;
+  height: 40px;
+  background: transparent;
+  padding: 0;
+}
+.learning-rhythm > span:nth-child(odd) {
+  animation: rhythm-arrive 0.5s both;
+}
+.learning-rhythm > span:nth-child(3) {
+  animation-delay: 0.12s;
+}
+.learning-rhythm > span:nth-child(5) {
+  animation-delay: 0.24s;
+}
+.reader-workspace .path-card {
+  transition:
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+.reader-workspace .path-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px #34254416;
+}
+@keyframes rhythm-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .learning-rhythm > span:nth-child(odd) {
+    animation: none;
+  }
+  .reader-workspace .path-card {
+    transition: none;
+  }
+  .reader-workspace .path-card:hover {
+    transform: none;
+  }
+}
+@media (max-width: 600px) {
+  html
+    body
+    .academy-shell.academy-shell
+    .reader-workspace
+    .explore-courses
+    .course-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .reader-workspace .explore-courses .course-grid a > div {
+    min-width: 0;
+  }
+  .passport-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .terminal-location strong {
+    font-size: 13px;
+  }
+  .lab-passport {
+    padding: 10px;
+  }
+}

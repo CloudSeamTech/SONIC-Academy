@@ -50,7 +50,7 @@ export const careerPathways = [
     title: 'Linux System Administration',
     description:
       'Learn Linux administration, manage RHEL NGINX certificates, troubleshoot servers and build your everyday AlmaLinux desktop.',
-    subjects: ['linux', 'alma'],
+    subjects: ['linux', 'linux-daily-admin', 'alma'],
   },
 ];
 export function careerSubjects(id: string) {

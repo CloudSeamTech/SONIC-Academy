@@ -1,8 +1,8 @@
 {
   "id": "linux-daily-admin",
-  "title": "Linux Daily Admin Tasks on RHEL / AlmaLinux 9",
+  "title": "Linux Daily Admin Tasks",
   "description": "Learn to think like an administrator: daily checks, storage and LVM, services, networking, access, patching and recovery with guided practice and interview drills.",
-  "baseline": "RHEL 9 or AlmaLinux 9 \u00b7 Bash \u00b7 VMware practice VM \u00b7 local self-verified exercises",
+  "baseline": "RHEL 9 or AlmaLinux 9 · Bash · VMware practice VM · local self-verified exercises",
   "prerequisite": "New to Linux? Start Here shows where to open Terminal and how to paste commands. Work in order, read your actual result, and pause at a failed check. You do not need prior server experience.",
   "supplies": [
     "Your own disposable RHEL 9 or AlmaLinux 9 VM in VMware Workstation Pro; GNOME is optional. Use NAT for initial downloads.",
@@ -55,7 +55,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Close and reopen Terminal. Find your practice file without changing system files.",
@@ -64,7 +64,7 @@
         {
           "question": "Where do these Linux commands go?",
           "options": [
-            "Inside the practice VM\u2019s terminal",
+            "Inside the practice VM’s terminal",
             "In a web search box",
             "In Windows PowerShell without SSH"
           ],
@@ -84,7 +84,7 @@
       "steps": [
         {
           "title": "Open the terminal inside the VM",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "In VMware, click your Linux VM tab. Sign in.",
             "For GNOME: click Activities, type Terminal, then open Terminal. For a text-only server: sign in at its console.",
@@ -109,7 +109,7 @@
             },
             {
               "term": "hostname",
-              "meaning": "Prints this computer\u2019s name. A name is a label, not another server. Return to this check if you lose track of your machine."
+              "meaning": "Prints this computer’s name. A name is a label, not another server. Return to this check if you lose track of your machine."
             }
           ],
           "sources": [
@@ -117,15 +117,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Open the terminal inside the VM \u2014 terminal walkthrough",
+            "title": "Open the terminal inside the VM — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-start-1"
           },
-          "terminalExample": "$ cat /etc/redhat-release\nAlmaLinux release 9.6 (Sage Margay)\n$ whoami\nlearner\n$ hostname\nlocalhost.localdomain\n[Sample release/user/host; yours may differ.]"
+          "terminalExample": "$ cat /etc/redhat-release\nAlmaLinux release 9.6 (Sage Margay)\n$ whoami\nlearner\n$ hostname\nlocalhost.localdomain\n[Sample release/user/host; yours may differ.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Check your administrator key",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run the first line. Type your own VM password if asked; no dots appear. Press Enter.",
             "Run the second line and read the permitted commands. Keep passwords out of notes and screenshots."
@@ -135,8 +142,8 @@
           "guide": {
             "what": "Check your administrator key.",
             "why": "sudo temporarily lets an approved account do an administrator job; it does not mean every command is safe.",
-            "verify": "No \u201cnot in the sudoers file\u201d error appears. Your policy allows the exercises.",
-            "failure": "If access is denied, use the VM\u2019s original authorized administrator to add your account to wheel, then sign out and back in. Do not edit sudoers blindly."
+            "verify": "No “not in the sudoers file” error appears. Your policy allows the exercises.",
+            "failure": "If access is denied, use the VM’s original authorized administrator to add your account to wheel, then sign out and back in. Do not edit sudoers blindly."
           },
           "breakdown": [
             {
@@ -153,14 +160,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check your administrator key \u2014 terminal walkthrough",
+            "title": "Check your administrator key — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-start-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Make a small practice area",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Paste this whole block in the Linux terminal.",
             "HOME means your home folder. Leave the dollar sign and quotes in this command.",
@@ -193,19 +207,26 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Make a small practice area \u2014 terminal walkthrough",
+            "title": "Make a small practice area — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-start-3"
           },
-          "terminalExample": "$ pwd\n/home/learner/sonic-admin\n$ cat practice/readme.txt\nPractice only"
+          "terminalExample": "$ pwd\n/home/learner/sonic-admin\n$ cat practice/readme.txt\nPractice only",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Prepare tools and a recovery point",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Keep VMware networking on NAT for package downloads. Save work first.",
             "Run the install line in the Linux VM. -y accepts the package transaction; review the command before running.",
-            "Run the version check. In VMware choose VM \u2192 Snapshot \u2192 Take Snapshot; name it Daily Admin Ready. Never include real credentials in exported training files."
+            "Run the version check. In VMware choose VM → Snapshot → Take Snapshot; name it Daily Admin Ready. Never include real credentials in exported training files."
           ],
           "command": "sudo dnf install -y lsof sysstat bind-utils curl tar acl lvm2 policycoreutils-python-utils nginx\nrpm -q lsof sysstat bind-utils lvm2 nginx",
           "expected": "Package names with version numbers; no missing-package error.",
@@ -230,9 +251,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Prepare tools and a recovery point \u2014 terminal walkthrough",
+            "title": "Prepare tools and a recovery point — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-start-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -259,7 +287,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Make a copy, add one line, compare, then restore only the practice file.",
@@ -289,7 +317,7 @@
       "steps": [
         {
           "title": "See where you are",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run each line in order. ls lists what is inside the named folder.",
             "A hidden file starts with a dot; -a includes those files."
@@ -298,7 +326,7 @@
           "expected": "The first path may differ. The last path ends with /sonic-admin/practice.",
           "guide": {
             "what": "See where you are.",
-            "why": "A path is the address of a file. A slash at the beginning starts at the system\u2019s top folder.",
+            "why": "A path is the address of a file. A slash at the beginning starts at the system’s top folder.",
             "verify": "The last pwd names your practice folder.",
             "failure": "If the folder is missing, finish Start Here. Do not assume your terminal starts in the same folder each time."
           },
@@ -317,14 +345,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "See where you are \u2014 terminal walkthrough",
+            "title": "See where you are — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-files-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Copy a file before editing it",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Copy the block. Only these disposable files change.",
             "To undo: cp -a \"$HOME/sonic-admin/practice/readme.txt.before\" \"$HOME/sonic-admin/practice/readme.txt\"."
@@ -356,15 +391,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Copy a file before editing it \u2014 terminal walkthrough",
+            "title": "Copy a file before editing it — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-files-2"
           },
-          "terminalExample": "--- readme.txt.before\n+++ readme.txt\n@@ -1 +1,2 @@\n Practice only\n+Second line\n[diff exit status 1 means differences were found.]"
+          "terminalExample": "--- readme.txt.before\n+++ readme.txt\n@@ -1 +1,2 @@\n Practice only\n+Second line\n[diff exit status 1 means differences were found.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Read long files without editing",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run the command. Use the navigation keys described in the check below.",
             "Do not treat /etc/services as proof that a port is open."
@@ -392,14 +434,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Read long files without editing \u2014 terminal walkthrough",
+            "title": "Read long files without editing — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-files-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Ask a command for help",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Read help before adding an unfamiliar option.",
             "In the manual, type /inodes and press Enter. Press q when finished."
@@ -415,7 +464,7 @@
           "breakdown": [
             {
               "term": " --help",
-              "meaning": "Shows the command\u2019s built-in help."
+              "meaning": "Shows the command’s built-in help."
             },
             {
               "term": "man",
@@ -427,9 +476,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Ask a command for help \u2014 terminal walkthrough",
+            "title": "Ask a command for help — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-files-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -456,7 +512,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Run the routine again without reading the command list; explain each check aloud.",
@@ -485,7 +541,7 @@
       "steps": [
         {
           "title": "Check time, uptime and failed services",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run these read-only checks. Compare the time with your expected timezone.",
             "Load averages are work waiting/running over 1, 5 and 15 minutes; compare them with CPU count, not a universal good number."
@@ -517,15 +573,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check time, uptime and failed services \u2014 terminal walkthrough",
+            "title": "Check time, uptime and failed services — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-morning-1"
           },
-          "terminalExample": "$ uptime\n 09:15:00 up 1 day,  2:10,  1 user, load average: 0.04, 0.08, 0.03\n$ systemctl --failed --no-pager\n  UNIT LOAD ACTIVE SUB DESCRIPTION\n0 loaded units listed.\n[Illustrative healthy sample, not your measured state.]"
+          "terminalExample": "$ uptime\n 09:15:00 up 1 day,  2:10,  1 user, load average: 0.04, 0.08, 0.03\n$ systemctl --failed --no-pager\n  UNIT LOAD ACTIVE SUB DESCRIPTION\n0 loaded units listed.\n[Illustrative healthy sample, not your measured state.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Check capacity, memory and CPU count",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Read rows by mount point. / is the main filesystem; /boot may be separate.",
             "A filesystem is a storage area. An inode is a file record: many tiny files can use all records while bytes remain."
@@ -561,17 +624,24 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check capacity, memory and CPU count \u2014 terminal walkthrough",
+            "title": "Check capacity, memory and CPU count — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-morning-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Save a baseline without secrets",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Paste the block. The braces collect command output into one file.",
-            "Repeat tomorrow under a different filename to preserve today\u2019s baseline."
+            "Repeat tomorrow under a different filename to preserve today’s baseline."
           ],
           "command": "{ date -Is; uptime; df -hT; free -h; systemctl --failed --no-pager; } > \"$HOME/sonic-admin/evidence/morning.txt\"\ncat \"$HOME/sonic-admin/evidence/morning.txt\"",
           "expected": "The saved file contains your current health checks.",
@@ -596,14 +666,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Save a baseline without secrets \u2014 terminal walkthrough",
+            "title": "Save a baseline without secrets — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-morning-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Practice a useful handoff",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "This is a sample no-incident note. Replace it with honest observations when practicing incidents."
           ],
@@ -611,7 +688,7 @@
           "expected": "A four-line handoff note.",
           "guide": {
             "what": "Practice a useful handoff.",
-            "why": "The next administrator needs facts, not \u201clooks good.\u201d On real systems add impact, times and owner.",
+            "why": "The next administrator needs facts, not “looks good.” On real systems add impact, times and owner.",
             "verify": "Say which checks support your conclusion and what you still have not checked.",
             "failure": "If a user reports a failure, change the note to the actual symptom and investigate it. A healthy baseline does not prove every application works."
           },
@@ -626,9 +703,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Practice a useful handoff \u2014 terminal walkthrough",
+            "title": "Practice a useful handoff — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-morning-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -655,7 +739,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Explain why df and du answer different questions. Diagnose a hypothetical full /var while /home is free.",
@@ -685,7 +769,7 @@
       "steps": [
         {
           "title": "Find the affected filesystem",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run these commands before looking for large files.",
             "Do not fill / to simulate a failure. Our small practice file below demonstrates measurement without exhausting storage."
@@ -696,7 +780,7 @@
             "what": "Find the affected filesystem.",
             "why": "df asks how full a filesystem is. findmnt tells us which storage area owns the path.",
             "verify": "Match TARGET from findmnt to Mounted on from df. Record whether bytes or inodes are actually scarce.",
-            "failure": "If the user\u2019s failing path is elsewhere, query that approved path too; your home folder may use a different filesystem."
+            "failure": "If the user’s failing path is elsewhere, query that approved path too; your home folder may use a different filesystem."
           },
           "breakdown": [
             {
@@ -717,15 +801,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Find the affected filesystem \u2014 terminal walkthrough",
+            "title": "Find the affected filesystem — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-space-1"
           },
-          "terminalExample": "$ df -hT /home/learner/sonic-admin\nFilesystem          Type Size Used Avail Use% Mounted on\n/dev/mapper/al-root xfs   28G  8.0G   20G  29% /\n$ findmnt -T /home/learner/sonic-admin\nTARGET SOURCE              FSTYPE OPTIONS\n/      /dev/mapper/al-root  xfs    rw,relatime,...\n$ df -i /home/learner/sonic-admin\nFilesystem          Inodes  IUsed    IFree IUse% Mounted on\n/dev/mapper/al-root 14680064 60000 14620064    1% /\n[Sample healthy capacity; never fill / for practice.]"
+          "terminalExample": "$ df -hT /home/learner/sonic-admin\nFilesystem          Type Size Used Avail Use% Mounted on\n/dev/mapper/al-root xfs   28G  8.0G   20G  29% /\n$ findmnt -T /home/learner/sonic-admin\nTARGET SOURCE              FSTYPE OPTIONS\n/      /dev/mapper/al-root  xfs    rw,relatime,...\n$ df -i /home/learner/sonic-admin\nFilesystem          Inodes  IUsed    IFree IUse% Mounted on\n/dev/mapper/al-root 14680064 60000 14620064    1% /\n[Sample healthy capacity; never fill / for practice.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Create a small disposable growth example",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Check the previous step has plenty of available space.",
             "This command writes exactly 8 blocks of 1 MiB. Run it once."
@@ -765,15 +856,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Create a small disposable growth example \u2014 terminal walkthrough",
+            "title": "Create a small disposable growth example — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-space-2"
           },
-          "terminalExample": "$ du -h /home/learner/sonic-admin/practice/space/sample.bin\n8.0M  /home/learner/sonic-admin/practice/space/sample.bin"
+          "terminalExample": "$ du -h /home/learner/sonic-admin/practice/space/sample.bin\n8.0M  /home/learner/sonic-admin/practice/space/sample.bin",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Find the large folder one level at a time",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "-x stays on this filesystem. -d1 shows one folder level. The pipe sends results into sort.",
             "In a real incident, inspect the approved affected directory, such as /var, before deciding retention or deletion."
@@ -805,15 +903,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Find the large folder one level at a time \u2014 terminal walkthrough",
+            "title": "Find the large folder one level at a time — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-space-3"
           },
-          "terminalExample": "$ du -xhd1 /home/learner/sonic-admin | sort -h\n4.0K  /home/learner/sonic-admin/evidence\n8.1M  /home/learner/sonic-admin/practice\n8.1M  /home/learner/sonic-admin\n$ find ... -size +5M -printf \"%s %p\\n\"\n8388608 /home/learner/sonic-admin/practice/space/sample.bin\n[The command above the image is complete; ... here abbreviates it.]"
+          "terminalExample": "$ du -xhd1 /home/learner/sonic-admin | sort -h\n4.0K  /home/learner/sonic-admin/evidence\n8.1M  /home/learner/sonic-admin/practice\n8.1M  /home/learner/sonic-admin\n$ find ... -size +5M -printf \"%s %p\\n\"\n8388608 /home/learner/sonic-admin/practice/space/sample.bin\n[The command above the image is complete; ... here abbreviates it.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Remove only the known sample and verify",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Read the full path at the prompt. Type y and press Enter only for sample.bin.",
             "For inode pressure, identify who creates the many files and agree retention. Do not mass-delete unknown files."
@@ -841,11 +946,18 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Remove only the known sample and verify \u2014 terminal walkthrough",
+            "title": "Remove only the known sample and verify — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-space-4"
           },
-          "terminalExample": "rm: remove regular file '.../practice/space/sample.bin'? y\n$ du -sh /home/learner/sonic-admin/practice/space\n4.0K  /home/learner/sonic-admin/practice/space\n[Small changes may be rounded in df output.]"
+          "terminalExample": "rm: remove regular file '.../practice/space/sample.bin'? y\n$ du -sh /home/learner/sonic-admin/practice/space\n4.0K  /home/learner/sonic-admin/practice/space\n[Small changes may be rounded in df output.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         }
       ]
     },
@@ -871,7 +983,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Interview answer: explain df versus du, lsof +L1, owner approval, controlled release and verification.",
@@ -901,7 +1013,7 @@
       "steps": [
         {
           "title": "Create a tiny file held open by one process",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Use this practice path only. & starts a background job so your prompt returns.",
             "Save the PID immediately; $! means the most recently started background process."
@@ -937,14 +1049,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Create a tiny file held open by one process \u2014 terminal walkthrough",
+            "title": "Create a tiny file held open by one process — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-deleted-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Remove the filename, not the running program",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Confirm only held.log. Read the lsof list rather than acting on every row."
           ],
@@ -975,15 +1094,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Remove the filename, not the running program \u2014 terminal walkthrough",
+            "title": "Remove the filename, not the running program — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-deleted-2"
           },
-          "terminalExample": "COMMAND PID  USER    FD TYPE DEVICE SIZE/OFF NLINK NODE NAME\nsleep   2451 learner 3w REG  253,0   8388608  0     8123 /home/learner/sonic-admin/practice/deleted/held.log (deleted)\n[Wrapped row; PID/device/inode differ on your VM.]"
+          "terminalExample": "COMMAND PID  USER    FD TYPE DEVICE SIZE/OFF NLINK NODE NAME\nsleep   2451 learner 3w REG  253,0   8388608  0     8123 /home/learner/sonic-admin/practice/deleted/held.log (deleted)\n[Wrapped row; PID/device/inode differ on your VM.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Verify the saved process before stopping it",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run the identity check. In production, find the owning service and arrange a controlled reopen or restart with its owner."
           ],
@@ -1010,15 +1136,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Verify the saved process before stopping it \u2014 terminal walkthrough",
+            "title": "Verify the saved process before stopping it — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-deleted-3"
           },
-          "terminalExample": "$ ps -p 2451 -o pid,user,args\n PID USER    COMMAND\n2451 learner sleep 600\n[Match this sample to YOUR saved PID and lsof row.]"
+          "terminalExample": "$ ps -p 2451 -o pid,user,args\n PID USER    COMMAND\n2451 learner sleep 600\n[Match this sample to YOUR saved PID and lsof row.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Release only the practice holder",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run only after confirming the PID in the previous step.",
             "No such process means it already exited; recheck lsof."
@@ -1042,9 +1175,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Release only the practice holder \u2014 terminal walkthrough",
+            "title": "Release only the practice holder — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-deleted-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -1071,7 +1211,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Explain all five layers aloud. Describe why an enterprise root-disk expansion needs extra planning, backup and change approval.",
@@ -1110,7 +1250,7 @@
       "steps": [
         {
           "title": "Add a separate practice disk in VMware",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Take a fresh VMware snapshot and keep your OS disk untouched. This lab needs 2 GB free host space plus snapshot overhead.",
             "Compare before and after. A blank disk has no filesystem or mount. Set the actual verified path in the next step.",
@@ -1120,8 +1260,8 @@
           "expected": "A map of disks, existing physical volumes, groups and logical volumes. Record it before adding anything.",
           "guide": {
             "what": "Add a separate practice disk in VMware.",
-            "why": "Disk \u2192 physical volume \u2192 volume group \u2192 logical volume \u2192 filesystem is the storage stack. We will not alter the OS stack.",
-            "verify": "Power off the VM normally, open VM \u2192 Settings \u2192 Add \u2192 Hard Disk, create a NEW 2 GB virtual disk, then boot. Run the commands again and identify the new blank 2 GB disk.",
+            "why": "Disk → physical volume → volume group → logical volume → filesystem is the storage stack. We will not alter the OS stack.",
+            "verify": "Power off the VM normally, open VM → Settings → Add → Hard Disk, create a NEW 2 GB virtual disk, then boot. Run the commands again and identify the new blank 2 GB disk.",
             "failure": "If the new disk is not unambiguously identifiable, stop. Never assume /dev/sdb or use a disk with data, mounts or a partition table."
           },
           "breakdown": [
@@ -1139,15 +1279,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Add a separate practice disk in VMware \u2014 terminal walkthrough",
+            "title": "Add a separate practice disk in VMware — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-lvm-1"
           },
-          "terminalExample": "NAME          SIZE TYPE FSTYPE      MOUNTPOINTS\nsda            30G disk\n\u251c\u2500sda1          1G part xfs         /boot\n\u2514\u2500sda2         29G part LVM2_member\n  \u251c\u2500al-root    27G lvm  xfs         /\n  \u2514\u2500al-swap     2G lvm  swap        [SWAP]\nsdb             2G disk\n[Before/after example only. Do NOT assume your new disk is sdb.]"
+          "terminalExample": "NAME          SIZE TYPE FSTYPE      MOUNTPOINTS\nsda            30G disk\n├─sda1          1G part xfs         /boot\n└─sda2         29G part LVM2_member\n  ├─al-root    27G lvm  xfs         /\n  └─al-swap     2G lvm  swap        [SWAP]\nsdb             2G disk\n[Before/after example only. Do NOT assume your new disk is sdb.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Select and double-check the empty disk",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "In this same terminal, type the path of your verified new disk when asked, such as /dev/sdb ONLY if your evidence matches.",
             "LAB_DISK exists only in this shell. If you open another terminal, repeat the identification and read step."
@@ -1175,15 +1322,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Select and double-check the empty disk \u2014 terminal walkthrough",
+            "title": "Select and double-check the empty disk — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-lvm-2"
           },
-          "terminalExample": "Verified NEW empty disk path: /dev/sdb\nNAME SIZE TYPE FSTYPE MOUNTPOINTS\nsdb    2G disk\n$ sudo wipefs -n /dev/sdb\n[No signatures printed for this example ONLY. Confirm your actual disk.]"
+          "terminalExample": "Verified NEW empty disk path: /dev/sdb\nNAME SIZE TYPE FSTYPE MOUNTPOINTS\nsdb    2G disk\n$ sudo wipefs -n /dev/sdb\n[No signatures printed for this example ONLY. Confirm your actual disk.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Build only the new practice storage",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run each line separately and check its result before the next. These commands initialize storage and are only for the verified EMPTY disk.",
             "Never paste a system disk path here. We intentionally do not add this temporary mount to /etc/fstab."
@@ -1219,15 +1373,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Build only the new practice storage \u2014 terminal walkthrough",
+            "title": "Build only the new practice storage — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-lvm-3"
           },
-          "terminalExample": "Physical volume \"/dev/sdb\" successfully created.\nVolume group \"sonic_lab_vg\" successfully created\nLogical volume \"practice\" created.\n$ df -hT /mnt/sonic-lvm\nFilesystem                       Type Size Used Avail Use% Mounted on\n/dev/mapper/sonic_lab_vg-practice xfs  507M  30M  477M   6% /mnt/sonic-lvm\n[Usable capacity varies with filesystem metadata.]"
+          "terminalExample": "Physical volume \"/dev/sdb\" successfully created.\nVolume group \"sonic_lab_vg\" successfully created\nLogical volume \"practice\" created.\n$ df -hT /mnt/sonic-lvm\nFilesystem                       Type Size Used Avail Use% Mounted on\n/dev/mapper/sonic_lab_vg-practice xfs  507M  30M  477M   6% /mnt/sonic-lvm\n[Usable capacity varies with filesystem metadata.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Grow the logical volume and XFS in order",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run vgs first. Continue only when at least 256 MiB is free in this practice group.",
             "Run lvextend, then grow the mounted XFS filesystem. Never try to shrink it."
@@ -1259,15 +1420,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Grow the logical volume and XFS in order \u2014 terminal walkthrough",
+            "title": "Grow the logical volume and XFS in order — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-lvm-4"
           },
-          "terminalExample": "Size of logical volume sonic_lab_vg/practice changed\nfrom 512.00 MiB to 768.00 MiB.\nLogical volume sonic_lab_vg/practice successfully resized.\n$ sudo lvs /dev/sonic_lab_vg/practice\nLV       VG           Attr       LSize\npractice sonic_lab_vg -wi-ao---- 768.00m\n$ df -hT /mnt/sonic-lvm\nFilesystem                       Type Size Used Avail Use% Mounted on\n/dev/mapper/sonic_lab_vg-practice xfs  763M  31M  732M   5% /mnt/sonic-lvm"
+          "terminalExample": "Size of logical volume sonic_lab_vg/practice changed\nfrom 512.00 MiB to 768.00 MiB.\nLogical volume sonic_lab_vg/practice successfully resized.\n$ sudo lvs /dev/sonic_lab_vg/practice\nLV       VG           Attr       LSize\npractice sonic_lab_vg -wi-ao---- 768.00m\n$ df -hT /mnt/sonic-lvm\nFilesystem                       Type Size Used Avail Use% Mounted on\n/dev/mapper/sonic_lab_vg-practice xfs  763M  31M  732M   5% /mnt/sonic-lvm",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Unmount the practice volume and choose cleanup",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Return to your home folder before unmounting.",
             "For full manual cleanup of this disposable volume only, see the final cleanup lesson. Growing a disk already in use needs partition/PV planning; this exercise does not blindly resize your root disk."
@@ -1295,9 +1463,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Unmount the practice volume and choose cleanup \u2014 terminal walkthrough",
+            "title": "Unmount the practice volume and choose cleanup — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-lvm-5"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -1324,10 +1499,10 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
-      "exercise": "Interview story: describe symptom \u2192 log evidence \u2192 missing executable \u2192 one fix \u2192 verification.",
+      "exercise": "Interview story: describe symptom → log evidence → missing executable → one fix → verification.",
       "pass": "Repair only sonic-practice and explain why it is not a running web daemon.",
       "quiz": [
         {
@@ -1353,7 +1528,7 @@
       "steps": [
         {
           "title": "Create a deliberately broken practice unit",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Check systemctl cat sonic-practice.service first. If an existing unrelated unit is shown, stop and choose a different practice VM.",
             "Paste the complete block including both EOF lines. EOF marks the beginning/end of file text."
@@ -1385,15 +1560,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Create a deliberately broken practice unit \u2014 terminal walkthrough",
+            "title": "Create a deliberately broken practice unit — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-services-1"
           },
-          "terminalExample": "Job for sonic-practice.service failed because the control process\nexited with error code.\nSee \"systemctl status sonic-practice.service\" and \"journalctl\" for details.\n[Intentional failure on the disposable practice unit.]"
+          "terminalExample": "Job for sonic-practice.service failed because the control process\nexited with error code.\nSee \"systemctl status sonic-practice.service\" and \"journalctl\" for details.\n[Intentional failure on the disposable practice unit.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
-          "title": "Read status and this unit\u2019s journal",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "title": "Read status and this unit’s journal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Read the first error near your attempt, not just the last line.",
             "-b limits logs to this boot. -n 30 shows the latest 30 lines."
@@ -1401,7 +1583,7 @@
           "command": "systemctl status sonic-practice.service --no-pager -l\nsudo journalctl -u sonic-practice.service -b -n 30 --no-pager",
           "expected": "Status includes failed and commonly 203/EXEC; the journal names an execution failure.",
           "guide": {
-            "what": "Read status and this unit\u2019s journal.",
+            "what": "Read status and this unit’s journal.",
             "why": "status is the short summary. journalctl is the detailed event notebook.",
             "verify": "Find the missing executable and the time of your failed start.",
             "failure": "If the unit is not found, check its exact filename and daemon-reload. Error wording can vary; follow the actual line."
@@ -1425,15 +1607,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Read status and this unit\u2019s journal \u2014 terminal walkthrough",
+            "title": "Read status and this unit’s journal — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-services-2"
           },
-          "terminalExample": "\u00d7 sonic-practice.service - SONIC disposable practice service\n  Active: failed (Result: exit-code)\n Process: 3120 ExecStart=/usr/bin/sonic-missing-command\n          (code=exited, status=203/EXEC)\nFailed at step EXEC spawning /usr/bin/sonic-missing-command:\nNo such file or directory\n[Formatting, PID and wording vary.]"
+          "terminalExample": "× sonic-practice.service - SONIC disposable practice service\n  Active: failed (Result: exit-code)\n Process: 3120 ExecStart=/usr/bin/sonic-missing-command\n          (code=exited, status=203/EXEC)\nFailed at step EXEC spawning /usr/bin/sonic-missing-command:\nNo such file or directory\n[Formatting, PID and wording vary.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Inspect the configured command",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Compare the unit line with the file checks.",
             "true exits successfully without doing work. We use it only to prove the practice repair."
@@ -1461,15 +1650,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Inspect the configured command \u2014 terminal walkthrough",
+            "title": "Inspect the configured command — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-services-3"
           },
-          "terminalExample": "ExecStart=/usr/bin/sonic-missing-command\nls: cannot access '/usr/bin/sonic-missing-command': No such file or directory\n-rwxr-xr-x. 1 root root ... /usr/bin/true"
+          "terminalExample": "ExecStart=/usr/bin/sonic-missing-command\nls: cannot access '/usr/bin/sonic-missing-command': No such file or directory\n-rwxr-xr-x. 1 root root ... /usr/bin/true",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Fix one line, reload, and retest",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "The substitution targets exactly our fake command in exactly our disposable unit.",
             "Undo/cleanup appears in the last lesson; do not enable this practice unit at boot."
@@ -1497,11 +1693,18 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Fix one line, reload, and retest \u2014 terminal walkthrough",
+            "title": "Fix one line, reload, and retest — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-services-4"
           },
-          "terminalExample": "\u25cf sonic-practice.service - SONIC disposable practice service\n  Active: active (exited)\n Process: 3150 ExecStart=/usr/bin/true (code=exited, status=0/SUCCESS)\n[Expected oneshot state, not a running web daemon.]"
+          "terminalExample": "● sonic-practice.service - SONIC disposable practice service\n  Active: active (exited)\n Process: 3150 ExecStart=/usr/bin/true (code=exited, status=0/SUCCESS)\n[Expected oneshot state, not a running web daemon.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         }
       ]
     },
@@ -1511,7 +1714,7 @@
       "title": "Read Logs and Control Log Growth",
       "description": "Find a time window, add a harmless test event, and inspect journal size.",
       "what": "Find a time window, add a harmless test event, and inspect journal size.",
-      "why": "Good log questions are \u201cwhich service, which time, what changed?\u201d",
+      "why": "Good log questions are “which service, which time, what changed?”",
       "needs": [
         "A disposable RHEL 9 or AlmaLinux 9 VM and your own administrator account. Finish the setup lesson first.",
         "Use the VM console for network work. Never use a production server for fault practice."
@@ -1527,7 +1730,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Find the exact time and tag of your practice event; explain journal versus text-log retention.",
@@ -1556,7 +1759,7 @@
       "steps": [
         {
           "title": "Find the correct boot and time window",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Use the morning date check to align time.",
             "-p warning includes warning and more severe events, not just one priority."
@@ -1565,8 +1768,8 @@
           "expected": "A boot list and recent warning-or-more-severe records; no rows can be normal.",
           "guide": {
             "what": "Find the correct boot and time window.",
-            "why": "Old failures from a previous boot can distract you from today\u2019s incident.",
-            "verify": "Match timestamps to the user\u2019s report and record timezone.",
+            "why": "Old failures from a previous boot can distract you from today’s incident.",
+            "verify": "Match timestamps to the user’s report and record timezone.",
             "failure": "If no entries match, widen the window or remove the severity filter. No warning does not mean no problem."
           },
           "breakdown": [
@@ -1588,14 +1791,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Find the correct boot and time window \u2014 terminal walkthrough",
+            "title": "Find the correct boot and time window — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-logs-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Write and retrieve a practice event",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "logger records a message; it does not report a real outage.",
             "Do not put passwords or tokens in log messages."
@@ -1605,7 +1815,7 @@
           "guide": {
             "what": "Write and retrieve a practice event.",
             "why": "A test marker proves you are looking in the right log path without creating a real failure.",
-            "verify": "Find your message with today\u2019s timestamp.",
+            "verify": "Find your message with today’s timestamp.",
             "failure": "If absent, confirm rsyslog/journald routing in your image. Run journalctl without the time filter before changing logging configuration."
           },
           "breakdown": [
@@ -1623,15 +1833,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Write and retrieve a practice event \u2014 terminal walkthrough",
+            "title": "Write and retrieve a practice event — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-logs-2"
           },
-          "terminalExample": "Oct 30 09:20:00 localhost sonic-admin[3201]: Practice check: no real outage\n[Sample date/host/PID. Find your own current event.]"
+          "terminalExample": "Oct 30 09:20:00 localhost sonic-admin[3201]: Practice check: no real outage\n[Sample date/host/PID. Find your own current event.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Measure logs before choosing retention",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Read current retention requirements. This step changes no retention.",
             "Archived journal vacuum commands delete evidence; this course does not tell you to vacuum a real incident."
@@ -1659,9 +1876,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Measure logs before choosing retention \u2014 terminal walkthrough",
+            "title": "Measure logs before choosing retention — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-logs-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -1672,7 +1896,7 @@
       "title": "The Server Is Slow: CPU, Memory or Disk?",
       "description": "Take short measurements and distinguish a busy process from a proven bottleneck.",
       "what": "Take short measurements and distinguish a busy process from a proven bottleneck.",
-      "why": "\u201cSlow\u201d is a symptom, not a diagnosis.",
+      "why": "“Slow” is a symptom, not a diagnosis.",
       "needs": [
         "A disposable RHEL 9 or AlmaLinux 9 VM and your own administrator account. Finish the setup lesson first.",
         "Use the VM console for network work. Never use a production server for fault practice."
@@ -1688,7 +1912,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Give a 60-second interview answer separating CPU, memory and I/O evidence.",
@@ -1717,7 +1941,7 @@
       "steps": [
         {
           "title": "Ask what is slow, then inspect processes",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Write the user-visible symptom first.",
             "These are read-only checks; do not terminate the largest process."
@@ -1749,20 +1973,27 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Ask what is slow, then inspect processes \u2014 terminal walkthrough",
+            "title": "Ask what is slow, then inspect processes — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-performance-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Separate cache from memory pressure",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Wait for all five samples.",
             "r is runnable work, b blocked work, si/so swap in/out, us/sy CPU work, id idle and wa I/O wait."
           ],
           "command": "free -h\nvmstat 1 5",
-          "expected": "Five reports. vmstat\u2019s first is since-boot average; later rows are interval samples.",
+          "expected": "Five reports. vmstat’s first is since-boot average; later rows are interval samples.",
           "guide": {
             "what": "Separate cache from memory pressure.",
             "why": "Low free memory can be normal cache. Sustained swapping plus symptoms is stronger evidence.",
@@ -1784,15 +2015,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Separate cache from memory pressure \u2014 terminal walkthrough",
+            "title": "Separate cache from memory pressure — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-performance-2"
           },
-          "terminalExample": "$ free -h\n               total  used  free shared buff/cache available\nMem:           1.7Gi 700Mi 300Mi   10Mi      700Mi     850Mi\nSwap:          2.0Gi    0B 2.0Gi\n[Illustrative rounded figures; available matters more than free alone.]\n$ vmstat 1 5\nprocs --------memory-------- ---swap-- -----io---- -system-- ------cpu-----\n r b   swpd  free buff cache  si so    bi bo     in cs      us sy id wa st\n 0 0      0 ...  ...  ...     0  0     0  0    ... ...      1  1 98  0  0\n[Read later interval rows, not only the since-boot first report.]"
+          "terminalExample": "$ free -h\n               total  used  free shared buff/cache available\nMem:           1.7Gi 700Mi 300Mi   10Mi      700Mi     850Mi\nSwap:          2.0Gi    0B 2.0Gi\n[Illustrative rounded figures; available matters more than free alone.]\n$ vmstat 1 5\nprocs --------memory-------- ---swap-- -----io---- -system-- ------cpu-----\n r b   swpd  free buff cache  si so    bi bo     in cs      us sy id wa st\n 0 0      0 ...  ...  ...     0  0     0  0    ... ...      1  1 98  0  0\n[Read later interval rows, not only the since-boot first report.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Look for storage delays",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Read device names using lsblk to connect them to mounts.",
             "Observe at the time of the problem; healthy idle samples do not explain an earlier outage."
@@ -1820,14 +2058,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Look for storage delays \u2014 terminal walkthrough",
+            "title": "Look for storage delays — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-performance-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Practice observing a harmless busy process",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "This intentionally uses one CPU briefly; it is not an attack or production benchmark.",
             "Run the block once, then repeat your initial process check."
@@ -1859,9 +2104,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Practice observing a harmless busy process \u2014 terminal walkthrough",
+            "title": "Practice observing a harmless busy process — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-performance-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -1888,7 +2140,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Describe a timeout versus refused connection versus TLS error and your next check for each.",
@@ -1917,7 +2169,7 @@
       "steps": [
         {
           "title": "Check address and route from the console",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Stay at the VMware console for this lesson.",
             "We do not change your IP or disable the interface. No default route may be intentional on an isolated network."
@@ -1927,8 +2179,8 @@
           "guide": {
             "what": "Check address and route from the console.",
             "why": "An address identifies the VM; a route tells it where to send traffic. NAT uses a private gateway.",
-            "verify": "Record your actual interface and gateway. Do not replace them with another student\u2019s values.",
-            "failure": "If disconnected, in VMware check VM \u2192 Settings \u2192 Network Adapter \u2192 Connected and Connect at power on. Use the VM console so a network change cannot lock you out."
+            "verify": "Record your actual interface and gateway. Do not replace them with another student’s values.",
+            "failure": "If disconnected, in VMware check VM → Settings → Network Adapter → Connected and Connect at power on. Use the VM console so a network change cannot lock you out."
           },
           "breakdown": [
             {
@@ -1949,15 +2201,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check address and route from the console \u2014 terminal walkthrough",
+            "title": "Check address and route from the console — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-network-1"
           },
-          "terminalExample": "$ ip -br address\nlo       UNKNOWN 127.0.0.1/8 ::1/128\nens160   UP      192.168.211.128/24\n$ ip route\ndefault via 192.168.211.2 dev ens160\n192.168.211.0/24 dev ens160 scope link src 192.168.211.128\n[Illustrative VMware NAT values; record YOUR actual network.]"
+          "terminalExample": "$ ip -br address\nlo       UNKNOWN 127.0.0.1/8 ::1/128\nens160   UP      192.168.211.128/24\n$ ip route\ndefault via 192.168.211.2 dev ens160\n192.168.211.0/24 dev ens160 scope link src 192.168.211.128\n[Illustrative VMware NAT values; record YOUR actual network.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Check name resolution separately",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "example.com is a public documentation domain, not your server. This check needs allowed internet access.",
             "If the VM is deliberately isolated, skip public lookups and explain why they cannot work."
@@ -1966,7 +2225,7 @@
           "expected": "getent returns addresses when DNS works. resolvectl may be unavailable if systemd-resolved is not used.",
           "guide": {
             "what": "Check name resolution separately.",
-            "why": "A name lookup and a connection are different tests. getent uses the system\u2019s name-resolution rules.",
+            "why": "A name lookup and a connection are different tests. getent uses the system’s name-resolution rules.",
             "verify": "If getent succeeds, the name resolved. Do not treat resolvectl absence as a DNS outage.",
             "failure": "On typical RHEL/Alma NetworkManager setups, use nmcli device show and cat /etc/resolv.conf to inspect configured DNS. Do not overwrite resolv.conf blindly."
           },
@@ -1985,14 +2244,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check name resolution separately \u2014 terminal walkthrough",
+            "title": "Check name resolution separately — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-network-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Check a client connection with a timeout",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "-I asks for headers only. No credentials or private data are sent.",
             "ICMP ping may be blocked even when HTTPS works; ping failure alone is not an outage diagnosis."
@@ -2024,14 +2290,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check a client connection with a timeout \u2014 terminal walkthrough",
+            "title": "Check a client connection with a timeout — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-network-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "See listeners without changing the firewall",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "LISTEN on 127.0.0.1 means local only; 0.0.0.0 means all IPv4 interfaces.",
             "Do not assume a port number proves which application is running; read the process field."
@@ -2051,7 +2324,7 @@
             },
             {
               "term": "firewall-cmd --list-all",
-              "meaning": "Shows the default active-zone configuration; inspect the interface\u2019s actual zone too."
+              "meaning": "Shows the default active-zone configuration; inspect the interface’s actual zone too."
             }
           ],
           "sources": [
@@ -2059,11 +2332,18 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "See listeners without changing the firewall \u2014 terminal walkthrough",
+            "title": "See listeners without changing the firewall — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-network-4"
           },
-          "terminalExample": "State  Recv-Q Send-Q Local Address:Port Peer Address:Port Process\nLISTEN 0      128    0.0.0.0:22         0.0.0.0:*       users:((\"sshd\",pid=900,fd=3))\n[Example only: port 22 belongs to the SSH server here.]"
+          "terminalExample": "State  Recv-Q Send-Q Local Address:Port Peer Address:Port Process\nLISTEN 0      128    0.0.0.0:22         0.0.0.0:*       users:((\"sshd\",pid=900,fd=3))\n[Example only: port 22 belongs to the SSH server here.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         }
       ]
     },
@@ -2117,7 +2397,7 @@
       "steps": [
         {
           "title": "Check SSH from the console before changing anything",
-          "where": "Your practice Linux VM \u00b7 VMware console \u00b7 Bash terminal",
+          "where": "Your practice Linux VM · VMware console · Bash terminal",
           "command": "rpm -q openssh-server\nsystemctl status sshd --no-pager\nsudo ss -lntp\nip -br address",
           "expected": "Installed OpenSSH version, service state, listeners and your actual VM address.",
           "guide": {
@@ -2149,14 +2429,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check SSH from the console before changing anything \u2014 terminal walkthrough",
+            "title": "Check SSH from the console before changing anything — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-ssh-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Read the server fingerprint at the trusted console",
-          "where": "Your practice Linux VM \u00b7 VMware console \u00b7 Bash terminal",
+          "where": "Your practice Linux VM · VMware console · Bash terminal",
           "command": "sudo ssh-keygen -lf /etc/ssh/ssh_host_ed25519_key.pub",
           "expected": "A SHA256 public host-key fingerprint and ED25519 type.",
           "guide": {
@@ -2179,14 +2466,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Read the server fingerprint at the trusted console \u2014 terminal walkthrough",
+            "title": "Read the server fingerprint at the trusted console — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-ssh-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Connect from the physical Windows computer",
-          "where": "Physical Windows computer \u00b7 Windows PowerShell \u00b7 then the verified SSH session",
+          "where": "Physical Windows computer · Windows PowerShell · then the verified SSH session",
           "command": "ssh your-linux-user@YOUR_VM_IP",
           "expected": "On first connection, a fingerprint prompt; after verified acceptance and successful authentication, a Linux shell prompt.",
           "guide": {
@@ -2215,15 +2509,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Connect from the physical Windows computer \u2014 terminal walkthrough",
+            "title": "Connect from the physical Windows computer — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-ssh-3"
           },
-          "terminalExample": "PS C:\\Users\\Student> ssh learner@192.168.211.128\nThe authenticity of host cannot be established.\nED25519 key fingerprint is SHA256:<compare-with-VM-console>.\nAre you sure you want to continue connecting?\n[Accept ONLY after matching the actual fingerprint. No key is supplied here.]"
+          "terminalExample": "PS C:\\Users\\Student> ssh learner@192.168.211.128\nThe authenticity of host cannot be established.\nED25519 key fingerprint is SHA256:<compare-with-VM-console>.\nAre you sure you want to continue connecting?\n[Accept ONLY after matching the actual fingerprint. No key is supplied here.]",
+          "terminal": {
+            "shell": "powershell",
+            "directory": "C:\\Users\\Administrator",
+            "user": "Administrator",
+            "host": "windows-host",
+            "privilege": "user"
+          }
         },
         {
           "title": "Diagnose login failure without locking yourself out",
-          "where": "Your practice Linux VM \u00b7 VMware console \u00b7 Bash terminal",
+          "where": "Your practice Linux VM · VMware console · Bash terminal",
           "command": "sudo journalctl -u sshd -b -n 30 --no-pager\nsudo sshd -t\nsudo firewall-cmd --get-active-zones",
           "expected": "Recent SSH events, no output on a passing sshd syntax test, and active zone/interface assignments.",
           "guide": {
@@ -2251,9 +2552,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Diagnose login failure without locking yourself out \u2014 terminal walkthrough",
+            "title": "Diagnose login failure without locking yourself out — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-ssh-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ],
@@ -2265,7 +2573,7 @@
       "title": "Website Down: Prove Each Layer",
       "description": "Start a practice NGINX page and investigate from configuration to client.",
       "what": "Start a practice NGINX page and investigate from configuration to client.",
-      "why": "\u201cRunning\u201d is not the same as \u201cusers can reach the right page.\u201d",
+      "why": "“Running” is not the same as “users can reach the right page.”",
       "needs": [
         "A disposable RHEL 9 or AlmaLinux 9 VM and your own administrator account. Finish the setup lesson first.",
         "Use the VM console for network work. Never use a production server for fault practice."
@@ -2281,7 +2589,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Interview: local page works, remote request times out. List the next three evidence checks.",
@@ -2310,7 +2618,7 @@
       "steps": [
         {
           "title": "Inspect NGINX before starting it",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Use the VM prepared in Start Here. This class uses NGINX only as a small practice application.",
             "We will not configure TLS or expose this page to the internet; the certificate classes cover TLS."
@@ -2338,14 +2646,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Inspect NGINX before starting it \u2014 terminal walkthrough",
+            "title": "Inspect NGINX before starting it — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-web-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Create a uniquely named practice page",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Check the exact page does not already exist before writing it; if it does, preserve it and stop.",
             "restorecon applies the expected SELinux label for this standard web path."
@@ -2356,7 +2671,7 @@
             "what": "Create a uniquely named practice page.",
             "why": "A known page lets us distinguish the right content from an unrelated default page.",
             "verify": "The local request returns the exact text. We start but do not enable NGINX at boot.",
-            "failure": "If 404 appears, inspect the loaded root/server block using sudo nginx -T. Do not overwrite an existing site\u2019s settings."
+            "failure": "If 404 appears, inspect the loaded root/server block using sudo nginx -T. Do not overwrite an existing site’s settings."
           },
           "breakdown": [
             {
@@ -2377,15 +2692,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Create a uniquely named practice page \u2014 terminal walkthrough",
+            "title": "Create a uniquely named practice page — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-web-2"
           },
-          "terminalExample": "$ curl --fail --max-time 5 http://127.0.0.1/sonic-admin.txt\nSONIC practice page"
+          "terminalExample": "$ curl --fail --max-time 5 http://127.0.0.1/sonic-admin.txt\nSONIC practice page",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Trace failure through logs and listeners",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Read only the last small window first.",
             "If local curl works but remote access fails, return to routing/listener/firewall checks. Opening a firewall cannot repair a 404."
@@ -2413,14 +2735,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Trace failure through logs and listeners \u2014 terminal walkthrough",
+            "title": "Trace failure through logs and listeners — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-web-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Verify a reload without causing an outage",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "No config edit is needed for this rehearsal. It teaches a safe activation sequence."
           ],
@@ -2447,11 +2776,18 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Verify a reload without causing an outage \u2014 terminal walkthrough",
+            "title": "Verify a reload without causing an outage — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-web-4"
           },
-          "terminalExample": "nginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful\nSONIC practice page\n[Verify both the config result and returned page.]"
+          "terminalExample": "nginx: the configuration file /etc/nginx/nginx.conf syntax is ok\nnginx: configuration file /etc/nginx/nginx.conf test is successful\nSONIC practice page\n[Verify both the config result and returned page.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         }
       ]
     },
@@ -2477,7 +2813,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Explain why a readable file inside an inaccessible parent folder still cannot be opened.",
@@ -2507,17 +2843,17 @@
       "steps": [
         {
           "title": "Inspect your identity and a private practice file",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "600 gives owner read/write and no group/other access.",
-            "Directory x means traverse/search, not \u201crun the folder.\u201d"
+            "Directory x means traverse/search, not “run the folder.”"
           ],
           "command": "id\nprintf \"Practice note\\n\" > \"$HOME/sonic-admin/practice/private.txt\"\nchmod 600 \"$HOME/sonic-admin/practice/private.txt\"\nls -l \"$HOME/sonic-admin/practice/private.txt\"\nnamei -l \"$HOME/sonic-admin/practice/private.txt\"",
           "expected": "The file begins -rw------- and belongs to your account; namei lists parent directories.",
           "guide": {
             "what": "Inspect your identity and a private practice file.",
             "why": "A user needs directory traversal as well as access to the file itself.",
-            "verify": "Explain owner/group/other and each parent\u2019s execute/search permission.",
+            "verify": "Explain owner/group/other and each parent’s execute/search permission.",
             "failure": "If access fails, check every parent instead of changing only the final file. Do not change /home permissions broadly."
           },
           "breakdown": [
@@ -2539,15 +2875,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Inspect your identity and a private practice file \u2014 terminal walkthrough",
+            "title": "Inspect your identity and a private practice file — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-permissions-1"
           },
-          "terminalExample": "uid=1000(learner) gid=1000(learner) groups=1000(learner),10(wheel)\n-rw-------. 1 learner learner 14 Oct 30 09:30 private.txt\n[Sample identity/date. Parent directory permissions matter too.]"
+          "terminalExample": "uid=1000(learner) gid=1000(learner) groups=1000(learner),10(wheel)\n-rw-------. 1 learner learner 14 Oct 30 09:30 private.txt\n[Sample identity/date. Parent directory permissions matter too.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Make and repair a safe access failure",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Do not run cat with sudo; it would hide this ordinary-user failure.",
             "Only this disposable file changes."
@@ -2556,7 +2899,7 @@
           "expected": "Permission denied for a non-root user. Root can bypass ordinary discretionary checks.",
           "guide": {
             "what": "Make and repair a safe access failure.",
-            "why": "Removing this file\u2019s permissions creates a small, reversible example.",
+            "why": "Removing this file’s permissions creates a small, reversible example.",
             "verify": "Confirm whoami is your regular account, not root. Then restore with chmod 600 \"$HOME/sonic-admin/practice/private.txt\" and repeat cat.",
             "failure": "If you are root, this experiment may still read successfully. Return to your ordinary user; do not assume file permissions are broken."
           },
@@ -2575,15 +2918,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Make and repair a safe access failure \u2014 terminal walkthrough",
+            "title": "Make and repair a safe access failure — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-permissions-2"
           },
-          "terminalExample": "$ cat /home/learner/sonic-admin/practice/private.txt\ncat: .../private.txt: Permission denied\n[Restore only this practice file to mode 600, then retry as its owner.]"
+          "terminalExample": "$ cat /home/learner/sonic-admin/practice/private.txt\ncat: .../private.txt: Permission denied\n[Restore only this practice file to mode 600, then retry as its owner.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Check ACLs before changing ownership",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "We inspect only; shared application ownership is a separate approved design decision."
           ],
@@ -2610,9 +2960,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check ACLs before changing ownership \u2014 terminal walkthrough",
+            "title": "Check ACLs before changing ownership — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-permissions-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -2639,7 +2996,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Describe onboarding, least privilege, offboarding and access review in an interview.",
@@ -2667,7 +3024,7 @@
       "steps": [
         {
           "title": "Inspect an account and its login status",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "The account record contains fields separated by colons; x is a placeholder, not the password."
           ],
@@ -2675,7 +3032,7 @@
           "expected": "Your UID/groups, account record and password status. Output varies with authentication design.",
           "guide": {
             "what": "Inspect an account and its login status.",
-            "why": "Local files and directory services can both provide identities. getent follows the system\u2019s configured sources.",
+            "why": "Local files and directory services can both provide identities. getent follows the system’s configured sources.",
             "verify": "Identify username, home and login shell without reading password hashes.",
             "failure": "Do not display /etc/shadow or paste identity data publicly. Remote directory policies may differ."
           },
@@ -2694,14 +3051,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Inspect an account and its login status \u2014 terminal walkthrough",
+            "title": "Inspect an account and its login status — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-accounts-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Create a non-login practice identity",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Run the lookup first. The creation command is in the instruction because it is conditional.",
             "nologin prevents a normal interactive shell; this account is only a practice identity. Do not add it to wheel."
@@ -2712,7 +3076,7 @@
             "what": "Create a non-login practice identity.",
             "why": "We check name availability before creating anything.",
             "verify": "Only when absent, run sudo useradd --create-home --shell /sbin/nologin sonicpractice, then id sonicpractice.",
-            "failure": "If the name exists, use a different disposable VM rather than repurposing someone\u2019s account."
+            "failure": "If the name exists, use a different disposable VM rather than repurposing someone’s account."
           },
           "breakdown": [
             {
@@ -2729,14 +3093,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Create a non-login practice identity \u2014 terminal walkthrough",
+            "title": "Create a non-login practice identity — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-accounts-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Inspect group and sudo policy safely",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "These commands read or validate; they do not edit the policy.",
             "Enterprise access may come from centrally managed groups rather than local wheel."
@@ -2764,11 +3135,18 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Inspect group and sudo policy safely \u2014 terminal walkthrough",
+            "title": "Inspect group and sudo policy safely — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-accounts-3"
           },
-          "terminalExample": "wheel:x:10:learner\n/etc/sudoers: parsed OK\n[Group membership and included sudoers checks vary by policy.]"
+          "terminalExample": "wheel:x:10:learner\n/etc/sudoers: parsed OK\n[Group membership and included sudoers checks vary by policy.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         }
       ]
     },
@@ -2794,7 +3172,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Explain DAC versus SELinux and why both label check and client check are necessary.",
@@ -2823,7 +3201,7 @@
       "steps": [
         {
           "title": "Inspect enforcement and labels",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Use only the page created by the web lesson.",
             "The SELinux type is the context field ending _t."
@@ -2834,7 +3212,7 @@
             "what": "Inspect enforcement and labels.",
             "why": "Mode bits and SELinux context answer different access questions.",
             "verify": "Compare the current label with the expected policy label.",
-            "failure": "Complete the web lesson first if the page is missing. If Permissive/Disabled appears, do not change a real system\u2019s enforcement blindly; use a correctly prepared lab."
+            "failure": "Complete the web lesson first if the page is missing. If Permissive/Disabled appears, do not change a real system’s enforcement blindly; use a correctly prepared lab."
           },
           "breakdown": [
             {
@@ -2847,7 +3225,7 @@
             },
             {
               "term": "matchpathcon",
-              "meaning": "Shows the installed policy\u2019s expected context."
+              "meaning": "Shows the installed policy’s expected context."
             }
           ],
           "sources": [
@@ -2855,18 +3233,25 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Inspect enforcement and labels \u2014 terminal walkthrough",
+            "title": "Inspect enforcement and labels — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-selinux-1"
           },
-          "terminalExample": "$ getenforce\nEnforcing\n$ ls -lZ /usr/share/nginx/html/sonic-admin.txt\n-rw-r--r--. root root system_u:object_r:httpd_sys_content_t:s0 ... sonic-admin.txt\n[Inspect the type field; full labels and metadata can differ.]"
+          "terminalExample": "$ getenforce\nEnforcing\n$ ls -lZ /usr/share/nginx/html/sonic-admin.txt\n-rw-r--r--. root root system_u:object_r:httpd_sys_content_t:s0 ... sonic-admin.txt\n[Inspect the type field; full labels and metadata can differ.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Reproduce a label mismatch on only the practice page",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "This is a deliberate temporary label mistake on one disposable page.",
-            "Never run this on /etc, a whole directory tree or an application\u2019s real data."
+            "Never run this on /etc, a whole directory tree or an application’s real data."
           ],
           "command": "sudo chcon -t user_home_t /usr/share/nginx/html/sonic-admin.txt\ncurl -I --max-time 5 http://127.0.0.1/sonic-admin.txt\nsudo ausearch -m AVC -ts recent",
           "expected": "In an enforcing default NGINX setup, access may be denied (often 403) with a matching AVC event.",
@@ -2879,7 +3264,7 @@
           "breakdown": [
             {
               "term": "chcon -t",
-              "meaning": "Temporarily changes this file\u2019s type; used here only to create a lab fault."
+              "meaning": "Temporarily changes this file’s type; used here only to create a lab fault."
             },
             {
               "term": "ausearch -m AVC -ts recent",
@@ -2891,14 +3276,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Reproduce a label mismatch on only the practice page \u2014 terminal walkthrough",
+            "title": "Reproduce a label mismatch on only the practice page — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-selinux-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Restore the policy label and verify content",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "A real nonstandard path requires policy planning. This example deliberately stays on the supported standard path."
           ],
@@ -2925,11 +3317,18 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Restore the policy label and verify content \u2014 terminal walkthrough",
+            "title": "Restore the policy label and verify content — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-selinux-3"
           },
-          "terminalExample": "Relabeled /usr/share/nginx/html/sonic-admin.txt\nfrom ...:user_home_t:s0 to ...:httpd_sys_content_t:s0\n/usr/share/nginx/html/sonic-admin.txt verified.\nSONIC practice page\n[Enforcement remains enabled.]"
+          "terminalExample": "Relabeled /usr/share/nginx/html/sonic-admin.txt\nfrom ...:user_home_t:s0 to ...:httpd_sys_content_t:s0\n/usr/share/nginx/html/sonic-admin.txt verified.\nSONIC practice page\n[Enforcement remains enabled.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         }
       ]
     },
@@ -2955,7 +3354,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Deliver a two-minute pilot-first patch plan with rollback conditions and user-facing checks.",
@@ -2984,10 +3383,10 @@
       "steps": [
         {
           "title": "Inventory and review available updates",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Do this on a disposable pilot, not all VMs at once.",
-            "Save evidence privately and identify the application owner\u2019s acceptance test."
+            "Save evidence privately and identify the application owner’s acceptance test."
           ],
           "command": "cat /etc/redhat-release\nuname -r\nsudo dnf check-update",
           "expected": "Release, running kernel and available updates. dnf check-update exits 100 when updates are available.",
@@ -3012,14 +3411,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Inventory and review available updates \u2014 terminal walkthrough",
+            "title": "Inventory and review available updates — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-updates-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Preview one package transaction",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "This is a small practice patch target. Enterprise security policy may require a wider approved update set.",
             "Before the next step save app/config backups and create a VMware snapshot named Before Pilot Patch. Snapshots alone are not backups."
@@ -3047,15 +3453,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Preview one package transaction \u2014 terminal walkthrough",
+            "title": "Preview one package transaction — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-updates-2"
           },
-          "terminalExample": "Dependencies resolved.\n... proposed package transaction ...\nOperation aborted.\n[--assumeno intentionally declines. Or: Nothing to do.]"
+          "terminalExample": "Dependencies resolved.\n... proposed package transaction ...\nOperation aborted.\n[--assumeno intentionally declines. Or: Nothing to do.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Apply only the reviewed pilot update",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Finish the web lesson so the test page exists.",
             "If no updates are available, record a no-change rehearsal honestly; do not downgrade just to manufacture an update."
@@ -3083,14 +3496,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Apply only the reviewed pilot update \u2014 terminal walkthrough",
+            "title": "Apply only the reviewed pilot update — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-updates-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Plan a rolling maintenance window",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "A kernel update may need a reboot to activate; reboot only after saving work and arranging console access.",
             "For practice reboot, use sudo systemctl reboot, reconnect at VMware console, then repeat baseline and page check.",
@@ -3101,7 +3521,7 @@
           "guide": {
             "what": "Plan a rolling maintenance window.",
             "why": "Rolling maintenance means update a small wave, verify, then continue while preserving needed capacity and quorum.",
-            "verify": "Write pilot \u2192 acceptance \u2192 small wave \u2192 verification \u2192 next wave. Include backup owner, rollback trigger and communication.",
+            "verify": "Write pilot → acceptance → small wave → verification → next wave. Include backup owner, rollback trigger and communication.",
             "failure": "Never reboot every domain controller, cluster node or application tier at once. A two-VM training setup does not prove production high availability."
           },
           "breakdown": [
@@ -3119,9 +3539,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Plan a rolling maintenance window \u2014 terminal walkthrough",
+            "title": "Plan a rolling maintenance window — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-updates-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -3148,7 +3575,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Explain backup integrity versus restore usability versus application consistency.",
@@ -3177,7 +3604,7 @@
       "steps": [
         {
           "title": "Archive only the practice folder",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Finish the files lesson first.",
             "The archive is beside, not inside, the source practice folder so it does not back up itself."
@@ -3209,15 +3636,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Archive only the practice folder \u2014 terminal walkthrough",
+            "title": "Archive only the practice folder — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-backup-1"
           },
-          "terminalExample": "practice/\npractice/readme.txt\npractice/readme.txt.before\npractice/space/\n[Archive list varies with the lessons you completed.]"
+          "terminalExample": "practice/\npractice/readme.txt\npractice/readme.txt.before\npractice/space/\n[Archive list varies with the lessons you completed.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Record and check its checksum",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "This home-folder archive is a restore exercise, not protection from losing the VM disk.",
             "Production copies need approved separate storage, encryption/access control and retention."
@@ -3245,15 +3679,22 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Record and check its checksum \u2014 terminal walkthrough",
+            "title": "Record and check its checksum — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-backup-2"
           },
-          "terminalExample": "/home/learner/sonic-admin/evidence/practice-backup.tar.gz: OK"
+          "terminalExample": "/home/learner/sonic-admin/evidence/practice-backup.tar.gz: OK",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         },
         {
           "title": "Restore to a new folder and compare",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Only extract your own practice archive. No sudo is needed.",
             "This checks ordinary files; ownership, ACLs, SELinux labels and database consistency need additional application-specific backup design."
@@ -3281,11 +3722,18 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Restore to a new folder and compare \u2014 terminal walkthrough",
+            "title": "Restore to a new folder and compare — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-backup-3"
           },
-          "terminalExample": "$ diff -r .../practice .../restore-test/practice\n[No output means no content differences were found.]"
+          "terminalExample": "$ diff -r .../practice .../restore-test/practice\n[No output means no content differences were found.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         }
       ]
     },
@@ -3311,7 +3759,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Explain the difference between a timer, its service, enable and start.",
@@ -3340,7 +3788,7 @@
       "steps": [
         {
           "title": "Check the system clock and time source",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "These checks do not change time or timezone.",
             "An isolated VM may have no external source; document that limitation instead of claiming it is synchronized."
@@ -3368,14 +3816,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Check the system clock and time source \u2014 terminal walkthrough",
+            "title": "Check the system clock and time source — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-time-jobs-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Create a harmless scheduled health marker",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Check systemctl cat sonic-daily-check.service and .timer first; continue only if neither exists.",
             "Paste the whole block. It only creates a log marker, not a backup or monitoring system."
@@ -3407,14 +3862,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Create a harmless scheduled health marker \u2014 terminal walkthrough",
+            "title": "Create a harmless scheduled health marker — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-time-jobs-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Test the job, then enable the alarm",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "This timer creates one small message each day until removed.",
             "Check failures of the associated service even if the timer itself is active."
@@ -3424,7 +3886,7 @@
           "guide": {
             "what": "Test the job, then enable the alarm.",
             "why": "Enabled means scheduled; it does not prove the job succeeded. Test the service separately.",
-            "verify": "Find the marker, inspect service result, then confirm the timer\u2019s next time. Remove the practice timer during cleanup.",
+            "verify": "Find the marker, inspect service result, then confirm the timer’s next time. Remove the practice timer during cleanup.",
             "failure": "If no next time appears, inspect timer/service status and journal. Validate clock before blaming the scheduler."
           },
           "breakdown": [
@@ -3442,11 +3904,18 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Test the job, then enable the alarm \u2014 terminal walkthrough",
+            "title": "Test the job, then enable the alarm — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-time-jobs-3"
           },
-          "terminalExample": "Oct 30 09:40:00 localhost sonic-daily-check[4501]: Practice-health-check-ran\nNEXT ... LEFT ... LAST ... PASSED ... UNIT\n...                                sonic-daily-check.timer\n[Use your own next-run time; timestamps here are samples.]"
+          "terminalExample": "Oct 30 09:40:00 localhost sonic-daily-check[4501]: Practice-health-check-ran\nNEXT ... LEFT ... LAST ... PASSED ... UNIT\n...                                sonic-daily-check.timer\n[Use your own next-run time; timestamps here are samples.]",
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
+          }
         }
       ]
     },
@@ -3472,10 +3941,10 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
-      "exercise": "Give three 90-second answers using symptom \u2192 evidence \u2192 decision \u2192 safe repair \u2192 verification \u2192 prevention.",
+      "exercise": "Give three 90-second answers using symptom → evidence → decision → safe repair → verification → prevention.",
       "pass": "Explain three scenarios without weakening security or inventing measured results.",
       "quiz": [
         {
@@ -3522,7 +3991,7 @@
       "steps": [
         {
           "title": "Drill: writes fail but CPU is quiet",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Answer aloud before reading the verification.",
             "Use the space and LVM lessons as references; no disk-filling exercise is needed."
@@ -3538,7 +4007,7 @@
           "breakdown": [
             {
               "term": "Diagnostic order",
-              "meaning": "Scope \u2192 read-only evidence \u2192 hypothesis \u2192 smallest reversible fix \u2192 user-visible verification."
+              "meaning": "Scope → read-only evidence → hypothesis → smallest reversible fix → user-visible verification."
             }
           ],
           "sources": [
@@ -3546,14 +4015,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Drill: writes fail but CPU is quiet \u2014 terminal walkthrough",
+            "title": "Drill: writes fail but CPU is quiet — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-interview-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Drill: website failed after a change",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "State impact and last-known-good time before proposing commands.",
             "If nginx -t fails in your actual VM, do not continue with activation."
@@ -3577,14 +4053,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Drill: website failed after a change \u2014 terminal walkthrough",
+            "title": "Drill: website failed after a change — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-interview-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Drill: permission denied after a file move",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Use the access and SELinux lessons to justify the checks."
           ],
@@ -3607,14 +4090,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Drill: permission denied after a file move \u2014 terminal walkthrough",
+            "title": "Drill: permission denied after a file move — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-interview-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Write a short incident report",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Use a private editor or your lab notebook to fill the fields.",
             "Do not include passwords, keys or private customer data in evidence."
@@ -3638,9 +4128,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Write a short incident report \u2014 terminal walkthrough",
+            "title": "Write a short incident report — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-interview-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]
@@ -3667,7 +4164,7 @@
       "troubleshooting": [
         {
           "problem": "My output differs from the example.",
-          "fix": "Check the VM, command spelling and the step\u2019s failure note. Different device names and totals are normal; stop if you cannot identify the target."
+          "fix": "Check the VM, command spelling and the step’s failure note. Different device names and totals are normal; stop if you cannot identify the target."
         }
       ],
       "exercise": "Demonstrate three practical fixes, restore one backup, then present a concise incident handoff.",
@@ -3737,7 +4234,7 @@
       "steps": [
         {
           "title": "Complete a practical shift without the answer list",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Choose three practical drills from the course and perform their setup, diagnosis, repair and verification in your disposable VM.",
             "Save a private incident report for each. Checkboxes and completion are your own attestations; this website cannot inspect your VM."
@@ -3761,16 +4258,23 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Complete a practical shift without the answer list \u2014 terminal walkthrough",
+            "title": "Complete a practical shift without the answer list — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-final-1"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Remove the two practice systemd jobs",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
-            "Check each unit\u2019s content first. Skip names you never created. Confirm each rm prompt only for these three files.",
+            "Check each unit’s content first. Skip names you never created. Confirm each rm prompt only for these three files.",
             "A not-found result during final reset is harmless if the unit was already removed; verify actual files."
           ],
           "command": "sudo systemctl disable --now sonic-daily-check.timer\nsudo systemctl stop sonic-practice.service\nsudo rm -i /etc/systemd/system/sonic-daily-check.timer /etc/systemd/system/sonic-daily-check.service /etc/systemd/system/sonic-practice.service\nsudo systemctl daemon-reload\nsudo systemctl reset-failed sonic-practice.service",
@@ -3779,7 +4283,7 @@
             "what": "Remove the two practice systemd jobs.",
             "why": "Cleanup must remove only what we created. Resetting a failed flag is housekeeping, not a repair.",
             "verify": "systemctl list-timers --all no longer lists sonic-daily-check; systemctl cat cannot find the deleted practice units.",
-            "failure": "If file contents differ from the lab\u2019s originals, stop before removal. Do not remove vendor units."
+            "failure": "If file contents differ from the lab’s originals, stop before removal. Do not remove vendor units."
           },
           "breakdown": [
             {
@@ -3796,14 +4300,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Remove the two practice systemd jobs \u2014 terminal walkthrough",
+            "title": "Remove the two practice systemd jobs — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-final-2"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Remove the practice identity and web page",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Skip items you did not create. Read names before confirming.",
             "If this course alone started NGINX and no other class uses it, stop it with sudo systemctl stop nginx. Do not uninstall shared packages blindly."
@@ -3831,14 +4342,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Remove the practice identity and web page \u2014 terminal walkthrough",
+            "title": "Remove the practice identity and web page — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-final-3"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Remove LVM objects only if you want to discard this lab disk",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "This step is optional; keeping an unmounted practice disk is fine.",
             "Run destructive cleanup commands one at a time only after the stated checks. Shut down before removing the virtual disk from VMware."
@@ -3862,14 +4380,21 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Remove LVM objects only if you want to discard this lab disk \u2014 terminal walkthrough",
+            "title": "Remove LVM objects only if you want to discard this lab disk — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-final-4"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         },
         {
           "title": "Keep the evidence, explain your next learning goal",
-          "where": "Your practice RHEL 9 or AlmaLinux 9 VM \u00b7 Bash terminal",
+          "where": "Your practice RHEL 9 or AlmaLinux 9 VM · Bash terminal",
           "actions": [
             "Keep useful notes and independently stored backups. Remove home practice files only when you no longer need them.",
             "Certification connection: these skills support RHCSA-style administration fundamentals. This is not an official Red Hat exam course or a guarantee of passing. Check current objectives and practice independently."
@@ -3893,9 +4418,16 @@
           ],
           "screenshot": {
             "status": "illustration",
-            "title": "Keep the evidence, explain your next learning goal \u2014 terminal walkthrough",
+            "title": "Keep the evidence, explain your next learning goal — terminal walkthrough",
             "instructions": "Instructional terminal mockup, not a live capture. Compare your own output; never copy commands from a picture.",
             "assetId": "daily-final-5"
+          },
+          "terminal": {
+            "shell": "bash",
+            "directory": "~",
+            "user": "learner",
+            "host": "alma-lab01",
+            "privilege": "user"
           }
         }
       ]

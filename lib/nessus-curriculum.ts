@@ -1,6 +1,7 @@
 import linux from '../content/nessus/linux.json' with { type: 'json' };
 import windows from '../content/nessus/windows.json' with { type: 'json' };
 import scanning from '../content/nessus/scanning.json' with { type: 'json' };
+import type { TerminalContext } from './terminal-presentation';
 
 export type NessusStep = {
   title: string;
@@ -8,6 +9,7 @@ export type NessusStep = {
   where: string;
   actions: string[];
   command?: string;
+  terminal?: TerminalContext;
   breakdown: { term: string; meaning: string }[];
   expected: string;
   screenshot: {
