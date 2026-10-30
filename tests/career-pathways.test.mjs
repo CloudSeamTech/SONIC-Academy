@@ -4,18 +4,29 @@ import {
   careerPathways,
   careerSubjects,
   careerLessons,
+  standaloneCourses,
+  standaloneLessons,
 } from '../app/career-pathways.ts';
 import { learningPathways, pathwayLessons } from '../app/learning-pathways.ts';
 import { readFileSync } from 'node:fs';
 
-test('career groups include each existing subject and lesson exactly once', () => {
-  const subjects = careerPathways.flatMap((path) => path.subjects);
+test('career paths and standalone courses include each existing subject and lesson exactly once', () => {
+  const subjects = [...careerPathways, ...standaloneCourses].flatMap(
+    (path) => path.subjects,
+  );
   assert.equal(new Set(subjects).size, subjects.length);
   assert.deepEqual(
     [...subjects].sort(),
     learningPathways.map((path) => path.id).sort(),
   );
-  const lessons = careerPathways.flatMap((path) => careerLessons(path.id));
+  const lessons = [
+    ...careerPathways.flatMap((path) => careerLessons(path.id)),
+    ...standaloneCourses.flatMap((course) => standaloneLessons(course.id)),
+  ];
+  assert.equal(careerPathways.length, 4);
+  assert.ok(
+    !careerPathways.some((path) => path.id === 'pki-certificate-management'),
+  );
   assert.deepEqual(
     lessons.map((l) => l.id).sort(),
     learningPathways
@@ -26,7 +37,16 @@ test('career groups include each existing subject and lesson exactly once', () =
   assert.ok(lessons.every((lesson) => lesson.href.includes('#lesson=')));
   assert.deepEqual(
     careerSubjects('windows-system-administration').map((p) => p.id),
-    ['vsphere', 'windows', 'active-directory', 'sql', 'helpdesk', 'dmz', 'wsus', 'mecm'],
+    [
+      'vsphere',
+      'windows',
+      'active-directory',
+      'sql',
+      'helpdesk',
+      'dmz',
+      'wsus',
+      'mecm',
+    ],
   );
   assert.ok(careerSubjects('cyber-analyst').some((p) => p.id === 'splunk'));
   assert.ok(

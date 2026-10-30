@@ -12,12 +12,12 @@ import {
   UserRound,
 } from 'lucide-react';
 import { learningPathways, pathwayLessons } from './learning-pathways';
-import { careerPathways } from './career-pathways';
+import { careerPathways, standaloneCourses } from './career-pathways';
 import { planLabel, lessonTier } from '../lib/plan-access';
 import { useAcademy } from './academy-provider';
 import { BrandLogo } from './brand-logo';
 import { LabPassport, LabEnvironmentScope } from './lab-passport';
-import { LearningRhythm } from './learning-rhythm';
+import { LessonTools } from './learning-rhythm';
 import './learner-experience.css';
 import './learning-console.css';
 import './lesson-reading.css';
@@ -48,6 +48,9 @@ export function ConsoleReaderShell({
   );
   const career = careerPathways.find((path) =>
     path.subjects.includes(course?.id ?? ''),
+  );
+  const standalone = standaloneCourses.find((item) =>
+    item.subjects.includes(course?.id ?? ''),
   );
   const completed = allLessons.filter((l) =>
     academy.completed.includes(l.id),
@@ -199,7 +202,11 @@ export function ConsoleReaderShell({
             <div className="course-progress-strip">
               <a
                 href={
-                  career ? `/?view=paths&path=${career.id}` : '/?view=paths'
+                  standalone
+                    ? `/?view=courses&course=${standalone.id}`
+                    : career
+                      ? `/?view=paths&path=${career.id}`
+                      : '/?view=paths'
                 }
                 className={activeView === 'paths' ? 'active' : ''}
               >
@@ -241,7 +248,7 @@ export function ConsoleReaderShell({
           )}
           {lessonId && (
             <>
-              <LearningRhythm compact />
+              <LessonTools key={lessonId} />
               <LabPassport lessonId={lessonId} />
             </>
           )}

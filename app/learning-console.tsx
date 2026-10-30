@@ -26,14 +26,20 @@ import {
   careerPathways,
   careerSubjects,
   careerLessons,
+  standaloneCourses,
+  standaloneSubjects,
+  standaloneLessons,
 } from './career-pathways';
 import { CyberActivityMap } from './cyber-activity-map';
-import { LearningRhythm } from './learning-rhythm';
+import { CertificateJourney } from './certificate-journey';
 import { CourseBrand } from './course-brand';
 import { brandForCourse } from '../lib/course-brands';
 import { lessonTier } from '../lib/plan-access';
 import { useAcademy } from './academy-provider';
 const lessons = learningPathways.flatMap(pathwayLessons);
+const standaloneIds = new Set(
+  standaloneCourses.flatMap((course) => course.subjects),
+);
 function PathIcon({ id }: { id: string }) {
   if (brandForCourse(id) || id === 'pki-certificate-management')
     return <CourseBrand id={id} />;
@@ -58,12 +64,19 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
   const [query, setQuery] = useState(''),
     [view, setView] = useState('dashboard'),
     [pathId, setPathId] = useState(''),
+    [courseId, setCourseId] = useState(''),
     [subjectId, setSubjectId] = useState(''),
     [tier, setTier] = useState('all');
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     setQuery(params.get('q') ?? '');
-    setView(params.get('view') ?? 'dashboard');
+    const legacyCourse = standaloneCourses.some(
+      (c) => c.id === params.get('path'),
+    );
+    setView(legacyCourse ? 'courses' : (params.get('view') ?? 'dashboard'));
+    setCourseId(
+      params.get('course') ?? (legacyCourse ? (params.get('path') ?? '') : ''),
+    );
     setPathId(params.get('path') ?? '');
     setSubjectId(params.get('subject') ?? '');
     const requestedTier = params.get('tier') ?? 'all';
@@ -82,11 +95,23 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
       count < items.length && (count > 0 || items.some((l) => viewed.has(l.id)))
     );
   });
+  const inProgressCount =
+    inProgress.filter((path) => !standaloneIds.has(path.id)).length +
+    standaloneCourses.filter((course) => {
+      const items = standaloneLessons(course.id);
+      const count = items.filter((lesson) => complete.has(lesson.id)).length;
+      return (
+        count < items.length &&
+        (count > 0 || items.some((lesson) => viewed.has(lesson.id)))
+      );
+    }).length;
   const recent = academy.activity
     .map((a) => ({ ...a, lesson: lessons.find((l) => l.id === a.lesson_id) }))
     .filter((a) => a.lesson);
   const contextSubject = learningPathways.find((path) => path.id === subjectId);
-  const requestedLessons = careerLessons(pathId);
+  const requestedLessons = courseId
+    ? standaloneLessons(courseId)
+    : careerLessons(pathId);
   const contextLessons = requestedLessons.length
     ? requestedLessons
     : contextSubject
@@ -127,6 +152,36 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
   const showLibrary =
     Boolean(query) || ['courses', 'paths', 'bookmarks'].includes(view);
   const selectedCareer = careerPathways.find((path) => path.id === pathId);
+  const selectedCourse = standaloneCourses.find(
+    (course) => course.id === courseId,
+  );
+  function standaloneCard(course: (typeof standaloneCourses)[number]) {
+    const items = standaloneLessons(course.id);
+    const count = items.filter((lesson) => complete.has(lesson.id)).length;
+    return (
+      <a
+        className="path-card standalone-course-card"
+        href={`/?view=courses&course=${course.id}`}
+        key={course.id}
+      >
+        <span className="path-icon">
+          <PathIcon id={course.id} />
+        </span>
+        <h3>{course.title}</h3>
+        <p>{course.description}</p>
+        <progress
+          value={count}
+          max={items.length}
+          aria-label={`${course.title} course progress`}
+        />
+        <div>
+          <span>2 server tracks · {items.length} labs</span>
+          <strong>{Math.round((count / items.length) * 100)}%</strong>
+        </div>
+        <span>Choose your server →</span>
+      </a>
+    );
+  }
   function careerCard(path: (typeof careerPathways)[number]) {
     const items = careerLessons(path.id),
       count = items.filter((l) => complete.has(l.id)).length;
@@ -218,7 +273,6 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                       Browse All Courses
                     </a>
                   </div>
-                  <LearningRhythm />
                 </div>
                 <img
                   src="/academy-hero.png"
@@ -232,8 +286,8 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                 {[
                   {
                     label: 'Courses in Progress',
-                    value: inProgress.length,
-                    note: inProgress.length
+                    value: inProgressCount,
+                    note: inProgressCount
                       ? 'Keep going!'
                       : 'Choose your first course',
                     Icon: BookOpen,
@@ -296,6 +350,7 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                   </a>
                 </header>
                 <div className="course-grid">
+                  {standaloneCourses.map(standaloneCard)}
                   {['splunk', 'mecm', 'wsus', 'alma'].map((id) => {
                     const path = learningPathways.find((p) => p.id === id)!;
                     return (
@@ -333,18 +388,21 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                   <h1>
                     {query
                       ? 'Search results'
-                      : view === 'bookmarks'
-                        ? 'My Bookmarks'
-                        : view === 'paths'
-                          ? selectedCareer
-                            ? `${selectedCareer.title} Pathway`
-                            : 'Learning Paths'
-                          : (selectedSubject?.title ?? 'All Courses')}
+                      : selectedCourse
+                        ? selectedCourse.title
+                        : view === 'bookmarks'
+                          ? 'My Bookmarks'
+                          : view === 'paths'
+                            ? selectedCareer
+                              ? `${selectedCareer.title} Pathway`
+                              : 'Learning Paths'
+                            : (selectedSubject?.title ?? 'All Courses')}
                   </h1>
                   <p>
                     {query
                       ? `Labs matching “${query}”`
-                      : (selectedCareer?.description ??
+                      : (selectedCourse?.description ??
+                        selectedCareer?.description ??
                         selectedSubject?.prerequisite ??
                         'Choose a career pathway or a subject. Your lessons stay in order, from setup to daily operations.')}
                   </p>
@@ -354,7 +412,19 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
               {selectedCareer?.id === 'cyber-analyst' && !query && (
                 <CyberActivityMap />
               )}
-              {view === 'paths' && !query ? (
+              {selectedCourse && !query ? (
+                <>
+                  <CertificateJourney />
+                  <h2>Choose your server</h2>
+                  <p>
+                    Follow one track from start to finish. Each track keeps its
+                    own lab checks and progress.
+                  </p>
+                  <div className="path-grid">
+                    {standaloneSubjects(selectedCourse.id).map(pathCard)}
+                  </div>
+                </>
+              ) : view === 'paths' && !query ? (
                 selectedCareer ? (
                   <>
                     <h2>Training in this pathway</h2>
@@ -372,7 +442,10 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                 !selectedSubject &&
                 tier === 'all' ? (
                 <div className="path-grid">
-                  {learningPathways.map(pathCard)}
+                  {standaloneCourses.map(standaloneCard)}
+                  {learningPathways
+                    .filter((path) => !standaloneIds.has(path.id))
+                    .map(pathCard)}
                 </div>
               ) : (
                 <div className="lab-library-list">
