@@ -1,3 +1,4 @@
+import { dailyAdminCourse } from '../lib/guided-courses.ts';
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
@@ -17,6 +18,7 @@ test('two-tier catalog has valid foundation IDs and reserves enterprise troubles
   assert.equal(
     lessons.filter((l) => lessonTier(l.id) === 'apex').length,
     188 +
+      dailyAdminCourse.lessons.length +
       vsphereCourse.lessons.length +
       tlsCourse.lessons.length +
       pkiCourses.flatMap((course) => course.lessons).length,

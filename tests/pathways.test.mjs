@@ -1,4 +1,5 @@
 import {
+  dailyAdminCourse,
   vsphereCourse,
   pkiCourses,
   tlsCourse,
@@ -31,6 +32,7 @@ test('pathways retain every existing lesson exactly once with its original reade
     new Set(ids),
     new Set(
       [
+        ...dailyAdminCourse.lessons,
         ...vsphereCourse.lessons,
         ...pkiCourses.flatMap((course) => course.lessons),
         ...tlsCourse.lessons,
@@ -52,7 +54,7 @@ test('pathways retain every existing lesson exactly once with its original reade
   for (const lesson of entries) {
     assert.equal(
       lesson.href,
-      `${['vsphere', 'pki', 'tls', 'nessus', 'azure-lab', 'helpdesk', 'security-lab', 'landing-zone', 'enterprise'].includes(lesson.source) ? lesson.href.split('#')[0] : lesson.source === 'alma' ? '/alma' : lesson.source === 'linux' ? '/' : '/migration'}#lesson=${lesson.id}`,
+      `${['linux-admin', 'vsphere', 'pki', 'tls', 'nessus', 'azure-lab', 'helpdesk', 'security-lab', 'landing-zone', 'enterprise'].includes(lesson.source) ? lesson.href.split('#')[0] : lesson.source === 'alma' ? '/alma' : lesson.source === 'linux' ? '/' : '/migration'}#lesson=${lesson.id}`,
     );
     assert.ok(lesson.title && lesson.description && lesson.steps.length);
   }
