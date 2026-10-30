@@ -1,0 +1,222 @@
+[
+  {
+    "id": "bicep-first-words",
+    "src": "/bicep/bicep-first-words.svg",
+    "title": "What Bicep Does",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview",
+    "original": "/bicep/bicep-first-words.svg",
+    "sha256": "b0fb3bd56e0f493f966a93168a73b8c5d40f66c9b222838e4493e19edd0035cf",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-workspace",
+    "src": "/bicep/bicep-workspace.svg",
+    "title": "Make Your Practice Folder",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install",
+    "original": "/bicep/bicep-workspace.svg",
+    "sha256": "e38e67dcc6fbb72a76b26cd030ee2969bc5a857ed2392f2d7c99352c6ccd201f",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-toolchain",
+    "src": "/bicep/bicep-toolchain.svg",
+    "title": "Install and Check the Tools",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-cli",
+    "original": "/bicep/bicep-toolchain.svg",
+    "sha256": "8cd5e78c0ee20e9d0fe0e5fff737b676e3120a7092e112fd02b89745aeb772f4",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-errors",
+    "src": "/bicep/bicep-errors.svg",
+    "title": "Fix One Error at a Time",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-cli",
+    "original": "/bicep/bicep-errors.svg",
+    "sha256": "f8923f9c82737aac6e5957d4d19c8d31ca5c947ac67d47b4188bcd97c802f035",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-inputs",
+    "src": "/bicep/bicep-inputs.svg",
+    "title": "Inputs, Derived Values and Fixed Words",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters",
+    "original": "/bicep/bicep-inputs.svg",
+    "sha256": "b07e044fe670f0bafedbfceb73d731ba87191920ac6996a0acfd589b6040e135",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-types",
+    "src": "/bicep/bicep-types.svg",
+    "title": "Text, Numbers, Lists and Objects",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/data-types",
+    "original": "/bicep/bicep-types.svg",
+    "sha256": "f69f8a2f48b9fcfb82ec2d9a1c7efa2539ca4aa76893ea98c9049e401fc90af3",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-resource",
+    "src": "/bicep/bicep-resource.svg",
+    "title": "Read Your First Resource",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-declaration",
+    "original": "/bicep/bicep-resource.svg",
+    "sha256": "e9575d060dd1634a61b4cc2c33cb439601ebdaeecc17e3ee667a55e172eca116",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-json",
+    "src": "/bicep/bicep-json.svg",
+    "title": "Read the JSON Under the Bicep",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview",
+    "original": "/bicep/bicep-json.svg",
+    "sha256": "e7abda4f1bfbcf4bbe2d5b6ddd082b62997a5ef8ad18a288b3b26578640b16bc",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-guards",
+    "src": "/bicep/bicep-guards.svg",
+    "title": "Add Guardrails Before Resources",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters",
+    "original": "/bicep/bicep-guards.svg",
+    "sha256": "a3e0c995a4d2108409849275319c32653666e9fbcf07bfe0752933a05ba7f771",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-dependencies",
+    "src": "/bicep/bicep-dependencies.svg",
+    "title": "Understand What Depends on What",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-dependencies",
+    "original": "/bicep/bicep-dependencies.svg",
+    "sha256": "818b4da28069bf3e2aac08a8210ec45d1e8e3c961294975e1a5cf92db2a89b47",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-network",
+    "src": "/bicep/bicep-network.svg",
+    "title": "Build a VNet, Subnet and NSG",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview",
+    "original": "/bicep/bicep-network.svg",
+    "sha256": "dd1def0af5754315e5fe63d3e821b1e825d679b1def31f6ee0c56ed4a77ac619",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-existing",
+    "src": "/bicep/bicep-existing.svg",
+    "title": "Reference an Existing Resource",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/existing-resource",
+    "original": "/bicep/bicep-existing.svg",
+    "sha256": "22cc4296b4f0d2ece38a68ffaa34598c52edf4eeca31d6f0e73c23090422befb",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-loops",
+    "src": "/bicep/bicep-loops.svg",
+    "title": "Plan Multiple Servers with a Loop",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/loops",
+    "original": "/bicep/bicep-loops.svg",
+    "sha256": "aad51ff5ec8c5c3b9487ab3e11402d67ff828cd18c147e952d1b42037848149d",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-server-settings",
+    "src": "/bicep/bicep-server-settings.svg",
+    "title": "Read the VM Settings Before You Build",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachines",
+    "original": "/bicep/bicep-server-settings.svg",
+    "sha256": "ef1c6555498ee72038d550e7118156bfee8f97b5bee8641a16b254f696e9abdc",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-software",
+    "src": "/bicep/bicep-software.svg",
+    "title": "Install Software with Cloud-Init",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/using-cloud-init",
+    "original": "/bicep/bicep-software.svg",
+    "sha256": "b06b393585879eaa03483ac65f305f8989b1384282d814092532e6b831f29d00",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-modules",
+    "src": "/bicep/bicep-modules.svg",
+    "title": "Split a Network into a Module",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/modules",
+    "original": "/bicep/bicep-modules.svg",
+    "sha256": "4cb2b996bfed67be7c69fce4295ca678185eaa8766518e579b723d63f0752ced",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-environments",
+    "src": "/bicep/bicep-environments.svg",
+    "title": "Separate Dev and Test Inputs",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameter-files",
+    "original": "/bicep/bicep-environments.svg",
+    "sha256": "54fdb9996cc943a101cea72a68727fa55bfb7d11c8f86117740af29b6779f0b5",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-azure-checks",
+    "src": "/bicep/bicep-azure-checks.svg",
+    "title": "Validate Against Azure and Preview Changes",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-what-if",
+    "original": "/bicep/bicep-azure-checks.svg",
+    "sha256": "6b59ee1553b77d922588b86145f7750f250e579e0c2660f61b763aae91a7151d",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-capstone",
+    "src": "/bicep/bicep-capstone.svg",
+    "title": "Write Your Own Private Server Plan",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/best-practices",
+    "original": "/bicep/bicep-capstone.svg",
+    "sha256": "29e71bffe3fea1da5fb4e035b589f44a49198dec0e36abb7698042b643e0f17c",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  },
+  {
+    "id": "bicep-handoff",
+    "src": "/bicep/bicep-handoff.svg",
+    "title": "Review, Deploy Deliberately and Clean Up",
+    "platform": "Bicep / ARM instructional illustration",
+    "source": "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes",
+    "original": "/bicep/bicep-handoff.svg",
+    "sha256": "0c7f27eb8bb2e6957d788432d4f77b3f72e94f64244091225ba807693f786478",
+    "credit": "CloudSeam Tech · original annotated code illustration",
+    "note": "Authored teaching diagram, not a captured VS Code or Azure screen. Numbers explain the code concepts; use the editor for full code and real compiler output."
+  }
+]

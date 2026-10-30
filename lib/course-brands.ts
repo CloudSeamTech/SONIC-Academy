@@ -6,6 +6,7 @@ export function brandForCourse(
   if (
     [
       'azure',
+      'bicep',
       'azure-cloud-engineering',
       'azure-operations',
       'landing-zone',

@@ -1,7 +1,7 @@
 {
   "id": "splunk-core-user",
   "title": "Splunk Core User",
-  "description": "Learn Splunk from your first search to security investigations and dashboards with working filters, using small fictional CloudSeam datasets.",
+  "description": "Search with SPL, investigate suspicious activity and Windows event IDs, build dashboards, and write clear evidence-based incident reports using fictional datasets.",
   "baseline": "Splunk Enterprise 10.4+ · supported Windows Server guest · lab.example.test dummy data · SPL (not SPL2)",
   "prerequisite": "Before you start, have a supported Windows Server practice VM ready in VMware Workstation Pro, an administrator account for setup, and an eligible Splunk Enterprise trial or license. Start with the Windows Server & VMware class if you have not built a guest yet. Later lessons use the Splunk Search bar, not PowerShell. Your Windows 10 machine remains the host.",
   "supplies": [
@@ -9,7 +9,8 @@
     "An official Splunk Enterprise installer and a trial/license that permits scheduling; a website visit does not create an entitlement.",
     "The supplied 12-event cloudseam-web.csv and three-row cloudseam-status.csv files. All names and events are fictional.",
     "A private browser session on the guest at http://localhost:8000 after installation. No paid Azure resources are needed.",
-    "The supplied 16-event cloudseam-security.csv for injection-pattern and external-login investigations. No attacks are sent; you analyze prepared logs."
+    "The supplied 16-event cloudseam-security.csv for injection-pattern and external-login investigations. No attacks are sent; you analyze prepared logs.",
+    "The supplied 14-event cloudseam-windows-events.csv and incident report template for Windows investigations."
   ],
   "sources": [
     {
@@ -47,6 +48,18 @@
     {
       "title": "Scheduled alerts",
       "url": "https://help.splunk.com/en/splunk-enterprise/alert-and-respond/alerting-manual/10.2/create-alerts/create-scheduled-alerts"
+    },
+    {
+      "title": "Windows security auditing event reference",
+      "url": "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+    },
+    {
+      "title": "Process creation 4688 and command-line audit settings",
+      "url": "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4688"
+    },
+    {
+      "title": "Windows PowerShell logging",
+      "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_logging_windows"
     }
   ],
   "lessons": [
@@ -2250,6 +2263,550 @@
           },
           "sources": [
             "https://docs.splunk.com/Documentation/SplunkCloud/latest/Viz/FormEditor"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "splunk-windows-import",
+      "module": "Windows event investigations and reporting",
+      "title": "Read Windows Events Without Guessing",
+      "description": "Upload a 14-event fictional CSV and distinguish event IDs, channels and providers.",
+      "what": "Upload a 14-event fictional CSV and distinguish event IDs, channels and providers.",
+      "why": "An event ID is a label inside a provider’s event catalog. Read EventID + Channel + Provider together. 4104 belongs to PowerShell/Operational; 7045 belongs to System. These CSV fields are teaching names, not a claim about your production extraction schema.",
+      "needs": [
+        "Complete the earlier upload and search lessons. Use fictional files only; no live attack or production log access is required."
+      ],
+      "bestPractices": [
+        "Read the event provider, channel, UTC timestamp and surrounding records.",
+        "Record facts separately from hypotheses and preserve the exact search."
+      ],
+      "commonMistakes": [
+        "Treating an event ID as automatic proof of compromise.",
+        "Using a recent time window for January 2026 training records."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The search returns zero or too many events.",
+          "fix": "Select All time, confirm index sonic_lab and the source filename. If the total is 28, the 14-event file was uploaded twice: use one correctly identified ingestion source or reset only your disposable training index using its approved procedure; never delete production events."
+        }
+      ],
+      "pass": "There are 11 event-ID rows and 14 events in total: 4625 appears three times, 4624 twice, and the other IDs once.",
+      "exercise": "Repeat the search without copying it. Explain one result and one thing it cannot prove. Save your evidence in the notebook.",
+      "quiz": [
+        {
+          "question": "Why must you check the provider and channel with an event ID?",
+          "options": [
+            "The same number alone does not identify every Windows event",
+            "Every event ID proves an attack",
+            "All events are in Security"
+          ],
+          "answer": 0,
+          "explanation": "An event ID is a label inside a provider’s event catalog. Read EventID + Channel + Provider together. 4104 belongs to PowerShell/Operational; 7045 belongs to System. These CSV fields are teaching names, not a claim about your production extraction schema."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Find the controls",
+          "where": "SPLUNK01 → browser → Splunk Web → Search & Reporting; not a terminal",
+          "actions": [
+            "Use picture marker 2 for SPL, 3 for All time, and 9 to inspect events. The picture shows vendor tutorial data; your results must match the check below."
+          ],
+          "breakdown": [
+            {
+              "term": "Event",
+              "meaning": "A recorded observation, not a verdict."
+            }
+          ],
+          "expected": "You can locate the Search bar, time picker and Events viewer.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ]
+        },
+        {
+          "title": "Run the investigation",
+          "where": "Splunk Web → Search bar",
+          "actions": [
+            "Download cloudseam-windows-events.csv below to the Windows guest. In Splunk Web choose Settings → Add Data → Upload → Select File; choose that CSV.",
+            "Choose CSV as the source type. In Set Timestamp select timestamp, format %Y-%m-%dT%H:%M:%SZ and UTC. Check the preview date is January 15, 2026. Use index sonic_lab from the earlier upload lesson; submit once.",
+            "Open Search & Reporting. Set All time. Run the search below. Keep this source= filter in every exercise; it separates these events from other class data."
+          ],
+          "command": "index=sonic_lab source=\"*cloudseam-windows-events.csv\" | stats count by EventID Channel Provider",
+          "breakdown": [
+            {
+              "term": "source=",
+              "meaning": "Keep only this exercise file."
+            },
+            {
+              "term": "sort 0 timestamp",
+              "meaning": "Order every matching row by its ISO UTC timestamp."
+            },
+            {
+              "term": "table",
+              "meaning": "Display only the named columns; it does not change stored events."
+            }
+          ],
+          "expected": "There are 11 event-ID rows and 14 events in total: 4625 appears three times, 4624 twice, and the other IDs once.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ],
+          "downloads": [
+            {
+              "title": "Download fictional Windows event CSV (14 events)",
+              "href": "/splunk/cloudseam-windows-events.csv"
+            },
+            {
+              "title": "Download incident report template",
+              "href": "/splunk/incident-report-template.md"
+            }
+          ]
+        },
+        {
+          "title": "Explain and preserve the result",
+          "where": "Private notebook below this lesson",
+          "actions": [
+            "An event ID is a label inside a provider’s event catalog. Read EventID + Channel + Provider together. 4104 belongs to PowerShell/Operational; 7045 belongs to System. These CSV fields are teaching names, not a claim about your production extraction schema.",
+            "Write: what I observed; what I suspect; what I still need to check. Record the exact query, time range and result count."
+          ],
+          "breakdown": [
+            {
+              "term": "Evidence",
+              "meaning": "A reproducible observation with its source and time."
+            },
+            {
+              "term": "Hypothesis",
+              "meaning": "An explanation to test, not a fact."
+            }
+          ],
+          "expected": "There are 11 event-ID rows and 14 events in total: 4625 appears three times, 4624 twice, and the other IDs once.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "splunk-windows-logons",
+      "module": "Windows event investigations and reporting",
+      "title": "Investigate Failed Logins and a Later Success",
+      "description": "Group failures, then read the successful login in context.",
+      "what": "Group failures, then read the successful login in context.",
+      "why": "A failed-then-successful sequence is a lead to investigate. It does not prove stolen credentials. 4740 identifies account lockout; event context and additional records are needed to establish unlocks or timing across hosts.",
+      "needs": [
+        "Complete the earlier upload and search lessons. Use fictional files only; no live attack or production log access is required."
+      ],
+      "bestPractices": [
+        "Read the event provider, channel, UTC timestamp and surrounding records.",
+        "Record facts separately from hypotheses and preserve the exact search."
+      ],
+      "commonMistakes": [
+        "Treating an event ID as automatic proof of compromise.",
+        "Using a recent time window for January 2026 training records."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The search returns zero or too many events.",
+          "fix": "Select All time, confirm index sonic_lab and the source filename. If the total is 28, the 14-event file was uploaded twice: use one correctly identified ingestion source or reset only your disposable training index using its approved procedure; never delete production events."
+        }
+      ],
+      "pass": "Six rows: three 4625 failures, two 4624 successes (one approved alex login and one morgan login), and one 4740 lockout.",
+      "exercise": "Repeat the search without copying it. Explain one result and one thing it cannot prove. Save your evidence in the notebook.",
+      "quiz": [
+        {
+          "question": "What does Windows LogonType 10 describe?",
+          "options": [
+            "Remote interactive logon",
+            "A failed password by itself",
+            "A new local account"
+          ],
+          "answer": 0,
+          "explanation": "A failed-then-successful sequence is a lead to investigate. It does not prove stolen credentials. 4740 identifies account lockout; event context and additional records are needed to establish unlocks or timing across hosts."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Find the controls",
+          "where": "SPLUNK01 → browser → Splunk Web → Search & Reporting; not a terminal",
+          "actions": [
+            "Use picture marker 2 for SPL, 3 for All time, and 9 to inspect events. The picture shows vendor tutorial data; your results must match the check below."
+          ],
+          "breakdown": [
+            {
+              "term": "Event",
+              "meaning": "A recorded observation, not a verdict."
+            }
+          ],
+          "expected": "You can locate the Search bar, time picker and Events viewer.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ]
+        },
+        {
+          "title": "Run the investigation",
+          "where": "Splunk Web → Search bar",
+          "actions": [
+            "In Search & Reporting set All time. Paste the search below and select the green search button.",
+            "Read each row in timestamp order. Identify three failures at 09:10, a successful login at 09:15, and the same account, host and example source address. A lockout is a separate DC01 event at 09:10:45; it does not establish how access was later restored.",
+            "In your notebook record 4625 = failed logon; 4624 = successful logon; LogonType 3 = network; LogonType 10 = remote interactive. The approved alex network login is different. Ask for VPN, identity-provider, unlock and change records before deciding what happened."
+          ],
+          "command": "index=sonic_lab source=\"*cloudseam-windows-events.csv\" EventID IN (4624,4625,4740) | sort 0 timestamp | table timestamp EventID Computer TargetUserName IpAddress LogonType Detail",
+          "breakdown": [
+            {
+              "term": "source=",
+              "meaning": "Keep only this exercise file."
+            },
+            {
+              "term": "sort 0 timestamp",
+              "meaning": "Order every matching row by its ISO UTC timestamp."
+            },
+            {
+              "term": "table",
+              "meaning": "Display only the named columns; it does not change stored events."
+            }
+          ],
+          "expected": "Six rows: three 4625 failures, two 4624 successes (one approved alex login and one morgan login), and one 4740 lockout.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ],
+          "downloads": [
+            {
+              "title": "Download fictional Windows event CSV (14 events)",
+              "href": "/splunk/cloudseam-windows-events.csv"
+            },
+            {
+              "title": "Download incident report template",
+              "href": "/splunk/incident-report-template.md"
+            }
+          ]
+        },
+        {
+          "title": "Explain and preserve the result",
+          "where": "Private notebook below this lesson",
+          "actions": [
+            "A failed-then-successful sequence is a lead to investigate. It does not prove stolen credentials. 4740 identifies account lockout; event context and additional records are needed to establish unlocks or timing across hosts.",
+            "Write: what I observed; what I suspect; what I still need to check. Record the exact query, time range and result count."
+          ],
+          "breakdown": [
+            {
+              "term": "Evidence",
+              "meaning": "A reproducible observation with its source and time."
+            },
+            {
+              "term": "Hypothesis",
+              "meaning": "An explanation to test, not a fact."
+            }
+          ],
+          "expected": "Six rows: three 4625 failures, two 4624 successes (one approved alex login and one morgan login), and one 4740 lockout.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "splunk-windows-changes",
+      "module": "Windows event investigations and reporting",
+      "title": "Separate Approved Changes from Suspicious Activity",
+      "description": "Compare account, privilege, process and service events with change records.",
+      "what": "Compare account, privilege, process and service events with change records.",
+      "why": "The sequence guides your next question; it does not establish causation. A service name or PowerShell launch alone does not identify malware. Verify binary path, signature, owner and approved change through your authorized response process.",
+      "needs": [
+        "Complete the earlier upload and search lessons. Use fictional files only; no live attack or production log access is required."
+      ],
+      "bestPractices": [
+        "Read the event provider, channel, UTC timestamp and surrounding records.",
+        "Record facts separately from hypotheses and preserve the exact search."
+      ],
+      "commonMistakes": [
+        "Treating an event ID as automatic proof of compromise.",
+        "Using a recent time window for January 2026 training records."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The search returns zero or too many events.",
+          "fix": "Select All time, confirm index sonic_lab and the source filename. If the total is 28, the 14-event file was uploaded twice: use one correctly identified ingestion source or reset only your disposable training index using its approved procedure; never delete production events."
+        }
+      ],
+      "pass": "Seven rows: four approved account/privilege changes and three later process/script/service records needing context.",
+      "exercise": "Repeat the search without copying it. Explain one result and one thing it cannot prove. Save your evidence in the notebook.",
+      "quiz": [
+        {
+          "question": "Does event 4672 alone prove malicious privilege escalation?",
+          "options": [
+            "No; privileged accounts can generate it during authorized logons",
+            "Yes; disable every account immediately",
+            "It means a new service was installed"
+          ],
+          "answer": 0,
+          "explanation": "The sequence guides your next question; it does not establish causation. A service name or PowerShell launch alone does not identify malware. Verify binary path, signature, owner and approved change through your authorized response process."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Find the controls",
+          "where": "SPLUNK01 → browser → Splunk Web → Search & Reporting; not a terminal",
+          "actions": [
+            "Use picture marker 2 for SPL, 3 for All time, and 9 to inspect events. The picture shows vendor tutorial data; your results must match the check below."
+          ],
+          "breakdown": [
+            {
+              "term": "Event",
+              "meaning": "A recorded observation, not a verdict."
+            }
+          ],
+          "expected": "You can locate the Search bar, time picker and Events viewer.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ]
+        },
+        {
+          "title": "Run the investigation",
+          "where": "Splunk Web → Search bar",
+          "actions": [
+            "Run the search below in the Splunk Search bar. Read ChangeTicket before calling an event suspicious. The fictional CHG records are exercise context; in real work confirm the ticket independently.",
+            "Explain 4720 new account; 4728 member added to a security-enabled global group; 4732 member added to a security-enabled local group; 4672 special privileges assigned to a new logon. A backup account can legitimately receive privileges.",
+            "Read 4688 process creation, 4104 script-block logging and 7045 service installation together. An administrator must enable the appropriate auditing; 4688 command-line recording is a separate policy. 4104 can contain sensitive script content. Missing data is not proof that nothing ran. UNKNOWN on 7045 means we have not established the installing identity."
+          ],
+          "command": "index=sonic_lab source=\"*cloudseam-windows-events.csv\" EventID IN (4672,4688,4720,4728,4732,4104,7045) | sort 0 timestamp | table timestamp EventID Channel Computer TargetUserName Detail ChangeTicket",
+          "breakdown": [
+            {
+              "term": "source=",
+              "meaning": "Keep only this exercise file."
+            },
+            {
+              "term": "sort 0 timestamp",
+              "meaning": "Order every matching row by its ISO UTC timestamp."
+            },
+            {
+              "term": "table",
+              "meaning": "Display only the named columns; it does not change stored events."
+            }
+          ],
+          "expected": "Seven rows: four approved account/privilege changes and three later process/script/service records needing context.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ],
+          "downloads": [
+            {
+              "title": "Download fictional Windows event CSV (14 events)",
+              "href": "/splunk/cloudseam-windows-events.csv"
+            },
+            {
+              "title": "Download incident report template",
+              "href": "/splunk/incident-report-template.md"
+            }
+          ]
+        },
+        {
+          "title": "Explain and preserve the result",
+          "where": "Private notebook below this lesson",
+          "actions": [
+            "The sequence guides your next question; it does not establish causation. A service name or PowerShell launch alone does not identify malware. Verify binary path, signature, owner and approved change through your authorized response process.",
+            "Write: what I observed; what I suspect; what I still need to check. Record the exact query, time range and result count."
+          ],
+          "breakdown": [
+            {
+              "term": "Evidence",
+              "meaning": "A reproducible observation with its source and time."
+            },
+            {
+              "term": "Hypothesis",
+              "meaning": "An explanation to test, not a fact."
+            }
+          ],
+          "expected": "Seven rows: four approved account/privilege changes and three later process/script/service records needing context.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "splunk-windows-report",
+      "module": "Windows event investigations and reporting",
+      "title": "Build a Timeline and Write the Handoff",
+      "description": "Turn search results into a clear incident report with facts and uncertainty.",
+      "what": "Turn search results into a clear incident report with facts and uncertainty.",
+      "why": "A useful handoff lets another analyst repeat your search and understand what is known. Screenshots supplement searchable records; preserve original evidence with access controls and the organization’s retention procedure.",
+      "needs": [
+        "Complete the earlier upload and search lessons. Use fictional files only; no live attack or production log access is required."
+      ],
+      "bestPractices": [
+        "Read the event provider, channel, UTC timestamp and surrounding records.",
+        "Record facts separately from hypotheses and preserve the exact search."
+      ],
+      "commonMistakes": [
+        "Treating an event ID as automatic proof of compromise.",
+        "Using a recent time window for January 2026 training records."
+      ],
+      "troubleshooting": [
+        {
+          "problem": "The search returns zero or too many events.",
+          "fix": "Select All time, confirm index sonic_lab and the source filename. If the total is 28, the 14-event file was uploaded twice: use one correctly identified ingestion source or reset only your disposable training index using its approved procedure; never delete production events."
+        }
+      ],
+      "pass": "Fourteen rows, earliest 09:00 and latest 09:18 UTC. Your report separates evidence, hypothesis, unknowns and recommended action; it does not claim the dataset proves compromise.",
+      "exercise": "Repeat the search without copying it. Explain one result and one thing it cannot prove. Save your evidence in the notebook.",
+      "quiz": [
+        {
+          "question": "Which statement belongs under observed facts?",
+          "options": [
+            "APP01 recorded event 1102 at 09:18 UTC",
+            "The server is definitely compromised",
+            "The service installer is known even though the field says UNKNOWN"
+          ],
+          "answer": 0,
+          "explanation": "A useful handoff lets another analyst repeat your search and understand what is known. Screenshots supplement searchable records; preserve original evidence with access controls and the organization’s retention procedure."
+        }
+      ],
+      "steps": [
+        {
+          "title": "Find the controls",
+          "where": "SPLUNK01 → browser → Splunk Web → Search & Reporting; not a terminal",
+          "actions": [
+            "Use picture marker 2 for SPL, 3 for All time, and 9 to inspect events. The picture shows vendor tutorial data; your results must match the check below."
+          ],
+          "breakdown": [
+            {
+              "term": "Event",
+              "meaning": "A recorded observation, not a verdict."
+            }
+          ],
+          "expected": "You can locate the Search bar, time picker and Events viewer.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ]
+        },
+        {
+          "title": "Run the investigation",
+          "where": "Splunk Web → Search bar",
+          "actions": [
+            "Run the full timeline search below. Locate 1102 at 09:18. It records clearing the Security audit log. Confirm planned maintenance before drawing a conclusion; forwarded copies can survive local clearing.",
+            "Download the incident report template. Fill every field from your results. State the 09:10–09:18 UTC sequence, APP01, morgan and 198.51.100.23 as observed fictional evidence. List the missing unlock and service-initiator records as unknowns.",
+            "Save the exact SPL, All time setting, source filename, selected event rows and UTC timestamps in your private notebook. Recommend SOC review according to the organization’s priority matrix. Send only through its approved incident queue after authorization; this lesson sends nothing. Do not clear logs, disable accounts or isolate a server without the required authority."
+          ],
+          "command": "index=sonic_lab source=\"*cloudseam-windows-events.csv\" | sort 0 timestamp | table timestamp Computer EventID Channel TargetUserName IpAddress Detail ChangeTicket",
+          "breakdown": [
+            {
+              "term": "source=",
+              "meaning": "Keep only this exercise file."
+            },
+            {
+              "term": "sort 0 timestamp",
+              "meaning": "Order every matching row by its ISO UTC timestamp."
+            },
+            {
+              "term": "table",
+              "meaning": "Display only the named columns; it does not change stored events."
+            }
+          ],
+          "expected": "Fourteen rows, earliest 09:00 and latest 09:18 UTC. Your report separates evidence, hypothesis, unknowns and recommended action; it does not claim the dataset proves compromise.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
+          ],
+          "downloads": [
+            {
+              "title": "Download fictional Windows event CSV (14 events)",
+              "href": "/splunk/cloudseam-windows-events.csv"
+            },
+            {
+              "title": "Download incident report template",
+              "href": "/splunk/incident-report-template.md"
+            }
+          ]
+        },
+        {
+          "title": "Explain and preserve the result",
+          "where": "Private notebook below this lesson",
+          "actions": [
+            "A useful handoff lets another analyst repeat your search and understand what is known. Screenshots supplement searchable records; preserve original evidence with access controls and the organization’s retention procedure.",
+            "Write: what I observed; what I suspect; what I still need to check. Record the exact query, time range and result count."
+          ],
+          "breakdown": [
+            {
+              "term": "Evidence",
+              "meaning": "A reproducible observation with its source and time."
+            },
+            {
+              "term": "Hypothesis",
+              "meaning": "An explanation to test, not a fact."
+            }
+          ],
+          "expected": "Fourteen rows, earliest 09:00 and latest 09:18 UTC. Your report separates evidence, hypothesis, unknowns and recommended action; it does not claim the dataset proves compromise.",
+          "screenshot": {
+            "status": "reference",
+            "title": "Search results: use the numbered controls with your own lab results",
+            "instructions": "Use markers 2, 3, 5, 8 and 9. The vendor data is different from the fictional exercise.",
+            "assetId": "splunk-interface-03"
+          },
+          "sources": [
+            "https://learn.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-auditing"
           ]
         }
       ]

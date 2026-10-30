@@ -1,5 +1,9 @@
 'use client';
 import Link from 'next/link';
+import dynamic from 'next/dynamic';
+const BicepPractice = dynamic(() =>
+  import('../bicep/bicep-practice').then((module) => module.BicepPractice),
+);
 import { AdminPractice } from '../linux-admin/admin-practice';
 import '../linux-admin/admin.css';
 import { ServerRoleText } from '../server-role-text';
@@ -336,6 +340,9 @@ function LessonReader({
                 </p>
               ))}
               <CommandExample key={`${lesson.id}:${index}`} step={step} />
+              {lesson.id.startsWith('bicep-') && index === 1 && (
+                <BicepPractice lessonId={lesson.id} />
+              )}
               <section className="lesson-result">
                 <h4>Check your result</h4>
                 <p>
@@ -478,6 +485,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
   const isEnterprise = ['mecm-operations', 'wsus-operations'].includes(
     course.id,
   );
+  const isBicep = course.id === 'bicep-foundations';
   const isTls = course.id === 'rhel-nginx-tls';
   const isDaily = course.id === 'linux-daily-admin';
   const isVsphere = course.id === 'vsphere-administration';
@@ -490,7 +498,8 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
   const isSecurity = course.id === 'budget-cloud-security';
   const relatedCourses = isPki
     ? pkiCourses
-    : isDaily ||
+    : isBicep ||
+        isDaily ||
         isVsphere ||
         isTls ||
         isSplunk ||
@@ -547,7 +556,8 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         <nav
           className={
             'nessus-course-switcher' +
-            (isDaily ||
+            (isBicep ||
+            isDaily ||
             isVsphere ||
             isTls ||
             isSplunk ||
@@ -563,7 +573,8 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
           aria-label={
             isPki
               ? 'PKI Certificate Management classes'
-              : isDaily ||
+              : isBicep ||
+                  isDaily ||
                   isVsphere ||
                   isTls ||
                   isSplunk ||
@@ -594,7 +605,8 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         </nav>
         <header className="alma-header">
           <span className="eyebrow">
-            {isDaily ||
+            {isBicep ||
+            isDaily ||
             isVsphere ||
             isPki ||
             isTls ||
@@ -762,10 +774,12 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
               className="teaching-callout"
               aria-label="PKI class context"
             >
-              <Link href="/?view=courses&course=pki-certificate-management">← PKI Certificate Management course</Link>
+              <Link href="/?view=courses&course=pki-certificate-management">
+                ← PKI Certificate Management course
+              </Link>
               <p>
-                Two server tracks, each with its own chapter progress. Start
-                at the explanation page, then follow the request, PKI handoff,
+                Two server tracks, each with its own chapter progress. Start at
+                the explanation page, then follow the request, PKI handoff,
                 trust, validation and renewal chapters.
               </p>
               <p>

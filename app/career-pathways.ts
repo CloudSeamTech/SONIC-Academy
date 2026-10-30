@@ -34,6 +34,7 @@ export const careerPathways = [
       'Plan your budget, build a landing zone, secure your cloud, migrate workloads and practice recovery.',
     subjects: [
       'azure',
+      'bicep',
       'landing-zone',
       'security',
       'azure-operations',
@@ -44,7 +45,7 @@ export const careerPathways = [
     id: 'cyber-analyst',
     title: 'Cyber Analyst',
     description:
-      'Search evidence in Splunk, investigate suspicious activity and assess vulnerabilities with Nessus.',
+      'Investigate suspicious activity and Windows event IDs in Splunk, report evidence clearly, and assess vulnerabilities with Nessus.',
     subjects: ['splunk', 'nessus-linux', 'nessus-windows', 'nessus-scanning'],
   },
   {

@@ -1,0 +1,83 @@
+/* Course surfaces only: navigation and the purple/cream palette stay intact. */
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.guided-step, .sonic-action-panel) {
+  background: linear-gradient(145deg, #f7f0e3 0%, #e9ddc5 100%) !important;
+  border: 1px solid #c6b794 !important;
+  border-radius: 10px !important;
+  box-shadow:
+    inset 0 1px 0 #fffaf1,
+    inset 0 -2px 0 #d0bf9b,
+    0 4px 0 #c6b794,
+    0 12px 26px #45302e12 !important;
+  padding: clamp(16px, 2.5vw, 30px) !important;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.guided-step, .sonic-action-panel):focus {
+  outline: none !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.guided-step, .sonic-action-panel):focus-visible {
+  outline: 3px solid #7141a5 !important;
+  outline-color: #7141a5 !important;
+  outline-offset: 7px;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .guided-step-number {
+  display: inline-block;
+  background: #7141a5 !important;
+  color: #fffaf1 !important;
+  -webkit-text-fill-color: #fffaf1 !important;
+  border: 1px solid #8c61b4;
+  border-radius: 4px;
+  box-shadow:
+    inset 0 1px 0 #a984cc,
+    0 3px 0 #4e267c;
+  padding: 7px 12px;
+  margin-bottom: 14px;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .screen-marker-key {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 8px 18px;
+  list-style: none;
+  padding: 16px 0;
+  margin: 0;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .screen-marker-key
+  li {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .screen-marker-key
+  strong {
+  color: #60318f;
+  font-variant-numeric: tabular-nums;
+}

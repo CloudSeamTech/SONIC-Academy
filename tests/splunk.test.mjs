@@ -48,9 +48,9 @@ test('Splunk practice evidence matches the downloadable synthetic dataset', () =
 });
 
 test('every Splunk step has an intact attributed local reference and stays in its own pathway', () => {
-  assert.equal(course.lessons.length, 18);
+  assert.equal(course.lessons.length, 22);
   const steps = course.lessons.flatMap((lesson) => lesson.steps);
-  assert.equal(steps.length, 56);
+  assert.equal(steps.length, 68);
   for (const step of steps) {
     assert.ok(['reference', 'illustration'].includes(step.screenshot.status));
     const ref = refs.find((item) => item.id === step.screenshot.assetId);

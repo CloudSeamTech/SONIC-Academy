@@ -80,7 +80,7 @@
       "number": 2,
       "x": 62,
       "y": 42,
-      "label": "Use 10.50.0.254 with the /24 mask; leave this management adapter\u2019s gateway and DNS blank."
+      "label": "Use 10.50.0.254 with the /24 mask; leave this management adapter’s gateway and DNS blank."
     }
   ],
   "/dmz/screens/dmz-networks-screen-4.svg": [
@@ -298,7 +298,7 @@
       "number": 1,
       "x": 35,
       "y": 40,
-      "label": "Choose Manual IPv4 on TEST01\u2019s only Wired adapter."
+      "label": "Choose Manual IPv4 on TEST01’s only Wired adapter."
     },
     {
       "number": 2,
@@ -494,7 +494,7 @@
       "number": 1,
       "x": 28,
       "y": 20,
-      "label": "Network list: select the lab VMnet. This vendor reference currently shows VMnet8; follow your lesson\u2019s written values."
+      "label": "Network list: select the lab VMnet. This vendor reference currently shows VMnet8; follow your lesson’s written values."
     },
     {
       "number": 2,
@@ -528,7 +528,7 @@
       "number": 1,
       "x": 4,
       "y": 6,
-      "label": "Search finds an application by name. Follow the class\u2019s package/source choice rather than installing an unrelated result."
+      "label": "Search finds an application by name. Follow the class’s package/source choice rather than installing an unrelated result."
     },
     {
       "number": 2,
@@ -548,7 +548,7 @@
       "number": 2,
       "x": 65,
       "y": 38,
-      "label": "Destination port: enter your lesson\u2019s service port. The original reference shows an 8080 example."
+      "label": "Destination port: enter your lesson’s service port. The original reference shows an 8080 example."
     },
     {
       "number": 3,
@@ -573,55 +573,132 @@
   ],
   "/splunk/interface-02.png": [
     {
-      "number": 4,
-      "x": 16,
-      "y": 32,
+      "number": 1,
+      "x": 0,
+      "y": 0,
       "embedded": true,
-      "label": "Search bar: paste the class SPL here, not in PowerShell or the SONIC terminal."
+      "label": "Applications: switch apps."
+    },
+    {
+      "number": 2,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Splunk bar: settings, messages and help."
+    },
+    {
+      "number": 3,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Apps bar: search, reports, alerts and dashboards."
+    },
+    {
+      "number": 4,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Search bar: enter SPL here, not in PowerShell."
     },
     {
       "number": 5,
-      "x": 90,
-      "y": 20,
+      "x": 0,
+      "y": 0,
       "embedded": true,
-      "label": "Time picker: use All time for the class\u2019s fixed-date CSV data unless the lesson asks for another range."
+      "label": "Time picker: choose All time for the supplied fixed-date CSV."
+    },
+    {
+      "number": 6,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "How to search: open learning resources."
+    },
+    {
+      "number": 7,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Workload management: Cloud-only; absent in an Enterprise lab."
+    },
+    {
+      "number": 8,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Search history: revisit searches after running one."
     }
   ],
   "/splunk/interface-03.png": [
     {
-      "number": 2,
-      "x": 29,
-      "y": 24,
+      "number": 1,
+      "x": 0,
+      "y": 0,
       "embedded": true,
-      "label": "Use your CloudSeam search and index; the source image shows unrelated vendor tutorial data."
+      "label": "Apps bar: change views."
+    },
+    {
+      "number": 2,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Search bar: use the lesson’s CloudSeam index and search."
     },
     {
       "number": 3,
-      "x": 79,
-      "y": 24,
+      "x": 0,
+      "y": 0,
       "embedded": true,
-      "label": "The time range controls which events the search can see."
+      "label": "Time picker: controls the events included."
+    },
+    {
+      "number": 4,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Search actions: manage, share, print or export results."
     },
     {
       "number": 5,
-      "x": 36,
-      "y": 37,
+      "x": 0,
+      "y": 0,
       "embedded": true,
-      "label": "Events shows records; Statistics and Visualization are used after suitable searches."
+      "label": "Results tabs: Events, Statistics or Visualization."
+    },
+    {
+      "number": 6,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Search mode: Smart, Fast or Verbose."
+    },
+    {
+      "number": 7,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Timeline: event distribution over time."
     },
     {
       "number": 8,
-      "x": 12,
-      "y": 78,
+      "x": 0,
+      "y": 0,
       "embedded": true,
-      "label": "The Fields sidebar helps you discover the fields available in the current results."
+      "label": "Fields sidebar: inspect available fields."
+    },
+    {
+      "number": 9,
+      "x": 0,
+      "y": 0,
+      "embedded": true,
+      "label": "Events viewer: read matching records."
     },
     {
       "number": 10,
-      "x": 70,
-      "y": 12,
+      "x": 0,
+      "y": 0,
       "embedded": true,
-      "label": "Save As is where a suitable search can become a report or dashboard panel."
+      "label": "Save As: save a report, alert or dashboard panel."
     }
   ],
   "/splunk/interface-05.png": [
@@ -630,6 +707,466 @@
       "x": 50,
       "y": 24,
       "label": "Choose Upload to ingest the exact event CSV named in the lesson. Lookup CSV files follow the separate Lookups workflow."
+    }
+  ],
+  "/bicep/bicep-first-words.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "param: Declares an input: a value the file accepts."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "output: Names information ARM can return after a deployment."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "string: The value is text; keep quotes around a text literal."
+    }
+  ],
+  "/bicep/bicep-workspace.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "main.bicep: The filename. .bicep tells the editor which language to use."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "PS C:\\Users\\YourName\\Documents\\CloudSeam-Bicep>: A displayed PowerShell prompt; do not paste PS, the path or > as a command."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "Ctrl+S: Saves the editor buffer to the file the local CLI reads."
+    }
+  ],
+  "/bicep/bicep-toolchain.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "az: The Azure CLI executable."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "bicep build: Compiles the file and performs compiler/linter diagnostics."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "--file .\\main.bicep: Selects a file in the current folder."
+    }
+  ],
+  "/bicep/bicep-errors.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "Diagnostic: A compiler message with a severity and source location."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "Error: Prevents a valid template from being emitted."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "Warning: A concern to review; it may not prevent compilation."
+    }
+  ],
+  "/bicep/bicep-inputs.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "param environment: An input you can provide separately for each deployment."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "var resourceName = 'app-${environment}': A derived value: its result changes when environment changes."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "param, string, var, output: Language keywords stay spelled exactly this way; your identifiers and allowed input values can differ."
+    }
+  ],
+  "/bicep/bicep-types.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "[]: An array: an ordered list."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "{}: An object: named properties."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "true / false: Boolean literals, without quotes."
+    }
+  ],
+  "/bicep/bicep-resource.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "resource storage: Declares a resource and its Bicep symbolic name."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "'Microsoft.Storage/storageAccounts@2023-05-01': Provider/type and the API schema version. Use a documented supported version."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "properties: Service settings: HTTPS only, minimum TLS and no anonymous blob access in this example."
+    }
+  ],
+  "/bicep/bicep-json.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "\"key\": \"value\": JSON requires quoted property names and commas between properties."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "resources: The template’s resource declarations."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "outputs: Information the deployment can return; never output credentials."
+    }
+  ],
+  "/bicep/bicep-guards.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "@minValue / @maxValue: Limit accepted numeric values."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "@allowed: Restricts a parameter to named choices."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "@secure: Suppresses normal parameter-value logging/display in ARM; still obtain secrets through an approved secret workflow."
+    }
+  ],
+  "/bicep/bicep-dependencies.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "nsg.id: A symbolic reference that expresses an implicit dependency."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "dependsOn: An explicit resource dependency when a real ordering relationship cannot be expressed naturally."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "existing: References an already present resource; it does not create that resource or check its live existence during local compilation."
+    }
+  ],
+  "/bicep/bicep-network.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "source / destination: Who sends the traffic and where it goes."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "priority: Lower numbers are evaluated before higher numbers for matching NSG rules."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "NSG vs Entra group: Network packet rules versus identity membership; do not interchange their resource types."
+    }
+  ],
+  "/bicep/bicep-existing.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "existing: Use a resource already managed elsewhere."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "scope: The subscription/resource group where a name is resolved; this example uses the current resource-group scope."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": ".id: A resource identifier expression; constructing it locally does not contact Azure."
+    }
+  ],
+  "/bicep/bicep-loops.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "for i in range(0, serverCount): Repeat for indices 0 through serverCount minus 1."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "nics[i].id: Use the NIC at this VM’s index."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "@maxValue(3): A training limit, not a guarantee that three VMs are affordable or available."
+    }
+  ],
+  "/bicep/bicep-server-settings.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "SystemAssigned: Azure manages this VM identity’s lifecycle; RBAC permissions require separate approved assignments."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "imageReference: Publisher, offer, SKU and version identify the OS image; verify availability in the chosen region."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "managedDisk: The OS disk remains a billable resource after deployment; stopping a VM does not remove disks."
+    }
+  ],
+  "/bicep/bicep-software.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "loadTextContent: Reads a local companion file at compile time."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "base64: Encoding for customData, not encryption. Never include secrets."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "Cloud-init vs VM extension: OS first-boot configuration versus an Azure extension resource; choose a supported mechanism and make retries safe."
+    }
+  ],
+  "/bicep/bicep-modules.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "./network.bicep: A relative path beside main.bicep."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "params: Values the parent passes to the child’s declared parameters."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "network.outputs.subnetId: The module’s declared output, not a free-form field name."
+    }
+  ],
+  "/bicep/bicep-environments.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 26,
+      "embedded": true,
+      "label": "using: Selects the blueprint for a .bicepparam file."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 53,
+      "embedded": true,
+      "label": "Default: Used when an input is not overridden; not a permanent constant."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 79,
+      "embedded": true,
+      "label": "Environment inputs: Names, counts and approved regions may differ; keywords and the module contract stay stable."
+    }
+  ],
+  "/bicep/bicep-azure-checks.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "validate: Ask ARM to validate this template at the selected scope; provider checks depend on permissions and CLI version."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "what-if: Preview proposed changes; unresolved expressions and provider behavior can limit accuracy."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "create: An actual deployment command, deliberately separate from this practice checker."
+    }
+  ],
+  "/bicep/bicep-capstone.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "Independent input: A parameter you choose, such as serverCount."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "Derived value: An expression built from inputs, such as a resource name."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "Resource dependency: A relationship such as a VM needing its NIC; different from the input/derived-value distinction."
+    }
+  ],
+  "/bicep/bicep-handoff.svg": [
+    {
+      "number": 1,
+      "x": 70,
+      "y": 24,
+      "embedded": true,
+      "label": "Idempotent intent: Repeatedly requesting the same state should not create duplicate named resources; guest scripts must also be safe to retry."
+    },
+    {
+      "number": 2,
+      "x": 70,
+      "y": 47,
+      "embedded": true,
+      "label": "Incremental mode: Manages declared resources without treating omitted declarations as automatic deletion requests."
+    },
+    {
+      "number": 3,
+      "x": 70,
+      "y": 70,
+      "embedded": true,
+      "label": "Cleanup: Review the exact disposable scope and costs; snapshots, disks and other retained items may continue billing."
     }
   ]
 }

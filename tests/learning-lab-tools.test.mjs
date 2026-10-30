@@ -19,8 +19,8 @@ import {
 import { isProgressKey } from '../lib/academy-tracking.ts';
 
 test('every existing module has ten complete questions and a real end lesson, without losing a lab', () => {
-  assert.equal(learningModules.length, 73);
-  assert.equal(new Set(learningModules.map((module) => module.id)).size, 73);
+  assert.equal(learningModules.length, 79);
+  assert.equal(new Set(learningModules.map((module) => module.id)).size, 79);
   assert.deepEqual(
     learningModules
       .flatMap((module) => module.lessons.map((lesson) => lesson.id))

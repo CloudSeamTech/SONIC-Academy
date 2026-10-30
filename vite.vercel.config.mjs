@@ -13,6 +13,8 @@ import { nitro } from 'nitro/vite';
 import tailwindcss from '@tailwindcss/postcss';
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+// Vercel invokes Vite directly, so npm's prebuild hook is not used here.
+await import('./tools/prepare-bicep-runtime.mjs');
 
 const academyDbPath = fileURLToPath(
   new URL('./lib/academy-db.ts', import.meta.url),
