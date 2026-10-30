@@ -1,14 +1,16 @@
 import { learningPathways, pathwayLessons } from './learning-pathways.ts';
 
 /** Career groups organize subjects without changing lesson routes or progress keys. */
-export const careerPathways = [
+export const standaloneCourses = [
   {
     id: 'pki-certificate-management',
     title: 'PKI Certificate Management',
     description:
-      'Two separate application-server classes: AlmaLinux / NGINX and Windows Server / IIS. Learn requests, PKI handoff, trust, HTTPS validation and renewal.',
+      'Request, install, validate and renew a server certificate. Choose AlmaLinux / NGINX or Windows Server / IIS.',
     subjects: ['pki-alma-nginx', 'pki-windows-iis'],
   },
+];
+export const careerPathways = [
   {
     id: 'windows-system-administration',
     title: 'Windows System Administration',
@@ -65,4 +67,17 @@ export function careerSubjects(id: string) {
 }
 export function careerLessons(id: string) {
   return careerSubjects(id).flatMap(pathwayLessons);
+}
+export function standaloneSubjects(id: string) {
+  return (
+    standaloneCourses
+      .find((course) => course.id === id)
+      ?.subjects.map((subject) =>
+        learningPathways.find((path) => path.id === subject)!,
+      )
+      .filter(Boolean) ?? []
+  );
+}
+export function standaloneLessons(id: string) {
+  return standaloneSubjects(id).flatMap(pathwayLessons);
 }

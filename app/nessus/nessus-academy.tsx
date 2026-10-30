@@ -762,9 +762,9 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
               className="teaching-callout"
               aria-label="PKI class context"
             >
-              <Link href="/pki">← PKI Certificate Management pathway</Link>
+              <Link href="/?view=courses&course=pki-certificate-management">← PKI Certificate Management course</Link>
               <p>
-                Two separate classes, each with its own chapter progress. Start
+                Two server tracks, each with its own chapter progress. Start
                 at the explanation page, then follow the request, PKI handoff,
                 trust, validation and renewal chapters.
               </p>

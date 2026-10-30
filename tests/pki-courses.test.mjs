@@ -7,7 +7,7 @@ import {
   guidedCourseHref,
   guidedLessons,
 } from '../lib/guided-courses.ts';
-import { careerSubjects } from '../app/career-pathways.ts';
+import { standaloneSubjects } from '../app/career-pathways.ts';
 import { lessonSequenceFor } from '../app/learning-pathways.ts';
 import {
   normalizeNessusProgress,
@@ -16,7 +16,7 @@ import {
 import refs from '../content/pki/references.json' with { type: 'json' };
 test('PKI has two separate classes, independent chapter sequences and stable existing progress', () => {
   assert.deepEqual(
-    careerSubjects('pki-certificate-management').map((c) => c.id),
+    standaloneSubjects('pki-certificate-management').map((c) => c.id),
     pkiCourses.map((c) => c.id),
   );
   assert.equal(pkiCourses.length, 2);

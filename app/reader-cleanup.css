@@ -29,7 +29,7 @@ html
     main,
     .console-commandbar,
     .course-progress-strip,
-    .learning-rhythm,
+    .lesson-tools,
     .lab-passport
   ) {
   box-sizing: border-box;
