@@ -1,6 +1,7 @@
 /* Native images preserve the full-resolution instructional asset and work without a remote image optimizer. */
 /* oxlint-disable next/no-img-element, react/react-compiler -- Load saved local notes after hydration; no lab operations execute here. */
 'use client';
+import { SplitFocusWorkspace } from '../split-focus-workspace';
 import { WorkspaceStart } from '../workspace-start';
 import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
@@ -192,100 +193,110 @@ export function GuidedLab({
             <p className="lesson-start">
               <b>Work in:</b> {step.where ?? guide.where}
             </p>
-            <section
-              className="guided-visuals"
-              aria-label="Pictures and screen references for this step"
-            >
-              <InstructionScreenshots
-                stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
-              />
-            </section>
-            <details className="lesson-support">
-              <summary>Help opening this workspace</summary>
-              <WorkspaceStart
-                where={step.where ?? guide.where}
-                action={currentAction}
-              />
-            </details>
-            <VisualChecklist
-              key={`${lessonId}:${stepOffset}:${index}`}
-              stepId={`${lessonId}:guided:${index + stepOffset + 1}`}
-              actions={learnerActions(currentAction)}
-            />
-            {step.command && (
-              <section className="guided-command">
-                <header>
-                  <span>COMMAND · USE THE WORKSPACE LISTED ABOVE</span>
-                  <button
-                    onClick={async () => {
-                      try {
-                        await navigator.clipboard.writeText(step.command);
-                        setCopied(true);
-                      } catch {
-                        setNotice('Select the command and copy it manually.');
-                      }
-                    }}
+            <SplitFocusWorkspace
+              reference={
+                <>
+                  <section
+                    className="guided-visuals"
+                    aria-label="Pictures and screen references for this step"
                   >
-                    {copied ? 'Copied ✓' : 'Copy command block'}
-                  </button>
-                </header>
-                <TerminalExample
-                  command={step.command}
-                  where={step.where ?? guide.where}
-                />
-                <p>Paste into the workspace above, then press Enter.</p>
-                {coaching.commandNotes.length > 0 && (
-                  <details className="lesson-support">
-                    <summary>What the command means</summary>
-                    <ul>
-                      {coaching.commandNotes.map((note) => (
-                        <li key={note}>{note}</li>
-                      ))}
-                    </ul>
-                  </details>
-                )}
-              </section>
-            )}
-            <section className="lesson-result">
-              <b>Check your result</b>
-              <p>{step.expect}</p>
-            </section>
-            <details className="lesson-support">
-              <summary>Why am I doing this?</summary>
-              <p>{coaching.reason}</p>
-            </details>
-            <details className="lesson-support">
-              <summary>My result is different</summary>
-              <p>{step.trouble}</p>
-            </details>
-            <details className="lesson-support">
-              <summary>Evidence to save</summary>
-              <p className="step-evidence">
-                <strong>Keep this evidence:</strong> {step.evidence}
-              </p>
-            </details>
-            <label className="guided-check">
-              <input
-                type="checkbox"
-                checked={checked.includes(index)}
-                onChange={toggle}
-              />{' '}
-              I checked this result on my practice system
-            </label>
-            <nav
-              className="guided-pagination"
-              aria-label="Walkthrough pagination"
+                    <InstructionScreenshots
+                      stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
+                    />
+                  </section>
+                  <section className="lesson-result">
+                    <b>Check your result</b>
+                    <p>{step.expect}</p>
+                  </section>
+                </>
+              }
             >
-              <button disabled={index === 0} onClick={() => select(index - 1)}>
-                ← Previous step
-              </button>
-              <button
-                disabled={index === guide.steps.length - 1}
-                onClick={() => select(index + 1)}
+              <details className="lesson-support">
+                <summary>Help opening this workspace</summary>
+                <WorkspaceStart
+                  where={step.where ?? guide.where}
+                  action={currentAction}
+                />
+              </details>
+              <VisualChecklist
+                key={`${lessonId}:${stepOffset}:${index}`}
+                stepId={`${lessonId}:guided:${index + stepOffset + 1}`}
+                actions={learnerActions(currentAction)}
+              />
+              {step.command && (
+                <section className="guided-command">
+                  <header>
+                    <span>COMMAND · USE THE WORKSPACE LISTED ABOVE</span>
+                    <button
+                      onClick={async () => {
+                        try {
+                          await navigator.clipboard.writeText(step.command);
+                          setCopied(true);
+                        } catch {
+                          setNotice('Select the command and copy it manually.');
+                        }
+                      }}
+                    >
+                      {copied ? 'Copied ✓' : 'Copy command block'}
+                    </button>
+                  </header>
+                  <TerminalExample
+                    command={step.command}
+                    where={step.where ?? guide.where}
+                  />
+                  <p>Paste into the workspace above, then press Enter.</p>
+                  {coaching.commandNotes.length > 0 && (
+                    <details className="lesson-support">
+                      <summary>What the command means</summary>
+                      <ul>
+                        {coaching.commandNotes.map((note) => (
+                          <li key={note}>{note}</li>
+                        ))}
+                      </ul>
+                    </details>
+                  )}
+                </section>
+              )}
+              <details className="lesson-support">
+                <summary>Why am I doing this?</summary>
+                <p>{coaching.reason}</p>
+              </details>
+              <details className="lesson-support">
+                <summary>My result is different</summary>
+                <p>{step.trouble}</p>
+              </details>
+              <details className="lesson-support">
+                <summary>Evidence to save</summary>
+                <p className="step-evidence">
+                  <strong>Keep this evidence:</strong> {step.evidence}
+                </p>
+              </details>
+              <label className="guided-check">
+                <input
+                  type="checkbox"
+                  checked={checked.includes(index)}
+                  onChange={toggle}
+                />{' '}
+                I checked this result on my practice system
+              </label>
+              <nav
+                className="guided-pagination"
+                aria-label="Walkthrough pagination"
               >
-                Next step →
-              </button>
-            </nav>
+                <button
+                  disabled={index === 0}
+                  onClick={() => select(index - 1)}
+                >
+                  ← Previous step
+                </button>
+                <button
+                  disabled={index === guide.steps.length - 1}
+                  onClick={() => select(index + 1)}
+                >
+                  Next step →
+                </button>
+              </nav>
+            </SplitFocusWorkspace>
           </div>
         </article>
       </div>

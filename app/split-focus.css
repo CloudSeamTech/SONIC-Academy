@@ -1,0 +1,285 @@
+/* Split Focus: one reference column, one action column; shared, stable logo geometry. */
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace {
+  background:
+    radial-gradient(ellipse at 100% 0%, #f2b17830, transparent 45%),
+    linear-gradient(145deg, #f5ebda, #e8dcc5) !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.guided-step, .sonic-action-panel) {
+  background:
+    radial-gradient(ellipse at 100% 0%, #f5b78230, transparent 55%),
+    linear-gradient(145deg, #fff8ed, #eee0c9) !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.guided-step-content, .sonic-action-body) {
+  display: block !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-grid {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 20px;
+  margin-top: 18px;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.split-focus-reference, .split-focus-actions) {
+  min-width: 0;
+  border: 1px solid #d4c3a7 !important;
+  border-radius: 10px !important;
+  background: #fff8ed !important;
+  box-shadow:
+    inset 0 1px 0 #fffdf7,
+    0 3px 0 #c7b59540,
+    0 10px 20px #513b2710 !important;
+  margin: 0 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-reference-body {
+  padding: clamp(12px, 1.5vw, 20px);
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-actions {
+  padding: clamp(14px, 1.5vw, 22px);
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-eyebrow {
+  margin: 0 0 14px !important;
+  color: #7141a5 !important;
+  font-size: 12px !important;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .lab-window-chrome {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px 16px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #d8c5b2 !important;
+  border-radius: 9px 9px 0 0;
+  background: linear-gradient(100deg, #e8d9f0, #f6dfc8) !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .lab-window-lights {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: none;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .window-light {
+  display: block;
+  flex: none;
+  width: 11px;
+  height: 11px;
+  border-radius: 50% !important;
+  box-shadow: inset 0 1px 0 #ffffff60;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .window-light-red {
+  background: #ec7069 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .window-light-yellow {
+  background: #eeb64b !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .window-light-green {
+  background: #62b787 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .lab-window-title {
+  color: #584660 !important;
+  font-size: 12px !important;
+  line-height: 1.5;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-reference
+  :is(
+    .guided-visuals,
+    .sonic-action-visual,
+    .guided-screenshot,
+    .step-picture
+  ) {
+  width: 100% !important;
+  min-width: 0 !important;
+  margin-inline: 0 !important;
+  max-width: 100% !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-reference
+  :is(.guided-command, .lesson-result, .sonic-terminal, .walkthrough-check) {
+  min-width: 0;
+  max-width: 100%;
+  margin-block: 16px 0 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-actions
+  .visual-checklist {
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 0 18px !important;
+  box-shadow: none !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-actions
+  .visual-checklist
+  > header {
+  padding: 0 0 12px !important;
+  flex-wrap: wrap;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-actions
+  .guided-pagination {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 20px !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  :is(.guided-pagination button:last-child, .primary-button) {
+  background: linear-gradient(120deg, #f4ab6d, #e98a40) !important;
+  border-color: #cc783a !important;
+  color: #38223f !important;
+  -webkit-text-fill-color: #38223f !important;
+  box-shadow:
+    inset 0 1px 0 #ffdcc0,
+    0 3px 0 #b66c35 !important;
+}
+/* SVG layers share one proportional slot, including the lettering's 4px offset. */
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .console-sidebar
+  .console-brand {
+  display: grid !important;
+  place-items: center;
+  box-sizing: border-box;
+  width: 100%;
+  height: 112px;
+  flex: 0 0 112px;
+  padding: 12px 4px !important;
+  margin: 0 0 18px !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .console-sidebar
+  .console-brand
+  .academy-brand {
+  display: block !important;
+  box-sizing: border-box;
+  width: 100% !important;
+  max-width: 186px;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .console-sidebar
+  .console-brand
+  .spaced-brand-logo {
+  width: calc(100% - 4px) !important;
+  aspect-ratio: 2030 / 775;
+  height: auto !important;
+  margin: 0 !important;
+}
+@media (min-width: 1180px) {
+  html
+    body
+    .academy-shell.academy-shell.console-reader.console-reader
+    .reader-workspace.reader-workspace
+    .split-focus-grid {
+    grid-template-columns: minmax(0, 1.55fr) minmax(280px, 1fr);
+  }
+}
+@media (max-width: 650px) {
+  html
+    body
+    .academy-shell.academy-shell.console-reader.console-reader
+    .reader-workspace.reader-workspace
+    .split-focus-grid {
+    gap: 16px;
+  }
+  html
+    body
+    .academy-shell.academy-shell.console-reader.console-reader
+    .reader-workspace.reader-workspace
+    .split-focus-actions
+    .guided-pagination
+    > button {
+    flex: 1 1 100px;
+    min-width: 0;
+  }
+}

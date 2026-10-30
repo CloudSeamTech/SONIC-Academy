@@ -27,6 +27,7 @@ import './lesson-reading.css';
 import './reader-cleanup.css';
 import './premium-steps.css';
 import './premium-surfaces.css';
+import './split-focus.css';
 const allLessons = learningPathways.flatMap(pathwayLessons);
 export function ConsoleReaderShell({
   lessonId,
