@@ -21,6 +21,7 @@ import { LearningRhythm } from './learning-rhythm';
 import './learner-experience.css';
 import './learning-console.css';
 import './lesson-reading.css';
+import './reader-cleanup.css';
 const allLessons = learningPathways.flatMap(pathwayLessons);
 export function ConsoleReaderShell({
   lessonId,

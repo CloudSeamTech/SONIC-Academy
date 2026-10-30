@@ -1,0 +1,353 @@
+/* Shared class layout. Keep the purple class tabs and warm teaching panels. */
+html body .academy-shell.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.focus-step-control, .console-commandbar) {
+  position: static !important;
+  height: auto !important;
+}
+html body .academy-shell.console-reader[data-lesson-id] .reader-workspace.reader-workspace :is(.guided-step, .sonic-action-panel) {
+  scroll-margin-top: 24px !important;
+}
+html body .academy-shell.console-reader[data-lesson-id] .reader-workspace.reader-workspace details > summary {
+  position: relative;
+  padding-inline-start: 28px !important;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.5 !important;
+}
+html body .academy-shell.console-reader[data-lesson-id] .reader-workspace.reader-workspace details > summary::before {
+  left: 0;
+  top: 12px;
+  transform: none;
+}
+html body .academy-shell.console-reader[data-lesson-id] .reader-workspace.reader-workspace details[open] > summary::before {
+  transform: rotate(90deg);
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  > :is(
+    main,
+    .console-commandbar,
+    .course-progress-strip,
+    .learning-rhythm,
+    .lab-passport
+  ) {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1120px !important;
+  margin-inline: auto !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  > main {
+  padding-inline: 0 !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(
+    .console-commandbar,
+    .course-progress-strip,
+    .alma-header,
+    .lesson-hero,
+    .lesson-heading,
+    .lesson-index,
+    .lesson-context
+  ) {
+  border: 0 !important;
+  outline: 0;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  > .lab-passport {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+  margin-block: 4px 16px !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .console-commandbar {
+  padding: 0 0 12px !important;
+  gap: 12px;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .course-progress-strip {
+  padding: 10px 0 !important;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  height: auto;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .course-progress-strip
+  > a:first-child {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .course-progress-strip
+  progress {
+  flex: 1 1 100px;
+  width: auto;
+  min-width: 60px;
+  max-width: 220px;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.alma-header, .lesson-hero, .lesson-heading) {
+  display: block !important;
+  padding: 12px 0 !important;
+  margin: 8px 0 16px !important;
+  height: auto !important;
+  min-height: 0 !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.alma-header, .lesson-hero, .lesson-heading)
+  h1 {
+  font-size: clamp(26px, 2.6vw, 34px) !important;
+  line-height: 1.3 !important;
+  margin: 8px 0 !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.alma-header, .lesson-hero, .lesson-heading)
+  p {
+  margin: 8px 0 !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .lesson-index {
+  padding: 0 !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.lesson-content, .guided-lab, .teacher-welcome, .sonic-action-body) {
+  padding-inline: 0 !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(
+    .lesson-support,
+    .lesson-start,
+    .lab-step-nav,
+    .focus-step-control,
+    .visual-checklist
+  ) {
+  min-width: 0;
+  max-width: 100%;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(
+    .task-heading,
+    .guided-heading,
+    .sonic-step-title,
+    .visual-checklist > header,
+    .guided-pagination,
+    .lesson-navigation,
+    .alma-pagination,
+    .lesson-pagination
+  ) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 16px;
+  height: auto;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(
+    .sonic-step-title strong,
+    .guided-heading h2,
+    .focus-step-control > span,
+    .terminal-location strong
+  ) {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  white-space: normal;
+  line-height: 1.5 !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.guided-command, .sonic-terminal)
+  > header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  height: auto;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.guided-command, .sonic-terminal)
+  > header
+  > div {
+  flex: 1 1 180px;
+  min-width: 0;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .sonic-terminal
+  > header
+  strong {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  :is(.guided-step-picker, .visual-checklist li > label) {
+  min-width: 0;
+  height: auto;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .visual-checklist
+  li
+  > label
+  > span:last-child {
+  flex: 1;
+  min-width: 0;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .terminal-example
+  .terminal-input-example {
+  display: inline !important;
+  position: static !important;
+  white-space: pre !important;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .terminal-example
+  pre {
+  max-width: 100%;
+  overflow-x: auto;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .linux-beginner-help {
+  margin-block: 8px 16px;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .linux-beginner-help
+  dt {
+  font-weight: 700;
+  margin-top: 12px;
+}
+html
+  body
+  .academy-shell.console-reader[data-lesson-id]
+  .reader-workspace.reader-workspace
+  .linux-beginner-help
+  dd {
+  margin: 4px 0 12px;
+}
+@media (max-width: 650px) {
+  html
+    body
+    .academy-shell.console-reader[data-lesson-id]
+    .reader-workspace.reader-workspace {
+    padding-inline: 16px !important;
+  }
+  html
+    body
+    .academy-shell.console-reader[data-lesson-id]
+    .reader-workspace.reader-workspace
+    .course-progress-strip
+    > a:first-child {
+    flex-basis: 100%;
+  }
+  html
+    body
+    .academy-shell.console-reader[data-lesson-id]
+    .reader-workspace.reader-workspace
+    .lab-passport
+    > summary {
+    gap: 4px 12px;
+  }
+  html
+    body
+    .academy-shell.console-reader[data-lesson-id]
+    .reader-workspace.reader-workspace
+    .passport-preview {
+    flex-basis: 100%;
+  }
+  html
+    body
+    .academy-shell.console-reader[data-lesson-id]
+    .reader-workspace.reader-workspace
+    :is(
+      .guided-pagination,
+      .lesson-navigation,
+      .alma-pagination,
+      .lesson-pagination
+    )
+    > :is(button, a) {
+    flex: 1 1 120px;
+    min-width: 0;
+    white-space: normal;
+    height: auto;
+    line-height: 1.5;
+  }
+}

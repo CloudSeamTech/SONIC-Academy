@@ -1,5 +1,6 @@
 'use client';
 import { LabOverview } from './lab-overview';
+import { LinuxBeginnerHelp } from './linux-beginner-help';
 import { VisualChecklist } from './visual-checklist';
 import { LessonWelcome } from './lesson-welcome';
 import { SessionGuide } from './session-guide';
@@ -552,8 +553,11 @@ export default function Home() {
                     </>
                   )}
                 </p>
-                <h2>{display.title}</h2>
-                <p className="task-phase">{lesson.phase}</p>
+                <p className="lesson-start">
+                  <strong>Your goal: </strong>
+                  {lesson.objective}
+                </p>
+                <LinuxBeginnerHelp lesson={lesson} />
                 <LabOverview
                   summary={lesson.objective}
                   steps={
