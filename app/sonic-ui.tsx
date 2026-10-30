@@ -1,4 +1,5 @@
 'use client';
+import { SplitFocusWorkspace } from './split-focus-workspace';
 import { WorkspaceStart } from './workspace-start';
 import { VisualChecklist } from './visual-checklist';
 import { TerminalExample } from './terminal-example';
@@ -304,50 +305,57 @@ export function SonicWalkthrough({
               </h4>
               <div className="sonic-action-body">
                 <p className="walkthrough-location">Work in: {step.where}</p>
-                {lessonId && (
-                  <section className="sonic-action-visual">
-                    <InstructionScreenshots
-                      stepId={`${lessonId}:${variant}:${index + 1}`}
-                    />
-                  </section>
-                )}
-                {(index === 0 || step.where !== steps[index - 1].where) && (
+                <SplitFocusWorkspace
+                  reference={
+                    <>
+                      {lessonId && (
+                        <section className="sonic-action-visual">
+                          <InstructionScreenshots
+                            stepId={`${lessonId}:${variant}:${index + 1}`}
+                          />
+                        </section>
+                      )}
+                      {step.command && (
+                        <SonicTerminal
+                          shell={step.where}
+                          command={step.command}
+                          expected={step.expected}
+                        />
+                      )}
+                      {!step.command && (
+                        <p className="walkthrough-check">
+                          <strong>What you should see</strong>
+                          <br />
+                          {step.expected}
+                        </p>
+                      )}
+                    </>
+                  }
+                >
+                  {(index === 0 || step.where !== steps[index - 1].where) && (
+                    <details className="lesson-support">
+                      <summary>Help opening this workspace</summary>
+                      <WorkspaceStart
+                        where={step.where}
+                        action={step.actions.join(' ')}
+                      />
+                    </details>
+                  )}
                   <details className="lesson-support">
-                    <summary>Help opening this workspace</summary>
-                    <WorkspaceStart
-                      where={step.where}
+                    <summary>Why this matters / command help</summary>
+                    <StepTeachingNotes
+                      lessonId={lessonId || 'linux'}
+                      title={step.title}
                       action={step.actions.join(' ')}
+                      command={step.command}
+                      expected={step.expected}
                     />
                   </details>
-                )}
-                <details className="lesson-support">
-                  <summary>Why this matters / command help</summary>
-                  <StepTeachingNotes
-                    lessonId={lessonId || 'linux'}
-                    title={step.title}
-                    action={step.actions.join(' ')}
-                    command={step.command}
-                    expected={step.expected}
+                  <VisualChecklist
+                    stepId={`${lessonId}:${variant}:${index + 1}`}
+                    actions={step.actions.flatMap(learnerActions)}
                   />
-                </details>
-                <VisualChecklist
-                  stepId={`${lessonId}:${variant}:${index + 1}`}
-                  actions={step.actions.flatMap(learnerActions)}
-                />
-                {step.command && (
-                  <SonicTerminal
-                    shell={step.where}
-                    command={step.command}
-                    expected={step.expected}
-                  />
-                )}
-                {!step.command && (
-                  <p className="walkthrough-check">
-                    <strong>What you should see</strong>
-                    <br />
-                    {step.expected}
-                  </p>
-                )}
+                </SplitFocusWorkspace>
               </div>
             </section>
           </li>

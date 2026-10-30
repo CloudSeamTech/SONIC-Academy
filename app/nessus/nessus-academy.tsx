@@ -1,4 +1,5 @@
 'use client';
+import { SplitFocusWorkspace } from '../split-focus-workspace';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
 const BicepPractice = dynamic(() =>
@@ -329,92 +330,99 @@ function LessonReader({
               <p className="lesson-start">
                 <b>Work in:</b> {step.where}
               </p>
-              <div className="guided-visuals">
-                <CourseScreenshot screenshot={step.screenshot} />
-              </div>
-              <details className="lesson-support">
-                <summary>Help opening this workspace</summary>
-                <WorkspaceStart
-                  where={step.where}
-                  action={step.actions.join(' ')}
-                />
-              </details>
-              <VisualChecklist
-                key={stepKey}
-                stepId={stepKey}
-                actions={step.actions.flatMap(learnerActions)}
-                renderAction={(action) =>
-                  step.guide ? (
-                    <TlsText text={action} />
-                  ) : (
-                    <ServerRoleText text={action} />
-                  )
+              <SplitFocusWorkspace
+                reference={
+                  <>
+                    <div className="guided-visuals">
+                      <CourseScreenshot screenshot={step.screenshot} />
+                    </div>
+                    <CommandExample key={`${lesson.id}:${index}`} step={step} />
+                    {lesson.id.startsWith('bicep-') && index === 1 && (
+                      <BicepPractice lessonId={lesson.id} />
+                    )}
+                    <section className="lesson-result">
+                      <h4>Check your result</h4>
+                      <p>
+                        {step.guide ? (
+                          <TlsText text={step.expected} />
+                        ) : (
+                          step.expected
+                        )}
+                      </p>
+                      {step.guide && step.guide.verify !== step.expected && (
+                        <p>
+                          <TlsText text={step.guide.verify} />
+                        </p>
+                      )}
+                    </section>
+                  </>
                 }
-              />
-              {step.downloads?.map((file) => (
-                <p key={file.href}>
-                  <a href={file.href} download>
-                    {file.title}
-                  </a>
-                </p>
-              ))}
-              <CommandExample key={`${lesson.id}:${index}`} step={step} />
-              {lesson.id.startsWith('bicep-') && index === 1 && (
-                <BicepPractice lessonId={lesson.id} />
-              )}
-              <section className="lesson-result">
-                <h4>Check your result</h4>
-                <p>
-                  {step.guide ? (
-                    <TlsText text={step.expected} />
-                  ) : (
-                    step.expected
-                  )}
-                </p>
-                {step.guide && step.guide.verify !== step.expected && (
-                  <p>
-                    <TlsText text={step.guide.verify} />
-                  </p>
-                )}
-              </section>
-              {step.guide && (
-                <>
-                  <details className="lesson-support">
-                    <summary>Why am I doing this?</summary>
-                    <p>
-                      <TlsText text={step.guide.why} />
-                    </p>
-                  </details>
-                  <details className="lesson-support">
-                    <summary>My result is different</summary>
-                    <p>
-                      <TlsText text={step.guide.failure} />
-                    </p>
-                  </details>
-                </>
-              )}
-              <label className="guided-check">
-                <input
-                  type="checkbox"
-                  checked={progress.checked.includes(stepKey)}
-                  onChange={() => check(stepKey)}
+              >
+                <details className="lesson-support">
+                  <summary>Help opening this workspace</summary>
+                  <WorkspaceStart
+                    where={step.where}
+                    action={step.actions.join(' ')}
+                  />
+                </details>
+                <VisualChecklist
+                  key={stepKey}
+                  stepId={stepKey}
+                  actions={step.actions.flatMap(learnerActions)}
+                  renderAction={(action) =>
+                    step.guide ? (
+                      <TlsText text={action} />
+                    ) : (
+                      <ServerRoleText text={action} />
+                    )
+                  }
                 />
-                I checked this result in my own lab
-              </label>
-              <nav className="guided-pagination" aria-label="Step navigation">
-                <button
-                  disabled={index === 0}
-                  onClick={() => choose(index - 1)}
-                >
-                  ← Previous step
-                </button>
-                <button
-                  disabled={index === lesson.steps.length - 1}
-                  onClick={() => choose(index + 1)}
-                >
-                  Next step →
-                </button>
-              </nav>
+                {step.downloads?.map((file) => (
+                  <p key={file.href}>
+                    <a href={file.href} download>
+                      {file.title}
+                    </a>
+                  </p>
+                ))}
+                {step.guide && (
+                  <>
+                    <details className="lesson-support">
+                      <summary>Why am I doing this?</summary>
+                      <p>
+                        <TlsText text={step.guide.why} />
+                      </p>
+                    </details>
+                    <details className="lesson-support">
+                      <summary>My result is different</summary>
+                      <p>
+                        <TlsText text={step.guide.failure} />
+                      </p>
+                    </details>
+                  </>
+                )}
+                <label className="guided-check">
+                  <input
+                    type="checkbox"
+                    checked={progress.checked.includes(stepKey)}
+                    onChange={() => check(stepKey)}
+                  />
+                  I checked this result in my own lab
+                </label>
+                <nav className="guided-pagination" aria-label="Step navigation">
+                  <button
+                    disabled={index === 0}
+                    onClick={() => choose(index - 1)}
+                  >
+                    ← Previous step
+                  </button>
+                  <button
+                    disabled={index === lesson.steps.length - 1}
+                    onClick={() => choose(index + 1)}
+                  >
+                    Next step →
+                  </button>
+                </nav>
+              </SplitFocusWorkspace>
             </div>
           </section>
         </div>
