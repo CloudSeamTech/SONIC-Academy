@@ -17,6 +17,14 @@ const bash = {
   host: 'alma-lab01',
   privilege: 'user',
 };
+test('SFTP prompt takes precedence over its outer Windows terminal', () => {
+  const context = contextFor('Windows PowerShell · sftp> prompt');
+  assert.equal(context.shell, 'sftp');
+  assert.equal(context.directory, '<remote-pwd>');
+  assert.equal(promptFor(context), 'sftp>');
+  const command = 'pwd\nlpwd\ncd /uploads';
+  assert.equal(terminalLines(command, context).map(line => line.text).join('\n'), command);
+});
 test('terminal examples preserve real shell symbols and unchanged executable input', () => {
   assert.equal(promptFor(bash), '[learner@alma-lab01 ~]$');
   assert.equal(

@@ -48,7 +48,9 @@ export function TerminalExample({
         </p>
       )}
       <p className="terminal-context-note">
-        {session.directory === '<pwd>'
+        {session.shell === 'sftp'
+          ? 'At sftp>, run pwd for the remote folder and lpwd for the local folder. Follow cd/lcd in this step.'
+          : session.directory === '<pwd>'
           ? 'Run pwd first; <pwd> stands for the directory it prints. Keep the folder required by this step; follow any cd line below.'
           : session.shell === 'powershell'
             ? 'Start in your Windows home folder: run Set-Location $HOME, then Get-Location.'
