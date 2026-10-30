@@ -212,12 +212,15 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
     );
   }
   function pathCard(path: LearningPathway) {
+    return subjectCard(path, `/?view=courses&subject=${path.id}`);
+  }
+  function subjectCard(path: LearningPathway, href: string) {
     const items = pathwayLessons(path),
       count = items.filter((l) => complete.has(l.id)).length;
     return (
       <a
         className={`path-card path-${path.id}`}
-        href={`/?view=courses&subject=${path.id}`}
+        href={href}
         key={path.id}
       >
         <span className="path-icon">
@@ -239,6 +242,7 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
           <span>{items.length} labs</span>
           <strong>{Math.round((count / items.length) * 100)}%</strong>
         </div>
+        <span className="card-action">Open course →</span>
       </a>
     );
   }
@@ -353,18 +357,7 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                   {standaloneCourses.map(standaloneCard)}
                   {['splunk', 'mecm', 'wsus', 'alma'].map((id) => {
                     const path = learningPathways.find((p) => p.id === id)!;
-                    return (
-                      <a href={pathwayLessons(path)[0].href} key={id}>
-                        <span className="path-icon">
-                          <PathIcon id={id} />
-                        </span>
-                        <div>
-                          <h3>{path.title}</h3>
-                          <p>{pathwayLessons(path).length} self-paced labs</p>
-                          <small>Guided practice</small>
-                        </div>
-                      </a>
-                    );
+                    return subjectCard(path, pathwayLessons(path)[0].href);
                   })}
                 </div>
               </section>
