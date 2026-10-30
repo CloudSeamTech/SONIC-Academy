@@ -1,5 +1,6 @@
 'use client';
 import { LabOverview } from './lab-overview';
+import { VisualChecklist } from './visual-checklist';
 import { LessonWelcome } from './lesson-welcome';
 import { SessionGuide } from './session-guide';
 import { LessonVisualGuide } from './lesson-visual-guide';
@@ -553,20 +554,32 @@ export default function Home() {
                 </p>
                 <h2>{display.title}</h2>
                 <p className="task-phase">{lesson.phase}</p>
-                <LabOverview summary={lesson.objective} steps={lesson.walkthrough?.map(item => item.title) ?? [display.title]} outcome={lesson.walkthrough?.at(-1)?.expected ?? lesson.objective} />
+                <LabOverview
+                  summary={lesson.objective}
+                  steps={
+                    lesson.walkthrough?.map((item) => item.title) ?? [
+                      display.title,
+                    ]
+                  }
+                  outcome={
+                    lesson.walkthrough?.at(-1)?.expected ?? lesson.objective
+                  }
+                />
                 <LessonWelcome lessonId={lesson.id} showIntro={false} />
-                {!lesson.walkthrough && <LessonVisualGuide key={lesson.id} lessonId={lesson.id} />}
+                {!lesson.walkthrough && (
+                  <LessonVisualGuide key={lesson.id} lessonId={lesson.id} />
+                )}
                 {(lesson.visual === 'keys' ||
                   lesson.visual === 'architecture' ||
                   lesson.visual === 'protocols') && (
-                  <section className="explanation lab-additional-context">
-                    <h3>How this fits together</h3>
+                  <details className="lesson-support">
+                    <summary>How this fits together</summary>
                     {lesson.visual === 'keys' && <KeyDiagram key={lesson.id} />}
                     {lesson.visual === 'architecture' && (
                       <ArchitectureDiagram />
                     )}
                     {lesson.visual === 'protocols' && <ProtocolDiagram />}
-                  </section>
+                  </details>
                 )}
                 {lesson.walkthrough ? (
                   <SonicWalkthrough
@@ -575,7 +588,18 @@ export default function Home() {
                   />
                 ) : (
                   <>
-                    <SessionGuide location={lesson.shell} />
+                    <details className="lesson-support">
+                      <summary>Help opening this workspace</summary>
+                      <SessionGuide location={lesson.shell} />
+                    </details>
+                    <VisualChecklist
+                      stepId={`${lesson.id}:commands`}
+                      actions={[
+                        `Open ${lesson.shell}.`,
+                        'Read the command block below, then run it in the named workspace. Stop at any decision gate.',
+                        'Compare your output with Check your result below.',
+                      ]}
+                    />
                     <h3>
                       {visualSample
                         ? 'COMMAND // WINDOWS POWERSHELL'
@@ -625,18 +649,21 @@ export default function Home() {
                       environment. Stop at any decision gate. PowerShell
                       planning variables do not create Azure resources.
                     </p>
-                    {visualSample ? (
-                      <CommandBreakdown arguments={lesson.args} />
-                    ) : (
-                      <section className="explanation" key={'args' + step}>
-                        <h3>What the command means</h3>
-                        <ul>
-                          {lesson.args.map((a) => (
-                            <li key={a}>{a}</li>
-                          ))}
-                        </ul>
-                      </section>
-                    )}
+                    <details className="lesson-support">
+                      <summary>What the commands mean</summary>
+                      {visualSample ? (
+                        <CommandBreakdown arguments={lesson.args} />
+                      ) : (
+                        <section className="explanation" key={'args' + step}>
+                          <h3>What the command means</h3>
+                          <ul>
+                            {lesson.args.map((a) => (
+                              <li key={a}>{a}</li>
+                            ))}
+                          </ul>
+                        </section>
+                      )}
+                    </details>
                     {lesson.followup && (
                       <FollowupBlock key={lesson.id} block={lesson.followup} />
                     )}
@@ -668,8 +695,11 @@ export default function Home() {
                   </>
                 )}
                 {lesson.helpSections?.map((help, helpIndex) => (
-                  <section className="explanation" key={lesson.id + help.title}>
-                    <h3>{help.title}</h3>
+                  <details
+                    className="lesson-support"
+                    key={lesson.id + help.title}
+                  >
+                    <summary>{help.title}</summary>
                     <p>
                       Use this section only when its situation matches your
                       problem. Read the checks before changing anything.
@@ -679,11 +709,11 @@ export default function Home() {
                       lessonId={lesson.id}
                       variant={`help-${helpIndex + 1}`}
                     />
-                  </section>
+                  </details>
                 ))}
                 {lesson.workplaceWalkthrough && (
-                  <section className="explanation" key={'workplace' + step}>
-                    <h3>Optional workplace extension</h3>
+                  <details className="lesson-support" key={'workplace' + step}>
+                    <summary>Optional workplace extension</summary>
                     <p>
                       Optional workplace procedure. Use your approved
                       maintenance window and backup policy. This is separate
@@ -695,12 +725,12 @@ export default function Home() {
                       lessonId={lesson.id}
                       variant="workplace"
                     />
-                  </section>
+                  </details>
                 )}
-                <section className="result">
+                <section className="lesson-result">
                   <h3>
                     <Terminal size={18} />
-                    Expected result
+                    Check your result
                   </h3>
                   <p>{lesson.expected}</p>
                 </section>
@@ -717,8 +747,8 @@ export default function Home() {
                     <p>{lesson.verify}</p>
                   </section>
                 )}
-                <section className="explanation" key={'trouble' + step}>
-                  <h3>If your result is different</h3>
+                <details className="lesson-support" key={'trouble' + step}>
+                  <summary>My result is different</summary>
                   <p>{lesson.trouble}</p>
                   <h3 className="troubleshooting-heading">
                     Work the problem in this order
@@ -728,7 +758,7 @@ export default function Home() {
                       <li key={item}>{item}</li>
                     ))}
                   </ol>
-                </section>
+                </details>
                 <section className="your-turn">
                   <h3>Your Turn</h3>
                   <p>{lesson.challenge}</p>
@@ -738,17 +768,13 @@ export default function Home() {
                   </details>
                 </section>
 
-                <section
-                  className={
-                    visualSample
-                      ? 'explanation rollback-checkpoint'
-                      : 'explanation'
-                  }
+                <details
+                  className="lesson-support rollback-checkpoint"
                   key={'rollback' + step}
                 >
-                  <h3>If you need to undo this change</h3>
+                  <summary>How to undo this change</summary>
                   <p>{lesson.rollback}</p>
-                </section>
+                </details>
                 <div className="completion">
                   <div>
                     <strong>

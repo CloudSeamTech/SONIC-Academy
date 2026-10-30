@@ -13,16 +13,31 @@ test('every migration and AlmaLinux lesson has a production comparison, not an e
   }
   assert.match(productionPracticeFor('sql-05'), /restore tests/i);
   assert.match(productionPracticeFor('lab-04'), /system-state recovery/i);
-  assert.match(productionPracticeFor('alma-wd-drive'), /never run destructive/i);
+  assert.match(
+    productionPracticeFor('alma-wd-drive'),
+    /never run destructive/i,
+  );
 });
 
-test('lesson readers put the action before inline pictures, and retain real checks', () => {
+test('every shared lesson reader puts pictures above its visual checklist and retains real checks', () => {
   const guided = readFileSync('app/migration/guided-lab.tsx', 'utf8');
-  assert.ok(guided.indexOf('className="guided-action"') < guided.indexOf('className="guided-visuals"'));
-  assert.match(guided, /What you should see/);
+  assert.ok(
+    guided.indexOf('<InstructionScreenshots') <
+      guided.indexOf('<VisualChecklist'),
+  );
+  assert.match(guided, /Check your result/);
   assert.match(guided, /productionPracticeFor\(lessonId\)/);
   assert.match(guided, /<section\s+className="guided-visuals"[^>]*>/);
   const linux = readFileSync('app/sonic-ui.tsx', 'utf8');
   assert.match(linux, /className="sonic-action-panel"/);
-  assert.match(linux, /See it on screen/);
+  assert.ok(
+    linux.indexOf('<InstructionScreenshots') <
+      linux.indexOf('<VisualChecklist'),
+  );
+  const courses = readFileSync('app/nessus/nessus-academy.tsx', 'utf8');
+  assert.ok(
+    courses.indexOf('<CourseScreenshot') < courses.indexOf('<VisualChecklist'),
+  );
+  assert.match(courses, /Check your result/);
+  assert.match(courses, /I checked this result in my own lab/);
 });

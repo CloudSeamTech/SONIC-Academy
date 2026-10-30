@@ -7,7 +7,8 @@ import { LabStepNav } from '../lab-step-nav';
 
 import { useEffect, useRef, useState } from 'react';
 import type { GuidedLab as Guide } from '@/lib/guided-lab';
-import { BeginnerActions } from '../beginner-actions';
+import { VisualChecklist } from '../visual-checklist';
+import { learnerActions } from '../../lib/learner-directions';
 import { productionPracticeFor } from '@/lib/lab-production-practice';
 import { explainStep } from '@/lib/step-coaching';
 import { checkTeachingFor } from '@/lib/reference-check-teaching';
@@ -108,7 +109,7 @@ export function GuidedLab({
   }
   return (
     <section
-      className="guided-lab"
+      className="guided-lab lesson-compact"
       data-step-focus={focused}
       aria-label="Guided lab walkthrough"
     >
@@ -127,7 +128,7 @@ export function GuidedLab({
       <header className="guided-heading">
         <div>
           <span className="eyebrow">GUIDED LAB / ONE STEP AT A TIME</span>
-          <h2>Let’s work through it together</h2>
+          <h2>Visual checklist</h2>
         </div>
         <span>
           {checked.length} of {guide.steps.length} steps checked
@@ -144,8 +145,8 @@ export function GuidedLab({
         aria-label="Lab step completion"
       />
       <LessonWelcome lessonId={lessonId} content={welcome} showIntro={false} />
-      <section className="lesson-preflight">
-        <h3>Before you start</h3>
+      <details className="lesson-support">
+        <summary>Before you start · safety and recovery</summary>
         <p>{guide.before}</p>
         <p>
           <strong>Best practice:</strong> {productionPracticeFor(lessonId)}
@@ -153,7 +154,7 @@ export function GuidedLab({
         <p>
           <strong>If you need to undo this lab:</strong> {guide.rollback}
         </p>
-      </section>
+      </details>
       {purpose && !welcome && (
         <section className="guided-purpose">
           <b>WHAT WE ARE BUILDING · WHY IT MATTERS</b>
@@ -161,12 +162,6 @@ export function GuidedLab({
         </section>
       )}
 
-      <dl className="guided-context">
-        <div>
-          <dt>WHERE TO WORK</dt>
-          <dd>{step.where ?? guide.where}</dd>
-        </div>
-      </dl>
       <label className="guided-step-picker">
         Choose a step
         <select
@@ -193,17 +188,29 @@ export function GuidedLab({
           </div>
           <h3>{currentTitle}</h3>
           <div className="guided-step-content">
-            <p className="coaching-why">
-              <strong>Why this matters:</strong> {coaching.reason}
+            <p className="lesson-start">
+              <b>Work in:</b> {step.where ?? guide.where}
             </p>
-            <WorkspaceStart
-              where={step.where ?? guide.where}
-              action={currentAction}
+            <section
+              className="guided-visuals"
+              aria-label="Pictures and screen references for this step"
+            >
+              <InstructionScreenshots
+                stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
+              />
+            </section>
+            <details className="lesson-support">
+              <summary>Help opening this workspace</summary>
+              <WorkspaceStart
+                where={step.where ?? guide.where}
+                action={currentAction}
+              />
+            </details>
+            <VisualChecklist
+              key={`${lessonId}:${stepOffset}:${index}`}
+              stepId={`${lessonId}:guided:${index + stepOffset + 1}`}
+              actions={learnerActions(currentAction)}
             />
-            <div className="guided-action">
-              <b>Follow these actions in order</b>
-              <BeginnerActions text={currentAction} />
-            </div>
             {step.command && (
               <section className="guided-command">
                 <header>
@@ -224,43 +231,37 @@ export function GuidedLab({
                 <pre>
                   <code>{step.command}</code>
                 </pre>
-                <p>
-                  Copying does not run a command. Paste it into the app named in
-                  this step. Read the whole block first; some lines belong
-                  together.
-                </p>
+                <p>Paste into the workspace above, then press Enter.</p>
                 {coaching.commandNotes.length > 0 && (
-                  <section className="coaching-command">
-                    <h4>What the command means</h4>
+                  <details className="lesson-support">
+                    <summary>What the command means</summary>
                     <ul>
                       {coaching.commandNotes.map((note) => (
                         <li key={note}>{note}</li>
                       ))}
                     </ul>
-                  </section>
+                  </details>
                 )}
               </section>
             )}
-            <section className="guided-expected">
-              <b>What you should see</b>
+            <section className="lesson-result">
+              <b>Check your result</b>
               <p>{step.expect}</p>
             </section>
-            <aside className="teaching-callout">
-              <h4>If your result is different</h4>
+            <details className="lesson-support">
+              <summary>Why am I doing this?</summary>
+              <p>{coaching.reason}</p>
+            </details>
+            <details className="lesson-support">
+              <summary>My result is different</summary>
               <p>{step.trouble}</p>
-            </aside>
-            <p className="step-evidence">
-              <strong>Keep this evidence:</strong> {step.evidence}
-            </p>
-            <section
-              className="guided-visuals"
-              aria-label="Pictures and screen references for this step"
-            >
-              <h4 className="guided-visuals-heading">See it on screen</h4>
-              <InstructionScreenshots
-                stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
-              />
-            </section>
+            </details>
+            <details className="lesson-support">
+              <summary>Evidence to save</summary>
+              <p className="step-evidence">
+                <strong>Keep this evidence:</strong> {step.evidence}
+              </p>
+            </details>
             <label className="guided-check">
               <input
                 type="checkbox"

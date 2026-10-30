@@ -1,8 +1,8 @@
 'use client';
 import Link from 'next/link';
-import { ServerRoleText } from '../server-role-text';
 import { AdminPractice } from '../linux-admin/admin-practice';
 import '../linux-admin/admin.css';
+import { ServerRoleText } from '../server-role-text';
 import { TlsText } from '../tls/tls-text';
 import { TlsCourseExtras } from '../tls/tls-interactives';
 import { WorkspaceStart } from '../workspace-start';
@@ -11,6 +11,7 @@ import { DmzLabNotebook } from '../dmz/lab-notebook';
 import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
 import { LabOverview } from '../lab-overview';
+import { VisualChecklist } from '../visual-checklist';
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import { LessonWelcome } from '../lesson-welcome';
@@ -73,8 +74,8 @@ function CommandExample({ step }: { step: NessusStep }) {
         </section>
       )}
       {step.breakdown.length > 0 && (
-        <section className="nessus-explanation teaching-callout">
-          <h4>What these commands and settings mean</h4>
+        <details className="lesson-support">
+          <summary>What the commands and settings mean</summary>
           <dl className="nessus-breakdown">
             {step.breakdown.map((item, i) => (
               <div key={i}>
@@ -85,7 +86,7 @@ function CommandExample({ step }: { step: NessusStep }) {
               </div>
             ))}
           </dl>
-        </section>
+        </details>
       )}
     </>
   );
@@ -233,7 +234,7 @@ function LessonReader({
   };
   return (
     <article
-      className="nessus-lesson"
+      className="nessus-lesson lesson-compact"
       data-step-focus={focused}
       data-final-step={index === lesson.steps.length - 1}
     >
@@ -254,7 +255,7 @@ function LessonReader({
           onChoose={choose}
         />
         <header className="guided-heading">
-          <h2>Let’s do this together</h2>
+          <h2>Visual checklist</h2>
           <span>
             {
               lesson.steps.filter((_, i) =>
@@ -299,40 +300,31 @@ function LessonReader({
             </div>
             <h3>{step.title}</h3>
             <div className="guided-step-content">
-              <div className="nessus-location">
-                <b>WHERE TO WORK</b>
-                <p>{step.where}</p>
+              <p className="lesson-start">
+                <b>Work in:</b> {step.where}
+              </p>
+              <div className="guided-visuals">
+                <CourseScreenshot screenshot={step.screenshot} />
               </div>
-              <WorkspaceStart
-                where={step.where}
-                action={step.actions.join(' ')}
+              <details className="lesson-support">
+                <summary>Help opening this workspace</summary>
+                <WorkspaceStart
+                  where={step.where}
+                  action={step.actions.join(' ')}
+                />
+              </details>
+              <VisualChecklist
+                key={stepKey}
+                stepId={stepKey}
+                actions={step.actions.flatMap(learnerActions)}
+                renderAction={(action) =>
+                  step.guide ? (
+                    <TlsText text={action} />
+                  ) : (
+                    <ServerRoleText text={action} />
+                  )
+                }
               />
-              {step.guide && (
-                <section className="tls-step-guide teaching-callout">
-                  <h4>What we’re doing</h4>
-                  <p>
-                    <TlsText text={step.guide.what} />
-                  </p>
-                  <h4>Why we’re doing it</h4>
-                  <p>
-                    <TlsText text={step.guide.why} />
-                  </p>
-                </section>
-              )}
-              <section className="guided-action">
-                <h4>Let’s try it</h4>
-                <ol>
-                  {step.actions.flatMap(learnerActions).map((action, i) => (
-                    <li key={i}>
-                      {step.guide ? (
-                        <TlsText text={action} />
-                      ) : (
-                        <ServerRoleText text={action} />
-                      )}
-                    </li>
-                  ))}
-                </ol>
-              </section>
               {step.downloads?.map((file) => (
                 <p key={file.href}>
                   <a href={file.href} download>
@@ -341,8 +333,8 @@ function LessonReader({
                 </p>
               ))}
               <CommandExample key={`${lesson.id}:${index}`} step={step} />
-              <section className="guided-expected">
-                <h4>What you should see</h4>
+              <section className="lesson-result">
+                <h4>Check your result</h4>
                 <p>
                   {step.guide ? (
                     <TlsText text={step.expected} />
@@ -350,26 +342,28 @@ function LessonReader({
                     step.expected
                   )}
                 </p>
-                <small>
-                  Expected observation, not recorded output from your
-                  environment.
-                </small>
-              </section>
-              {step.guide && (
-                <section className="tls-step-verification teaching-callout">
-                  <h4>Verify success</h4>
+                {step.guide && step.guide.verify !== step.expected && (
                   <p>
                     <TlsText text={step.guide.verify} />
                   </p>
-                  <h4>If this fails</h4>
-                  <p>
-                    <TlsText text={step.guide.failure} />
-                  </p>
-                </section>
+                )}
+              </section>
+              {step.guide && (
+                <>
+                  <details className="lesson-support">
+                    <summary>Why am I doing this?</summary>
+                    <p>
+                      <TlsText text={step.guide.why} />
+                    </p>
+                  </details>
+                  <details className="lesson-support">
+                    <summary>My result is different</summary>
+                    <p>
+                      <TlsText text={step.guide.failure} />
+                    </p>
+                  </details>
+                </>
               )}
-              <div className="guided-visuals">
-                <CourseScreenshot screenshot={step.screenshot} />
-              </div>
               <label className="guided-check">
                 <input
                   type="checkbox"
@@ -396,33 +390,36 @@ function LessonReader({
           </section>
         </div>
       </section>
-      <div className="nessus-advice">
-        <section className="teaching-callout">
-          <h3>Best practices</h3>
-          <ul>
-            {lesson.bestPractices.map((item, i) => (
-              <li key={i}>{item}</li>
+      <details className="lesson-support">
+        <summary>Best practices and more troubleshooting</summary>
+        <div className="nessus-advice">
+          <section className="teaching-callout">
+            <h3>Best practices</h3>
+            <ul>
+              {lesson.bestPractices.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </section>
+          <section className="teaching-callout">
+            <h3>Avoid these mistakes</h3>
+            <ul>
+              {lesson.commonMistakes.map((item, i) => (
+                <li key={i}>{item}</li>
+              ))}
+            </ul>
+          </section>
+          <section className="nessus-explanation">
+            <h3>If your screen is different</h3>
+            {lesson.troubleshooting.map((item, i) => (
+              <section key={i}>
+                <h3>{item.problem}</h3>
+                <p>{item.fix}</p>
+              </section>
             ))}
-          </ul>
-        </section>
-        <section className="teaching-callout">
-          <h3>Avoid these mistakes</h3>
-          <ul>
-            {lesson.commonMistakes.map((item, i) => (
-              <li key={i}>{item}</li>
-            ))}
-          </ul>
-        </section>
-        <section className="nessus-explanation">
-          <h3>If your screen is different</h3>
-          {lesson.troubleshooting.map((item, i) => (
-            <section key={i}>
-              <h3>{item.problem}</h3>
-              <p>{item.fix}</p>
-            </section>
-          ))}
-        </section>
-      </div>
+          </section>
+        </div>
+      </details>
       <section className="nessus-exercise">
         <span className="eyebrow">YOUR TURN / PRACTICAL EXERCISE</span>
         <h2>Show what you can do</h2>
@@ -478,8 +475,8 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
   const isEnterprise = ['mecm-operations', 'wsus-operations'].includes(
     course.id,
   );
-  const isDaily = course.id === 'linux-daily-admin';
   const isTls = course.id === 'rhel-nginx-tls';
+  const isDaily = course.id === 'linux-daily-admin';
   const isVsphere = course.id === 'vsphere-administration';
   const isPki = course.id.startsWith('pki-');
   const isSplunk = course.id === 'splunk-core-user';
@@ -594,9 +591,9 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
         </nav>
         <header className="alma-header">
           <span className="eyebrow">
-            {isVsphere ||
+            {isDaily ||
+            isVsphere ||
             isPki ||
-            isDaily ||
             isTls ||
             isSplunk ||
             isEnterprise ||
@@ -634,189 +631,204 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             self-verified
           </small>
         </header>
-        {isDaily && (
-          <AdminPractice
-            key={`admin-${lesson.id}`}
-            lessonId={lesson.id}
-            done={done}
-            total={course.lessons.length}
-          />
-        )}
-        {isVsphere && (
-          <section
-            className="teaching-callout"
-            aria-label="vSphere access and screenshot context"
-          >
-            <h2>Choose your practice route</h2>
-            <p>
-              Read the official-screen walkthrough without a local vCenter
-              download, practice standalone tasks on permitted ESXi, or use an
-              authorized vCenter / VMware Hands-on Labs environment. Free ESXi
-              cannot be managed by vCenter; templates, clusters and migrations
-              require the appropriate environment and licensing.
-            </p>
-            <p>
-              Numbered images are official VMware/Broadcom references with their
-              original context and attribution. They are not CloudSeam lab
-              captures or proof of your result. Missing exact-step captures
-              remain labeled. This class does not install software or change
-              your machines.
-            </p>
-            <Link
-              href="https://knowledge.broadcom.com/external/article/408578"
-              target="_blank"
-              rel="noreferrer"
+        <details className="lesson-support">
+          <summary>Before you start · setup and lab values</summary>
+          {isVsphere && (
+            <section
+              className="teaching-callout"
+              aria-label="vSphere access and screenshot context"
             >
-              Official Hands-on Labs access guidance →
-            </Link>
-          </section>
-        )}
-        {isTls && (
-          <section
-            className="tls-course-progress teaching-callout"
-            aria-label="TLS course progress"
-          >
-            <h2>
-              {done === course.lessons.length
-                ? 'Course complete · self-verified'
-                : 'Your certificate-management pathway'}
-            </h2>
-            <p role="status">
-              {done} of {course.lessons.length} lessons self-verified. Finish
-              the step checks, practical exercise and quiz to verify each
-              lesson.
-            </p>
-            <progress
-              value={done}
-              max={course.lessons.length}
-              aria-label="TLS course completion"
-            />
-            <p>
-              Progress uses the academy’s existing storage. Browser rehearsals
-              do not execute commands or verify your server.
-            </p>
-            <nav className="tls-actions">
-              <a href="/tls-lab/certificate-inventory.csv" download>
-                Inventory template
+              <h2>Choose your practice route</h2>
+              <p>
+                Read the official-screen walkthrough without a local vCenter
+                download, practice standalone tasks on permitted ESXi, or use an
+                authorized vCenter / VMware Hands-on Labs environment. Free ESXi
+                cannot be managed by vCenter; templates, clusters and migrations
+                require the appropriate environment and licensing.
+              </p>
+              <p>
+                Numbered images are official VMware/Broadcom references with
+                their original context and attribution. They are not CloudSeam
+                lab captures or proof of your result. Missing exact-step
+                captures remain labeled. This class does not install software or
+                change your machines.
+              </p>
+              <Link
+                href="https://knowledge.broadcom.com/external/article/408578"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Official Hands-on Labs access guidance →
+              </Link>
+            </section>
+          )}
+          {isTls && (
+            <section
+              className="tls-course-progress teaching-callout"
+              aria-label="TLS course progress"
+            >
+              <h2>
+                {done === course.lessons.length
+                  ? 'Course complete · self-verified'
+                  : 'Your certificate-management pathway'}
+              </h2>
+              <p role="status">
+                {done} of {course.lessons.length} lessons self-verified. Finish
+                the step checks, practical exercise and quiz to verify each
+                lesson.
+              </p>
+              <progress
+                value={done}
+                max={course.lessons.length}
+                aria-label="TLS course completion"
+              />
+              <p>
+                Progress uses the academy’s existing storage. Browser rehearsals
+                do not execute commands or verify your server.
+              </p>
+              <nav className="tls-actions">
+                <a href="/tls-lab/certificate-inventory.csv" download>
+                  Inventory template
+                </a>
+                <a href="/tls-lab/app-tls.conf" download>
+                  Example NGINX configuration
+                </a>
+                <a href="/migration#lesson=lab-04-vmware">VMware setup help</a>
+              </nav>
+            </section>
+          )}
+          {isDmz && (
+            <section className="dmz-practice-files" aria-label="DMZ lab files">
+              <p>
+                <strong>Isolated practice:</strong> this class does not publish
+                your home network or change the live academy DNS. Screens
+                labeled illustrated are interface recreations, not live lab
+                evidence.
+              </p>
+              <nav aria-label="DMZ practice downloads">
+                <a href="/dmz/nginx-dmz.conf" download>
+                  NGINX configuration
+                </a>
+                <a href="/dmz/new-iis-backend.ps1" download>
+                  Private IIS setup script
+                </a>
+                <a href="/dmz/traffic-matrix.csv" download>
+                  Traffic test checklist
+                </a>
+                <a href="/?view=courses&subject=windows">
+                  Windows installation prerequisites
+                </a>
+                <a href="/migration#lesson=lab-06">IIS foundation</a>
+                <a href="/alma#lesson=alma-install">AlmaLinux installation</a>
+                <a href="/alma#lesson=alma-terminal">
+                  AlmaLinux terminal basics
+                </a>
+              </nav>
+            </section>
+          )}
+          {isSplunk && (
+            <section className="teaching-callout splunk-practice-files">
+              <h2>Your practice files</h2>
+              <p>
+                Download these inside your practice VM. All three files contain
+                fictional lab data. Upload each event CSV only once using Add
+                Data when its lesson asks you to. Use cloudseam-status.csv only
+                in Lookups.
+              </p>
+              <a href="/splunk/cloudseam-web.csv" download>
+                Download cloudseam-web.csv · 12 events
               </a>
-              <a href="/tls-lab/app-tls.conf" download>
-                Example NGINX configuration
+              <a href="/splunk/cloudseam-security.csv" download>
+                Download cloudseam-security.csv · security investigations
               </a>
-              <a href="/migration#lesson=lab-04-vmware">VMware setup help</a>
-            </nav>
-          </section>
-        )}
-        {isDmz && (
-          <section className="dmz-practice-files" aria-label="DMZ lab files">
-            <p>
-              <strong>Isolated practice:</strong> this class does not publish
-              your home network or change the live academy DNS. Screens labeled
-              illustrated are interface recreations, not live lab evidence.
-            </p>
-            <nav aria-label="DMZ practice downloads">
-              <a href="/dmz/nginx-dmz.conf" download>
-                NGINX configuration
+              <a href="/splunk/cloudseam-status.csv" download>
+                Download cloudseam-status.csv · lookup
               </a>
-              <a href="/dmz/new-iis-backend.ps1" download>
-                Private IIS setup script
+              <a href="/migration#lesson=lab-04-vmware">
+                Need a VM? Open the VMware setup lab
               </a>
-              <a href="/dmz/traffic-matrix.csv" download>
-                Traffic test checklist
-              </a>
-              <a href="/?view=courses&subject=windows">
-                Windows installation prerequisites
-              </a>
-              <a href="/migration#lesson=lab-06">IIS foundation</a>
-              <a href="/alma#lesson=alma-install">AlmaLinux installation</a>
-              <a href="/alma#lesson=alma-terminal">AlmaLinux terminal basics</a>
-            </nav>
-          </section>
-        )}
-        {isSplunk && (
-          <section className="teaching-callout splunk-practice-files">
-            <h2>Your practice files</h2>
-            <p>
-              Download these inside your practice VM. All three files contain
-              fictional lab data. Upload each event CSV only once using Add Data
-              when its lesson asks you to. Use cloudseam-status.csv only in
-              Lookups.
-            </p>
-            <a href="/splunk/cloudseam-web.csv" download>
-              Download cloudseam-web.csv · 12 events
-            </a>
-            <a href="/splunk/cloudseam-security.csv" download>
-              Download cloudseam-security.csv · security investigations
-            </a>
-            <a href="/splunk/cloudseam-status.csv" download>
-              Download cloudseam-status.csv · lookup
-            </a>
-            <a href="/migration#lesson=lab-04-vmware">
-              Need a VM? Open the VMware setup lab
-            </a>
-            <p>
-              Paste SPL into Splunk Web’s Search bar, not the SONIC terminal or
-              PowerShell. A reference picture shows real vendor controls, not
-              your own result.
-            </p>
-          </section>
-        )}
-        {isPki && (
-          <section className="teaching-callout" aria-label="PKI class context">
-            <Link href="/pki">← PKI Certificate Management pathway</Link>
-            <p>
-              Two separate classes, each with its own chapter progress. Start at
-              the explanation page, then follow the request, PKI handoff, trust,
-              validation and renewal chapters.
-            </p>
-            <p>
-              Genuine images identify their captured OS and limits. Missing
-              NGINX/IIS screens remain marked capture needed. The website does
-              not install software, inspect your VM or verify your results
-              automatically.
-            </p>
-          </section>
-        )}
-        <LabOverview
-          summary={lesson.what === lesson.description ? undefined : lesson.what}
-          steps={lesson.steps.map((item) => item.title)}
-          outcome={lesson.pass}
-        />
-        <LessonWelcome
-          lessonId={lesson.id}
-          showIntro={false}
-          content={{
-            welcome: index === 0 ? course.prerequisite : lesson.what,
-            why: lesson.why,
-            needs: (index === 0 ? course.supplies : lesson.needs) ??
-              course.supplies ?? [
-                'Keep your practice computers and the previous lesson’s notes nearby.',
-              ],
-            firstMove: lesson.steps[0].actions[0],
-            reassurance:
-              'You don’t have to remember every setting. Keep the instructions beside your screen, and take one small action at a time.',
-          }}
-        />
-
+              <p>
+                Paste SPL into Splunk Web’s Search bar, not the SONIC terminal
+                or PowerShell. A reference picture shows real vendor controls,
+                not your own result.
+              </p>
+            </section>
+          )}
+          {isPki && (
+            <section
+              className="teaching-callout"
+              aria-label="PKI class context"
+            >
+              <Link href="/pki">← PKI Certificate Management pathway</Link>
+              <p>
+                Two separate classes, each with its own chapter progress. Start
+                at the explanation page, then follow the request, PKI handoff,
+                trust, validation and renewal chapters.
+              </p>
+              <p>
+                Genuine images identify their captured OS and limits. Missing
+                NGINX/IIS screens remain marked capture needed. The website does
+                not install software, inspect your VM or verify your results
+                automatically.
+              </p>
+            </section>
+          )}
+          <LabOverview
+            summary={
+              lesson.what === lesson.description ? undefined : lesson.what
+            }
+            steps={lesson.steps.map((item) => item.title)}
+            outcome={lesson.pass}
+          />
+          <LessonWelcome
+            lessonId={lesson.id}
+            showIntro={false}
+            content={{
+              welcome: index === 0 ? course.prerequisite : lesson.what,
+              why: lesson.why,
+              needs: (index === 0 ? course.supplies : lesson.needs) ??
+                course.supplies ?? [
+                  'Keep your practice computers and the previous lesson’s notes nearby.',
+                ],
+              firstMove: lesson.steps[0].actions[0],
+              reassurance:
+                'You don’t have to remember every setting. Keep the instructions beside your screen, and take one small action at a time.',
+            }}
+          />
+        </details>
         <output className="nessus-storage-notice" aria-live="polite">
           {notice}
         </output>
-        {isMaintenance &&
-          [
-            'azure-maint-plan',
-            'azure-maint-rolling',
-            'azure-maint-rollback',
-          ].includes(lesson.id) && (
-            <MaintenanceRehearsal key={`practice-${lesson.id}`} />
-          )}
-        {isSecurity &&
-          ['sec-plan', 'sec-cost', 'sec-vdi-license'].includes(lesson.id) && (
-            <SecurityBudget />
-          )}
-        {isTls && (
-          <TlsCourseExtras
-            key={`tls-extras-${lesson.id}`}
-            lessonId={lesson.id}
-          />
+        {(isDaily || isMaintenance || isSecurity || isTls) && (
+          <details className="lesson-support">
+            <summary>Optional browser practice</summary>
+            {isDaily && (
+              <AdminPractice
+                key={`admin-${lesson.id}`}
+                lessonId={lesson.id}
+                done={done}
+                total={course.lessons.length}
+              />
+            )}
+            {isMaintenance &&
+              [
+                'azure-maint-plan',
+                'azure-maint-rolling',
+                'azure-maint-rollback',
+              ].includes(lesson.id) && (
+                <MaintenanceRehearsal key={`practice-${lesson.id}`} />
+              )}
+            {isSecurity &&
+              ['sec-plan', 'sec-cost', 'sec-vdi-license'].includes(
+                lesson.id,
+              ) && <SecurityBudget />}
+            {isTls && (
+              <TlsCourseExtras
+                key={`tls-extras-${lesson.id}`}
+                lessonId={lesson.id}
+              />
+            )}
+          </details>
         )}
         <LessonReader
           key={lesson.id}

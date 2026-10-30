@@ -18,8 +18,11 @@ export function LessonWelcome({
   const welcome = content ?? (lessonId ? welcomeFor(lessonId) : undefined);
   if (!welcome) return null;
   return (
-    <section className="teacher-welcome" aria-label="Let’s get ready">
-      <span className="eyebrow">LET’S GET READY</span>
+    <details
+      className="teacher-welcome lesson-support"
+      aria-label="Let’s get ready"
+    >
+      <summary>Before you start · prerequisites and lab values</summary>
       {lessonId && <LabExamplePlan lessonId={lessonId} />}
       {lessonId && <ExamConnection lessonId={lessonId} />}
       {showIntro && <p className="teacher-intro">{welcome.welcome}</p>}
@@ -39,6 +42,6 @@ export function LessonWelcome({
           {welcome.firstMove}
         </p>
       </section>
-    </section>
+    </details>
   );
 }

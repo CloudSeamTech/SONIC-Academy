@@ -14,7 +14,7 @@ export function LessonVisualGuide({ lessonId }: { lessonId: string }) {
     catalog.assets.find((asset) => asset.id === id)!,
   );
   return (
-    <details className="guided-reference core-visual-guide" key={lessonId}>
+    <details className="guided-reference core-visual-guide" key={lessonId} open>
       <summary>Key screens for this class · illustrated guide</summary>
       <p>
         <strong>{lesson.title}</strong>
