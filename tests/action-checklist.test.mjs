@@ -9,6 +9,9 @@ test('explanations can collapse without dropping commands or safety conditions',
   for (const action of [
     'Open Files. This is the file manager. Click Home.',
     'Open Files. This shows the disks. Do not format a disk.',
+    'Open Files. This is the file manager. Copy the backup first.',
+    'Open Files. This is where you select Home next.',
+    'Open Files. This is safe only if the backup exists.',
     'If the disk is unknown, stop.',
     'Run .\\setup.exe /auto upgrade.',
   ])

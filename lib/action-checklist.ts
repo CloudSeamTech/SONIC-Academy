@@ -11,6 +11,12 @@ export function actionCopy(action: string): {
     return { instruction: action };
   const explanation = action.slice(match.index).trim();
   if (
+    /\b(click|choose|select|open|run|type|enter|press|set|stop|check|verify|keep|wait|save|confirm|copy|paste|install|create|remove|add|inspect|follow|test|record|restart|reboot|delete|enable|disable|read|review|compare|connect|disconnect|upload|download|turn|grant|find|close)\b/i.test(
+      explanation,
+    )
+  )
+    return { instruction: action };
+  if (
     /\b(if|before|must|should|unless|never|only|do not|don't|sudo)\b/i.test(
       explanation,
     )
