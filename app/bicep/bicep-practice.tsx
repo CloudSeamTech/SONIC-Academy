@@ -536,6 +536,16 @@ function PracticeEditor({
           Parameter-file compilation is a local CLI exercise.
         </p>
       )}
+      {['bicep-capstone', 'bicep-handoff'].includes(lessonId) && (
+        <p>
+          <a href="/bicep/approved-deployment-runbook.md" download>
+            Download the optional approved Azure deployment runbook
+          </a>{' '}
+          · Exact local commands for scope checks, public-key inputs,
+          validation, what-if, deployment, resource verification and cleanup.
+          Real deployment is separate and can incur charges.
+        </p>
+      )}
     </section>
   );
 }
