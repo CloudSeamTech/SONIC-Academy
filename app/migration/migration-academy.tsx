@@ -1,24 +1,17 @@
 'use client';
 import { TroubleshootingLibrary } from '../troubleshooting-library';
-import { welcomeFor } from '@/lib/lesson-welcome';
+
 /* oxlint-disable next/no-html-link-for-pages -- Vinext's client router currently crashes on these cross-page transitions; native navigation is intentional. */
 
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import {
   ArrowLeft,
   ArrowRight,
-  BookOpen,
   Check,
   ChevronRight,
-  CircleDollarSign,
   Cloud,
-  Copy,
-  ExternalLink,
-  Play,
-  RotateCcw,
   ShieldCheck,
   TerminalSquare,
-  Wrench,
 } from 'lucide-react';
 import {
   migrationLessonById,
@@ -85,20 +78,6 @@ function CopyCommand({ lines }: { lines: string[] }) {
         <span>
           <TerminalSquare size={15} /> COMMAND / EXACT INPUT
         </span>
-        <button
-          type="button"
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(command);
-              setCopied(true);
-              window.setTimeout(() => setCopied(false), 1600);
-            } catch {
-              setCopied(false);
-            }
-          }}
-        >
-          <Copy size={14} /> {copied ? 'Copied' : 'Copy'}
-        </button>
       </header>
       <pre>
         <code>{command}</code>
@@ -439,15 +418,15 @@ function LessonView({
         {!guide && !lesson.separated && (
           <LessonVisualGuide key={lesson.id} lessonId={lesson.id} />
         )}
-        {!guide && lesson.id !== 'lab-19' && <section className="lesson-reference-notes">
-          <h2>Lesson instructions</h2>
-          {blocks.map((block, index) => (
-            <ContentBlock key={index} block={block} />
-          ))}
-        </section>}
+        {!guide && lesson.id !== 'lab-19' && (
+          <section className="lesson-reference-notes">
+            <h2>Lesson instructions</h2>
+            {blocks.map((block, index) => (
+              <ContentBlock key={index} block={block} />
+            ))}
+          </section>
+        )}
       </div>
-
-
 
       <section className="lesson-complete">
         <div>

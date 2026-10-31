@@ -735,7 +735,7 @@
 
 .migration-topbar nav button:hover,
 .migration-topbar nav button[aria-current='page'] {
-  color: #fffbd1;
+  color: #f2f5f9;
   background: rgba(252, 238, 10, 0.11);
   box-shadow: inset 0 0 0 1px rgba(252, 238, 10, 0.36), 0 0 24px rgba(0, 240, 255, 0.12);
 }

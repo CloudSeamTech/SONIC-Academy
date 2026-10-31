@@ -18,7 +18,6 @@ import {
 } from 'lucide-react';
 import { ConsoleReaderShell } from './console-reader-shell';
 import { QuietPathways } from './quiet-pathways';
-import { BrandLogo } from './brand-logo';
 import {
   learningPathways,
   pathwayLessons,
@@ -250,34 +249,28 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
         <div className="dashboard-main">
           {!showLibrary ? (
             <>
-              <section className="academy-hero">
-                <div>
-                  <span className="eyebrow">SONIC ACADEMY</span>
-                  <h1>
-                    Real Skills.
-                    <br className="hero-mobile-break" /> <span>
-                      Seamless
-                    </span>{' '}
-                    Growth.
-                  </h1>
-                  <p>
-                    Step-by-step, hands-on training for Linux, Windows, Azure,
-                    security, and more—built for real-world environments.
-                  </p>
+              <section className="academy-hero studio-home-scene">
+                <span className="eyebrow">YOUR LEARNING WORKSPACE</span>
+                <h1>Learn it. Build it. Prove it.</h1>
+                <p>
+                  Choose a direction. Work through one clear step at a time.
+                </p>
+                <div className="studio-resume-scene">
+                  <BookOpen size={36} aria-hidden="true" />
+                  <span className="eyebrow">
+                    {recent.length || complete.size
+                      ? 'PICK UP WHERE YOU LEFT OFF'
+                      : 'YOUR FIRST HANDS-ON LESSON'}
+                  </span>
+                  <h2>{resume.title}</h2>
                   <div className="hero-actions">
                     <a className="primary-button" href={resume.href}>
-                      {recent.length || complete.size
-                        ? 'Continue Learning'
-                        : 'Start Learning'}
-                      <ArrowRight size={17} />
+                      Open learning workspace <ArrowRight size={17} />
                     </a>
-                    <a className="secondary-button" href="/?view=courses">
-                      Browse All Courses
+                    <a className="secondary-button" href="/?view=paths">
+                      Explore pathways
                     </a>
                   </div>
-                </div>
-                <div className="quiet-hero-brand">
-                  <BrandLogo wording="white" />
                 </div>
               </section>
               <section

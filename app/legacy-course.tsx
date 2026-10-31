@@ -28,13 +28,9 @@ import {
   ShieldCheck,
   Activity,
   RotateCcw,
-  LayoutDashboard,
-  Route,
   Check,
   Clock3,
-  ChevronRight,
   BookOpen,
-  Copy,
   ExternalLink,
 } from 'lucide-react';
 
@@ -44,7 +40,6 @@ import type { Lesson } from './course';
 import { ConsoleReaderShell } from './console-reader-shell';
 import { learningPathways, pathwayLessons } from './learning-pathways';
 import {
-  SonicMark,
   SonicWalkthrough,
   SonicCallout,
   ClickPath,
@@ -60,20 +55,6 @@ function FollowupBlock({ block }: { block: NonNullable<Lesson['followup']> }) {
       <div className="terminal">
         <header>
           <b>{block.shell}</b>
-          <button
-            type="button"
-            onClick={async () => {
-              try {
-                await navigator.clipboard.writeText(block.command);
-                setMessage('Copied');
-              } catch {
-                setMessage('Select the commands and copy manually.');
-              }
-            }}
-          >
-            <Copy size={14} />
-            Copy
-          </button>
         </header>
         <pre>
           <code>{block.command}</code>
@@ -624,24 +605,6 @@ export default function Home() {
                             <i />
                           </span>
                           <b>{lesson.shell}</b>
-                          <button
-                            onClick={async () => {
-                              try {
-                                await navigator.clipboard.writeText(
-                                  lesson.command,
-                                );
-                                setCopied(true);
-                              } catch {
-                                setNotice(
-                                  'Copy unavailable. Select and copy the command manually.',
-                                );
-                              }
-                            }}
-                            aria-label="Copy command"
-                          >
-                            <Copy size={14} />
-                            {copied ? 'Copied' : 'Copy'}
-                          </button>
                         </header>
                         <pre>
                           <code>{lesson.command}</code>

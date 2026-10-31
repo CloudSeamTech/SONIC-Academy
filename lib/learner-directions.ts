@@ -39,7 +39,7 @@ export function workspaceDirections(where: string, action = ''): string {
     return 'In VMware Library, open the TLS practice VM named above. Use its local installer or text console, as the step specifies; do not use the SSH window while changing its network settings.';
   if (/TLS-(APP01|CA01)/.test(where) && /Bash/i.test(where)) {
     const address = where.includes('TLS-CA01') ? '10.90.0.20' : '10.90.0.10';
-    return `On Windows, open PowerShell and type ssh learner@${address}, or return to the existing SSH window for that address. Compare the recorded SSH host fingerprint before accepting a new connection. Run hostname to check the VM, then paste the Linux block there. A sudo password stays invisible while you type.`;
+    return `On Windows, open PowerShell and type ssh learner@${address}, or return to the existing SSH window for that address. Compare the recorded SSH host fingerprint before accepting a new connection. Run hostname to check the VM, then type the Linux commands there, one input at a time. A sudo password stays invisible while you type.`;
   }
   if (/Firefox/i.test(where))
     return 'On your Windows host, use the SONIC TLS Practice Firefox window named in the step. These are browser clicks, not Linux or PowerShell commands. Check the active profile before changing certificate trust.';
@@ -166,7 +166,7 @@ export function workspaceDirections(where: string, action = ''): string {
       (/admin|elevated/i.test(where)
         ? 'Right-click Windows PowerShell → Run as administrator → Yes. '
         : 'Open Windows PowerShell in a normal window. ') +
-      'Look for a PS prompt. Paste the command block there, then press Enter; copying from this page does not run it.'
+      'Look for a PS prompt. Type the input in the order shown, pressing Enter after each line. Finish the complete block before moving on.'
     );
   if (/AlmaLinux.*web browser/i.test(where))
     return 'Inside the AlmaLinux VM, open its web browser from Activities and follow the official link named below. When the step asks for Linux commands, open Activities → Terminal in the same VM.';
@@ -192,3 +192,4 @@ export function workspaceDirections(where: string, action = ''): string {
     return 'Open a browser on the computer named above. Enter the address given in the step, sign in if asked, and follow the named buttons. This academy page is the guide; it does not configure that application for you.';
   return `Work in ${where.replace(/[.]$/, '')}. Use the named practice machine and app; the instructions below tell you what to select or type there.`;
 }
+

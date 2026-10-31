@@ -104,23 +104,7 @@ function MapEditor({
             <p>
               Read-only identity checks · run these only in the workspace above:
             </p>
-            <button
-              type="button"
-              onClick={async () => {
-                try {
-                  await navigator.clipboard.writeText(node.checks);
-                  setNotice(
-                    'Identity-check input copied. Run it only in the named workspace.',
-                  );
-                } catch {
-                  setNotice(
-                    'Copy unavailable. Select only the command input, without the displayed prompts.',
-                  );
-                }
-              }}
-            >
-              Copy identity checks
-            </button>
+
             <TerminalExample command={node.checks} where={node.workspace} />
           </>
         )}

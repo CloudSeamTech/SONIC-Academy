@@ -75,7 +75,7 @@ html body .academy-shell.academy-shell .reader-workspace .nessus-capture {
 .visual-checklist > ol > li {
   padding: 0;
   margin: 0;
-  border-bottom: 1px solid #ddd2c3;
+  border-bottom: 1px solid #e3e9f0;
 }
 .visual-checklist li > label {
   display: flex;
@@ -105,7 +105,7 @@ html body .academy-shell.academy-shell .reader-workspace .nessus-capture {
 }
 .lesson-support {
   margin: 12px 0;
-  border-top: 1px solid #dacebf;
+  border-top: 1px solid #e3e9f0;
   padding: 12px 0;
 }
 .lesson-support > summary {

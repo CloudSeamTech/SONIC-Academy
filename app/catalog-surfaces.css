@@ -2,7 +2,7 @@
 html body .academy-shell.academy-shell.console-reader.console-reader .reader-workspace.reader-workspace {
   background-image: url('/hexagon-wash.svg'),
     radial-gradient(ellipse at 100% 0%, #f2b17830, transparent 45%),
-    linear-gradient(145deg, #f5ebda, #e8dcc5) !important;
+    linear-gradient(145deg, #f2f5f9, #e3e9f0) !important;
   background-size: 180px 104px, auto, auto !important;
   background-repeat: repeat, no-repeat, no-repeat !important;
 }
@@ -24,8 +24,8 @@ html body .academy-shell.academy-shell.console-reader.console-reader .reader-wor
   border: 1px solid var(--surface-edge) !important;
   border-radius: 10px !important;
   background: linear-gradient(145deg, var(--surface-light), var(--surface-base)) !important;
-  box-shadow: inset 0 1px 0 #fffaf2, inset 0 -1px 0 #d6c49f,
-    0 4px 0 #c5b18d, 0 12px 22px #48342610 !important;
+  box-shadow: inset 0 1px 0 #f2f5f9, inset 0 -1px 0 #c8d2df,
+    0 4px 0 #c8d2df, 0 12px 22px #48342610 !important;
   min-width: 0;
   text-decoration: none;
 }

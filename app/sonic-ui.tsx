@@ -14,8 +14,6 @@ import { readableStepTitle } from '@/lib/lesson-headings';
 import type { WalkthroughStep } from './wazuh-walkthroughs';
 import {
   Activity,
-  Check,
-  Copy,
   Monitor,
   Network,
   Server,
@@ -197,23 +195,6 @@ export function SonicTerminal({
           <span>COMMAND / NAMED SESSION</span>
           <strong>{shell}</strong>
         </div>
-        <button
-          type="button"
-          aria-label="Copy command"
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(command);
-              setMessage('Copied');
-            } catch {
-              setMessage(
-                'Copy unavailable. Select the commands and copy manually.',
-              );
-            }
-          }}
-        >
-          {message === 'Copied' ? <Check size={15} /> : <Copy size={15} />}
-          <span>{message === 'Copied' ? 'Copied' : 'Copy'}</span>
-        </button>
       </header>
       <TerminalExample command={command} where={shell} />
       {showExpected && (
@@ -310,6 +291,7 @@ export function SonicWalkthrough({
               <div className="sonic-action-body">
                 <p className="walkthrough-location">Work in: {step.where}</p>
                 <SplitFocusWorkspace
+                  dock={variant === 'guided' && focused && index === activeStep}
                   reference={
                     <>
                       {lessonId && (

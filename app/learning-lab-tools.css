@@ -60,7 +60,7 @@ html
 }
 .lab-map-detail,
 .test-explanation {
-  background: #d7c8b2;
+  background: #e3e9f0;
   padding: 18px;
   margin-block: 16px;
 }
@@ -90,7 +90,7 @@ html
   max-width: 100%;
   min-width: 0;
   border: 1px solid #88765e !important;
-  background: #f6f0e7 !important;
+  background: #f2f5f9 !important;
   color: #292929 !important;
   padding: 12px;
   font: inherit;
@@ -141,7 +141,7 @@ html
 .notebook-entry {
   margin-block: 20px;
   padding-block: 16px;
-  border-top: 1px solid #b7a58d;
+  border-top: 1px solid #c8d2df;
 }
 .notebook-text {
   white-space: pre-wrap;
@@ -152,7 +152,7 @@ html body .academy-shell .reader-workspace .notebook-text {
 }
 .module-test fieldset {
   border: 0;
-  border-top: 1px solid #b7a58d;
+  border-top: 1px solid #c8d2df;
   padding: 20px 0;
   margin: 20px 0;
   min-width: 0;
