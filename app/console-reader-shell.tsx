@@ -32,6 +32,7 @@ import './catalog-surfaces.css';
 import './lesson-geometry.css';
 import './interface-polish.css';
 import './concise-steps.css';
+import './quiet-desktop.css';
 const allLessons = learningPathways.flatMap(pathwayLessons);
 export function ConsoleReaderShell({
   lessonId,
@@ -45,6 +46,8 @@ export function ConsoleReaderShell({
   activeView?: string;
 }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [outlineOpen, setOutlineOpen] = useState(false);
+  const [outlineWide, setOutlineWide] = useState(false);
   const [desktopNavigation, setDesktopNavigation] = useState(false);
   const [sidebarMode, setSidebarMode] = useState<'full' | 'compact' | 'hidden'>(
     'full',
@@ -59,21 +62,28 @@ export function ConsoleReaderShell({
   }
   useEffect(() => {
     const media = window.matchMedia('(min-width: 801px)');
-    const sync = () => setDesktopNavigation(media.matches);
+    const outlineMedia = window.matchMedia('(min-width: 1280px)');
+    const sync = () => {
+      setDesktopNavigation(media.matches);
+      setOutlineWide(outlineMedia.matches);
+    };
     sync();
     media.addEventListener('change', sync);
+    outlineMedia.addEventListener('change', sync);
     const close = (event: KeyboardEvent) => {
       if (
         event.key === 'Escape' &&
-        window.matchMedia('(max-width: 800px)').matches
+        window.matchMedia('(max-width: 1279px)').matches
       ) {
         setMenuOpen(false);
+        setOutlineOpen(false);
         menuButton.current?.focus({ preventScroll: true });
       }
     };
     window.addEventListener('keydown', close);
     return () => {
       media.removeEventListener('change', sync);
+      outlineMedia.removeEventListener('change', sync);
       window.removeEventListener('keydown', close);
     };
   }, []);
@@ -98,19 +108,17 @@ export function ConsoleReaderShell({
   return (
     <LabEnvironmentScope id={course?.id}>
       <div
+        id="quiet-desktop"
         className="learning-console console-reader academy-shell"
         data-lesson-id={lessonId}
         data-sidebar-mode={sidebarMode}
+        data-quiet-outline={Boolean(course)}
       >
         <a className="console-skip" href="#reader-content">
           Skip to learning
         </a>
-        <aside
-          className={'console-sidebar' + (menuOpen ? ' is-open' : '')}
-          aria-label="Learning navigation"
-          id="academy-navigation"
-          inert={sidebarMode === 'hidden' || (!desktopNavigation && !menuOpen)}
-        >
+        <header className="quiet-window-lip">
+          {' '}
           <div
             className="sidebar-window-controls"
             role="group"
@@ -142,11 +150,23 @@ export function ConsoleReaderShell({
               className="sidebar-dot sidebar-dot-green"
               aria-label="Expand navigation"
               title="Expand navigation"
-              onClick={() => setSidebarMode('full')}
+              onClick={() => {
+                setSidebarMode('full');
+                setMenuOpen(true);
+                setOutlineOpen(false);
+              }}
             >
               +
             </button>
           </div>
+          <span>CloudSeam Tech / SONIC-Academy</span>
+        </header>
+        <aside
+          className={'console-sidebar' + (menuOpen ? ' is-open' : '')}
+          aria-label="Learning navigation"
+          id="academy-navigation"
+          inert={sidebarMode === 'hidden' || (!desktopNavigation && !menuOpen)}
+        >
           <button
             type="button"
             className="sidebar-close"
@@ -158,7 +178,7 @@ export function ConsoleReaderShell({
           <div className="console-brand">
             <a href="/" className="academy-brand">
               <BrandLogo
-                wording="white"
+                wording="black"
                 className="academy-logo"
                 label="Cloud Seam Tech — SONIC-Academy home"
               />
@@ -167,14 +187,14 @@ export function ConsoleReaderShell({
           <nav className="academy-primary-nav" aria-label="Academy navigation">
             <a href="/" className={activeView === 'dashboard' ? 'active' : ''}>
               <Home size={18} />
-              Dashboard
+              Overview
             </a>
             <a
               href="/?view=paths"
               className={activeView === 'paths' ? 'active' : ''}
             >
               <Layers size={18} />
-              Learning Paths
+              Pathways
             </a>
             <a
               href="/?view=courses"
@@ -183,9 +203,9 @@ export function ConsoleReaderShell({
               <BookOpen size={18} />
               All Courses
             </a>
-            <a href="/migration#lesson=lab-00">
+            <a href="/#resume-learning">
               <FlaskConical size={18} />
-              Start Your Lab
+              My Learning
             </a>
           </nav>
           <div className="academy-secondary-nav">
@@ -237,6 +257,54 @@ export function ConsoleReaderShell({
             </small>
           </div>
         </aside>
+        {course && (
+          <aside
+            className={'quiet-outline' + (outlineOpen ? ' is-open' : '')}
+            id="quiet-outline"
+            aria-label="Course outline"
+            inert={!outlineWide && !outlineOpen}
+          >
+            <header>
+              <span className="quiet-kicker">
+                {career?.title ?? 'YOUR COURSE'}
+              </span>
+              <h2>{course.title}</h2>
+              <button
+                type="button"
+                className="quiet-outline-close"
+                aria-label="Close course outline"
+                onClick={() => setOutlineOpen(false)}
+              >
+                ×
+              </button>
+            </header>
+            <nav aria-label="Lessons in this course">
+              {course.sections.map((section) => (
+                <details
+                  key={section.title}
+                  open={section.lessons.some((l) => l.id === lessonId)}
+                >
+                  <summary>{section.title}</summary>
+                  {section.lessons.map((l, i) => (
+                    <a
+                      key={l.id}
+                      href={l.href}
+                      aria-current={l.id === lessonId ? 'page' : undefined}
+                    >
+                      <span>
+                        {academy.completed.includes(l.id)
+                          ? '✓'
+                          : String(i + 1).padStart(2, '0')}
+                      </span>
+                      {l.title}
+                    </a>
+                  ))}
+                </details>
+              ))}
+            </nav>
+            <p>Practice in your own lab. Completion is self-reported.</p>
+          </aside>
+        )}
         <div className="reader-workspace" id="reader-content">
           <header className="console-commandbar">
             <button
@@ -251,6 +319,7 @@ export function ConsoleReaderShell({
                 if (window.matchMedia('(max-width: 800px)').matches) {
                   setSidebarMode('full');
                   setMenuOpen(!menuOpen);
+                  setOutlineOpen(false);
                 } else if (sidebarMode === 'hidden') {
                   setSidebarMode('full');
                 } else {
@@ -260,6 +329,22 @@ export function ConsoleReaderShell({
             >
               <Menu size={20} />
             </button>
+            {course && (
+              <button
+                type="button"
+                className="quiet-outline-toggle"
+                aria-label="Toggle course outline"
+                aria-expanded={outlineWide || outlineOpen}
+                aria-controls="quiet-outline"
+                onClick={() => {
+                  setOutlineOpen(!outlineOpen);
+                  setMenuOpen(false);
+                }}
+              >
+                <Layers size={18} />
+                <span>Lessons</span>
+              </button>
+            )}
             <form className="academy-search" action="/" role="search">
               <Search size={18} />
               <input
@@ -333,16 +418,12 @@ export function ConsoleReaderShell({
               {academy.syncMessage}
             </p>
           )}
+          {children}
           {lessonId && (
             <>
               <LessonTools key={lessonId} />
               <LabPassport lessonId={lessonId} />
               <ClickableLabMap lessonId={lessonId} />
-            </>
-          )}
-          {children}
-          {lessonId && (
-            <>
               <PrivateNotebook lessonId={lessonId} />
               <ModuleTest lessonId={lessonId} />
             </>

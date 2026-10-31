@@ -36,15 +36,9 @@ const readingFont = Inter({
 export const metadata: Metadata = {
   title: 'SONIC-Academy | CloudSeamTech Training',
   icons: {
-    icon: [
-      { url: '/favicon.svg?v=zipper-2', type: 'image/svg+xml' },
-      { url: '/cloudseam-icon-32.png', sizes: '32x32', type: 'image/png' },
-      { url: '/cloudseam-icon-64.png', sizes: '64x64', type: 'image/png' },
-    ],
-    shortcut: '/favicon.ico?v=zipper-2',
-    apple: [
-      { url: '/cloudseam-icon-180.png', sizes: '180x180', type: 'image/png' },
-    ],
+    icon: { url: '/quiet-cloud-icon.svg', type: 'image/svg+xml' },
+    shortcut: '/quiet-cloud-icon.svg',
+    apple: '/quiet-cloud-icon-180.png',
   },
   description:
     'Practical Windows Server, Active Directory, SQL Server, Azure, migration, and Linux learning pathways.',

@@ -17,6 +17,8 @@ import {
   ChevronRight,
 } from 'lucide-react';
 import { ConsoleReaderShell } from './console-reader-shell';
+import { QuietPathways } from './quiet-pathways';
+import { BrandLogo } from './brand-logo';
 import {
   learningPathways,
   pathwayLessons,
@@ -218,11 +220,7 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
     const items = pathwayLessons(path),
       count = items.filter((l) => complete.has(l.id)).length;
     return (
-      <a
-        className={`path-card path-${path.id}`}
-        href={href}
-        key={path.id}
-      >
+      <a className={`path-card path-${path.id}`} href={href} key={path.id}>
         <span className="path-icon">
           <PathIcon id={path.id} />
         </span>
@@ -278,10 +276,9 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                     </a>
                   </div>
                 </div>
-                <img
-                  src="/academy-hero.png"
-                  alt="A zipper opens a lavender cloud to reveal training servers"
-                />
+                <div className="quiet-hero-brand">
+                  <BrandLogo wording="white" />
+                </div>
               </section>
               <section
                 className="dashboard-metrics"
@@ -426,9 +423,7 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
                     </div>
                   </>
                 ) : (
-                  <div className="path-grid">
-                    {careerPathways.map(careerCard)}
-                  </div>
+                  <QuietPathways />
                 )
               ) : view === 'courses' &&
                 !query &&
@@ -509,7 +504,7 @@ export function LearningConsole(_props: { initialPathId?: string } = {}) {
           )}
         </div>
         <aside className="dashboard-right" aria-label="Your learning activity">
-          <section className="resume-card">
+          <section className="resume-card" id="resume-learning">
             <h2>Resume Learning</h2>
             <div className="resume-progress">
               <span>

@@ -34,7 +34,7 @@ export function GuidedLab({
   stepOffset?: number;
 }) {
   const [index, setIndex] = useState(0);
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(true);
   const [checked, setChecked] = useState<number[]>([]);
   const [notice, setNotice] = useState('');
   const [copied, setCopied] = useState(false);
@@ -194,6 +194,7 @@ export function GuidedLab({
               <b>Work in:</b> {step.where ?? guide.where}
             </p>
             <SplitFocusWorkspace
+              takeaway={coaching.reason}
               reference={
                 <>
                   <section
