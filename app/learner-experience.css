@@ -7,6 +7,39 @@
   background: #352843;
   color: #fff;
 }
+.typing-lesson-heading,
+.typing-lesson-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 0;
+}
+.typing-lesson-heading > span,
+.typing-lesson-navigation > span {
+  font-size: 12px;
+  line-height: 1.6;
+}
+.typing-lesson-navigation > span {
+  flex: 1 1 180px;
+}
+.typing-lesson-navigation > button {
+  padding: 10px 14px;
+  min-height: 44px;
+  border: 1px solid #b6c0cc;
+  border-radius: 8px;
+  background: #f7f9fc;
+  color: #26364a;
+}
+.typing-lesson-navigation > button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.typing-lesson-navigation > button:focus-visible {
+  outline: 3px solid #6a50b6;
+  outline-offset: 3px;
+}
 .terminal-location strong {
   font-family: Consolas, monospace !important;
   overflow-wrap: anywhere;
@@ -59,9 +92,9 @@ html
 .lab-passport {
   margin: 12px 0;
   padding: 10px 16px;
-  border: 1px solid #d4c3ad;
+  border: 1px solid #c8d2df;
   border-radius: 10px;
-  background: #f6f0e7;
+  background: #f2f5f9;
 }
 .lab-passport > summary {
   display: flex;
@@ -95,9 +128,9 @@ html
 .lab-passport select {
   width: 100%;
   padding: 11px 12px;
-  background: #fffaf4;
+  background: #f2f5f9;
   color: #302b32;
-  border: 1px solid #b8a88f;
+  border: 1px solid #c8d2df;
   border-radius: 6px;
   font: inherit;
 }

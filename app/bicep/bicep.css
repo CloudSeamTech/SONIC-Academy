@@ -1,12 +1,12 @@
 .bicep-practice {
   padding: clamp(16px, 3vw, 26px);
   margin: 20px 0;
-  border: 1px solid #c5b596;
+  border: 1px solid #c8d2df;
   border-radius: 8px;
-  background: #f7f0e4;
+  background: #f2f5f9;
   box-shadow:
     inset 0 1px #fff,
-    0 3px 0 #cebd9f;
+    0 3px 0 #c8d2df;
   min-width: 0;
 }
 .bicep-practice h4 {
@@ -35,7 +35,7 @@
   box-sizing: border-box;
   padding: 16px;
   background: #241735 !important;
-  color: #fff5e6 !important;
+  color: #f2f5f9 !important;
   font:
     14px/1.7 Consolas,
     monospace;
@@ -50,7 +50,7 @@
   overflow: auto;
   padding: 16px;
   background: #241735 !important;
-  color: #fff5e6 !important;
+  color: #f2f5f9 !important;
   font:
     13px/1.7 Consolas,
     monospace;
@@ -84,7 +84,7 @@
   background: #ece1f2;
 }
 .bicep-review {
-  border-top: 1px solid #c8b794;
+  border-top: 1px solid #c8d2df;
   margin-top: 18px;
   padding-top: 12px;
 }

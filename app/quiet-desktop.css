@@ -151,7 +151,7 @@ html body #quiet-desktop.academy-shell .academy-secondary-nav a {
   box-shadow: none !important;
 }
 html body #quiet-desktop.academy-shell .console-sidebar a.active {
-  background: #f7efd6 !important;
+  background: #f2f5f9 !important;
   color: #26313d !important;
   box-shadow: inset 3px 0 #e4bb45 !important;
 }
@@ -179,7 +179,7 @@ html body #quiet-desktop.academy-shell .reader-workspace.reader-workspace {
   margin: 0 !important;
   padding: 0 28px 24px !important;
   background:
-    linear-gradient(180deg, #eee7cc66 0, #dfe4e7b3 320px, #e6eaed 900px),
+    linear-gradient(180deg, #e3e9f066 0, #dfe4e7b3 320px, #e6eaed 900px),
     url('/quiet-hexagons.svg') !important;
   color: #26313d !important;
 }
@@ -323,7 +323,7 @@ html
   margin-bottom: 12px !important;
   border: 0 !important;
   border-radius: 5px !important;
-  background: #f6e7af !important;
+  background: #f2f5f9 !important;
   color: #544824 !important;
   box-shadow: none !important;
   font-size: 11px !important;
@@ -443,7 +443,7 @@ html
   #quiet-desktop.academy-shell
   .reader-workspace.reader-workspace
   .visual-action-number {
-  background: #f5e9bd !important;
+  background: #f2f5f9 !important;
   color: #665321 !important;
   box-shadow: none !important;
   border: 0 !important;
@@ -620,8 +620,8 @@ html body #quiet-desktop.academy-shell .quiet-outline {
   border-radius: 6px;
 }
 .quiet-outline a[aria-current] {
-  background: #f7e6a12b;
-  color: #fff4ce;
+  background: #f2f5f92b;
+  color: #f2f5f9;
 }
 .quiet-outline a span {
   opacity: 0.55;
@@ -661,7 +661,7 @@ html body #quiet-desktop.academy-shell .quiet-outline {
   color: #26313d !important;
 }
 .quiet-pathway-choices button[aria-pressed='true'] {
-  background: #fff8df !important;
+  background: #f2f5f9 !important;
   border-color: #d7bf6d !important;
 }
 .quiet-pathway-choices button > span {
@@ -1050,7 +1050,7 @@ html
   align-items: center;
   justify-content: center;
   gap: 18px;
-  background: linear-gradient(150deg, #e9dfae55, #d2dce3);
+  background: linear-gradient(150deg, #e3e9f055, #d2dce3);
   border-radius: 8px;
   text-align: center;
 }
@@ -1342,7 +1342,7 @@ html body #quiet-desktop.academy-shell .sonic-step-title {
 }
 html body #quiet-desktop.academy-shell .sonic-step-title > span {
   font-size: 10px !important;
-  background: #f6e7af !important;
+  background: #f2f5f9 !important;
   color: #544824 !important;
   padding: 4px 8px;
   border-radius: 5px;
@@ -1480,8 +1480,8 @@ html
   .pane-warning {
   padding: 10px 14px !important;
   font-size: 12px !important;
-  background: #fff8dd77 !important;
-  border: 1px solid #d9d2b4 !important;
+  background: #f2f5f977 !important;
+  border: 1px solid #e3e9f0 !important;
   box-shadow: none !important;
   border-radius: 8px !important;
 }
@@ -1591,8 +1591,8 @@ html
   #quiet-desktop.academy-shell
   .quiet-pathway-choices
   button[aria-pressed='true'] {
-  background: #fff8df !important;
-  border-color: #d6c478 !important;
+  background: #f2f5f9 !important;
+  border-color: #c8d2df !important;
 }
 html body #quiet-desktop.academy-shell .quiet-pathway-choices .course-brand {
   width: 38px !important;

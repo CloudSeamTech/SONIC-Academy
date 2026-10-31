@@ -2,6 +2,7 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { actionCopy, readActionChecks } from '../lib/action-checklist';
 import { ServerRoleText } from './server-role-text';
+import { typingInstruction } from '../lib/typing-instruction';
 import './visual-checklist.css';
 
 /** Keeps exact authored actions; checking a row never awards course completion. */
@@ -80,16 +81,18 @@ export function VisualChecklist({
                 </span>
                 <span>
                   {renderAction ? (
-                    renderAction(copy.instruction)
+                    renderAction(typingInstruction(copy.instruction))
                   ) : (
-                    <ServerRoleText text={copy.instruction} />
+                    <ServerRoleText
+                      text={typingInstruction(copy.instruction)}
+                    />
                   )}
                 </span>
               </label>
               {copy.explanation && (
                 <details className="visual-action-help">
                   <summary>Why?</summary>
-                  <p>{copy.explanation}</p>
+                  <p>{typingInstruction(copy.explanation)}</p>
                 </details>
               )}
             </li>

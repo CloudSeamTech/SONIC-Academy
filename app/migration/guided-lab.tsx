@@ -209,26 +209,15 @@ export function GuidedLab({
                     <section className="guided-command">
                       <header>
                         <span>COMMAND · USE THE WORKSPACE LISTED ABOVE</span>
-                        <button
-                          onClick={async () => {
-                            try {
-                              await navigator.clipboard.writeText(step.command);
-                              setCopied(true);
-                            } catch {
-                              setNotice(
-                                'Select the command and copy it manually.',
-                              );
-                            }
-                          }}
-                        >
-                          {copied ? 'Copied ✓' : 'Copy command block'}
-                        </button>
                       </header>
                       <TerminalExample
                         command={step.command}
                         where={step.where ?? guide.where}
                       />
-                      <p>Paste into the workspace above, then press Enter.</p>
+                      <p>
+                        Type this input in the workspace above, then press
+                        Enter.
+                      </p>
                     </section>
                   )}
                 </>

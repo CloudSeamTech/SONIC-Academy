@@ -33,6 +33,7 @@ import './lesson-geometry.css';
 import './interface-polish.css';
 import './concise-steps.css';
 import './quiet-desktop.css';
+import './studio-site.css';
 const allLessons = learningPathways.flatMap(pathwayLessons);
 export function ConsoleReaderShell({
   lessonId,
@@ -161,6 +162,77 @@ export function ConsoleReaderShell({
           </div>
           <span>CloudSeam Tech / SONIC-Academy</span>
         </header>
+        <header className="console-commandbar studio-site-brandbar">
+          <a
+            href="/"
+            className="studio-site-brand"
+            aria-label="CloudSeam Tech home"
+          >
+            <BrandLogo wording="black" label="Cloud Seam Tech" />
+          </a>
+          <button
+            ref={menuButton}
+            className="console-menu"
+            aria-label="Toggle navigation"
+            aria-expanded={
+              sidebarMode !== 'hidden' && (desktopNavigation || menuOpen)
+            }
+            aria-controls="academy-navigation"
+            onClick={() => {
+              if (window.matchMedia('(max-width: 800px)').matches) {
+                setSidebarMode('full');
+                setMenuOpen(!menuOpen);
+                setOutlineOpen(false);
+              } else if (sidebarMode === 'hidden') {
+                setSidebarMode('full');
+              } else {
+                hideSidebar();
+              }
+            }}
+          >
+            <Menu size={20} />
+          </button>
+          {course && (
+            <button
+              type="button"
+              className="quiet-outline-toggle"
+              aria-label="Toggle course outline"
+              aria-expanded={outlineWide || outlineOpen}
+              aria-controls="quiet-outline"
+              onClick={() => {
+                setOutlineOpen(!outlineOpen);
+                setMenuOpen(false);
+              }}
+            >
+              <Layers size={18} />
+              <span>Lessons</span>
+            </button>
+          )}
+          <form className="academy-search" action="/" role="search">
+            <Search size={18} />
+            <input
+              name="q"
+              type="search"
+              placeholder="Search courses or labs"
+              aria-label="Search courses and labs"
+            />
+          </form>
+          <div className="reader-tools">{tools}</div>
+          <a
+            className="profile-link profile-avatar-link"
+            href="/profile"
+            aria-label="My profile"
+            title="My profile"
+          >
+            <span className="profile-avatar">
+              {academy.user ? (
+                academy.user.name.slice(0, 2).toUpperCase()
+              ) : (
+                <UserRound size={20} />
+              )}
+            </span>
+          </a>
+        </header>
         <aside
           className={'console-sidebar' + (menuOpen ? ' is-open' : '')}
           aria-label="Learning navigation"
@@ -175,15 +247,7 @@ export function ConsoleReaderShell({
           >
             ×
           </button>
-          <div className="console-brand">
-            <a href="/" className="academy-brand">
-              <BrandLogo
-                wording="black"
-                className="academy-logo"
-                label="Cloud Seam Tech — SONIC-Academy home"
-              />
-            </a>
-          </div>
+          <p className="studio-nav-heading">Your learning</p>
           <nav className="academy-primary-nav" aria-label="Academy navigation">
             <a href="/" className={activeView === 'dashboard' ? 'active' : ''}>
               <Home size={18} />
@@ -306,70 +370,6 @@ export function ConsoleReaderShell({
           </aside>
         )}
         <div className="reader-workspace" id="reader-content">
-          <header className="console-commandbar">
-            <button
-              ref={menuButton}
-              className="console-menu"
-              aria-label="Toggle navigation"
-              aria-expanded={
-                sidebarMode !== 'hidden' && (desktopNavigation || menuOpen)
-              }
-              aria-controls="academy-navigation"
-              onClick={() => {
-                if (window.matchMedia('(max-width: 800px)').matches) {
-                  setSidebarMode('full');
-                  setMenuOpen(!menuOpen);
-                  setOutlineOpen(false);
-                } else if (sidebarMode === 'hidden') {
-                  setSidebarMode('full');
-                } else {
-                  hideSidebar();
-                }
-              }}
-            >
-              <Menu size={20} />
-            </button>
-            {course && (
-              <button
-                type="button"
-                className="quiet-outline-toggle"
-                aria-label="Toggle course outline"
-                aria-expanded={outlineWide || outlineOpen}
-                aria-controls="quiet-outline"
-                onClick={() => {
-                  setOutlineOpen(!outlineOpen);
-                  setMenuOpen(false);
-                }}
-              >
-                <Layers size={18} />
-                <span>Lessons</span>
-              </button>
-            )}
-            <form className="academy-search" action="/" role="search">
-              <Search size={18} />
-              <input
-                name="q"
-                type="search"
-                placeholder="Search courses or labs"
-                aria-label="Search courses and labs"
-              />
-            </form>
-            <div className="reader-tools">{tools}</div>
-            <a
-              className="profile-link profile-avatar-link"
-              href="/profile"
-              aria-label="My profile"
-              title="My profile"
-            >
-              <span className="profile-avatar">
-                {academy.user ? (
-                  academy.user.name.slice(0, 2).toUpperCase()
-                ) : (
-                  <UserRound size={20} />
-                )}
-              </span>
-            </a>
-          </header>
           {lessonId && course && (
             <div className="course-progress-strip">
               <a

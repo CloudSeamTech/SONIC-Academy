@@ -1649,7 +1649,7 @@ h3 { text-shadow: 0 0 28px rgba(255, 255, 255, 0.055); }
   --warning: var(--cyber-yellow);
   --danger: var(--cyber-magenta);
   --sidebar-accent: rgba(252, 238, 10, 0.12);
-  --sidebar-accent-foreground: #fffbd1;
+  --sidebar-accent-foreground: #f2f5f9;
 }
 
 html { background: #020205; }
@@ -1697,7 +1697,7 @@ a { color: var(--cyber-cyan); }
 
 .nav-item.selected,
 .nav-item:hover {
-  color: #fffbd1;
+  color: #f2f5f9;
   border-color: rgba(252, 238, 10, 0.38);
   background: linear-gradient(90deg, rgba(252, 238, 10, 0.13), rgba(0, 240, 255, 0.035));
   box-shadow: inset 2px 0 var(--cyber-yellow), 0 0 24px rgba(0, 240, 255, 0.08);
@@ -1718,6 +1718,6 @@ a { color: var(--cyber-cyan); }
 .primary-button:hover,
 .lesson-complete-button:hover,
 .command-run-button:hover {
-  border-color: #fffbd1;
+  border-color: #f2f5f9;
   box-shadow: 0 0 26px rgba(0, 240, 255, 0.26), 0 0 52px rgba(255, 42, 109, 0.14);
 }

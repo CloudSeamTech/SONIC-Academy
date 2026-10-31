@@ -19,6 +19,9 @@ import { LabStepNav } from '../lab-step-nav';
 import { LabOverview } from '../lab-overview';
 import { VisualChecklist } from '../visual-checklist';
 import { TerminalExample } from '../terminal-example';
+import { TraditionalTerminal } from '../studio-preview/traditional-terminal';
+import { CommandCoach } from '../studio-preview/command-coach';
+import { contextFor } from '../../lib/terminal-presentation';
 import { shouldResumeReader } from '../../lib/reader-resume';
 
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
@@ -51,7 +54,8 @@ import '../migration/guided-lab.css';
 import './nessus.css';
 
 function CommandExample({ step }: { step: NessusStep }) {
-  const [notice, setNotice] = useState('');
+  if (step.command && contextFor(step.where, step.terminal)?.shell === 'bash')
+    return <CommandCoach key={step.command} step={step} />;
   return (
     <>
       {step.command && (
@@ -59,29 +63,16 @@ function CommandExample({ step }: { step: NessusStep }) {
           <header>
             <span>
               {step.command?.startsWith('index=sonic_lab')
-                ? 'SPL SEARCH · PASTE INTO SPLUNK WEB'
-                : 'YOUR COMMAND · COPY IT WHEN YOU’RE READY'}
+                ? 'SPL SEARCH · TYPE INTO SPLUNK WEB'
+                : 'YOUR COMMAND · TYPE IT WHEN YOU’RE READY'}
             </span>
-            <button
-              type="button"
-              onClick={async () => {
-                try {
-                  await navigator.clipboard.writeText(step.command!);
-                  setNotice('Copied');
-                } catch {
-                  setNotice('Select the command text to copy it manually.');
-                }
-              }}
-            >
-              Copy command
-            </button>
           </header>
           <TerminalExample
             command={step.command}
             where={step.where}
             context={step.terminal}
+            breakdown={step.breakdown}
           />
-          <output aria-live="polite">{notice}</output>
         </section>
       )}
     </>
@@ -317,7 +308,7 @@ function LessonReader({
                 <b>Work in:</b> {step.where}
               </p>
               <SplitFocusWorkspace
-                takeaway={lesson.why}
+                takeaway={step.guide?.why ?? lesson.why}
 
                 reference={
                   <>
@@ -338,13 +329,19 @@ function LessonReader({
                           <p>{step.where}</p>
                         </div>
                       )}
-                    {showStepScreenshot(`${lesson.id}:${index + 1}`, step) && (
-                      <div className="guided-visuals">
-                        <CourseScreenshot
-                          stepId={`${lesson.id}:${index + 1}`}
-                          step={step}
-                        />
-                      </div>
+                    {step.command &&
+                    step.screenshot.status === 'illustration' &&
+                    contextFor(step.where, step.terminal) ? (
+                      <TraditionalTerminal step={step} />
+                    ) : (
+                      showStepScreenshot(`${lesson.id}:${index + 1}`, step) && (
+                        <div className="guided-visuals">
+                          <CourseScreenshot
+                            stepId={`${lesson.id}:${index + 1}`}
+                            step={step}
+                          />
+                        </div>
+                      )
                     )}
                     <CommandExample key={`${lesson.id}:${index}`} step={step} />
                     {lesson.id.startsWith('bicep-') && index === 1 && (
@@ -827,9 +824,9 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
                 Need a VM? Open the VMware setup lab
               </a>
               <p>
-                Paste SPL into Splunk Web’s Search bar, not the SONIC terminal
-                or PowerShell. A reference picture shows real vendor controls,
-                not your own result.
+                Type SPL into Splunk Web’s Search bar, not the SONIC terminal or
+                PowerShell. A reference picture shows real vendor controls, not
+                your own result.
               </p>
             </section>
           )}
