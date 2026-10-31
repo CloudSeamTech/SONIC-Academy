@@ -1732,3 +1732,6 @@ html body #quiet-desktop.academy-shell {
   --ink-muted: #637885;
   --muted-foreground: #637885;
 }
+html body #quiet-desktop.academy-shell * {
+  -webkit-text-fill-color: currentColor !important;
+}
