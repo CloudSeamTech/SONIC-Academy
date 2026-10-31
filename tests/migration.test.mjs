@@ -118,7 +118,10 @@ test('Learn It and Do the Job use the same lesson IDs without duplicate lesson s
   assert.match(appSource, /migrationTasks/);
   assert.match(appSource, /setMode\('learn'\)/);
   assert.match(appSource, /setMode\('job'\)/);
-  assert.match(appSource, /parseMigrationContent\(referenceBody\(lesson\.body\)\)/);
+  assert.match(
+    appSource,
+    /parseMigrationContent\(referenceBody\(lesson\.body\)\)/,
+  );
   assert.doesNotMatch(appSource, /const\s+(learnLessons|jobLessons)\s*=/);
 });
 
@@ -157,7 +160,7 @@ test('every learner task opens an implemented Windows migration project', () => 
 });
 
 test('large migration catalog is grouped into explicit beginner stages', () => {
-  const stageIds = migrationStages.map(stage => stage.id);
+  const stageIds = migrationStages.map((stage) => stage.id);
   assert.equal(stageIds.length, 10);
   assert.match(
     migrationCourseSource,
@@ -176,7 +179,7 @@ test('migration readers share the pathway console and keep direct lesson navigat
     new URL('../app/console-reader-shell.tsx', import.meta.url),
     'utf8',
   );
-  assert.match(shell, /href="\/migration#lesson=lab-00"/);
+  assert.match(shell, /href=\{l.href\}/);
   assert.match(shell, /aria-label="Academy navigation"/);
   assert.match(appSource, /ConsoleReaderShell/);
   assert.match(appSource, /ProjectDirectory/);

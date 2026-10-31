@@ -1,38 +1,57 @@
-import type { ReactNode } from 'react';
+'use client';
+import { useId, useState, type ReactNode } from 'react';
 
-/** Presentational slots keep the authored instructions and progress controls intact. */
+/** Authored instructions keep their own progress and completion behavior. */
 export function SplitFocusWorkspace({
   reference,
   children,
   hasReference = true,
+  takeaway,
 }: {
   reference: ReactNode;
   children: ReactNode;
   hasReference?: boolean;
+  takeaway?: string;
 }) {
+  const [open, setOpen] = useState(true);
+  const id = useId();
   return (
-    <div className="split-focus-grid" data-has-reference={hasReference}>
+    <div
+      className="split-focus-grid"
+      data-has-reference={hasReference}
+      data-steps-open={open}
+    >
+      {takeaway && (
+        <p className="quiet-takeaway" style={{ gridColumn: '1 / -1' }}>
+          {takeaway.split(/(?<=[.!?])\s+(?=[A-Z])/)[0]}
+        </p>
+      )}
+      <header className="quiet-step-controls">
+        <span>YOUR LAB · ONE STEP AT A TIME</span>
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={id}
+          onClick={() => setOpen(!open)}
+        >
+          {open ? 'Hide checklist' : 'Show checklist'}
+        </button>
+      </header>
       {hasReference && (
         <section
           className="split-focus-reference"
           aria-label="Picture and command"
         >
-          <header className="lab-window-chrome">
-            <span className="lab-window-lights" aria-hidden="true">
-              <span className="window-light window-light-red" />
-              <span className="window-light window-light-yellow" />
-              <span className="window-light window-light-green" />
-            </span>
-            <span className="lab-window-title">Lab workspace</span>
-          </header>
           <div className="split-focus-reference-body">{reference}</div>
         </section>
       )}
       <section
+        id={id}
         className="split-focus-actions"
         aria-label="Step instructions and navigation"
+        hidden={!open}
       >
-        <p className="split-focus-eyebrow">Your next action</p>
+        <p className="split-focus-eyebrow">Steps</p>
         {children}
       </section>
     </div>

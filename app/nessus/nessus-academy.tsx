@@ -193,7 +193,7 @@ function LessonReader({
   save: (update: (current: NessusProgress) => NessusProgress) => void;
 }) {
   const [index, setIndex] = useState(0);
-  const [focused, setFocused] = useState(false);
+  const [focused, setFocused] = useState(true);
   useEffect(() => {
     let previousChecks = '';
     const resumeStep = (event?: StorageEvent) => {
@@ -317,13 +317,27 @@ function LessonReader({
                 <b>Work in:</b> {step.where}
               </p>
               <SplitFocusWorkspace
-                hasReference={
-                  showStepScreenshot(`${lesson.id}:${index + 1}`, step) ||
-                  Boolean(step.command) ||
-                  (lesson.id.startsWith('bicep-') && index === 1)
-                }
+                takeaway={lesson.why}
+
                 reference={
                   <>
+                    {!showStepScreenshot(`${lesson.id}:${index + 1}`, step) &&
+                      !step.command &&
+                      !(lesson.id.startsWith('bicep-') && index === 1) && (
+                        <div
+                          className="quiet-context-visual"
+                          role="img"
+                          aria-label={`Instructional guide: ${step.title}`}
+                        >
+                          <span>INSTRUCTIONAL GUIDE · NOT A SCREENSHOT</span>
+                          <svg viewBox="0 0 80 70" aria-hidden="true">
+                            <path d="M20 2h40l19 33-19 33H20L1 35Z" />
+                            <path d="M20 23h40v25H20Z M30 56h20 M40 48v8" />
+                          </svg>
+                          <strong>{step.title}</strong>
+                          <p>{step.where}</p>
+                        </div>
+                      )}
                     {showStepScreenshot(`${lesson.id}:${index + 1}`, step) && (
                       <div className="guided-visuals">
                         <CourseScreenshot
@@ -690,6 +704,12 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             self-verified
           </small>
         </header>
+        <LessonReader
+          key={lesson.id}
+          lesson={lesson}
+          progress={progress}
+          save={save}
+        />
         <details className="lesson-support">
           <summary>Before you start · setup and lab values</summary>
           {isVsphere && (
@@ -891,12 +911,7 @@ export function NessusAcademy({ courseId }: { courseId: string }) {
             )}
           </details>
         )}
-        <LessonReader
-          key={lesson.id}
-          lesson={lesson}
-          progress={progress}
-          save={save}
-        />
+
         <nav className="alma-pagination" aria-label="Lesson navigation">
           {index > 0 && (
             <a href={`#lesson=${course.lessons[index - 1].id}`}>
