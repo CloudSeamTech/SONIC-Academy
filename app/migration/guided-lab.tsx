@@ -204,72 +204,78 @@ export function GuidedLab({
                       stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
                     />
                   </section>
-                  <section className="lesson-result">
-                    <b>Check your result</b>
-                    <p>{step.expect}</p>
-                  </section>
+                  {step.command && (
+                    <section className="guided-command">
+                      <header>
+                        <span>COMMAND · USE THE WORKSPACE LISTED ABOVE</span>
+                        <button
+                          onClick={async () => {
+                            try {
+                              await navigator.clipboard.writeText(step.command);
+                              setCopied(true);
+                            } catch {
+                              setNotice(
+                                'Select the command and copy it manually.',
+                              );
+                            }
+                          }}
+                        >
+                          {copied ? 'Copied ✓' : 'Copy command block'}
+                        </button>
+                      </header>
+                      <TerminalExample
+                        command={step.command}
+                        where={step.where ?? guide.where}
+                      />
+                      <p>Paste into the workspace above, then press Enter.</p>
+                    </section>
+                  )}
                 </>
               }
             >
-              <details className="lesson-support">
-                <summary>Help opening this workspace</summary>
-                <WorkspaceStart
-                  where={step.where ?? guide.where}
-                  action={currentAction}
-                />
-              </details>
               <VisualChecklist
                 key={`${lessonId}:${stepOffset}:${index}`}
                 stepId={`${lessonId}:guided:${index + stepOffset + 1}`}
                 actions={learnerActions(currentAction)}
               />
-              {step.command && (
-                <section className="guided-command">
-                  <header>
-                    <span>COMMAND · USE THE WORKSPACE LISTED ABOVE</span>
-                    <button
-                      onClick={async () => {
-                        try {
-                          await navigator.clipboard.writeText(step.command);
-                          setCopied(true);
-                        } catch {
-                          setNotice('Select the command and copy it manually.');
-                        }
-                      }}
-                    >
-                      {copied ? 'Copied ✓' : 'Copy command block'}
-                    </button>
-                  </header>
-                  <TerminalExample
-                    command={step.command}
+              <section className="lesson-result">
+                <b>Check your result</b>
+                <p>{step.expect}</p>
+              </section>
+              <details className="step-help">
+                <summary>Need help?</summary>
+                <details className="lesson-support">
+                  <summary>Help opening this workspace</summary>
+                  <WorkspaceStart
                     where={step.where ?? guide.where}
+                    action={currentAction}
                   />
-                  <p>Paste into the workspace above, then press Enter.</p>
-                  {coaching.commandNotes.length > 0 && (
-                    <details className="lesson-support">
-                      <summary>What the command means</summary>
-                      <ul>
-                        {coaching.commandNotes.map((note) => (
-                          <li key={note}>{note}</li>
-                        ))}
-                      </ul>
-                    </details>
-                  )}
-                </section>
-              )}
-              <details className="lesson-support">
-                <summary>Why am I doing this?</summary>
-                <p>{coaching.reason}</p>
-              </details>
-              <details className="lesson-support">
-                <summary>My result is different</summary>
-                <p>{step.trouble}</p>
-              </details>
-              <details className="lesson-support">
-                <summary>Evidence to save</summary>
-                <p className="step-evidence">
-                  <strong>Keep this evidence:</strong> {step.evidence}
-                </p>
+                </details>
+
+                <details className="lesson-support">
+                  <summary>Why am I doing this?</summary>
+                  <p>{coaching.reason}</p>
+                </details>
+                <details className="lesson-support">
+                  <summary>My result is different</summary>
+                  <p>{step.trouble}</p>
+                </details>
+                <details className="lesson-support">
+                  <summary>Evidence to save</summary>
+                  <p className="step-evidence">
+                    <strong>Keep this evidence:</strong> {step.evidence}
+                  </p>
+                </details>
+                {coaching.commandNotes.length > 0 && (
+                  <details className="lesson-support">
+                    <summary>What the command means</summary>
+                    <ul>
+                      {coaching.commandNotes.map((note) => (
+                        <li key={note}>{note}</li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
               </details>
               <label className="guided-check">
                 <input

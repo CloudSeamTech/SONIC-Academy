@@ -1,0 +1,98 @@
+/* A step shows its action and result; optional explanations share one quiet disclosure. */
+html body .academy-shell.academy-shell.console-reader.console-reader .reader-workspace.reader-workspace .split-focus-grid[data-has-reference='false'] > .split-focus-actions {
+  border: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 0 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-grid[data-has-reference='false'] {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .split-focus-eyebrow {
+  display: none;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .step-help,
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .step-help
+  .lesson-support {
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  padding: 8px 0 !important;
+  margin: 8px 0 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .step-help
+  > summary {
+  padding-block: 8px !important;
+  min-height: 44px;
+  font-size: 16px !important;
+  color: #7141a5 !important;
+  -webkit-text-fill-color: #7141a5 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .step-help
+  .lesson-support {
+  padding-left: 16px !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .picture-source-note {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  padding: 10px 0 !important;
+}
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  .picture-source-note
+  :is(p, a) {
+  font-size: 12px !important;
+  line-height: 1.5 !important;
+  margin: 0 0 4px;
+}
+/* Reserve an independent arrow lane. Long labels truncate, while the full step title remains below. */
+html
+  body
+  .academy-shell.academy-shell.console-reader.console-reader
+  .reader-workspace.reader-workspace
+  select:not([multiple]):not([size]) {
+  appearance: none;
+  -webkit-appearance: none;
+  box-sizing: border-box;
+  max-width: 100%;
+  min-width: 0;
+  padding: 12px 48px 12px 16px !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='m4 6 4 4 4-4' fill='none' stroke='%237141a5' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 16px center !important;
+  background-size: 16px 16px !important;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

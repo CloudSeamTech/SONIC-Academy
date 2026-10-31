@@ -178,10 +178,12 @@ export function SonicTerminal({
   shell,
   command,
   expected,
+  showExpected = true,
 }: {
   shell: string;
   command: string;
   expected: string;
+  showExpected?: boolean;
 }) {
   const [message, setMessage] = useState('');
   return (
@@ -214,10 +216,12 @@ export function SonicTerminal({
         </button>
       </header>
       <TerminalExample command={command} where={shell} />
-      <div className="terminal-output">
-        <span>What you should see · example to compare with your result</span>
-        <p>{expected}</p>
-      </div>
+      {showExpected && (
+        <div className="terminal-output">
+          <span>What you should see · example to compare with your result</span>
+          <p>{expected}</p>
+        </div>
+      )}
       <output aria-live="polite">{message}</output>
     </section>
   );
@@ -320,41 +324,42 @@ export function SonicWalkthrough({
                           shell={step.where}
                           command={step.command}
                           expected={step.expected}
+                          showExpected={false}
                         />
-                      )}
-                      {!step.command && (
-                        <p className="walkthrough-check">
-                          <strong>What you should see</strong>
-                          <br />
-                          {step.expected}
-                        </p>
                       )}
                     </>
                   }
                 >
-                  {(index === 0 || step.where !== steps[index - 1].where) && (
-                    <details className="lesson-support">
-                      <summary>Help opening this workspace</summary>
-                      <WorkspaceStart
-                        where={step.where}
-                        action={step.actions.join(' ')}
-                      />
-                    </details>
-                  )}
-                  <details className="lesson-support">
-                    <summary>Why this matters / command help</summary>
-                    <StepTeachingNotes
-                      lessonId={lessonId || 'linux'}
-                      title={step.title}
-                      action={step.actions.join(' ')}
-                      command={step.command}
-                      expected={step.expected}
-                    />
-                  </details>
                   <VisualChecklist
                     stepId={`${lessonId}:${variant}:${index + 1}`}
                     actions={step.actions.flatMap(learnerActions)}
                   />
+                  <section className="lesson-result">
+                    <h4>Check your result</h4>
+                    <p>{step.expected}</p>
+                  </section>
+                  <details className="step-help">
+                    <summary>Need help?</summary>
+                    {(index === 0 || step.where !== steps[index - 1].where) && (
+                      <details className="lesson-support">
+                        <summary>Help opening this workspace</summary>
+                        <WorkspaceStart
+                          where={step.where}
+                          action={step.actions.join(' ')}
+                        />
+                      </details>
+                    )}
+                    <details className="lesson-support">
+                      <summary>Why this matters / command help</summary>
+                      <StepTeachingNotes
+                        lessonId={lessonId || 'linux'}
+                        title={step.title}
+                        action={step.actions.join(' ')}
+                        command={step.command}
+                        expected={step.expected}
+                      />
+                    </details>
+                  </details>
                 </SplitFocusWorkspace>
               </div>
             </section>

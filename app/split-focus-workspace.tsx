@@ -4,26 +4,30 @@ import type { ReactNode } from 'react';
 export function SplitFocusWorkspace({
   reference,
   children,
+  hasReference = true,
 }: {
   reference: ReactNode;
   children: ReactNode;
+  hasReference?: boolean;
 }) {
   return (
-    <div className="split-focus-grid">
-      <section
-        className="split-focus-reference"
-        aria-label="Picture, command and expected result"
-      >
-        <header className="lab-window-chrome">
-          <span className="lab-window-lights" aria-hidden="true">
-            <span className="window-light window-light-red" />
-            <span className="window-light window-light-yellow" />
-            <span className="window-light window-light-green" />
-          </span>
-          <span className="lab-window-title">Lab workspace</span>
-        </header>
-        <div className="split-focus-reference-body">{reference}</div>
-      </section>
+    <div className="split-focus-grid" data-has-reference={hasReference}>
+      {hasReference && (
+        <section
+          className="split-focus-reference"
+          aria-label="Picture and command"
+        >
+          <header className="lab-window-chrome">
+            <span className="lab-window-lights" aria-hidden="true">
+              <span className="window-light window-light-red" />
+              <span className="window-light window-light-yellow" />
+              <span className="window-light window-light-green" />
+            </span>
+            <span className="lab-window-title">Lab workspace</span>
+          </header>
+          <div className="split-focus-reference-body">{reference}</div>
+        </section>
+      )}
       <section
         className="split-focus-actions"
         aria-label="Step instructions and navigation"
