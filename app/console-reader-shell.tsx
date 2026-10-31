@@ -167,20 +167,28 @@ export function ConsoleReaderShell({
                 aria-label="Compact navigation"
                 title="Compact navigation"
                 aria-pressed={sidebarMode === 'compact'}
-                onClick={() =>
-                  setSidebarMode(sidebarMode === 'compact' ? 'full' : 'compact')
-                }
+                onClick={() => {
+                  if (!desktopNavigation) {
+                    setSidebarMode('full');
+                    setMenuOpen(!menuOpen);
+                    setOutlineOpen(false);
+                  } else {
+                    setSidebarMode(
+                      sidebarMode === 'compact' ? 'full' : 'compact',
+                    );
+                  }
+                }}
               >
                 −
               </button>
               <button
                 type="button"
                 className="sidebar-dot sidebar-dot-green"
-                aria-label="Expand navigation"
-                title="Expand navigation"
+                aria-label="Restore full navigation"
+                title="Restore full navigation"
                 onClick={() => {
                   setSidebarMode('full');
-                  setMenuOpen(true);
+                  setMenuOpen(!desktopNavigation);
                   setOutlineOpen(false);
                 }}
               >
@@ -329,35 +337,35 @@ export function ConsoleReaderShell({
                 className={activeView === 'dashboard' ? 'active' : ''}
               >
                 <Home size={18} />
-                Overview
+                <span className="studio-nav-label">Overview</span>
               </a>
               <a
                 href="/?view=paths"
                 className={activeView === 'paths' ? 'active' : ''}
               >
                 <Layers size={18} />
-                Pathways
+                <span className="studio-nav-label">Pathways</span>
               </a>
               <a
                 href="/?view=courses"
                 className={activeView === 'courses' ? 'active' : ''}
               >
                 <BookOpen size={18} />
-                All Courses
+                <span className="studio-nav-label">All Courses</span>
               </a>
               <a href="/#resume-learning">
                 <FlaskConical size={18} />
-                My Learning
+                <span className="studio-nav-label">My Learning</span>
               </a>
             </nav>
             <div className="academy-secondary-nav">
               <a href="/?view=bookmarks">
                 <Bookmark size={17} />
-                My Bookmarks
+                <span className="studio-nav-label">My Bookmarks</span>
               </a>
               <a href="/migration#lesson=lab-19">
                 <LifeBuoy size={17} />
-                Troubleshooting
+                <span className="studio-nav-label">Troubleshooting</span>
               </a>
             </div>
             <section

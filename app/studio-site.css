@@ -1358,13 +1358,6 @@ html
   grid-row: 1 !important;
   margin: 0 !important;
 }
-/* Only authored instructional diagrams, never real screenshots. */
-html
-  body
-  #quiet-desktop.academy-shell.academy-shell
-  img[src^='/step-pictures/'] {
-  filter: grayscale(1);
-}
 @media (max-width: 700px) {
   html
     body
@@ -1640,3 +1633,193 @@ html
     transition: none !important;
   }
 }
+/* One heading family across the learning index and activity panels. */
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  :is(.dashboard-right, .featured-paths, .explore-courses)
+  :is(h2, h3, h2 *, h3 *) {
+  font-family: var(--font-academy-ui), Arial, sans-serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.025em !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .dashboard-right
+  h2 {
+  font-size: 22px !important;
+  line-height: 1.35 !important;
+}
+html body #quiet-desktop.academy-shell.academy-shell .sidebar-window-controls {
+  display: flex !important;
+  align-items: center !important;
+  height: 28px !important;
+  gap: 2px !important;
+}
+html body #quiet-desktop.academy-shell.academy-shell .sidebar-dot {
+  position: relative;
+  display: grid !important;
+  place-items: center !important;
+  flex: 0 0 24px !important;
+  width: 24px !important;
+  height: 24px !important;
+  min-height: 24px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  line-height: 24px !important;
+  background: transparent !important;
+  isolation: isolate;
+}
+html body #quiet-desktop.academy-shell.academy-shell .sidebar-dot::before {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--studio-dot);
+}
+html body #quiet-desktop.academy-shell.academy-shell .sidebar-dot-red {
+  --studio-dot: #f06d6a;
+}
+html body #quiet-desktop.academy-shell.academy-shell .sidebar-dot-yellow {
+  --studio-dot: #f7c842;
+}
+html body #quiet-desktop.academy-shell.academy-shell .sidebar-dot-green {
+  --studio-dot: #58bd85;
+}
+@media (min-width: 801px) {
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell[data-sidebar-mode='compact']
+    .console-sidebar {
+    padding: 20px 8px !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell[data-sidebar-mode='compact']
+    .console-sidebar
+    .studio-nav-label {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell[data-sidebar-mode='compact']
+    .console-sidebar
+    :is(
+      .studio-nav-heading,
+      .sidebar-information-links,
+      .console-sidebar-foot,
+      .sidebar-learning-details
+    ) {
+    display: none !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell[data-sidebar-mode='compact']
+    .console-sidebar
+    :is(.academy-primary-nav a, .academy-secondary-nav a) {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    min-height: 44px !important;
+    padding: 12px !important;
+    gap: 0 !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell[data-sidebar-mode='compact']
+    .console-sidebar
+    :is(.academy-primary-nav, .academy-secondary-nav) {
+    width: 100% !important;
+    padding: 0 !important;
+  }
+}
+@media (min-width: 801px) and (max-width: 1279px) {
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell[data-sidebar-mode='hidden'][data-quiet-outline='true'] {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell[data-sidebar-mode='hidden'][data-quiet-outline='true']
+    .reader-workspace.reader-workspace {
+    grid-column: 1 !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell[data-sidebar-mode='compact']
+    .quiet-outline {
+    left: 86px !important;
+  }
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  img {
+  filter: none !important;
+}
+@media (max-width: 600px) {
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .studio-site-brandbar
+    .studio-site-brand
+    .quiet-brand {
+    gap: 8px !important;
+    min-width: 0;
+    max-width: 100%;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .studio-site-brandbar
+    .studio-site-brand
+    .quiet-brand-mark {
+    width: 34px !important;
+    height: 30px !important;
+    flex: 0 0 34px !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .studio-site-brandbar
+    .studio-site-brand
+    .quiet-brand-word {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    min-width: 0;
+  }
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .activity-row
+  h3 {
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+  margin: 0 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .resume-lesson
+  h3 {
+  font-size: 20px !important;
+  line-height: 1.4 !important;
+}
+

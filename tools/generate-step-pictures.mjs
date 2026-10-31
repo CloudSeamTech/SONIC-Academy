@@ -33,7 +33,7 @@ const text = (
   lines,
   x,
   y,
-  { size = 22, color = '#292929', mono = false } = {},
+  { size = 22, color = '#18334e', mono = false } = {},
 ) =>
   lines
     .map(
@@ -41,9 +41,16 @@ const text = (
         `<text x="${x}" y="${y + i * (size + 10)}" font-family="${mono ? 'monospace' : 'Arial, sans-serif'}" font-size="${size}" fill="${color}">${esc(line)}</text>`,
     )
     .join('');
-const previous = new Map(JSON.parse(fs.readFileSync('content/screenshots/step-pictures.json', 'utf8')).pictures.map(p => [p.stepId, p]));
 const registry = [];
 for (const step of report.steps) {
+  const vendor = `${step.where ?? ''} ${step.title}`;
+  const accent = /splunk/i.test(vendor)
+    ? '#65a637'
+    : /powershell|windows|azure|iis|sql/i.test(vendor)
+      ? '#0078d4'
+      : /linux|rhel|alma/i.test(vendor)
+        ? '#ee0000'
+        : '#52677e';
   const sentences = smallActions(step.actions);
   const titleLines = wrap(step.title, 68);
   const where = wrap(
@@ -51,7 +58,7 @@ for (const step of report.steps) {
     85,
   );
   let y = 95 + titleLines.length * 34;
-  let body = `<rect x="28" y="${y}" width="1144" height="${75 + where.length * 24}" rx="10" fill="#d7c8b2" stroke="#292929"/><path d="M54 ${y + 24}h42v29H54zm21 29v12m-15 0h30" fill="none" stroke="#292929" stroke-width="3"/>${text(['START HERE'], 114, y + 30, { size: 17, color: '#292929' })}${text(where, 114, y + 60, { size: 18 })}`;
+  let body = `<rect x="28" y="${y}" width="1144" height="${75 + where.length * 24}" rx="10" fill="#ffffff" stroke="#18334e"/><path d="M54 ${y + 24}h42v29H54zm21 29v12m-15 0h30" fill="none" stroke="#18334e" stroke-width="3"/>${text(['START HERE'], 114, y + 30, { size: 17, color: '#18334e' })}${text(where, 114, y + 60, { size: 18 })}`;
   y += 100 + where.length * 24;
   if (step.command) {
     // Commands only, never fabricated successful terminal output. Full unwrapped text remains in the page.
@@ -61,13 +68,15 @@ for (const step of report.steps) {
       .slice(0, 8)
       .flatMap((x) => wrap(x, 88));
     const height = 85 + preview.length * 27;
-    body += `<rect x="28" y="${y}" width="1144" height="${height}" rx="10" fill="#f6f0e6" stroke="#404040"/><rect x="28" y="${y}" width="1144" height="40" rx="10" fill="#d7c8b2"/>${text(['TERMINAL · COMMAND EXAMPLE · NOT OUTPUT'], 52, y + 27, { size: 17, color: '#292929' })}${text(preview, 54, y + 75, { size: 18, color: '#292929', mono: true })}`;
+    body += `<rect x="28" y="${y}" width="1144" height="${height}" rx="10" fill="#f7f9fc" stroke="#cbd6e3"/><rect x="28" y="${y}" width="1144" height="40" rx="10" fill="#ffffff"/>${text(['TERMINAL · COMMAND EXAMPLE · NOT OUTPUT'], 52, y + 27, { size: 17, color: '#18334e' })}${text(preview, 54, y + 75, { size: 18, color: '#18334e', mono: true })}`;
     y += height + 24;
     body += text(
-      ['Read and copy the complete command block in the written step below.'],
+      [
+        'Type the complete input in the written step below, then check your result.',
+      ],
       44,
       y,
-      { size: 19, color: '#595247' },
+      { size: 19, color: '#53677e' },
     );
     y += 32;
   }
@@ -77,8 +86,8 @@ for (const step of report.steps) {
     const lines = wrap(actions[i], 91);
     const h = 38 + lines.length * 29;
     if (i)
-      body += `<path d="M60 ${y - 16}v15m-6-6 6 6 6-6" fill="none" stroke="#595247" stroke-width="2"/>`;
-    body += `<rect x="28" y="${y}" width="1144" height="${h}" rx="10" fill="#d7c8b2" stroke="#343434"/><circle cx="60" cy="${y + 30}" r="18" fill="#292929"/>${text([String(i + 1)], 54, y + 37, { size: 20, color: '#fff' })}${text(lines, 96, y + 34, { size: 20 })}`;
+      body += `<path d="M60 ${y - 16}v15m-6-6 6 6 6-6" fill="none" stroke="#53677e" stroke-width="2"/>`;
+    body += `<rect x="28" y="${y}" width="1144" height="${h}" rx="10" fill="#ffffff" stroke="#cbd6e3"/><circle cx="60" cy="${y + 30}" r="18" fill="#18334e"/>${text([String(i + 1)], 54, y + 37, { size: 20, color: '#fff' })}${text(lines, 96, y + 34, { size: 20 })}`;
     y += h + 22;
   }
   if (sentences.length > 3) {
@@ -86,17 +95,18 @@ for (const step of report.steps) {
       ['Continue with the remaining small actions in the written step.'],
       44,
       y,
-      { size: 18, color: '#595247' },
+      { size: 18, color: '#53677e' },
     );
     y += 38;
   }
   const expected = wrap(step.expected, 95);
   const checkH = 60 + expected.length * 28;
-  body += `<rect x="28" y="${y}" width="1144" height="${checkH}" rx="10" fill="#d7c8b2" stroke="#292929"/>${text(['LOOK FOR THIS IN YOUR OWN LAB'], 52, y + 30, { size: 17, color: '#292929' })}${text(expected, 52, y + 62, { size: 19 })}`;
+  body += `<rect x="28" y="${y}" width="1144" height="${checkH}" rx="10" fill="#ffffff" stroke="#18334e"/>${text(['LOOK FOR THIS IN YOUR OWN LAB'], 52, y + 30, { size: 17, color: '#18334e' })}${text(expected, 52, y + 62, { size: 19 })}`;
   y += checkH + 34;
   const height = y + 58;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="${height}" viewBox="0 0 1200 ${height}" role="img" aria-labelledby="title desc"><title id="title">${esc(step.title)} — illustrated step map</title><desc id="desc">Step-specific diagram showing where to work, numbered actions, and what to check. It is not a software screenshot or actual output.</desc><rect width="1200" height="${height}" fill="#e3d8c4"/><rect width="1200" height="7" fill="#292929"/>${text([`STEP ${step.step} · PICTURE GUIDE`], 30, 43, { size: 17, color: '#292929' })}${text(titleLines, 30, 86, { size: 26 })}${body}${text(['ILLUSTRATED STEP MAP · NOT A LIVE SCREENSHOT OR RESULT'], 30, height - 23, { size: 17, color: '#292929' })}</svg>`;
-  const name = previous.get(step.stepId)?.src.split('/').at(-1) ?? (step.stepId.replaceAll(':', '--') + '--' + step.instructionHash.slice(0, 10) + '.svg');
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="${height}" viewBox="0 0 1200 ${height}" role="img" aria-labelledby="title desc"><title id="title">${esc(step.title)} — illustrated step map</title><desc id="desc">Step-specific diagram showing where to work, numbered actions, and what to check. It is not a software screenshot or actual output.</desc><rect width="1200" height="${height}" fill="#e7edf4"/><rect width="1200" height="7" fill="${accent}"/>${text([`STEP ${step.step} · PICTURE GUIDE`], 30, 43, { size: 17, color: '#18334e' })}${text(titleLines, 30, 86, { size: 26 })}${body}${text(['ILLUSTRATED STEP MAP · NOT A LIVE SCREENSHOT OR RESULT'], 30, height - 23, { size: 17, color: '#18334e' })}</svg>`;
+  const fileHash = createHash('sha256').update(svg).digest('hex');
+  const name = step.stepId.replaceAll(':', '--') + '--' + fileHash.slice(0, 10) + '.svg';
   fs.writeFileSync('public/step-pictures/' + name, svg);
   registry.push({
     stepId: step.stepId,
@@ -104,7 +114,7 @@ for (const step of report.steps) {
     src: '/step-pictures/' + name,
     title: step.title,
     kind: step.command ? 'command-map' : 'action-map',
-    fileHash: createHash('sha256').update(svg).digest('hex'),
+    fileHash,
   });
 }
 fs.writeFileSync(
