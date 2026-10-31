@@ -1,4 +1,18 @@
 /* One brand purple, shared padding, and a compact navigation window. */
+/* Keep accessible legends inside the padded card instead of on its border. */
+html body .academy-shell.academy-shell.console-reader.console-reader .reader-workspace.reader-workspace fieldset:has(> .tls-choice) > legend {
+  float: left;
+  width: 100%;
+  max-width: 100%;
+  padding: 0 !important;
+  margin: 0 0 16px !important;
+  line-height: 1.6;
+  white-space: normal;
+}
+html body .academy-shell.academy-shell.console-reader.console-reader .reader-workspace.reader-workspace :is(.nessus-quiz, .module-test) fieldset > legend + *,
+html body .academy-shell.academy-shell.console-reader.console-reader .reader-workspace.reader-workspace fieldset:has(> .tls-choice) > legend + * {
+  clear: both;
+}
 html body .academy-shell.academy-shell.console-reader.console-reader .reader-workspace.reader-workspace .lab-map-nodes button[aria-pressed='true'] {
   background: #7141a5 !important;
 }
@@ -294,10 +308,11 @@ html
   .reader-workspace.reader-workspace
   :is(.nessus-quiz, .module-test)
   legend {
-  float: none;
-  width: auto;
+  float: left;
+  width: 100%;
   max-width: 100%;
-  padding: 0 8px;
+  padding: 0 !important;
+  margin: 0 0 16px !important;
   line-height: 1.6;
   white-space: normal;
 }
