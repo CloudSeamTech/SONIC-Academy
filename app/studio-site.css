@@ -1770,3 +1770,37 @@ html
   img {
   filter: none !important;
 }
+@media (max-width: 600px) {
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .studio-site-brandbar
+    .studio-site-brand
+    .quiet-brand {
+    gap: 8px !important;
+    min-width: 0;
+    max-width: 100%;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .studio-site-brandbar
+    .studio-site-brand
+    .quiet-brand-mark {
+    width: 34px !important;
+    height: 30px !important;
+    flex: 0 0 34px !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .studio-site-brandbar
+    .studio-site-brand
+    .quiet-brand-word {
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+    white-space: normal !important;
+    min-width: 0;
+  }
+}
+
