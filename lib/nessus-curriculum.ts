@@ -8,6 +8,7 @@ export type NessusStep = {
   guide?: { what: string; why: string; verify: string; failure: string };
   where: string;
   actions: string[];
+  notes?: string[];
   command?: string;
   terminal?: TerminalContext;
   breakdown: { term: string; meaning: string }[];

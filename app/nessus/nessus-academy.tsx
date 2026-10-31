@@ -1,4 +1,5 @@
 'use client';
+import { showStepScreenshot } from '../../lib/step-media';
 import { SplitFocusWorkspace } from '../split-focus-workspace';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -82,21 +83,6 @@ function CommandExample({ step }: { step: NessusStep }) {
           />
           <output aria-live="polite">{notice}</output>
         </section>
-      )}
-      {step.breakdown.length > 0 && (
-        <details className="lesson-support">
-          <summary>What the commands and settings mean</summary>
-          <dl className="nessus-breakdown">
-            {step.breakdown.map((item, i) => (
-              <div key={i}>
-                <dt>
-                  <code>{item.term}</code>
-                </dt>
-                <dd>{item.meaning}</dd>
-              </div>
-            ))}
-          </dl>
-        </details>
       )}
     </>
   );
@@ -331,40 +317,28 @@ function LessonReader({
                 <b>Work in:</b> {step.where}
               </p>
               <SplitFocusWorkspace
+                hasReference={
+                  showStepScreenshot(`${lesson.id}:${index + 1}`, step) ||
+                  Boolean(step.command) ||
+                  (lesson.id.startsWith('bicep-') && index === 1)
+                }
                 reference={
                   <>
-                    <div className="guided-visuals">
-                      <CourseScreenshot screenshot={step.screenshot} />
-                    </div>
+                    {showStepScreenshot(`${lesson.id}:${index + 1}`, step) && (
+                      <div className="guided-visuals">
+                        <CourseScreenshot
+                          stepId={`${lesson.id}:${index + 1}`}
+                          step={step}
+                        />
+                      </div>
+                    )}
                     <CommandExample key={`${lesson.id}:${index}`} step={step} />
                     {lesson.id.startsWith('bicep-') && index === 1 && (
                       <BicepPractice lessonId={lesson.id} />
                     )}
-                    <section className="lesson-result">
-                      <h4>Check your result</h4>
-                      <p>
-                        {step.guide ? (
-                          <TlsText text={step.expected} />
-                        ) : (
-                          step.expected
-                        )}
-                      </p>
-                      {step.guide && step.guide.verify !== step.expected && (
-                        <p>
-                          <TlsText text={step.guide.verify} />
-                        </p>
-                      )}
-                    </section>
                   </>
                 }
               >
-                <details className="lesson-support">
-                  <summary>Help opening this workspace</summary>
-                  <WorkspaceStart
-                    where={step.where}
-                    action={step.actions.join(' ')}
-                  />
-                </details>
                 <VisualChecklist
                   key={stepKey}
                   stepId={stepKey}
@@ -384,22 +358,65 @@ function LessonReader({
                     </a>
                   </p>
                 ))}
-                {step.guide && (
-                  <>
+                <section className="lesson-result">
+                  <h4>Check your result</h4>
+                  <p>
+                    {step.guide ? (
+                      <TlsText text={step.expected} />
+                    ) : (
+                      step.expected
+                    )}
+                  </p>
+                  {step.guide && step.guide.verify !== step.expected && (
+                    <p>
+                      <TlsText text={step.guide.verify} />
+                    </p>
+                  )}
+                </section>
+                <details className="step-help">
+                  <summary>Need help?</summary>
+                  <details className="lesson-support">
+                    <summary>Help opening this workspace</summary>
+                    <WorkspaceStart
+                      where={step.where}
+                      action={step.actions.join(' ')}
+                    />
+                  </details>
+                  {step.guide && (
+                    <>
+                      <details className="lesson-support">
+                        <summary>Why am I doing this?</summary>
+                        <p>
+                          <TlsText text={step.guide.why} />
+                        </p>
+                      </details>
+                      <details className="lesson-support">
+                        <summary>My result is different</summary>
+                        <p>
+                          <TlsText text={step.guide.failure} />
+                        </p>
+                      </details>
+                    </>
+                  )}
+                  {step.breakdown.length > 0 && (
                     <details className="lesson-support">
-                      <summary>Why am I doing this?</summary>
-                      <p>
-                        <TlsText text={step.guide.why} />
-                      </p>
+                      <summary>What the commands and settings mean</summary>
+                      <dl className="nessus-breakdown">
+                        {step.breakdown.map((item, i) => (
+                          <div key={i}>
+                            <dt>
+                              <code>{item.term}</code>
+                            </dt>
+                            <dd>{item.meaning}</dd>
+                          </div>
+                        ))}
+                      </dl>
                     </details>
-                    <details className="lesson-support">
-                      <summary>My result is different</summary>
-                      <p>
-                        <TlsText text={step.guide.failure} />
-                      </p>
-                    </details>
-                  </>
-                )}
+                  )}
+                  {step.notes?.map((note, i) => (
+                    <p key={i}>{note}</p>
+                  ))}
+                </details>
                 <label className="guided-check">
                   <input
                     type="checkbox"

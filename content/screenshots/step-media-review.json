@@ -1,0 +1,1666 @@
+{
+  "version": 1,
+  "reviewedAt": "2026-10-30",
+  "allowed": {
+    "azure-maint-backup:1": {
+      "assetId": "az-backup-policy",
+      "signature": "c2793716"
+    },
+    "azure-maint-backup:2": {
+      "assetId": "az-backup-job",
+      "signature": "b3d13a47"
+    },
+    "azure-maint-snapshots:1": {
+      "assetId": "az-vm-disk-pane",
+      "signature": "02b11484"
+    },
+    "azure-maint-snapshots:2": {
+      "assetId": "azure-create-snapshot",
+      "signature": "1034c56f"
+    },
+    "azure-maint-assessment:2": {
+      "assetId": "aum-check-updates",
+      "signature": "85b83446"
+    },
+    "azure-maint-assessment:3": {
+      "assetId": "aum-update-settings",
+      "signature": "6c282f0a"
+    },
+    "azure-maint-windows-pilot:2": {
+      "assetId": "aum-install-updates",
+      "signature": "e45adf87"
+    },
+    "azure-maint-rolling:4": {
+      "assetId": "aum-maintenance-configuration",
+      "signature": "9d990f42"
+    },
+    "azure-maint-recovery:1": {
+      "assetId": "azure-restore-configuration",
+      "signature": "e24edf50"
+    },
+    "azure-maint-recovery:3": {
+      "assetId": "azure-swap-os-disk",
+      "signature": "c452a64e"
+    },
+    "bicep-first-words:1": {
+      "assetId": "bicep-first-words",
+      "signature": "eedea350"
+    },
+    "bicep-first-words:2": {
+      "assetId": "bicep-first-words",
+      "signature": "176a1004"
+    },
+    "bicep-first-words:3": {
+      "assetId": "bicep-first-words",
+      "signature": "bc2e3673"
+    },
+    "bicep-workspace:1": {
+      "assetId": "bicep-workspace",
+      "signature": "e3e9c1a1"
+    },
+    "bicep-workspace:2": {
+      "assetId": "bicep-workspace",
+      "signature": "c7575029"
+    },
+    "bicep-workspace:3": {
+      "assetId": "bicep-workspace",
+      "signature": "6fee0159"
+    },
+    "bicep-toolchain:1": {
+      "assetId": "bicep-toolchain",
+      "signature": "7c4b41f8"
+    },
+    "bicep-toolchain:2": {
+      "assetId": "bicep-toolchain",
+      "signature": "41d91830"
+    },
+    "bicep-toolchain:3": {
+      "assetId": "bicep-toolchain",
+      "signature": "4da4e0ce"
+    },
+    "bicep-errors:1": {
+      "assetId": "bicep-errors",
+      "signature": "46347670"
+    },
+    "bicep-errors:2": {
+      "assetId": "bicep-errors",
+      "signature": "ef4a03f7"
+    },
+    "bicep-errors:3": {
+      "assetId": "bicep-errors",
+      "signature": "4b05c491"
+    },
+    "bicep-inputs:1": {
+      "assetId": "bicep-inputs",
+      "signature": "52962be4"
+    },
+    "bicep-inputs:2": {
+      "assetId": "bicep-inputs",
+      "signature": "fd8d189d"
+    },
+    "bicep-inputs:3": {
+      "assetId": "bicep-inputs",
+      "signature": "fb3017ad"
+    },
+    "bicep-types:1": {
+      "assetId": "bicep-types",
+      "signature": "9b5975f2"
+    },
+    "bicep-types:2": {
+      "assetId": "bicep-types",
+      "signature": "8f0bdb1a"
+    },
+    "bicep-types:3": {
+      "assetId": "bicep-types",
+      "signature": "98b217a3"
+    },
+    "bicep-resource:1": {
+      "assetId": "bicep-resource",
+      "signature": "1acdc5fd"
+    },
+    "bicep-resource:2": {
+      "assetId": "bicep-resource",
+      "signature": "3f447ba9"
+    },
+    "bicep-resource:3": {
+      "assetId": "bicep-resource",
+      "signature": "3a7ba510"
+    },
+    "bicep-json:1": {
+      "assetId": "bicep-json",
+      "signature": "847701da"
+    },
+    "bicep-json:2": {
+      "assetId": "bicep-json",
+      "signature": "3d6fabdc"
+    },
+    "bicep-json:3": {
+      "assetId": "bicep-json",
+      "signature": "69c034fd"
+    },
+    "bicep-guards:1": {
+      "assetId": "bicep-guards",
+      "signature": "8d78b33a"
+    },
+    "bicep-guards:2": {
+      "assetId": "bicep-guards",
+      "signature": "c4197f45"
+    },
+    "bicep-guards:3": {
+      "assetId": "bicep-guards",
+      "signature": "ef1e98d0"
+    },
+    "bicep-dependencies:1": {
+      "assetId": "bicep-dependencies",
+      "signature": "728a26e1"
+    },
+    "bicep-dependencies:2": {
+      "assetId": "bicep-dependencies",
+      "signature": "2a9aee8c"
+    },
+    "bicep-dependencies:3": {
+      "assetId": "bicep-dependencies",
+      "signature": "85ce1f87"
+    },
+    "bicep-network:1": {
+      "assetId": "bicep-network",
+      "signature": "832775e7"
+    },
+    "bicep-network:2": {
+      "assetId": "bicep-network",
+      "signature": "2a5fd4aa"
+    },
+    "bicep-network:3": {
+      "assetId": "bicep-network",
+      "signature": "7c00f5fc"
+    },
+    "bicep-existing:1": {
+      "assetId": "bicep-existing",
+      "signature": "01989f22"
+    },
+    "bicep-existing:2": {
+      "assetId": "bicep-existing",
+      "signature": "1691c78c"
+    },
+    "bicep-existing:3": {
+      "assetId": "bicep-existing",
+      "signature": "e59db26e"
+    },
+    "bicep-loops:1": {
+      "assetId": "bicep-loops",
+      "signature": "de60f669"
+    },
+    "bicep-loops:2": {
+      "assetId": "bicep-loops",
+      "signature": "2406fff6"
+    },
+    "bicep-loops:3": {
+      "assetId": "bicep-loops",
+      "signature": "54edb7ff"
+    },
+    "bicep-server-settings:1": {
+      "assetId": "bicep-server-settings",
+      "signature": "8066f7fd"
+    },
+    "bicep-server-settings:2": {
+      "assetId": "bicep-server-settings",
+      "signature": "53fee777"
+    },
+    "bicep-server-settings:3": {
+      "assetId": "bicep-server-settings",
+      "signature": "ef1dfa80"
+    },
+    "bicep-software:1": {
+      "assetId": "bicep-software",
+      "signature": "f91891d1"
+    },
+    "bicep-software:2": {
+      "assetId": "bicep-software",
+      "signature": "3a559411"
+    },
+    "bicep-software:3": {
+      "assetId": "bicep-software",
+      "signature": "11914ea6"
+    },
+    "bicep-modules:1": {
+      "assetId": "bicep-modules",
+      "signature": "485926ec"
+    },
+    "bicep-modules:2": {
+      "assetId": "bicep-modules",
+      "signature": "f5c4da8d"
+    },
+    "bicep-modules:3": {
+      "assetId": "bicep-modules",
+      "signature": "4f4e6baa"
+    },
+    "bicep-environments:1": {
+      "assetId": "bicep-environments",
+      "signature": "48993827"
+    },
+    "bicep-environments:2": {
+      "assetId": "bicep-environments",
+      "signature": "cc8cf33d"
+    },
+    "bicep-environments:3": {
+      "assetId": "bicep-environments",
+      "signature": "5e31537c"
+    },
+    "bicep-azure-checks:1": {
+      "assetId": "bicep-azure-checks",
+      "signature": "c94ebf27"
+    },
+    "bicep-azure-checks:2": {
+      "assetId": "bicep-azure-checks",
+      "signature": "3f41522b"
+    },
+    "bicep-azure-checks:3": {
+      "assetId": "bicep-azure-checks",
+      "signature": "71eea5fd"
+    },
+    "bicep-capstone:1": {
+      "assetId": "bicep-capstone",
+      "signature": "c01505fb"
+    },
+    "bicep-capstone:2": {
+      "assetId": "bicep-capstone",
+      "signature": "63d90753"
+    },
+    "bicep-capstone:3": {
+      "assetId": "bicep-capstone",
+      "signature": "38230d1e"
+    },
+    "bicep-handoff:1": {
+      "assetId": "bicep-handoff",
+      "signature": "059e6851"
+    },
+    "bicep-handoff:2": {
+      "assetId": "bicep-handoff",
+      "signature": "9a00933b"
+    },
+    "bicep-handoff:3": {
+      "assetId": "bicep-handoff",
+      "signature": "a7a6cb87"
+    },
+    "dmz-plan:1": {
+      "assetId": "dmz-plan-screen-1",
+      "signature": "90d5780b"
+    },
+    "dmz-plan:2": {
+      "assetId": "dmz-plan-screen-2",
+      "signature": "cf520ffd"
+    },
+    "dmz-plan:3": {
+      "assetId": "dmz-plan-screen-3",
+      "signature": "3d171649"
+    },
+    "dmz-networks:1": {
+      "assetId": "dmz-networks-screen-1",
+      "signature": "b3674283"
+    },
+    "dmz-networks:2": {
+      "assetId": "dmz-networks-screen-2",
+      "signature": "4dedc0fe"
+    },
+    "dmz-networks:3": {
+      "assetId": "dmz-networks-screen-3",
+      "signature": "52212a97"
+    },
+    "dmz-networks:4": {
+      "assetId": "dmz-networks-screen-4",
+      "signature": "06948d10"
+    },
+    "dmz-firewall:1": {
+      "assetId": "dmz-firewall-screen-1",
+      "signature": "f474b4b0"
+    },
+    "dmz-firewall:2": {
+      "assetId": "dmz-firewall-screen-2",
+      "signature": "5f5a5f19"
+    },
+    "dmz-firewall:3": {
+      "assetId": "dmz-firewall-screen-3",
+      "signature": "104bfa72"
+    },
+    "dmz-firewall:5": {
+      "assetId": "dmz-firewall-screen-5",
+      "signature": "bed9cf95"
+    },
+    "dmz-iis:1": {
+      "assetId": "dmz-iis-screen-1",
+      "signature": "4393a870"
+    },
+    "dmz-iis:2": {
+      "assetId": "dmz-iis-screen-2",
+      "signature": "35f89edd"
+    },
+    "dmz-iis:3": {
+      "assetId": "dmz-iis-screen-3",
+      "signature": "3d2d4ccd"
+    },
+    "dmz-iis:4": {
+      "assetId": "dmz-iis-screen-4",
+      "signature": "f53cd7ba"
+    },
+    "dmz-proxy:1": {
+      "assetId": "dmz-proxy-screen-1",
+      "signature": "67c78480"
+    },
+    "dmz-proxy:2": {
+      "assetId": "dmz-proxy-screen-2",
+      "signature": "4ebfb963"
+    },
+    "dmz-proxy:3": {
+      "assetId": "dmz-proxy-screen-3",
+      "signature": "ff934cf5"
+    },
+    "dmz-proxy:4": {
+      "assetId": "dmz-proxy-screen-4",
+      "signature": "f6bf07d0"
+    },
+    "dmz-proxy:5": {
+      "assetId": "dmz-proxy-screen-5",
+      "signature": "8269a1a6"
+    },
+    "dmz-publish:1": {
+      "assetId": "dmz-publish-screen-1",
+      "signature": "93c244ad"
+    },
+    "dmz-publish:2": {
+      "assetId": "dmz-publish-screen-2",
+      "signature": "77f35b7a"
+    },
+    "dmz-publish:3": {
+      "assetId": "dmz-publish-screen-3",
+      "signature": "022a9552"
+    },
+    "dmz-publish:4": {
+      "assetId": "dmz-publish-screen-4",
+      "signature": "a461b6eb"
+    },
+    "dmz-verify:1": {
+      "assetId": "dmz-verify-screen-1",
+      "signature": "9d7718de"
+    },
+    "dmz-verify:2": {
+      "assetId": "dmz-verify-screen-2",
+      "signature": "e1be3f9e"
+    },
+    "dmz-verify:3": {
+      "assetId": "dmz-verify-screen-3",
+      "signature": "3b6baee0"
+    },
+    "dmz-recover:1": {
+      "assetId": "dmz-recover-screen-1",
+      "signature": "29d8a9b2"
+    },
+    "dmz-recover:2": {
+      "assetId": "dmz-recover-screen-2",
+      "signature": "1d84edae"
+    },
+    "dmz-recover:3": {
+      "assetId": "dmz-recover-screen-3",
+      "signature": "07c5ae54"
+    },
+    "dmz-recover:4": {
+      "assetId": "dmz-recover-screen-4",
+      "signature": "1d331423"
+    },
+    "dmz-azure:1": {
+      "assetId": "dmz-azure-screen-1",
+      "signature": "ae7b8a05"
+    },
+    "dmz-azure:2": {
+      "assetId": "dmz-azure-screen-2",
+      "signature": "22f605c2"
+    },
+    "dmz-azure:3": {
+      "assetId": "dmz-azure-screen-3",
+      "signature": "f3fdf2a1"
+    },
+    "mecm-ops-app:2": {
+      "assetId": "mecm-application-properties",
+      "signature": "a715bcea"
+    },
+    "mecm-ops-compliance:2": {
+      "assetId": "mecm-baseline-compliance-rule",
+      "signature": "54c27787"
+    },
+    "wsus-ops-groups:2": {
+      "assetId": "wsus-computer-group",
+      "signature": "6fa0a2d0"
+    },
+    "wsus-ops-groups:3": {
+      "assetId": "wsus-gpo-server-url",
+      "signature": "9b5828ff"
+    },
+    "wsus-ops-patching:2": {
+      "assetId": "wsus-approve-group",
+      "signature": "beef8797"
+    },
+    "helpdesk-plan:1": {
+      "assetId": "helpdesk-plan-1",
+      "signature": "f45cf123"
+    },
+    "helpdesk-plan:2": {
+      "assetId": "helpdesk-plan-2",
+      "signature": "966885d5"
+    },
+    "helpdesk-plan:3": {
+      "assetId": "helpdesk-plan-3",
+      "signature": "bae3f97b"
+    },
+    "helpdesk-iis:3": {
+      "assetId": "helpdesk-iis-3",
+      "signature": "cc158a60"
+    },
+    "helpdesk-php:1": {
+      "assetId": "helpdesk-php-1",
+      "signature": "23d18b3f"
+    },
+    "helpdesk-php:2": {
+      "assetId": "iis-handler",
+      "signature": "d3c67962"
+    },
+    "helpdesk-php:3": {
+      "assetId": "helpdesk-php-3",
+      "signature": "459a73e5"
+    },
+    "helpdesk-database:1": {
+      "assetId": "helpdesk-database-1",
+      "signature": "5eccbf08"
+    },
+    "helpdesk-database:2": {
+      "assetId": "helpdesk-database-2",
+      "signature": "1cad4be8"
+    },
+    "helpdesk-database:3": {
+      "assetId": "helpdesk-database-3",
+      "signature": "72cf9bfe"
+    },
+    "helpdesk-site:1": {
+      "assetId": "helpdesk-site-1",
+      "signature": "e2dda925"
+    },
+    "helpdesk-site:3": {
+      "assetId": "helpdesk-site-3",
+      "signature": "1aa37907"
+    },
+    "helpdesk-dns:1": {
+      "assetId": "helpdesk-dns-1",
+      "signature": "a73708b3"
+    },
+    "helpdesk-dns:2": {
+      "assetId": "helpdesk-dns-2",
+      "signature": "94b68da0"
+    },
+    "helpdesk-dns:3": {
+      "assetId": "helpdesk-dns-3",
+      "signature": "e7a3855b"
+    },
+    "helpdesk-https:2": {
+      "assetId": "iis-https",
+      "signature": "bfcfbc78"
+    },
+    "helpdesk-install:1": {
+      "assetId": "helpdesk-install-1",
+      "signature": "05c8aef8"
+    },
+    "helpdesk-install:2": {
+      "assetId": "helpdesk-install-2",
+      "signature": "e1f3c249"
+    },
+    "helpdesk-tickets:2": {
+      "assetId": "ost-new-ticket",
+      "signature": "6eb2571a"
+    },
+    "helpdesk-tickets:3": {
+      "assetId": "ost-ticket-status",
+      "signature": "7b207feb"
+    },
+    "helpdesk-recovery:1": {
+      "assetId": "helpdesk-recovery-1",
+      "signature": "3da2c650"
+    },
+    "helpdesk-recovery:2": {
+      "assetId": "helpdesk-recovery-2",
+      "signature": "0af23197"
+    },
+    "helpdesk-recovery:3": {
+      "assetId": "helpdesk-recovery-3",
+      "signature": "e2684bc2"
+    },
+    "helpdesk-php-update:1": {
+      "assetId": "iis-handler",
+      "signature": "5caec4f1"
+    },
+    "helpdesk-php-update:2": {
+      "assetId": "helpdesk-php-update-2",
+      "signature": "6a9944fc"
+    },
+    "helpdesk-php-update:3": {
+      "assetId": "helpdesk-php-update-3",
+      "signature": "59eab783"
+    },
+    "helpdesk-php-update:4": {
+      "assetId": "helpdesk-php-update-4",
+      "signature": "2fc3ebb8"
+    },
+    "helpdesk-php-update:5": {
+      "assetId": "iis-handler",
+      "signature": "6ed9f0cf"
+    },
+    "helpdesk-php-update:6": {
+      "assetId": "helpdesk-php-update-6",
+      "signature": "3ce01426"
+    },
+    "helpdesk-php-update:7": {
+      "assetId": "helpdesk-php-update-7",
+      "signature": "2194e554"
+    },
+    "helpdesk-operations:1": {
+      "assetId": "helpdesk-operations-1",
+      "signature": "df9bc042"
+    },
+    "helpdesk-operations:2": {
+      "assetId": "helpdesk-operations-2",
+      "signature": "2e7bd366"
+    },
+    "helpdesk-operations:3": {
+      "assetId": "helpdesk-operations-3",
+      "signature": "e05fddec"
+    },
+    "lz-plan:1": {
+      "assetId": "lz-map",
+      "signature": "8da17e2c"
+    },
+    "lz-plan:2": {
+      "assetId": "lz-identity-plan",
+      "signature": "d42c5f25"
+    },
+    "lz-plan:3": {
+      "assetId": "lz-budget",
+      "signature": "67f224d2"
+    },
+    "lz-group:1": {
+      "assetId": "lz-create-group",
+      "signature": "d958e580"
+    },
+    "lz-group:2": {
+      "assetId": "lz-tags",
+      "signature": "6cdda6b9"
+    },
+    "lz-group:3": {
+      "assetId": "lz-tag-why",
+      "signature": "0671239b"
+    },
+    "lz-network:1": {
+      "assetId": "lz-network-map",
+      "signature": "9aedada4"
+    },
+    "lz-network:2": {
+      "assetId": "lz-network-review",
+      "signature": "59d4b9b1"
+    },
+    "lz-network:3": {
+      "assetId": "lz-network-map",
+      "signature": "2174c59f"
+    },
+    "lz-storage:1": {
+      "assetId": "lz-create-storage",
+      "signature": "b373c174"
+    },
+    "lz-storage:2": {
+      "assetId": "lz-storage-network",
+      "signature": "73f8536e"
+    },
+    "lz-storage:3": {
+      "assetId": "lz-role",
+      "signature": "ec01ec50"
+    },
+    "lz-storage:4": {
+      "assetId": "lz-container",
+      "signature": "ac779c80"
+    },
+    "lz-data:1": {
+      "assetId": "lz-csv",
+      "signature": "61e56b0e"
+    },
+    "lz-data:2": {
+      "assetId": "lz-upload",
+      "signature": "68e68ee6"
+    },
+    "lz-data:3": {
+      "assetId": "lz-download",
+      "signature": "a0d97fa9"
+    },
+    "lz-data:4": {
+      "assetId": "lz-auth",
+      "signature": "b181a686"
+    },
+    "lz-recover:1": {
+      "assetId": "lz-soft-delete",
+      "signature": "ba78174a"
+    },
+    "lz-recover:2": {
+      "assetId": "lz-show-deleted",
+      "signature": "d871e2e1"
+    },
+    "lz-recover:3": {
+      "assetId": "lz-undelete",
+      "signature": "63210493"
+    },
+    "lz-recover:4": {
+      "assetId": "lz-delete-group",
+      "signature": "1ed1d2f0"
+    },
+    "daily-start:1": {
+      "assetId": "daily-start-1",
+      "signature": "9b889685"
+    },
+    "daily-start:2": {
+      "assetId": "daily-start-2",
+      "signature": "53f3c2e6"
+    },
+    "daily-start:3": {
+      "assetId": "daily-start-3",
+      "signature": "003c2f9c"
+    },
+    "daily-start:4": {
+      "assetId": "daily-start-4",
+      "signature": "a63bfa2e"
+    },
+    "daily-files:1": {
+      "assetId": "daily-files-1",
+      "signature": "95fc4b20"
+    },
+    "daily-files:2": {
+      "assetId": "daily-files-2",
+      "signature": "fcab1b95"
+    },
+    "daily-files:3": {
+      "assetId": "daily-files-3",
+      "signature": "f8cc43eb"
+    },
+    "daily-files:4": {
+      "assetId": "daily-files-4",
+      "signature": "ebf66082"
+    },
+    "daily-morning:1": {
+      "assetId": "daily-morning-1",
+      "signature": "02f33596"
+    },
+    "daily-morning:2": {
+      "assetId": "daily-morning-2",
+      "signature": "abe517fa"
+    },
+    "daily-morning:3": {
+      "assetId": "daily-morning-3",
+      "signature": "36813124"
+    },
+    "daily-morning:4": {
+      "assetId": "daily-morning-4",
+      "signature": "dcca550a"
+    },
+    "daily-space:1": {
+      "assetId": "daily-space-1",
+      "signature": "44620a52"
+    },
+    "daily-space:2": {
+      "assetId": "daily-space-2",
+      "signature": "9fbb13c8"
+    },
+    "daily-space:3": {
+      "assetId": "daily-space-3",
+      "signature": "ac50edb8"
+    },
+    "daily-space:4": {
+      "assetId": "daily-space-4",
+      "signature": "7a8c2171"
+    },
+    "daily-deleted:1": {
+      "assetId": "daily-deleted-1",
+      "signature": "510c79e6"
+    },
+    "daily-deleted:2": {
+      "assetId": "daily-deleted-2",
+      "signature": "55ff93ab"
+    },
+    "daily-deleted:3": {
+      "assetId": "daily-deleted-3",
+      "signature": "7efbdbeb"
+    },
+    "daily-deleted:4": {
+      "assetId": "daily-deleted-4",
+      "signature": "9ae8f91b"
+    },
+    "daily-lvm:1": {
+      "assetId": "daily-lvm-1",
+      "signature": "78a29446"
+    },
+    "daily-lvm:2": {
+      "assetId": "daily-lvm-2",
+      "signature": "2046177d"
+    },
+    "daily-lvm:3": {
+      "assetId": "daily-lvm-3",
+      "signature": "08820e40"
+    },
+    "daily-lvm:4": {
+      "assetId": "daily-lvm-4",
+      "signature": "534e574d"
+    },
+    "daily-lvm:5": {
+      "assetId": "daily-lvm-5",
+      "signature": "ea6cf955"
+    },
+    "daily-services:1": {
+      "assetId": "daily-services-1",
+      "signature": "828f9c23"
+    },
+    "daily-services:2": {
+      "assetId": "daily-services-2",
+      "signature": "efc2ca4b"
+    },
+    "daily-services:3": {
+      "assetId": "daily-services-3",
+      "signature": "e82c9b21"
+    },
+    "daily-services:4": {
+      "assetId": "daily-services-4",
+      "signature": "072fdc9e"
+    },
+    "daily-logs:1": {
+      "assetId": "daily-logs-1",
+      "signature": "2e155f61"
+    },
+    "daily-logs:2": {
+      "assetId": "daily-logs-2",
+      "signature": "87df0073"
+    },
+    "daily-logs:3": {
+      "assetId": "daily-logs-3",
+      "signature": "b7eff0e3"
+    },
+    "daily-performance:1": {
+      "assetId": "daily-performance-1",
+      "signature": "a6f83520"
+    },
+    "daily-performance:2": {
+      "assetId": "daily-performance-2",
+      "signature": "65e21f16"
+    },
+    "daily-performance:3": {
+      "assetId": "daily-performance-3",
+      "signature": "502edc6f"
+    },
+    "daily-performance:4": {
+      "assetId": "daily-performance-4",
+      "signature": "9033cd9a"
+    },
+    "daily-network:1": {
+      "assetId": "daily-network-1",
+      "signature": "3d17a9c7"
+    },
+    "daily-network:2": {
+      "assetId": "daily-network-2",
+      "signature": "85333ece"
+    },
+    "daily-network:3": {
+      "assetId": "daily-network-3",
+      "signature": "f70646bd"
+    },
+    "daily-network:4": {
+      "assetId": "daily-network-4",
+      "signature": "7ce0c075"
+    },
+    "daily-ssh:1": {
+      "assetId": "daily-ssh-1",
+      "signature": "623dd8b9"
+    },
+    "daily-ssh:2": {
+      "assetId": "daily-ssh-2",
+      "signature": "72d90b9d"
+    },
+    "daily-ssh:3": {
+      "assetId": "daily-ssh-3",
+      "signature": "6931a0b0"
+    },
+    "daily-ssh:4": {
+      "assetId": "daily-ssh-4",
+      "signature": "d73b01d4"
+    },
+    "daily-web:1": {
+      "assetId": "daily-web-1",
+      "signature": "86035d85"
+    },
+    "daily-web:2": {
+      "assetId": "daily-web-2",
+      "signature": "71ec2760"
+    },
+    "daily-web:3": {
+      "assetId": "daily-web-3",
+      "signature": "56da586e"
+    },
+    "daily-web:4": {
+      "assetId": "daily-web-4",
+      "signature": "76acd367"
+    },
+    "daily-permissions:1": {
+      "assetId": "daily-permissions-1",
+      "signature": "18b2faa8"
+    },
+    "daily-permissions:2": {
+      "assetId": "daily-permissions-2",
+      "signature": "ec918383"
+    },
+    "daily-permissions:3": {
+      "assetId": "daily-permissions-3",
+      "signature": "4da1f198"
+    },
+    "daily-accounts:1": {
+      "assetId": "daily-accounts-1",
+      "signature": "16e5a1ed"
+    },
+    "daily-accounts:2": {
+      "assetId": "daily-accounts-2",
+      "signature": "8c307bcf"
+    },
+    "daily-accounts:3": {
+      "assetId": "daily-accounts-3",
+      "signature": "c2b9e62d"
+    },
+    "daily-selinux:1": {
+      "assetId": "daily-selinux-1",
+      "signature": "c8150794"
+    },
+    "daily-selinux:2": {
+      "assetId": "daily-selinux-2",
+      "signature": "1e35c1f8"
+    },
+    "daily-selinux:3": {
+      "assetId": "daily-selinux-3",
+      "signature": "c799e9a4"
+    },
+    "daily-updates:1": {
+      "assetId": "daily-updates-1",
+      "signature": "264756f1"
+    },
+    "daily-updates:2": {
+      "assetId": "daily-updates-2",
+      "signature": "6f50ae71"
+    },
+    "daily-updates:3": {
+      "assetId": "daily-updates-3",
+      "signature": "a32efa90"
+    },
+    "daily-updates:4": {
+      "assetId": "daily-updates-4",
+      "signature": "76185174"
+    },
+    "daily-backup:1": {
+      "assetId": "daily-backup-1",
+      "signature": "bf69176a"
+    },
+    "daily-backup:2": {
+      "assetId": "daily-backup-2",
+      "signature": "2ce2fe5b"
+    },
+    "daily-backup:3": {
+      "assetId": "daily-backup-3",
+      "signature": "4ac44bc2"
+    },
+    "daily-time-jobs:1": {
+      "assetId": "daily-time-jobs-1",
+      "signature": "1197333d"
+    },
+    "daily-time-jobs:2": {
+      "assetId": "daily-time-jobs-2",
+      "signature": "29e68151"
+    },
+    "daily-time-jobs:3": {
+      "assetId": "daily-time-jobs-3",
+      "signature": "f0eb2959"
+    },
+    "daily-interview:1": {
+      "assetId": "daily-interview-1",
+      "signature": "de568447"
+    },
+    "daily-interview:2": {
+      "assetId": "daily-interview-2",
+      "signature": "bfaaefaf"
+    },
+    "daily-interview:3": {
+      "assetId": "daily-interview-3",
+      "signature": "77accbb2"
+    },
+    "daily-interview:4": {
+      "assetId": "daily-interview-4",
+      "signature": "1c92f498"
+    },
+    "daily-final:1": {
+      "assetId": "daily-final-1",
+      "signature": "beb5a7b4"
+    },
+    "daily-final:2": {
+      "assetId": "daily-final-2",
+      "signature": "82c88f7c"
+    },
+    "daily-final:3": {
+      "assetId": "daily-final-3",
+      "signature": "005b7e4e"
+    },
+    "daily-final:4": {
+      "assetId": "daily-final-4",
+      "signature": "aa7fece0"
+    },
+    "daily-final:5": {
+      "assetId": "daily-final-5",
+      "signature": "004d99f5"
+    },
+    "pki-alma-plan:1": {
+      "assetId": "alma-10.2-inventory",
+      "signature": "2a366b8e"
+    },
+    "pki-alma-csr:3": {
+      "assetId": "alma-10.2-csr",
+      "signature": "cee7e994"
+    },
+    "pki-alma-handoff:2": {
+      "assetId": "alma-10.2-verify",
+      "signature": "b34a28fd"
+    },
+    "pki-alma-renew:1": {
+      "assetId": "alma-10.2-expiry",
+      "signature": "688249a1"
+    },
+    "pki-iis-stores:1": {
+      "assetId": "windows-2022-stores",
+      "signature": "948dc245"
+    },
+    "sec-plan:1": {
+      "assetId": "sec-plan-1",
+      "signature": "45f30236"
+    },
+    "sec-plan:2": {
+      "assetId": "sec-plan-2",
+      "signature": "e4ccffd3"
+    },
+    "sec-plan:3": {
+      "assetId": "sec-plan-3",
+      "signature": "e1312af4"
+    },
+    "sec-identity:1": {
+      "assetId": "sec-identity-1",
+      "signature": "ba8088ef"
+    },
+    "sec-identity:2": {
+      "assetId": "sec-identity-2",
+      "signature": "d18811d6"
+    },
+    "sec-identity:3": {
+      "assetId": "sec-identity-3",
+      "signature": "4a00594e"
+    },
+    "sec-cost:1": {
+      "assetId": "sec-cost-1",
+      "signature": "982ed27a"
+    },
+    "sec-cost:2": {
+      "assetId": "security-budget-alert",
+      "signature": "fff20600"
+    },
+    "sec-wazuh:1": {
+      "assetId": "sec-wazuh-1",
+      "signature": "7053c348"
+    },
+    "sec-agents:2": {
+      "assetId": "sec-agents-2",
+      "signature": "fa4cf3f2"
+    },
+    "sec-agents:3": {
+      "assetId": "security-wazuh-fim-events",
+      "signature": "814cddf0"
+    },
+    "sec-defender:2": {
+      "assetId": "security-plan-one",
+      "signature": "fbdb6c98"
+    },
+    "sec-defender:3": {
+      "assetId": "security-change-plan",
+      "signature": "615595d3"
+    },
+    "sec-endpoint:2": {
+      "assetId": "sec-endpoint-2",
+      "signature": "e2f9444b"
+    },
+    "sec-incident:1": {
+      "assetId": "security-alert-tree",
+      "signature": "d3b45558"
+    },
+    "sec-incident:2": {
+      "assetId": "sec-incident-2",
+      "signature": "ad2d0b91"
+    },
+    "sec-incident:3": {
+      "assetId": "sec-incident-3",
+      "signature": "0e4de0cd"
+    },
+    "sec-harden:1": {
+      "assetId": "sec-harden-1",
+      "signature": "2667681f"
+    },
+    "sec-harden:2": {
+      "assetId": "sec-harden-2",
+      "signature": "6b32bcc3"
+    },
+    "sec-harden:3": {
+      "assetId": "sec-harden-3",
+      "signature": "3aacf283"
+    },
+    "sec-cleanup:2": {
+      "assetId": "sec-cleanup-2",
+      "signature": "21ac85aa"
+    },
+    "sec-routine:2": {
+      "assetId": "security-alert-tree",
+      "signature": "55f20cdd"
+    },
+    "sec-vdi-license:1": {
+      "assetId": "sec-vdi-license-1",
+      "signature": "c3920a4b"
+    },
+    "sec-vdi-license:2": {
+      "assetId": "sec-vdi-license-2",
+      "signature": "cc0520a9"
+    },
+    "sec-vdi-license:3": {
+      "assetId": "sec-vdi-license-3",
+      "signature": "5344574c"
+    },
+    "sec-vdi-build:1": {
+      "assetId": "sec-vdi-build-1",
+      "signature": "6380d205"
+    },
+    "sec-vdi-build:2": {
+      "assetId": "sec-vdi-build-2",
+      "signature": "cdfd0d7e"
+    },
+    "sec-vdi-build:3": {
+      "assetId": "sec-vdi-build-3",
+      "signature": "97e8df09"
+    },
+    "sec-vdi-build:4": {
+      "assetId": "sec-vdi-build-4",
+      "signature": "45a8e7d6"
+    },
+    "sec-vdi-build:5": {
+      "assetId": "sec-vdi-build-5",
+      "signature": "8d548887"
+    },
+    "sec-vdi-build:6": {
+      "assetId": "sec-vdi-build-6",
+      "signature": "97613bef"
+    },
+    "sec-vdi-control:1": {
+      "assetId": "sec-vdi-control-1",
+      "signature": "dc4cb424"
+    },
+    "sec-vdi-control:2": {
+      "assetId": "sec-vdi-control-2",
+      "signature": "2597596f"
+    },
+    "sec-vdi-control:3": {
+      "assetId": "sec-vdi-control-3",
+      "signature": "8d9021ed"
+    },
+    "splunk-install:1": {
+      "assetId": "splunk-interface-20",
+      "signature": "b97c0614"
+    },
+    "splunk-install:2": {
+      "assetId": "splunk-interface-21",
+      "signature": "82655e80"
+    },
+    "splunk-install:3": {
+      "assetId": "splunk-interface-01",
+      "signature": "d80c9d40"
+    },
+    "splunk-upload:1": {
+      "assetId": "splunk-interface-05",
+      "signature": "4a9a89d6"
+    },
+    "splunk-upload:2": {
+      "assetId": "splunk-interface-06",
+      "signature": "6e215649"
+    },
+    "splunk-navigate:1": {
+      "assetId": "splunk-interface-03",
+      "signature": "1ae91845"
+    },
+    "splunk-fields:1": {
+      "assetId": "splunk-interface-03",
+      "signature": "ad602710"
+    },
+    "splunk-reports:2": {
+      "assetId": "splunk-interface-25",
+      "signature": "96e575f0"
+    },
+    "splunk-dashboard:1": {
+      "assetId": "splunk-interface-26",
+      "signature": "67e8b708"
+    },
+    "splunk-dashboard:2": {
+      "assetId": "splunk-interface-27",
+      "signature": "dc2878bd"
+    },
+    "splunk-dashboard:3": {
+      "assetId": "splunk-interface-28",
+      "signature": "a90735b5"
+    },
+    "splunk-lookups:1": {
+      "assetId": "splunk-interface-15",
+      "signature": "2eb61ff1"
+    },
+    "splunk-lookups:2": {
+      "assetId": "splunk-interface-16",
+      "signature": "2bf36201"
+    },
+    "splunk-lookups:4": {
+      "assetId": "splunk-interface-17",
+      "signature": "b5068d3f"
+    },
+    "splunk-security-data:1": {
+      "assetId": "splunk-security-data-1",
+      "signature": "412d3141"
+    },
+    "splunk-security-data:2": {
+      "assetId": "splunk-security-data-2",
+      "signature": "cc2eaab4"
+    },
+    "splunk-security-data:3": {
+      "assetId": "splunk-security-data-3",
+      "signature": "982a56ea"
+    },
+    "splunk-injection:1": {
+      "assetId": "splunk-injection-1",
+      "signature": "ed457869"
+    },
+    "splunk-injection:2": {
+      "assetId": "splunk-injection-2",
+      "signature": "f64671a5"
+    },
+    "splunk-injection:3": {
+      "assetId": "splunk-injection-3",
+      "signature": "80523553"
+    },
+    "splunk-external-access:1": {
+      "assetId": "splunk-external-access-1",
+      "signature": "e6d83d76"
+    },
+    "splunk-external-access:2": {
+      "assetId": "splunk-external-access-2",
+      "signature": "717a1e01"
+    },
+    "splunk-external-access:3": {
+      "assetId": "splunk-external-access-3",
+      "signature": "ca31bd99"
+    },
+    "splunk-dashboard-inputs:1": {
+      "assetId": "splunk-dashboard-inputs-1",
+      "signature": "c6282553"
+    },
+    "splunk-dashboard-inputs:2": {
+      "assetId": "splunk-dashboard-inputs-2",
+      "signature": "f9fdbca5"
+    },
+    "splunk-dashboard-inputs:3": {
+      "assetId": "splunk-dashboard-inputs-3",
+      "signature": "57eae1a5"
+    },
+    "splunk-dashboard-inputs:4": {
+      "assetId": "splunk-dashboard-inputs-4",
+      "signature": "7ee9467c"
+    },
+    "tls-start:1": {
+      "assetId": "tls-start-screen-1",
+      "signature": "857af0be"
+    },
+    "tls-start:2": {
+      "assetId": "tls-start-screen-2",
+      "signature": "0a52fa1c"
+    },
+    "tls-start:3": {
+      "assetId": "tls-start-screen-3",
+      "signature": "cd4137db"
+    },
+    "tls-start:4": {
+      "assetId": "tls-start-screen-4",
+      "signature": "65820367"
+    },
+    "tls-start:5": {
+      "assetId": "tls-start-screen-5",
+      "signature": "5e7e85d8"
+    },
+    "tls-start:6": {
+      "assetId": "tls-start-screen-6",
+      "signature": "2bad2a41"
+    },
+    "tls-start:7": {
+      "assetId": "tls-start-screen-7",
+      "signature": "21b30f53"
+    },
+    "tls-start:8": {
+      "assetId": "tls-start-screen-8",
+      "signature": "bf90d106"
+    },
+    "tls-start:9": {
+      "assetId": "tls-start-screen-9",
+      "signature": "6b9d1f52"
+    },
+    "tls-start:10": {
+      "assetId": "tls-start-screen-10",
+      "signature": "06ed605b"
+    },
+    "tls-start:11": {
+      "assetId": "tls-start-screen-11",
+      "signature": "e830a384"
+    },
+    "tls-start:12": {
+      "assetId": "tls-start-screen-12",
+      "signature": "3120c1e9"
+    },
+    "tls-basics:1": {
+      "assetId": "tls-basics-screen-1",
+      "signature": "39b5b3b1"
+    },
+    "tls-basics:2": {
+      "assetId": "tls-basics-screen-2",
+      "signature": "75713b6c"
+    },
+    "tls-basics:3": {
+      "assetId": "tls-basics-screen-3",
+      "signature": "1b9d497c"
+    },
+    "tls-basics:4": {
+      "assetId": "tls-basics-screen-4",
+      "signature": "1a4f79d4"
+    },
+    "tls-basics:5": {
+      "assetId": "tls-basics-screen-5",
+      "signature": "240fbd47"
+    },
+    "tls-basics:6": {
+      "assetId": "tls-basics-screen-6",
+      "signature": "f07c6392"
+    },
+    "tls-find:1": {
+      "assetId": "tls-find-screen-1",
+      "signature": "21753c7d"
+    },
+    "tls-find:2": {
+      "assetId": "tls-find-screen-2",
+      "signature": "d5b96ff4"
+    },
+    "tls-find:3": {
+      "assetId": "tls-find-screen-3",
+      "signature": "6d1ff719"
+    },
+    "tls-find:4": {
+      "assetId": "tls-find-screen-4",
+      "signature": "5686f78f"
+    },
+    "tls-find:5": {
+      "assetId": "tls-find-screen-5",
+      "signature": "a4d50fee"
+    },
+    "tls-find:6": {
+      "assetId": "tls-find-screen-6",
+      "signature": "9895f3e4"
+    },
+    "tls-key:1": {
+      "assetId": "tls-key-screen-1",
+      "signature": "1106d6c3"
+    },
+    "tls-key:2": {
+      "assetId": "tls-key-screen-2",
+      "signature": "0791f29a"
+    },
+    "tls-key:3": {
+      "assetId": "tls-key-screen-3",
+      "signature": "205a0810"
+    },
+    "tls-csr-existing:1": {
+      "assetId": "tls-csr-existing-screen-1",
+      "signature": "4c4602c5"
+    },
+    "tls-csr-existing:2": {
+      "assetId": "tls-csr-existing-screen-2",
+      "signature": "b0cba2c5"
+    },
+    "tls-csr-existing:3": {
+      "assetId": "tls-csr-existing-screen-3",
+      "signature": "762b1f5f"
+    },
+    "tls-csr-existing:4": {
+      "assetId": "tls-csr-existing-screen-4",
+      "signature": "3642b6c5"
+    },
+    "tls-csr-new:1": {
+      "assetId": "tls-csr-new-screen-1",
+      "signature": "15b8ae40"
+    },
+    "tls-csr-new:2": {
+      "assetId": "tls-csr-new-screen-2",
+      "signature": "752556f5"
+    },
+    "tls-csr-new:3": {
+      "assetId": "tls-csr-new-screen-3",
+      "signature": "a4586bc7"
+    },
+    "tls-ca:1": {
+      "assetId": "tls-ca-screen-1",
+      "signature": "619fc344"
+    },
+    "tls-ca:2": {
+      "assetId": "tls-ca-screen-2",
+      "signature": "3914211e"
+    },
+    "tls-ca:3": {
+      "assetId": "tls-ca-screen-3",
+      "signature": "300ff843"
+    },
+    "tls-ca:4": {
+      "assetId": "tls-ca-screen-4",
+      "signature": "835ade07"
+    },
+    "tls-ca:5": {
+      "assetId": "tls-ca-screen-5",
+      "signature": "e6befd66"
+    },
+    "tls-ca:6": {
+      "assetId": "tls-ca-screen-6",
+      "signature": "9b2bfb95"
+    },
+    "tls-ca:7": {
+      "assetId": "tls-ca-screen-7",
+      "signature": "6df9702e"
+    },
+    "tls-ca:8": {
+      "assetId": "tls-ca-screen-8",
+      "signature": "36660434"
+    },
+    "tls-ca:9": {
+      "assetId": "tls-ca-screen-9",
+      "signature": "0c8eaec0"
+    },
+    "tls-install:1": {
+      "assetId": "tls-install-screen-1",
+      "signature": "77f5f15a"
+    },
+    "tls-install:2": {
+      "assetId": "tls-install-screen-2",
+      "signature": "68b4ba60"
+    },
+    "tls-install:3": {
+      "assetId": "tls-install-screen-3",
+      "signature": "2978667a"
+    },
+    "tls-install:4": {
+      "assetId": "tls-install-screen-4",
+      "signature": "35ad586f"
+    },
+    "tls-install:5": {
+      "assetId": "tls-install-screen-5",
+      "signature": "dce4f9b7"
+    },
+    "tls-install:6": {
+      "assetId": "tls-install-screen-6",
+      "signature": "749c40b8"
+    },
+    "tls-install:7": {
+      "assetId": "tls-install-screen-7",
+      "signature": "f5e056d8"
+    },
+    "tls-install:8": {
+      "assetId": "tls-install-screen-8",
+      "signature": "5d0eacbd"
+    },
+    "tls-install:9": {
+      "assetId": "tls-install-screen-9",
+      "signature": "7f0207ec"
+    },
+    "tls-install:10": {
+      "assetId": "tls-install-screen-10",
+      "signature": "9325e49c"
+    },
+    "tls-install:11": {
+      "assetId": "tls-install-screen-11",
+      "signature": "0d894629"
+    },
+    "tls-install:12": {
+      "assetId": "tls-install-screen-12",
+      "signature": "d46df5b0"
+    },
+    "tls-install:13": {
+      "assetId": "tls-install-screen-13",
+      "signature": "11ca24f1"
+    },
+    "tls-install:14": {
+      "assetId": "tls-install-screen-14",
+      "signature": "7fef15b8"
+    },
+    "tls-install:15": {
+      "assetId": "tls-install-screen-15",
+      "signature": "be48a04b"
+    },
+    "tls-install:16": {
+      "assetId": "tls-install-screen-16",
+      "signature": "55a90e4e"
+    },
+    "tls-renew-existing:1": {
+      "assetId": "tls-renew-existing-screen-1",
+      "signature": "97b5c699"
+    },
+    "tls-renew-existing:2": {
+      "assetId": "tls-renew-existing-screen-2",
+      "signature": "64b8f0d8"
+    },
+    "tls-renew-existing:3": {
+      "assetId": "tls-renew-existing-screen-3",
+      "signature": "a4e87793"
+    },
+    "tls-renew-existing:4": {
+      "assetId": "tls-renew-existing-screen-4",
+      "signature": "5d745c15"
+    },
+    "tls-renew-existing:5": {
+      "assetId": "tls-renew-existing-screen-5",
+      "signature": "76d73826"
+    },
+    "tls-renew-existing:6": {
+      "assetId": "tls-renew-existing-screen-6",
+      "signature": "d784fda6"
+    },
+    "tls-renew-new:1": {
+      "assetId": "tls-renew-new-screen-1",
+      "signature": "f07441d9"
+    },
+    "tls-renew-new:2": {
+      "assetId": "tls-renew-new-screen-2",
+      "signature": "81444839"
+    },
+    "tls-renew-new:3": {
+      "assetId": "tls-renew-new-screen-3",
+      "signature": "6d7d0d2a"
+    },
+    "tls-renew-new:4": {
+      "assetId": "tls-renew-new-screen-4",
+      "signature": "4cbf3dc7"
+    },
+    "tls-renew-new:5": {
+      "assetId": "tls-renew-new-screen-5",
+      "signature": "72a13304"
+    },
+    "tls-troubleshoot:1": {
+      "assetId": "tls-troubleshoot-screen-1",
+      "signature": "d3a9b3b7"
+    },
+    "tls-troubleshoot:2": {
+      "assetId": "tls-troubleshoot-screen-2",
+      "signature": "31a7ccd4"
+    },
+    "tls-troubleshoot:3": {
+      "assetId": "tls-troubleshoot-screen-3",
+      "signature": "76222a47"
+    },
+    "tls-troubleshoot:4": {
+      "assetId": "tls-troubleshoot-screen-4",
+      "signature": "1e455d91"
+    },
+    "tls-troubleshoot:5": {
+      "assetId": "tls-troubleshoot-screen-5",
+      "signature": "e112e9c5"
+    },
+    "tls-troubleshoot:6": {
+      "assetId": "tls-troubleshoot-screen-6",
+      "signature": "321d59ef"
+    },
+    "tls-troubleshoot:7": {
+      "assetId": "tls-troubleshoot-screen-7",
+      "signature": "b5cf8621"
+    },
+    "tls-troubleshoot:8": {
+      "assetId": "tls-troubleshoot-screen-8",
+      "signature": "81c5364f"
+    },
+    "tls-troubleshoot:9": {
+      "assetId": "tls-troubleshoot-screen-9",
+      "signature": "489fb12f"
+    },
+    "tls-troubleshoot:10": {
+      "assetId": "tls-troubleshoot-screen-10",
+      "signature": "7f5ae9d1"
+    },
+    "tls-troubleshoot:11": {
+      "assetId": "tls-troubleshoot-screen-11",
+      "signature": "06890b22"
+    },
+    "tls-troubleshoot:12": {
+      "assetId": "tls-troubleshoot-screen-12",
+      "signature": "ebdf6851"
+    },
+    "tls-enterprise:1": {
+      "assetId": "tls-enterprise-screen-1",
+      "signature": "cbf9a055"
+    },
+    "tls-enterprise:2": {
+      "assetId": "tls-enterprise-screen-2",
+      "signature": "8442c0fb"
+    },
+    "tls-enterprise:3": {
+      "assetId": "tls-enterprise-screen-3",
+      "signature": "da70dd38"
+    },
+    "tls-enterprise:4": {
+      "assetId": "tls-enterprise-screen-4",
+      "signature": "d7a5ecc9"
+    },
+    "tls-enterprise:5": {
+      "assetId": "tls-enterprise-screen-5",
+      "signature": "a8bedf67"
+    },
+    "tls-enterprise:6": {
+      "assetId": "tls-enterprise-screen-6",
+      "signature": "4d0e93a4"
+    },
+    "tls-final:1": {
+      "assetId": "tls-final-screen-1",
+      "signature": "e8d276af"
+    },
+    "tls-final:2": {
+      "assetId": "tls-final-screen-2",
+      "signature": "73b1d533"
+    },
+    "tls-final:3": {
+      "assetId": "tls-final-screen-3",
+      "signature": "018ee66e"
+    },
+    "tls-final:4": {
+      "assetId": "tls-final-screen-4",
+      "signature": "d74a5b2c"
+    },
+    "tls-final:5": {
+      "assetId": "tls-final-screen-5",
+      "signature": "2bb9ecb0"
+    },
+    "tls-final:6": {
+      "assetId": "tls-final-screen-6",
+      "signature": "4c300e96"
+    },
+    "tls-final:7": {
+      "assetId": "tls-final-screen-7",
+      "signature": "b0e0e4fc"
+    },
+    "tls-final:8": {
+      "assetId": "tls-final-screen-8",
+      "signature": "a3584704"
+    },
+    "tls-final:9": {
+      "assetId": "tls-final-screen-9",
+      "signature": "85796f20"
+    },
+    "tls-final:10": {
+      "assetId": "tls-final-screen-10",
+      "signature": "23e433e6"
+    },
+    "tls-final:11": {
+      "assetId": "tls-final-screen-11",
+      "signature": "010da10f"
+    },
+    "tls-final:12": {
+      "assetId": "tls-final-screen-12",
+      "signature": "82f82355"
+    },
+    "vsphere-basics:2": {
+      "assetId": "vsphere-vm-datastore",
+      "signature": "e40dfdf1"
+    },
+    "vsphere-host:1": {
+      "assetId": "vsphere-dcui-network",
+      "signature": "0ebfc60f"
+    },
+    "vsphere-connect:2": {
+      "assetId": "vsphere-host-precheck",
+      "signature": "e71fb199"
+    },
+    "vsphere-network:2": {
+      "assetId": "vsphere-uplink-warning",
+      "signature": "52d9413b"
+    },
+    "vsphere-storage:1": {
+      "assetId": "vsphere-disk-partitions",
+      "signature": "4f01b10f"
+    },
+    "vsphere-vm:2": {
+      "assetId": "vsphere-vm-network",
+      "signature": "947b7786"
+    },
+    "vsphere-templates:3": {
+      "assetId": "vsphere-vm-network",
+      "signature": "573f5beb"
+    },
+    "vsphere-snapshots:1": {
+      "assetId": "vsphere-snapshot-manager",
+      "signature": "0a18b118"
+    },
+    "vsphere-backup:1": {
+      "assetId": "vsphere-backup-home",
+      "signature": "69e5a03a"
+    },
+    "vsphere-backup:2": {
+      "assetId": "vsphere-backup-status",
+      "signature": "dfc3df40"
+    }
+  }
+}

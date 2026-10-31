@@ -31,6 +31,7 @@ import './split-focus.css';
 import './catalog-surfaces.css';
 import './lesson-geometry.css';
 import './interface-polish.css';
+import './concise-steps.css';
 const allLessons = learningPathways.flatMap(pathwayLessons);
 export function ConsoleReaderShell({
   lessonId,

@@ -109,9 +109,9 @@
           "title": "Choose the practice computer",
           "where": "Your Windows host → VMware Workstation Pro → Windows Server guest",
           "actions": [
-            "Use a separate Windows Server 2019 or 2022 practice VM from the Windows Server & VMware pathway. Your Windows 10 computer stays the VMware host; do not install an unsupported Splunk release on it.",
-            "Call the practice server SPLUNK01. If it is joined to the class domain, its full name is SPLUNK01.lab.example.test. A domain join is not required for local Splunk searches.",
-            "Keep enough free resources for your chosen release; compare the linked official requirements with your VM before downloading. A tiny CSV lab is not a production sizing recommendation."
+            "On your Windows host, open VMware Workstation Pro and select your Windows Server practice VM.",
+            "Confirm the guest runs a supported Windows Server release; keep Windows 10 as the VMware host.",
+            "Record the guest as SPLUNK01 in your lab notes, then compare its resources with the official Splunk requirements."
           ],
           "expected": "You can identify the guest VM, supported OS and available resources.",
           "breakdown": [
@@ -128,15 +128,18 @@
           },
           "sources": [
             "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+          ],
+          "notes": [
+            "SPLUNK01 is the server name used throughout this class. A domain join is optional for local Splunk searches.",
+            "A small CSV lab is not a production sizing recommendation."
           ]
         },
         {
           "title": "Understand the three jobs",
           "where": "The interface reference picture in this lesson; open the real app after installation",
           "actions": [
-            "Open the screenshot and identify the Search & Reporting app. This is where you will ask questions.",
-            "An indexer stores searchable events; a search head handles your searches; a forwarder sends data from another machine. In this small lab one Enterprise installation handles searching and indexing.",
-            "We will upload a file directly, so you do not need a forwarder, Enterprise Security or a separate cloud subscription."
+            "Read the three roles: a search head asks questions, an indexer stores searchable events, and a forwarder sends events from another machine.",
+            "For this lab, use one Splunk Enterprise server for searching and storage. Upload the supplied file directly."
           ],
           "expected": "You can explain searching, storing and forwarding in your own words.",
           "breakdown": [
@@ -153,15 +156,18 @@
           },
           "sources": [
             "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+          ],
+          "notes": [
+            "This lab does not require a separate forwarder, Enterprise Security or a cloud subscription."
           ]
         },
         {
           "title": "Plan the license and practice files",
           "where": "Browser inside SPLUNK01 → official downloads and SONIC-Academy practice files",
           "actions": [
-            "Open the official Splunk Enterprise download page from the course references. Use an account you control and review the current trial terms.",
-            "An eligible Enterprise trial is needed for the scheduled report and alert lessons. The Free license has fewer features; it is not a substitute for those exercises. Record your actual trial expiry.",
-            "Download the two CloudSeam CSV files from the practice-files box below the lesson title. Keep them in Downloads without opening and resaving them in Excel."
+            "Open the official Splunk Enterprise download page from the course references. Review the current trial terms using your own account.",
+            "Record your trial expiry date; scheduled reports and alerts require an eligible Enterprise license.",
+            "Download the two CloudSeam CSV files from Practice files and keep them in Downloads. Do not open and resave them in Excel."
           ],
           "expected": "You have the event CSV, lookup CSV and a clear license plan.",
           "breakdown": [
@@ -178,6 +184,9 @@
           },
           "sources": [
             "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+          ],
+          "notes": [
+            "The Free license has fewer features and cannot replace the eligible license required by the scheduling exercises."
           ]
         }
       ]

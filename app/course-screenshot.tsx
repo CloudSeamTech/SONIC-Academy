@@ -2,6 +2,7 @@
 /* oxlint-disable next/no-img-element */
 'use client';
 import { useRef } from 'react';
+import { showStepScreenshot } from '../lib/step-media';
 import { ScreenshotSurface } from './screenshot-surface';
 import dailyReferences from '../content/linux-admin/references.json';
 import bicepReferences from '../content/bicep/references.json';
@@ -33,31 +34,19 @@ const references = [
 ];
 import type { NessusStep } from '@/lib/nessus-curriculum';
 export function CourseScreenshot({
-  screenshot,
+  step,
+  stepId,
 }: {
-  screenshot: NessusStep['screenshot'];
+  step: NessusStep;
+  stepId: string;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const screenshot = step.screenshot;
   const asset =
     screenshot.status !== 'capture-needed'
       ? references.find((item) => item.id === screenshot.assetId)
       : undefined;
-  if (!asset)
-    return (
-      <section
-        className="nessus-capture"
-        aria-label="Screenshot capture needed"
-        data-capture-status="capture-needed"
-      >
-        <p>
-          <strong>Screenshot pending:</strong> {screenshot.title}
-        </p>
-        <details className="lesson-support">
-          <summary>What this picture needs to show</summary>
-          <p>{screenshot.instructions}</p>
-        </details>
-      </section>
-    );
+  if (!asset || !showStepScreenshot(stepId, step)) return null;
   return (
     <figure
       className="guided-screenshot"
@@ -75,18 +64,6 @@ export function CourseScreenshot({
             : 'Reference screenshot'}{' '}
           · {asset.platform}
         </p>
-        {'reviewed' in asset && (
-          <details className="lesson-support">
-            <summary>Image context and limitations</summary>
-            <p>{asset.note}</p>
-          </details>
-        )}
-        {screenshot.status === 'reference' && (
-          <details className="lesson-support">
-            <summary>What to compare</summary>
-            <p>{screenshot.instructions}</p>
-          </details>
-        )}
         <a href={asset.source} target="_blank" rel="noreferrer">
           {screenshot.status === 'illustration'
             ? 'Documentation used for this illustration'
