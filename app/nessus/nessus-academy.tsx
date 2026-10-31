@@ -1,6 +1,6 @@
 'use client';
 import { showStepScreenshot } from '../../lib/step-media';
-import { stepActions } from '../../lib/task-navigation';
+import { stepActions, stepResource } from '../../lib/task-navigation';
 import { SplitFocusWorkspace } from '../split-focus-workspace';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -307,7 +307,13 @@ function LessonReader({
                 <h3>{step.title}</h3>
                 <div className="guided-step-content">
                   <p className="lesson-start">
-                    <b>Work in:</b> {step.where}
+                    <b>Work in:</b>{' '}
+                    {
+                      stepResource(`${lesson.id}:${index + 1}`, {
+                        title: step.title,
+                        where: step.where,
+                      }).where
+                    }
                   </p>
                   <SplitFocusWorkspace
                     stepId={`${lesson.id}:${index + 1}`}
