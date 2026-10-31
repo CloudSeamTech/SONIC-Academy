@@ -1,13 +1,5 @@
 'use client';
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-  type ReactNode,
-} from 'react';
-import { StudioDockContext } from './studio-dock-context';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import {
   Home,
   Layers,
@@ -20,6 +12,7 @@ import {
   UserRound,
 } from 'lucide-react';
 import { learningPathways, pathwayLessons } from './learning-pathways';
+import { guidedCourses } from '../lib/guided-courses';
 import { careerPathways, standaloneCourses } from './career-pathways';
 import { planLabel, lessonTier } from '../lib/plan-access';
 import { useAcademy } from './academy-provider';
@@ -28,6 +21,7 @@ import { LabPassport, LabEnvironmentScope } from './lab-passport';
 import { LessonTools } from './learning-rhythm';
 import { ClickableLabMap } from './clickable-lab-map';
 import { PrivateNotebook } from './private-notebook';
+import { StepReferencePanel } from './step-reference-panel';
 import { ModuleTest } from './module-test';
 import './learner-experience.css';
 import './learning-console.css';
@@ -57,23 +51,6 @@ export function ConsoleReaderShell({
   const [menuOpen, setMenuOpen] = useState(false);
   const [outlineOpen, setOutlineOpen] = useState(false);
   const [outlineWide, setOutlineWide] = useState(false);
-  const [dockHost, setDockHost] = useState<HTMLElement | null>(null);
-  const [dockIds, setDockIds] = useState<string[]>([]);
-  const registerDock = useCallback((id: string, active: boolean) => {
-    setDockIds((ids) =>
-      active
-        ? ids.includes(id)
-          ? ids
-          : [...ids, id]
-        : ids.includes(id)
-          ? ids.filter((item) => item !== id)
-          : ids,
-    );
-  }, []);
-  const dockContext = useMemo(
-    () => ({ host: outlineWide ? dockHost : null, register: registerDock }),
-    [outlineWide, dockHost, registerDock],
-  );
   const [desktopNavigation, setDesktopNavigation] = useState(false);
   const [sidebarMode, setSidebarMode] = useState<'full' | 'compact' | 'hidden'>(
     'full',
@@ -114,6 +91,13 @@ export function ConsoleReaderShell({
     };
   }, []);
   const academy = useAcademy();
+  const referenceId =
+    guidedCourses.find((item) =>
+      item.lessons.some((lesson) => lesson.id === lessonId),
+    )?.id ?? courseFallback();
+  function courseFallback() {
+    return lessonId?.startsWith('alma-') ? 'alma' : 'linux';
+  }
   const course = learningPathways.find((path) =>
     pathwayLessons(path).some((l) => l.id === lessonId),
   );
@@ -132,7 +116,7 @@ export function ConsoleReaderShell({
         .length
     : 0;
   return (
-    <StudioDockContext.Provider value={dockContext}>
+    <>
       <LabEnvironmentScope id={course?.id}>
         <div
           id="quiet-desktop"
@@ -140,7 +124,7 @@ export function ConsoleReaderShell({
           data-lesson-id={lessonId}
           data-sidebar-mode={sidebarMode}
           data-quiet-outline={Boolean(course)}
-          data-studio-dock={outlineWide && dockIds.length > 0}
+          data-studio-dock={outlineWide && Boolean(lessonId)}
         >
           <a className="console-skip" href="#reader-content">
             Skip to learning
@@ -467,7 +451,7 @@ export function ConsoleReaderShell({
                 <LessonTools key={lessonId} />
                 <LabPassport lessonId={lessonId} />
                 <ClickableLabMap lessonId={lessonId} />
-                <PrivateNotebook lessonId={lessonId} />
+                {!outlineWide && <PrivateNotebook lessonId={lessonId} />}
                 <ModuleTest lessonId={lessonId} />
               </>
             )}
@@ -492,13 +476,23 @@ export function ConsoleReaderShell({
             </footer>
           </div>
           <aside
-            ref={setDockHost}
             className="studio-live-dock reader-workspace"
-            aria-label="Current step checklist"
-            hidden={!outlineWide || !dockIds.length}
-          />
+            aria-label="References and notes"
+            hidden={!outlineWide || !lessonId}
+          >
+            {lessonId && (
+              <>
+                <h2>References &amp; notes</h2>
+                <StepReferencePanel
+                  lessonId={lessonId}
+                  referenceId={referenceId}
+                />
+                <PrivateNotebook key={lessonId} lessonId={lessonId} />
+              </>
+            )}
+          </aside>
         </div>
       </LabEnvironmentScope>
-    </StudioDockContext.Provider>
+    </>
   );
 }

@@ -1822,4 +1822,407 @@ html
   font-size: 20px !important;
   line-height: 1.4 !important;
 }
-
+/* Raised, cool-neutral surfaces: one depth language across course tools. */
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  :is(
+    .lesson-support,
+    .lab-passport,
+    .lesson-result,
+    .guided-check,
+    .nessus-explanation,
+    .nessus-best,
+    .nessus-mistakes,
+    .nessus-troubleshooting,
+    .guided-context,
+    .guided-expected,
+    .guided-production,
+    .guided-rollback,
+    .guided-final,
+    .guided-evidence,
+    .lab-map-detail,
+    .notebook-entry,
+    .nessus-quiz fieldset,
+    .module-test fieldset
+  ) {
+  border: 1px solid #ffffffb8 !important;
+  border-radius: 14px !important;
+  background: linear-gradient(145deg, #f9fbfe, #e9eff6) !important;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 2px 4px #24364d08,
+    0 8px 20px -15px #24364d66 !important;
+  padding: clamp(18px, 2vw, 26px) !important;
+  min-width: 0;
+  box-sizing: border-box;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  :is(.nessus-quiz, .module-test)
+  label {
+  padding: 16px 18px !important;
+  gap: 12px !important;
+  border: 1px solid #d7e0eb !important;
+  border-radius: 12px !important;
+  background: linear-gradient(145deg, #fff, #f0f4f9) !important;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 3px 8px #24364d08 !important;
+  line-height: 1.6 !important;
+  min-width: 0;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  :is(.nessus-quiz, .module-test)
+  label:has(input:checked) {
+  border-color: #8398b0 !important;
+  background: linear-gradient(145deg, #edf3fc, #dce6f3) !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  :is(
+    .certificate-journey,
+    .dashboard-panel,
+    .path-card,
+    .resume-card,
+    .recent-card,
+    .quick-card,
+    .account-card,
+    .information-panel,
+    .nessus-exercise,
+    .nessus-quiz,
+    .alma-verify,
+    .bicep-practice,
+    .profile-section,
+    .module-test,
+    .clickable-lab-map,
+    .private-notebook
+  ) {
+  background: linear-gradient(145deg, #ffffffed, #edf2f8ed) !important;
+  border: 1px solid #ffffffc9 !important;
+  border-radius: 18px !important;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    inset 0 -1px 0 #cbd5e166,
+    0 2px 3px #24364d09,
+    0 14px 32px -20px #24364d66 !important;
+  padding: clamp(20px, 2.4vw, 32px) !important;
+  min-width: 0;
+  box-sizing: border-box;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .certificate-journey
+  > h2 {
+  margin: 0 0 10px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .certificate-journey
+  > p:not(.certificate-stage-detail) {
+  margin: 0 0 22px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .certificate-stages {
+  gap: 14px;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .certificate-stages
+  button {
+  position: relative;
+  min-height: 104px;
+  padding: 18px 12px !important;
+  gap: 12px;
+  background: linear-gradient(155deg, #fff, #e6edf5) !important;
+  border: 1px solid #ffffff !important;
+  border-radius: 14px !important;
+  color: #243b53 !important;
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 4px 8px -5px #263b5366,
+    0 12px 22px -18px #263b53 !important;
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .certificate-stages
+  button[aria-pressed='true'] {
+  background: linear-gradient(145deg, #46596f, #25364b) !important;
+  border-color: #6e8197 !important;
+  color: #fff !important;
+  box-shadow:
+    inset 0 1px 0 #ffffff45,
+    0 4px 10px #22354c25,
+    0 12px 24px -16px #172b45 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .certificate-stages
+  button[aria-pressed='true']
+  svg {
+  color: #ffe071 !important;
+  -webkit-text-fill-color: #ffe071;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .certificate-stage-detail {
+  margin: 20px 0 0 !important;
+  padding: 20px 24px !important;
+  min-height: 0;
+  border: 0 !important;
+  border-radius: 12px;
+  background: linear-gradient(110deg, #e3eaf3, #f7f9fc) !important;
+  box-shadow: inset 0 2px 5px #263b5309 !important;
+  line-height: 1.7;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .reader-workspace.reader-workspace
+    .certificate-stages
+    button:hover {
+    transform: translateY(-2px);
+  }
+}
+@media (max-width: 600px) {
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .reader-workspace.reader-workspace
+    .certificate-stages {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .reader-workspace.reader-workspace
+    .certificate-stage-detail {
+    padding: 16px !important;
+  }
+}
+/* Instructions stay in the reading column; the side dock is supporting material. */
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .split-focus-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 18px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .split-focus-grid
+  > * {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  :is(
+    .focus-step-control,
+    .quiet-step-controls,
+    .guided-step-picker,
+    .guided-pagination,
+    .lab-step-nav
+  ) {
+  display: none !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .guided-workspace {
+  margin-block: 24px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .split-focus-actions {
+  display: block !important;
+  padding: clamp(18px, 2vw, 28px) !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .studio-live-dock.reader-workspace
+  > h2 {
+  font-size: 20px !important;
+  margin: 0 0 12px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .studio-live-dock.reader-workspace
+  .studio-reference-link {
+  display: block;
+  padding: 16px;
+  margin-block: 20px;
+  border-radius: 12px;
+  background: #ffffffad;
+  line-height: 1.6;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .studio-live-dock.reader-workspace
+  .private-notebook {
+  padding: 18px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .quiet-context-visual {
+  display: none !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .split-focus-reference:not(
+    :has(img, pre, .st-traditional-terminal, .terminal-example, .bicep-practice)
+  ) {
+  display: none !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .split-focus-reference
+  img {
+  max-height: 380px !important;
+  object-fit: contain !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .step-reference-context
+  :is(p, li, a) {
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  overflow-wrap: anywhere;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .step-reference-context
+  h3 {
+  font-size: 16px !important;
+  line-height: 1.45 !important;
+  margin: 18px 0 10px !important;
+}
+html body #quiet-desktop.academy-shell.academy-shell .step-route {
+  list-style: none;
+  margin: 12px 0 !important;
+  padding: 0 !important;
+  display: grid;
+  gap: 10px;
+}
+html body #quiet-desktop.academy-shell.academy-shell .step-route li {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 0 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  :is(.step-route, .step-route-strip)
+  li
+  > span {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffe176;
+  color: #22354c;
+  font-size: 12px;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .step-route-strip {
+  padding: 18px 22px !important;
+  border-radius: 14px;
+  background: #ffffffad;
+}
+html body #quiet-desktop.academy-shell.academy-shell .step-route-strip ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  list-style: none;
+  padding: 0 !important;
+  margin: 12px 0 0 !important;
+}
+html body #quiet-desktop.academy-shell.academy-shell .step-route-strip li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  min-width: 0;
+  padding: 0 !important;
+}
+@media (min-width: 1280px) {
+  html body #quiet-desktop.academy-shell.academy-shell .step-reference-inline {
+    display: none !important;
+  }
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .task-picture {
+  margin: 16px 0 20px !important;
+  padding: 14px !important;
+  border-radius: 12px;
+  background: #fff !important;
+}
+html body #quiet-desktop.academy-shell.academy-shell .task-picture img {
+  width: auto !important;
+  max-width: 100% !important;
+  max-height: 300px !important;
+  height: auto !important;
+  object-fit: contain;
+}
+html body #quiet-desktop.academy-shell.academy-shell .task-picture figcaption {
+  padding: 10px 0 0 !important;
+  font-size: 12px !important;
+  line-height: 1.6 !important;
+}

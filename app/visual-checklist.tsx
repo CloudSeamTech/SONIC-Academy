@@ -4,16 +4,19 @@ import { actionCopy, readActionChecks } from '../lib/action-checklist';
 import { ServerRoleText } from './server-role-text';
 import { typingInstruction } from '../lib/typing-instruction';
 import './visual-checklist.css';
+import { TaskPicture } from './task-picture';
 
 /** Keeps exact authored actions; checking a row never awards course completion. */
 export function VisualChecklist({
   stepId,
   actions,
   renderAction,
+  navigationId,
 }: {
   stepId: string;
   actions: string[];
   renderAction?: (action: string) => ReactNode;
+  navigationId?: string;
 }) {
   const storageKey = `sonic-visual-actions-v1:${stepId}`;
   const signature = JSON.stringify(actions);
@@ -89,6 +92,10 @@ export function VisualChecklist({
                   )}
                 </span>
               </label>
+              <TaskPicture
+                stepId={navigationId}
+                instruction={copy.instruction}
+              />
               {copy.explanation && (
                 <details className="visual-action-help">
                   <summary>Why?</summary>

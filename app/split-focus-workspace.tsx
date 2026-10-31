@@ -1,7 +1,7 @@
 'use client';
-import { useEffect, useId, useState, type ReactNode } from 'react';
-import { createPortal } from 'react-dom';
-import { useStudioDock } from './studio-dock-context';
+import { useId, type ReactNode } from 'react';
+import { stepResource, type StepResource } from '../lib/task-navigation';
+import { StepResourceLinks } from './step-reference-panel';
 
 /** Authored instructions keep their own progress and completion behavior. */
 export function SplitFocusWorkspace({
@@ -9,23 +9,23 @@ export function SplitFocusWorkspace({
   children,
   hasReference = true,
   takeaway,
-  dock = true,
+  resource,
+  stepId,
 }: {
   reference: ReactNode;
   children: ReactNode;
   hasReference?: boolean;
   takeaway?: string;
   dock?: boolean;
+  resource?: StepResource;
+  stepId?: string;
 }) {
-  const [open, setOpen] = useState(true);
+  const resources = resource ? stepResource(stepId ?? '', resource) : undefined;
+  const open = true;
   const id = useId();
-  const { host, register } = useStudioDock();
-  const portaled = Boolean(host && dock);
-  useEffect(() => {
-    if (!portaled) return;
-    register(id, true);
-    return () => register(id, false);
-  }, [portaled, id, register]);
+
+  const portaled = false;
+
   const actions = (
     <section
       id={id}
@@ -40,6 +40,7 @@ export function SplitFocusWorkspace({
   return (
     <div
       className="split-focus-grid"
+      data-step-resources={resources ? JSON.stringify(resources) : undefined}
       data-has-reference={hasReference}
       data-steps-open={open}
       data-portaled={portaled}
@@ -49,17 +50,7 @@ export function SplitFocusWorkspace({
           {takeaway.split(/(?<=[.!?])\s+(?=[A-Z])/)[0]}
         </p>
       )}
-      <header className="quiet-step-controls">
-        <span>YOUR LAB · ONE STEP AT A TIME</span>
-        <button
-          type="button"
-          aria-expanded={open}
-          aria-controls={id}
-          onClick={() => setOpen(!open)}
-        >
-          {open ? 'Hide checklist' : 'Show checklist'}
-        </button>
-      </header>
+
       {hasReference && (
         <section
           className="split-focus-reference"
@@ -68,7 +59,29 @@ export function SplitFocusWorkspace({
           <div className="split-focus-reference-body">{reference}</div>
         </section>
       )}
-      {host && portaled ? createPortal(actions, host) : actions}
+      {resources?.path?.length ? (
+        <nav
+          className="step-route-strip"
+          aria-label="Instructional route for this step"
+        >
+          <small>FOLLOW THIS ROUTE</small>
+          <ol>
+            {resources.path.map((part, i) => (
+              <li key={`${i}:${part}`}>
+                <span>{i + 1}</span>
+                {part}
+              </li>
+            ))}
+          </ol>
+        </nav>
+      ) : null}
+      {actions}
+      {resources && (
+        <details className="step-reference-inline">
+          <summary>Links &amp; purpose for this step</summary>
+          <StepResourceLinks resource={resources} />
+        </details>
+      )}
     </div>
   );
 }

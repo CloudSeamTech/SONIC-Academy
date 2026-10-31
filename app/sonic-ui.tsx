@@ -272,10 +272,7 @@ export function SonicWalkthrough({
 
       <ol>
         {steps.map((step, index) => (
-          <li
-            key={`${variant}-${index}-${step.title}`}
-            hidden={focused && index !== activeStep}
-          >
+          <li key={`${variant}-${index}-${step.title}`} hidden={false}>
             <section
               id={`lab-step-${lessonId}-${variant}-${index}`}
               tabIndex={-1}
@@ -291,6 +288,11 @@ export function SonicWalkthrough({
               <div className="sonic-action-body">
                 <p className="walkthrough-location">Work in: {step.where}</p>
                 <SplitFocusWorkspace
+                  stepId={`${lessonId}:${variant}:${index + 1}`}
+                  resource={{
+                    title: `Step ${index + 1}: ${step.title}`,
+                    where: step.where,
+                  }}
                   dock={variant === 'guided' && focused && index === activeStep}
                   reference={
                     <>
