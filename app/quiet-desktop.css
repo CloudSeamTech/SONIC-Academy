@@ -1712,3 +1712,23 @@ html body #quiet-desktop.academy-shell .quiet-pathway-choices button > svg {
     grid-template-columns: 0 minmax(0, 1fr) !important;
   }
 }
+html:has(#quiet-desktop) {
+  background: #eef1f3 !important;
+  scrollbar-color: #9daab3 #edf0f2;
+  scrollbar-width: thin;
+  color-scheme: light;
+}
+html body #quiet-desktop.academy-shell {
+  color-scheme: light;
+  --background: #edf0f1;
+  --foreground: #26313d;
+  --surface: #fff;
+  --surface-raised: #f8fafb;
+  --card: #fff;
+  --primary: #52697c;
+  --border: #d4dde3;
+  --edge: #d4dde3;
+  --ink-soft: #536776;
+  --ink-muted: #637885;
+  --muted-foreground: #637885;
+}
