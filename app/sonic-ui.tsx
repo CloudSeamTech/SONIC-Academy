@@ -291,6 +291,7 @@ export function SonicWalkthrough({
               <div className="sonic-action-body">
                 <p className="walkthrough-location">Work in: {step.where}</p>
                 <SplitFocusWorkspace
+                  dock={variant === 'guided' && focused && index === activeStep}
                   reference={
                     <>
                       {lessonId && (
