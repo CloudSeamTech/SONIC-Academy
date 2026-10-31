@@ -1251,3 +1251,139 @@ html
     grid-template-columns: minmax(0, 1fr) !important;
   }
 }
+/* A compact course index replaces the old tall catalog tile grid. */
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-card {
+  display: grid !important;
+  grid-template-columns: 64px minmax(0, 1fr) 160px !important;
+  grid-template-rows: auto auto auto !important;
+  gap: 8px 18px !important;
+  min-height: 0 !important;
+  height: auto !important;
+  padding: 20px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-card
+  > .path-icon {
+  grid-column: 1 !important;
+  grid-row: 1 / 4 !important;
+  align-self: center;
+  margin: 0 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-card
+  > h3 {
+  grid-column: 2 !important;
+  grid-row: 1 !important;
+  margin: 0 !important;
+  font-size: 18px !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-card
+  > p {
+  grid-column: 2 !important;
+  grid-row: 2 !important;
+  margin: 0 !important;
+  font-size: 12px !important;
+  line-height: 1.7 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-card
+  > small {
+  grid-column: 2 !important;
+  grid-row: 3 !important;
+  margin: 0 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-card
+  > progress {
+  grid-column: 3 !important;
+  grid-row: 3 !important;
+  width: 100% !important;
+  margin: 0 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-card
+  > div {
+  grid-column: 3 !important;
+  grid-row: 2 !important;
+  margin: 0 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .course-library
+  .path-card
+  > span:last-child:not(.path-icon) {
+  grid-column: 3 !important;
+  grid-row: 1 !important;
+  margin: 0 !important;
+}
+/* Only authored instructional diagrams, never real screenshots. */
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  img[src^='/step-pictures/'] {
+  filter: grayscale(1);
+}
+@media (max-width: 700px) {
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .reader-workspace.reader-workspace
+    .course-library
+    .path-card {
+    grid-template-columns: 42px minmax(0, 1fr) !important;
+    gap: 8px 12px !important;
+  }
+  html
+    body
+    #quiet-desktop.academy-shell.academy-shell
+    .reader-workspace.reader-workspace
+    .course-library
+    .path-card
+    > :is(progress, div, span:last-child:not(.path-icon)) {
+    grid-column: 2 !important;
+    grid-row: auto !important;
+  }
+}
+
