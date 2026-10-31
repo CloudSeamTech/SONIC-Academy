@@ -1803,4 +1803,23 @@ html
     min-width: 0;
   }
 }
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .activity-row
+  h3 {
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+  margin: 0 !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace.reader-workspace
+  .resume-lesson
+  h3 {
+  font-size: 20px !important;
+  line-height: 1.4 !important;
+}
 
