@@ -1,5 +1,6 @@
 'use client';
 import { showStepScreenshot } from '../../lib/step-media';
+import { stepActions, stepResource } from '../../lib/task-navigation';
 import { SplitFocusWorkspace } from '../split-focus-workspace';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -215,8 +216,6 @@ function LessonReader({
     return () => window.removeEventListener('storage', resumeStep);
   }, [lesson.id, lesson.steps]);
   const panel = useRef<HTMLElement>(null);
-  const step = lesson.steps[index];
-  const stepKey = `${lesson.id}:step:${index}`;
   const check = (key: string) =>
     save((current) => ({
       ...current,
@@ -240,7 +239,7 @@ function LessonReader({
     <article
       className="nessus-lesson lesson-compact"
       data-step-focus={focused}
-      data-final-step={index === lesson.steps.length - 1}
+      data-final-step={true}
     >
       <FocusStepControl
         focused={focused}
@@ -292,168 +291,207 @@ function LessonReader({
             ))}
           </select>
         </label>
-        <div className="guided-workspace">
-          <section
-            ref={panel}
-            className="guided-step"
-            tabIndex={-1}
-            aria-label={`Step ${index + 1}`}
-          >
-            <div className="guided-step-number">
-              STEP {index + 1} OF {lesson.steps.length}
-            </div>
-            <h3>{step.title}</h3>
-            <div className="guided-step-content">
-              <p className="lesson-start">
-                <b>Work in:</b> {step.where}
-              </p>
-              <SplitFocusWorkspace
-                takeaway={step.guide?.why ?? lesson.why}
-
-                reference={
-                  <>
-                    {!showStepScreenshot(`${lesson.id}:${index + 1}`, step) &&
-                      !step.command &&
-                      !(lesson.id.startsWith('bicep-') && index === 1) && (
-                        <div
-                          className="quiet-context-visual"
-                          role="img"
-                          aria-label={`Instructional guide: ${step.title}`}
-                        >
-                          <span>INSTRUCTIONAL GUIDE · NOT A SCREENSHOT</span>
-                          <svg viewBox="0 0 80 70" aria-hidden="true">
-                            <path d="M20 2h40l19 33-19 33H20L1 35Z" />
-                            <path d="M20 23h40v25H20Z M30 56h20 M40 48v8" />
-                          </svg>
-                          <strong>{step.title}</strong>
-                          <p>{step.where}</p>
-                        </div>
-                      )}
-                    {step.command &&
-                    step.screenshot.status === 'illustration' &&
-                    contextFor(step.where, step.terminal) ? (
-                      <TraditionalTerminal step={step} />
-                    ) : (
-                      showStepScreenshot(`${lesson.id}:${index + 1}`, step) && (
-                        <div className="guided-visuals">
-                          <CourseScreenshot
-                            stepId={`${lesson.id}:${index + 1}`}
-                            step={step}
-                          />
-                        </div>
-                      )
-                    )}
-                    <CommandExample key={`${lesson.id}:${index}`} step={step} />
-                    {lesson.id.startsWith('bicep-') && index === 1 && (
-                      <BicepPractice lessonId={lesson.id} />
-                    )}
-                  </>
-                }
+        {lesson.steps.map((step, index) => {
+          const stepKey = `${lesson.id}:step:${index}`;
+          return (
+            <div className="guided-workspace" key={stepKey}>
+              <section
+                ref={panel}
+                className="guided-step"
+                tabIndex={-1}
+                aria-label={`Step ${index + 1}`}
               >
-                <VisualChecklist
-                  key={stepKey}
-                  stepId={stepKey}
-                  actions={step.actions.flatMap(learnerActions)}
-                  renderAction={(action) =>
-                    step.guide ? (
-                      <TlsText text={action} />
-                    ) : (
-                      <ServerRoleText text={action} />
-                    )
-                  }
-                />
-                {step.downloads?.map((file) => (
-                  <p key={file.href}>
-                    <a href={file.href} download>
-                      {file.title}
-                    </a>
+                <div className="guided-step-number">
+                  STEP {index + 1} OF {lesson.steps.length}
+                </div>
+                <h3>{step.title}</h3>
+                <div className="guided-step-content">
+                  <p className="lesson-start">
+                    <b>Work in:</b>{' '}
+                    {
+                      stepResource(`${lesson.id}:${index + 1}`, {
+                        title: step.title,
+                        where: step.where,
+                      }).where
+                    }
                   </p>
-                ))}
-                <section className="lesson-result">
-                  <h4>Check your result</h4>
-                  <p>
-                    {step.guide ? (
-                      <TlsText text={step.expected} />
-                    ) : (
-                      step.expected
-                    )}
-                  </p>
-                  {step.guide && step.guide.verify !== step.expected && (
-                    <p>
-                      <TlsText text={step.guide.verify} />
-                    </p>
-                  )}
-                </section>
-                <details className="step-help">
-                  <summary>Need help?</summary>
-                  <details className="lesson-support">
-                    <summary>Help opening this workspace</summary>
-                    <WorkspaceStart
-                      where={step.where}
-                      action={step.actions.join(' ')}
+                  <SplitFocusWorkspace
+                    stepId={`${lesson.id}:${index + 1}`}
+                    resource={{
+                      title: `Step ${index + 1}: ${step.title}`,
+                      where: step.where,
+                      why: step.guide?.why ?? lesson.why,
+                      links: step.sources.map((url) => ({
+                        title: new URL(url).hostname + ' · step documentation',
+                        url,
+                      })),
+                    }}
+                    takeaway={step.guide?.why ?? lesson.why}
+
+                    reference={
+                      <>
+                        {!showStepScreenshot(
+                          `${lesson.id}:${index + 1}`,
+                          step,
+                        ) &&
+                          !step.command &&
+                          !(lesson.id.startsWith('bicep-') && index === 1) && (
+                            <div
+                              className="quiet-context-visual"
+                              role="img"
+                              aria-label={`Instructional guide: ${step.title}`}
+                            >
+                              <span>
+                                INSTRUCTIONAL GUIDE · NOT A SCREENSHOT
+                              </span>
+                              <svg viewBox="0 0 80 70" aria-hidden="true">
+                                <path d="M20 2h40l19 33-19 33H20L1 35Z" />
+                                <path d="M20 23h40v25H20Z M30 56h20 M40 48v8" />
+                              </svg>
+                              <strong>{step.title}</strong>
+                              <p>{step.where}</p>
+                            </div>
+                          )}
+                        {step.command &&
+                        step.screenshot.status === 'illustration' &&
+                        contextFor(step.where, step.terminal) ? (
+                          <TraditionalTerminal step={step} />
+                        ) : (
+                          showStepScreenshot(
+                            `${lesson.id}:${index + 1}`,
+                            step,
+                          ) && (
+                            <div className="guided-visuals">
+                              <CourseScreenshot
+                                stepId={`${lesson.id}:${index + 1}`}
+                                step={step}
+                              />
+                            </div>
+                          )
+                        )}
+                        <CommandExample
+                          key={`${lesson.id}:${index}`}
+                          step={step}
+                        />
+                        {lesson.id.startsWith('bicep-') && index === 1 && (
+                          <BicepPractice lessonId={lesson.id} />
+                        )}
+                      </>
+                    }
+                  >
+                    <VisualChecklist
+                      key={stepKey}
+                      navigationId={`${lesson.id}:${index + 1}`}
+                      stepId={stepKey}
+                      actions={stepActions(
+                        `${lesson.id}:${index + 1}`,
+                        step.actions,
+                      ).flatMap(learnerActions)}
+                      renderAction={(action) =>
+                        step.guide ? (
+                          <TlsText text={action} />
+                        ) : (
+                          <ServerRoleText text={action} />
+                        )
+                      }
                     />
-                  </details>
-                  {step.guide && (
-                    <>
-                      <details className="lesson-support">
-                        <summary>Why am I doing this?</summary>
+                    {step.downloads?.map((file) => (
+                      <p key={file.href}>
+                        <a href={file.href} download>
+                          {file.title}
+                        </a>
+                      </p>
+                    ))}
+                    <section className="lesson-result">
+                      <h4>Check your result</h4>
+                      <p>
+                        {step.guide ? (
+                          <TlsText text={step.expected} />
+                        ) : (
+                          step.expected
+                        )}
+                      </p>
+                      {step.guide && step.guide.verify !== step.expected && (
                         <p>
-                          <TlsText text={step.guide.why} />
+                          <TlsText text={step.guide.verify} />
                         </p>
-                      </details>
+                      )}
+                    </section>
+                    <details className="step-help">
+                      <summary>Need help?</summary>
                       <details className="lesson-support">
-                        <summary>My result is different</summary>
-                        <p>
-                          <TlsText text={step.guide.failure} />
-                        </p>
+                        <summary>Help opening this workspace</summary>
+                        <WorkspaceStart
+                          where={step.where}
+                          action={step.actions.join(' ')}
+                        />
                       </details>
-                    </>
-                  )}
-                  {step.breakdown.length > 0 && (
-                    <details className="lesson-support">
-                      <summary>What the commands and settings mean</summary>
-                      <dl className="nessus-breakdown">
-                        {step.breakdown.map((item, i) => (
-                          <div key={i}>
-                            <dt>
-                              <code>{item.term}</code>
-                            </dt>
-                            <dd>{item.meaning}</dd>
-                          </div>
-                        ))}
-                      </dl>
+                      {step.guide && (
+                        <>
+                          <details className="lesson-support">
+                            <summary>Why am I doing this?</summary>
+                            <p>
+                              <TlsText text={step.guide.why} />
+                            </p>
+                          </details>
+                          <details className="lesson-support">
+                            <summary>My result is different</summary>
+                            <p>
+                              <TlsText text={step.guide.failure} />
+                            </p>
+                          </details>
+                        </>
+                      )}
+                      {step.breakdown.length > 0 && (
+                        <details className="lesson-support">
+                          <summary>What the commands and settings mean</summary>
+                          <dl className="nessus-breakdown">
+                            {step.breakdown.map((item, i) => (
+                              <div key={i}>
+                                <dt>
+                                  <code>{item.term}</code>
+                                </dt>
+                                <dd>{item.meaning}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        </details>
+                      )}
+                      {step.notes?.map((note, i) => (
+                        <p key={i}>{note}</p>
+                      ))}
                     </details>
-                  )}
-                  {step.notes?.map((note, i) => (
-                    <p key={i}>{note}</p>
-                  ))}
-                </details>
-                <label className="guided-check">
-                  <input
-                    type="checkbox"
-                    checked={progress.checked.includes(stepKey)}
-                    onChange={() => check(stepKey)}
-                  />
-                  I checked this result in my own lab
-                </label>
-                <nav className="guided-pagination" aria-label="Step navigation">
-                  <button
-                    disabled={index === 0}
-                    onClick={() => choose(index - 1)}
-                  >
-                    ← Previous step
-                  </button>
-                  <button
-                    disabled={index === lesson.steps.length - 1}
-                    onClick={() => choose(index + 1)}
-                  >
-                    Next step →
-                  </button>
-                </nav>
-              </SplitFocusWorkspace>
+                    <label className="guided-check">
+                      <input
+                        type="checkbox"
+                        checked={progress.checked.includes(stepKey)}
+                        onChange={() => check(stepKey)}
+                      />
+                      I checked this result in my own lab
+                    </label>
+                    <nav
+                      className="guided-pagination"
+                      aria-label="Step navigation"
+                    >
+                      <button
+                        disabled={index === 0}
+                        onClick={() => choose(index - 1)}
+                      >
+                        ← Previous step
+                      </button>
+                      <button
+                        disabled={index === lesson.steps.length - 1}
+                        onClick={() => choose(index + 1)}
+                      >
+                        Next step →
+                      </button>
+                    </nav>
+                  </SplitFocusWorkspace>
+                </div>
+              </section>
             </div>
-          </section>
-        </div>
+          );
+        })}
       </section>
       <details className="lesson-support">
         <summary>Best practices and more troubleshooting</summary>

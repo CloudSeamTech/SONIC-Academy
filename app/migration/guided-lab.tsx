@@ -37,12 +37,10 @@ export function GuidedLab({
   const [focused, setFocused] = useState(true);
   const [checked, setChecked] = useState<number[]>([]);
   const [notice, setNotice] = useState('');
-  const [copied, setCopied] = useState(false);
   const panel = useRef<HTMLElement>(null);
   const storageKey = `sonic-guided-workstation2019-v1:${lessonId}${stepOffset ? `:part-${stepOffset}` : ''}`;
   // Synchronize saved lab notes after hydration; this does not execute a lab step.
   useEffect(() => {
-    setCopied(false);
     setNotice('');
     const loadChecks = (event?: StorageEvent) => {
       if (event?.key && event.key !== storageKey) return;
@@ -70,23 +68,11 @@ export function GuidedLab({
     loadChecks();
     window.addEventListener('storage', loadChecks);
     return () => window.removeEventListener('storage', loadChecks);
-  }, [storageKey, guide.steps.length]);
+  }, [storageKey, guide.steps]);
 
   const welcome = welcomeFor(lessonId, stepOffset === 21);
-  const step = guide.steps[index];
-  const clarity = checkTeachingFor(screenshotLessonId, index + stepOffset + 1);
-  const currentTitle = clarity?.title ?? step.title;
-  const currentAction = clarity?.action ?? step.action;
-  const coaching = explainStep({
-    lessonId,
-    title: currentTitle,
-    action: currentAction,
-    command: step.command,
-    expected: step.expect,
-  });
   function select(next: number) {
     setIndex(next);
-    setCopied(false);
     requestAnimationFrame(() => {
       panel.current?.focus({ preventScroll: true });
       panel.current?.scrollIntoView({
@@ -97,10 +83,10 @@ export function GuidedLab({
       });
     });
   }
-  function toggle() {
-    const next = checked.includes(index)
-      ? checked.filter((value) => value !== index)
-      : [...checked, index];
+  function toggle(stepIndex: number) {
+    const next = checked.includes(stepIndex)
+      ? checked.filter((value) => value !== stepIndex)
+      : [...checked, stepIndex];
     setChecked(next);
     try {
       localStorage.setItem(storageKey, JSON.stringify(next));
@@ -178,124 +164,149 @@ export function GuidedLab({
           ))}
         </select>
       </label>
-      <div className="guided-workspace">
-        <article
-          ref={panel}
-          tabIndex={-1}
-          className="guided-step"
-          aria-label={`Step ${index + 1}`}
-        >
-          <div className="guided-step-number">
-            STEP {index + 1} OF {guide.steps.length}
-          </div>
-          <h3>{currentTitle}</h3>
-          <div className="guided-step-content">
-            <p className="lesson-start">
-              <b>Work in:</b> {step.where ?? guide.where}
-            </p>
-            <SplitFocusWorkspace
-              takeaway={coaching.reason}
-              reference={
-                <>
-                  <section
-                    className="guided-visuals"
-                    aria-label="Pictures and screen references for this step"
-                  >
-                    <InstructionScreenshots
-                      stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
-                    />
-                  </section>
-                  {step.command && (
-                    <section className="guided-command">
-                      <header>
-                        <span>COMMAND · USE THE WORKSPACE LISTED ABOVE</span>
-                      </header>
-                      <TerminalExample
-                        command={step.command}
-                        where={step.where ?? guide.where}
-                      />
-                      <p>
-                        Type this input in the workspace above, then press
-                        Enter.
-                      </p>
-                    </section>
-                  )}
-                </>
-              }
+      {guide.steps.map((step, index) => {
+        const clarity = checkTeachingFor(
+          screenshotLessonId,
+          index + stepOffset + 1,
+        );
+        const currentTitle = clarity?.title ?? step.title;
+        const currentAction = clarity?.action ?? step.action;
+        const coaching = explainStep({
+          lessonId,
+          title: currentTitle,
+          action: currentAction,
+          command: step.command,
+          expected: step.expect,
+        });
+        return (
+          <div className="guided-workspace" key={index}>
+            <article
+              ref={panel}
+              tabIndex={-1}
+              className="guided-step"
+              aria-label={`Step ${index + 1}`}
             >
-              <VisualChecklist
-                key={`${lessonId}:${stepOffset}:${index}`}
-                stepId={`${lessonId}:guided:${index + stepOffset + 1}`}
-                actions={learnerActions(currentAction)}
-              />
-              <section className="lesson-result">
-                <b>Check your result</b>
-                <p>{step.expect}</p>
-              </section>
-              <details className="step-help">
-                <summary>Need help?</summary>
-                <details className="lesson-support">
-                  <summary>Help opening this workspace</summary>
-                  <WorkspaceStart
-                    where={step.where ?? guide.where}
-                    action={currentAction}
+              <div className="guided-step-number">
+                STEP {index + 1} OF {guide.steps.length}
+              </div>
+              <h3>{currentTitle}</h3>
+              <div className="guided-step-content">
+                <p className="lesson-start">
+                  <b>Work in:</b> {step.where ?? guide.where}
+                </p>
+                <SplitFocusWorkspace
+                  stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
+                  resource={{
+                    title: `Step ${index + 1}: ${currentTitle}`,
+                    where: step.where ?? guide.where,
+                    why: coaching.reason,
+                  }}
+                  takeaway={coaching.reason}
+                  reference={
+                    <>
+                      <section
+                        className="guided-visuals"
+                        aria-label="Pictures and screen references for this step"
+                      >
+                        <InstructionScreenshots
+                          stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
+                        />
+                      </section>
+                      {step.command && (
+                        <section className="guided-command">
+                          <header>
+                            <span>
+                              COMMAND · USE THE WORKSPACE LISTED ABOVE
+                            </span>
+                          </header>
+                          <TerminalExample
+                            command={step.command}
+                            where={step.where ?? guide.where}
+                          />
+                          <p>
+                            Type this input in the workspace above, then press
+                            Enter.
+                          </p>
+                        </section>
+                      )}
+                    </>
+                  }
+                >
+                  <VisualChecklist
+                    key={`${lessonId}:${stepOffset}:${index}`}
+                    stepId={`${lessonId}:guided:${index + stepOffset + 1}`}
+                    actions={learnerActions(currentAction)}
                   />
-                </details>
+                  <section className="lesson-result">
+                    <b>Check your result</b>
+                    <p>{step.expect}</p>
+                  </section>
+                  <details className="step-help">
+                    <summary>Need help?</summary>
+                    <details className="lesson-support">
+                      <summary>Help opening this workspace</summary>
+                      <WorkspaceStart
+                        where={step.where ?? guide.where}
+                        action={currentAction}
+                      />
+                    </details>
 
-                <details className="lesson-support">
-                  <summary>Why am I doing this?</summary>
-                  <p>{coaching.reason}</p>
-                </details>
-                <details className="lesson-support">
-                  <summary>My result is different</summary>
-                  <p>{step.trouble}</p>
-                </details>
-                <details className="lesson-support">
-                  <summary>Evidence to save</summary>
-                  <p className="step-evidence">
-                    <strong>Keep this evidence:</strong> {step.evidence}
-                  </p>
-                </details>
-                {coaching.commandNotes.length > 0 && (
-                  <details className="lesson-support">
-                    <summary>What the command means</summary>
-                    <ul>
-                      {coaching.commandNotes.map((note) => (
-                        <li key={note}>{note}</li>
-                      ))}
-                    </ul>
+                    <details className="lesson-support">
+                      <summary>Why am I doing this?</summary>
+                      <p>{coaching.reason}</p>
+                    </details>
+                    <details className="lesson-support">
+                      <summary>My result is different</summary>
+                      <p>{step.trouble}</p>
+                    </details>
+                    <details className="lesson-support">
+                      <summary>Evidence to save</summary>
+                      <p className="step-evidence">
+                        <strong>Keep this evidence:</strong> {step.evidence}
+                      </p>
+                    </details>
+                    {coaching.commandNotes.length > 0 && (
+                      <details className="lesson-support">
+                        <summary>What the command means</summary>
+                        <ul>
+                          {coaching.commandNotes.map((note) => (
+                            <li key={note}>{note}</li>
+                          ))}
+                        </ul>
+                      </details>
+                    )}
                   </details>
-                )}
-              </details>
-              <label className="guided-check">
-                <input
-                  type="checkbox"
-                  checked={checked.includes(index)}
-                  onChange={toggle}
-                />{' '}
-                I checked this result on my practice system
-              </label>
-              <nav
-                className="guided-pagination"
-                aria-label="Walkthrough pagination"
-              >
-                <button
-                  disabled={index === 0}
-                  onClick={() => select(index - 1)}
-                >
-                  ← Previous step
-                </button>
-                <button
-                  disabled={index === guide.steps.length - 1}
-                  onClick={() => select(index + 1)}
-                >
-                  Next step →
-                </button>
-              </nav>
-            </SplitFocusWorkspace>
+                  <label className="guided-check">
+                    <input
+                      type="checkbox"
+                      checked={checked.includes(index)}
+                      onChange={() => toggle(index)}
+                    />{' '}
+                    I checked this result on my practice system
+                  </label>
+                  <nav
+                    className="guided-pagination"
+                    aria-label="Walkthrough pagination"
+                  >
+                    <button
+                      disabled={index === 0}
+                      onClick={() => select(index - 1)}
+                    >
+                      ← Previous step
+                    </button>
+                    <button
+                      disabled={index === guide.steps.length - 1}
+                      onClick={() => select(index + 1)}
+                    >
+                      Next step →
+                    </button>
+                  </nav>
+                </SplitFocusWorkspace>
+              </div>
+            </article>
           </div>
-        </article>
-      </div>
+        );
+      })}
       <output aria-live="polite">{notice}</output>
     </section>
   );
