@@ -1,0 +1,22 @@
+{
+  "bicep-first-words": "Think of this as filling in a form. You provide the greeting; the output points back to it. Changing the words does not change the language’s keywords.",
+  "bicep-workspace": "Let’s first make sure we’re working on the same file. A command reads from its current folder, so a correct command in the wrong folder can still fail.",
+  "bicep-toolchain": "You don’t need to memorize every tool yet. The editor is your writing desk, the extension is your language helper, and the compiler translates what you saved.",
+  "bicep-errors": "An error is useful feedback, not a reason to start over. Read its first line, fix one thing, and try again so you can see which change helped.",
+  "bicep-inputs": "You choose the environment input. The application name is calculated from it. That’s independent versus dependent here: one is your choice; the other follows that choice.",
+  "bicep-types": "A number and a word that looks like a number are different. Quotes tell Bicep you mean text; leaving them off lets 3 stay a number.",
+  "bicep-resource": "You’re describing the storage account you want, not clicking Create. The symbolic name helps your code refer to it; its name property identifies the Azure resource.",
+  "bicep-json": "This is the same plan in another format. Find one setting in Bicep, then find its counterpart in JSON. You don’t need to understand the whole template at once.",
+  "bicep-guards": "A guardrail rejects some mistakes before they become a deployment request. It helps with known rules, but it can’t tell whether every business or security requirement is satisfied.",
+  "bicep-dependencies": "Picture a VM waiting for its network card. That card needs a subnet first. Referencing another resource tells Azure about that need; file order alone does not.",
+  "bicep-network": "The subnet answers where a server belongs. The NSG answers which traffic is allowed. A server can be in the right place and still have no permitted connection.",
+  "bicep-existing": "Another team may already manage the network resource. existing lets your plan refer to it without asking to create it again. A compile does not check that it really exists.",
+  "bicep-loops": "Write the server pattern once, then let the loop repeat it. The index keeps each VM paired with its own NIC; the count controls how many pairs are requested.",
+  "bicep-server-settings": "Think of an everyday request for an application server: it needs an OS, enough memory, a disk and a sign-in method. Each setting describes one part of that request.",
+  "bicep-software": "Creating the VM and configuring software inside it are separate jobs. The companion file describes guest setup, but you still need to verify that setup after a real deployment.",
+  "bicep-modules": "A module is a reusable part of your plan. You pass it inputs, it handles its own resources, and it returns outputs the rest of your plan can use.",
+  "bicep-environments": "Keep one blueprint and supply different inputs for dev and test. That makes differences easier to review than maintaining two almost-identical blueprints that slowly drift apart.",
+  "bicep-azure-checks": "A compiler checks the plan’s language. Azure checks also consider your real scope and permissions. A result from one check cannot stand in for a check you haven’t run.",
+  "bicep-capstone": "Start with the smallest part you understand and build outward. If a later compile fails, your last successful version tells you where to begin looking.",
+  "bicep-handoff": "Think of CI as a teammate checking every proposed change consistently. Deployment is a separate decision: passing a check does not grant permission to change Azure."
+}

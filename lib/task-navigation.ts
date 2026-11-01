@@ -1,11 +1,15 @@
 import splunkNavigation from '../content/teaching/splunk-navigation.json' with { type: 'json' };
 import bicepNavigation from '../content/teaching/bicep-navigation.json' with { type: 'json' };
+import bicepTeacherNotes from '../content/bicep/teacher-notes.json' with { type: 'json' };
 import pkiNavigation from '../content/teaching/pki-navigation.json' with { type: 'json' };
 import vsphereNavigation from '../content/teaching/vsphere-navigation.json' with { type: 'json' };
 export type StepResource = {
   title: string;
   where?: string;
   why?: string;
+  teacherNote?: string;
+  naming?: string;
+  namingExamples?: { field: string; example: string; meaning: string }[];
   links?: { title: string; url: string }[];
   path?: string[];
   needs?: string;
@@ -107,6 +111,46 @@ export function stepResource(
   fallback: StepResource,
 ): StepResource {
   const resource = { ...fallback, ...taskNavigation[stepId] };
+  const [lessonId, stepNumber] = stepId.split(':');
+  const teacherNote = (bicepTeacherNotes as Record<string, string>)[lessonId];
+  if (teacherNote) {
+    const phase =
+      stepNumber === '1'
+        ? 'First, find the named parts before changing them.'
+        : stepNumber === '2'
+          ? 'Make one small edit, then inspect what changed.'
+          : 'Use your actual result to explain what you learned.';
+    resource.teacherNote ??= `${teacherNote} ${phase}`;
+    if (
+      [
+        'bicep-network',
+        'bicep-loops',
+        'bicep-server-settings',
+        'bicep-capstone',
+      ].includes(lessonId)
+    ) {
+      resource.naming ??=
+        'These are different fields. Use the requested form; these examples do not create DNS records.';
+      resource.namingExamples ??= [
+        {
+          field: 'Azure VM resource name',
+          example: 'cs-dev-vm-1',
+          meaning: 'The Azure object’s name.',
+        },
+        {
+          field: 'computerName',
+          example: 'cs-dev-vm-1',
+          meaning: 'The guest’s short hostname, not its FQDN.',
+        },
+        {
+          field: 'FQDN (fully qualified domain name)',
+          example: 'app01.lab.example.test',
+          meaning:
+            'The host plus its full DNS domain. Replace it with your actual configured DNS name.',
+        },
+      ];
+    }
+  }
   if (resource.links)
     resource.links = [
       ...new Map(resource.links.map((link) => [link.url, link])).values(),

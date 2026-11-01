@@ -11,6 +11,36 @@ import {
 import { learnerActions } from '../lib/learner-directions.ts';
 import { actionCopy } from '../lib/action-checklist.ts';
 
+test('Bicep references explain each task and distinguish names from FQDNs', () => {
+  const notes = JSON.parse(
+    fs.readFileSync(
+      new URL('../content/bicep/teacher-notes.json', import.meta.url),
+    ),
+  );
+  assert.equal(Object.keys(notes).length, 20);
+  for (const lessonId of Object.keys(notes)) {
+    for (let step = 1; step <= 3; step++) {
+      const resource = stepResource(`${lessonId}:${step}`, { title: 'Task' });
+      assert.ok(resource.teacherNote?.includes(notes[lessonId]));
+    }
+  }
+  const names = stepResource('bicep-server-settings:2', {
+    title: 'VM settings',
+  }).namingExamples;
+  assert.equal(
+    names.find((item) => item.field === 'computerName').example,
+    'cs-dev-vm-1',
+  );
+  assert.equal(
+    names.find((item) => item.field.startsWith('FQDN')).example,
+    'app01.lab.example.test',
+  );
+  assert.match(
+    names.find((item) => item.field === 'computerName').meaning,
+    /not its FQDN/,
+  );
+});
+
 test('unreviewed steps retain their authored instructions instead of invented menu paths', () => {
   const actions = ['Read the host name.'];
   assert.equal(stepActions('unknown:1', actions), actions);

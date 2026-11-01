@@ -5,6 +5,33 @@ import type { StepResource } from '../lib/task-navigation';
 export function StepResourceLinks({ resource }: { resource: StepResource }) {
   return (
     <>
+      {resource.teacherNote && (
+        <section
+          className="step-teacher-note"
+          aria-label="A note from your guide"
+        >
+          <h3>Let’s make sense of it</h3>
+          <p>{resource.teacherNote}</p>
+        </section>
+      )}
+      {resource.naming && (
+        <section aria-label="Which name to use">
+          <h3>Which name goes here?</h3>
+          <dl className="step-name-examples">
+            {resource.namingExamples?.map((item) => (
+              <div key={item.field}>
+                <dt>{item.field}</dt>
+                <dd>
+                  <code>{item.example}</code>
+                  <br />
+                  {item.meaning}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          <p>{resource.naming}</p>
+        </section>
+      )}
       {resource.where && (
         <p>
           <strong>Work in</strong>

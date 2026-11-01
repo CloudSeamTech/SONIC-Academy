@@ -18,6 +18,12 @@ For each task, supply:
 
 Research menu labels, download access, supported versions, licensing, prerequisites, and compatibility against current primary vendor documentation. Name the tested or documented baseline and review date; never call a version “latest” without checking. If UI access is unavailable, say “vendor-documented route,” not “lab tested.” Do not invent a universal boot key, vendor menu, checksum, or account entitlement.
 
+## Names must be unambiguous
+
+Replace vague “your server name” instructions with the exact kind of name the field requires and an example. FQDN (fully qualified domain name): `dc01.lab.example.test`. Short hostname / computer name: `DC01`. DNS domain: `lab.example.test`. Azure VM resource name: `cs-dev-vm-1`. Do not replace every hostname with an FQDN: Windows computer-name fields and Bicep `computerName` may require a short name. Explain which example values learners replace, and do not imply that typing an example creates its DNS record.
+
+The right panel may add a short, conversational explanation of the current task. Explain the relationship or common confusion in two or three sentences, using the learner’s task; keep procedural actions in the center checklist.
+
 The center contains ordered steps, task visuals, commands and success checks. The right panel follows the current step with its exact links, short purpose, prerequisites and private notes; provide equivalent links inline on phones. Preserve lesson IDs, command semantics, progress and profile behavior.
 
 ## Completion evidence
