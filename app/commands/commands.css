@@ -242,3 +242,40 @@
     padding: 14px;
   }
 }
+
+/* Keep reference selection visible above the shared legacy button rules. */
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace
+  .command-library
+  .command-platforms
+  button[aria-pressed='true'] {
+  background: linear-gradient(135deg, #263b50, #52667b) !important;
+  color: #fff !important;
+  border-color: #52667b !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace
+  .command-library
+  .command-platforms
+  button
+  span {
+  display: block !important;
+  margin-top: 6px;
+  font-size: 12px !important;
+  color: inherit !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace
+  .command-library
+  .command-index
+  button[aria-pressed='true'] {
+  background: #fff6c7 !important;
+  color: #203a52 !important;
+  border-color: #c9a937 !important;
+}
