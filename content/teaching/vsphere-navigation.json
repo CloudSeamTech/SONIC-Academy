@@ -1,0 +1,1008 @@
+{
+  "vsphere-basics:1": {
+    "title": "Step 1: Give each piece a job",
+    "where": "This lesson and your private notebook",
+    "path": ["This lesson", "Give each piece a job", "Your notes"],
+    "why": "Knowing each object’s job prevents changes to the wrong layer.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-basics:2": {
+    "title": "Step 2: Read a VM’s home address",
+    "where": "Browser → https://<your-vcenter-fqdn>/ui → practice VM",
+    "path": [
+      "vSphere Client",
+      "Menu",
+      "Hosts and Clusters",
+      "Your practice VM",
+      "Summary"
+    ],
+    "why": "A VM’s host, datastore, and guest disk are different objects.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "In your authorized vSphere Client, select Menu → Hosts and Clusters. Expand the lab datacenter and host, select your practice VM, then open Summary. Without a lab, use the reference picture below.",
+      "Use the picture’s numbered key to find the selected VM and its datastore. A datastore is not the Windows C: drive inside that VM.",
+      "On your own permitted VM, open Summary and record its host, datastore, network, CPU and memory. Keep the VM powered as it was; this is inspection only."
+    ]
+  },
+  "vsphere-access:1": {
+    "title": "Step 1: Choose walkthrough, standalone, or hosted practice",
+    "where": "Browser → VMware Hands-on Labs",
+    "path": [
+      "VMware Hands-on Labs",
+      "Explore Catalog",
+      "Search vSphere",
+      "Open the available lab"
+    ],
+    "why": "A walkthrough is useful even without a vCenter entitlement.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/408578"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-access:2": {
+    "title": "Step 2: Know where standalone practice stops",
+    "where": "Browser → https://<your-esxi-fqdn>/ui",
+    "path": ["ESXi Host Client", "Host", "Manage", "Licensing"],
+    "why": "The license determines which exercises your host can perform.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/399823"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "In the ESXi Host Client, select Host → Manage → Licensing. Read the edition and expiry without copying the license key into your notes.",
+      "Record the product, build and license edition; hide the actual license key in screenshots. The free ESXi 8.0 U3e option is standalone and cannot be managed by vCenter.",
+      "Free standalone ESXi does not provide vMotion, HA, DRS or VADP backup integration. Its documented limits include two physical CPUs and eight vCPUs per VM; confirm current terms for your actual release.",
+      "vCenter templates, Content Libraries, centralized permissions and cluster workflows require the vCenter route. Mark these as walkthrough-only when it is unavailable. A cluster can also require additional licensed capabilities."
+    ]
+  },
+  "vsphere-plan:1": {
+    "title": "Step 1: Fill in the lab planning sheet",
+    "where": "Your workstation → downloaded lab plan",
+    "path": ["This lesson", "Lab plan download", "Your private notes"],
+    "why": "Writing values first prevents guessing at destructive prompts.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-plan:2": {
+    "title": "Step 2: Define a safe practice boundary",
+    "where": "Your workstation → lab planning sheet",
+    "path": [
+      "Your lab plan",
+      "Recovery boundary",
+      "Management and isolated test networks"
+    ],
+    "why": "Keep management separate from the network you are learning to change.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-host:1": {
+    "title": "Step 1: Configure and test management in DCUI",
+    "where": "Physical or approved remote ESXi console → DCUI",
+    "path": [
+      "Server console",
+      "F2",
+      "Configure Management Network",
+      "IPv4 Configuration",
+      "DNS Configuration",
+      "Test Management Network"
+    ],
+    "why": "Console access lets you recover if a network setting is wrong.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/411275"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "At the ESXi console, press F2 and sign in as root. Use the arrow keys to open Configure Management Network and press Enter. Open each named setting below from this menu; press Esc after reviewing the changes, then confirm only the planned management-network restart.",
+      "Sign in locally. In Network Adapters confirm the planned management NIC by its MAC/uplink record. Set the management VLAN only if the physical or nested network plan requires tagged traffic.",
+      "Open IPv4 Configuration and enter the reserved address, mask and gateway. In DNS Configuration enter approved DNS servers and the host name; set the suffix under Custom DNS Suffixes when needed.",
+      "Review before applying. Applying management changes may interrupt access; do it from the console. Run Test Management Network against the planned gateway, DNS and hostname. Check forward and reverse DNS from the administrator workstation."
+    ]
+  },
+  "vsphere-host:2": {
+    "title": "Step 2: Open Host Client and set time",
+    "where": "Browser → https://<your-esxi-fqdn>/ui",
+    "path": [
+      "ESXi Host Client",
+      "Host",
+      "Manage",
+      "System",
+      "Time & date",
+      "Edit NTP Settings"
+    ],
+    "why": "Correct time is needed for log timelines, certificates and authentication.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/403181"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "In Host Client, select Host → Manage → System → Time & date → Edit NTP Settings. Enter your approved time servers and startup policy, then save. To start the service, open Manage → Services, select ntpd, and select Start. Avoid the nonworking Time & date Actions menu documented for ESXi 7/8.",
+      "Open the planned private FQDN. Verify any certificate warning through the host’s trusted console or approved certificate process; never blindly accept an unexpected identity. Enter credentials only in the verified local interface.",
+      "Record Summary → version/build. Under the time settings, edit NTP configuration using approved reachable time servers and choose the approved service startup policy. In Services confirm the NTP service is running.",
+      "Compare host time with the trusted source and inspect recent events. Keep SSH disabled unless an approved task requires it; close it when finished."
+    ]
+  },
+  "vsphere-vcenter:1": {
+    "title": "Step 1: Check the appliance deployment prerequisites",
+    "where": "Windows administration workstation → mounted VCSA ISO",
+    "path": [
+      "Authorized VCSA ISO",
+      "vcsa-ui-installer",
+      "win32",
+      "installer.exe",
+      "Install"
+    ],
+    "why": "The installer deploys the appliance before configuring its services.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "On your Windows workstation, right-click the authorized VCSA ISO in File Explorer → Mount. Open its DVD drive → vcsa-ui-installer → win32 → installer.exe → Install. This is the Windows installer route; do not look for installer.exe on Linux or macOS.",
+      "If you lack the authorized installer and entitlement, read this chapter as a walkthrough or use the hosted lab. The free ESXi edition cannot supply a vCenter-managed lab.",
+      "For an authorized new installation, verify compatible ESXi/vCenter versions, sizing, private DNS forward/reverse records, a reserved appliance address and time sources. Obtain a supported target datastore with enough real free space.",
+      "Mount the authorized VCSA ISO on the admin workstation. Open vcsa-ui-installer for that operating system → Installer → Install. Read the stages and license terms. Enter the planned destination ESXi host and local credentials only in the verified installer."
+    ]
+  },
+  "vsphere-vcenter:2": {
+    "title": "Step 2: Finish the two stages and distinguish the interfaces",
+    "where": "Workstation → VCSA installer, then browser → vCenter",
+    "path": [
+      "VCSA installer",
+      "Stage 1",
+      "Finish",
+      "Continue",
+      "Stage 2",
+      "Set up appliance"
+    ],
+    "why": "Inventory management and appliance maintenance use different interfaces.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-connect:1": {
+    "title": "Step 1: Create the training inventory and add a host",
+    "where": "Browser → https://<your-vcenter-fqdn>/ui",
+    "path": [
+      "vSphere Client",
+      "Hosts and Clusters",
+      "Right-click vCenter",
+      "New Datacenter",
+      "Right-click LAB-DC",
+      "Add Host"
+    ],
+    "why": "A datacenter organizes hosts; adding a host gives vCenter management access.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/308382"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-connect:2": {
+    "title": "Step 2: Learn from an official host compatibility failure",
+    "where": "vSphere Client → Recent Tasks → failed Add Host task",
+    "path": [
+      "Failed Add Host task",
+      "Error details",
+      "Installed host version",
+      "Interoperability documentation"
+    ],
+    "why": "The first error identifies which compatibility prerequisite failed.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "At the bottom of vSphere Client, expand Recent Tasks and select the failed Add Host task. Open its error details and record the first error with the host build. The historical reference image is a failure example, not a version combination to install.",
+      "Read the numbered vendor image. This specific example concerns old ESXi 7 builds and image management in vCenter 8. It is not a recommended version combination.",
+      "For your build, use the interoperability and lifecycle documentation. Resolve the exact precheck cause before retrying; do not bypass licensing or force a mismatched image."
+    ]
+  },
+  "vsphere-network:1": {
+    "title": "Step 1: Read the current network without changing it",
+    "where": "vSphere Client → selected ESXi host",
+    "path": [
+      "vSphere Client",
+      "Hosts and Clusters",
+      "Practice host",
+      "Configure",
+      "Networking",
+      "Virtual switches"
+    ],
+    "why": "Reading the existing cable path comes before changing it.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select Menu → Hosts and Clusters → your practice host → Configure. Under Networking, open Virtual switches, Physical adapters, and VMkernel adapters in turn. Record the management vmk and its uplink; do not edit them.",
+      "List standard switches, physical NICs (vmnic), VMkernel interfaces (vmk) and VM port groups. Mark which vmk carries management; do not edit it for this exercise.",
+      "Trace one VM: its virtual NIC → port group → virtual switch → physical uplink → physical switch/VLAN. For two VMs on an isolated same-host switch, the path stays inside the host.",
+      "A VMkernel interface belongs to the host for services such as management, NFS/iSCSI or vMotion. It is not the Windows or Linux VM’s own network address. A distributed switch is centrally managed by vCenter and needs the relevant licensing."
+    ]
+  },
+  "vsphere-network:2": {
+    "title": "Step 2: Interpret an uplink warning correctly",
+    "where": "vSphere Client → selected host → Add Networking wizard",
+    "path": [
+      "Practice host",
+      "Configure",
+      "Networking",
+      "Virtual switches",
+      "Add Networking",
+      "Select adapters"
+    ],
+    "why": "A no-uplink warning is expected only for the intentionally isolated exercise.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/443156"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Open the host’s Configure → Networking → Virtual switches → Add Networking wizard. Read the adapter-selection reference below; cancel this inspection before creating anything. The next lesson performs the isolated-switch change.",
+      "The numbered reference shows the Add Networking adapter selection and its warning. Inspect whether adapters are unclaimed, active, standby or unused.",
+      "For a network meant to reach outside the host, assign only the planned spare adapter and verify physical configuration. Never move the only management uplink for this beginner exercise.",
+      "For our intentionally isolated same-host lab, no uplink is expected. Document that exception: this switch cannot reach other hosts or an external gateway."
+    ]
+  },
+  "vsphere-portgroups:1": {
+    "title": "Step 1: Create the isolated standard switch",
+    "where": "vSphere Client → selected practice ESXi host",
+    "path": [
+      "vSphere Client",
+      "Practice host",
+      "Configure",
+      "Networking",
+      "Virtual switches",
+      "Add Networking",
+      "New standard switch"
+    ],
+    "why": "An isolated switch keeps test traffic inside this host.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/328836"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "In vSphere Client, select the practice host → Configure → Networking → Virtual switches → Add Networking. Choose Virtual Machine Port Group for a Standard Switch → Next → New standard switch → Next. Leave physical adapters unassigned for this isolated exercise; read the expected warning before continuing.",
+      "In Host Client choose Add standard virtual switch. Name it vSwitch-LAB-Isolated, leave MTU at the documented default (1500), and leave uplinks unassigned for this same-host exercise. Review and add.",
+      "In vCenter the equivalent entry is host → Configure → Networking → Virtual switches → Add Networking → Virtual Machine Port Group for a Standard Switch → New standard switch. Do not select existing management NICs.",
+      "An explicit no-uplink warning is expected only for this planned isolated exercise. Confirm its meaning before proceeding. This network has no external gateway or cross-host connectivity."
+    ]
+  },
+  "vsphere-portgroups:2": {
+    "title": "Step 2: Create LAB-Isolated and attach only test VMs",
+    "where": "vSphere Client → isolated switch, then each disposable test VM",
+    "path": [
+      "Add Networking",
+      "Connection settings",
+      "Network label: LAB-Isolated",
+      "Finish",
+      "Practice VM",
+      "Edit Settings",
+      "Network adapter"
+    ],
+    "why": "Both VM network adapters must use the same isolated port group.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/328836"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "In the Add Networking wizard’s connection settings, enter LAB-Isolated as the network label and complete the planned isolated configuration. For each test VM, right-click the VM → Edit Settings → Network adapter → network selection → Browse, then choose LAB-Isolated. Review the VM name before saving.",
+      "Enter LAB-Isolated, select vSwitch-LAB-Isolated and VLAN ID 0 for the untagged exercise. Keep security policies at their defaults. In vCenter, complete Connection settings with the same network label and untagged VLAN choice.",
+      "Edit two disposable VMs on the same host. Select LAB-Isolated for each network adapter and connect the adapter. In the guests use two unused addresses in the same planned private subnet; no gateway is needed for their same-subnet test.",
+      "Test the intended service between the two VMs. If using ping, remember a guest firewall can block it. This isolated switch does not permit an internet test, and matching port-group names on another host do not connect the hosts."
+    ]
+  },
+  "vsphere-portgroups:3": {
+    "title": "Step 3: Use VLANs only with an end-to-end plan",
+    "where": "Planning only → your network diagram",
+    "path": [
+      "Lab network plan",
+      "Port-group VLAN",
+      "Physical switch port",
+      "Network-owner confirmation"
+    ],
+    "why": "A port-group VLAN must agree with the external switching design.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/311057"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-storage:1": {
+    "title": "Step 1: Identify the storage device safely",
+    "where": "vSphere Client → selected ESXi host → Storage Devices",
+    "path": [
+      "vSphere Client",
+      "Practice host",
+      "Configure",
+      "Storage",
+      "Storage Devices"
+    ],
+    "why": "A stable device ID distinguishes the blank disk from disks containing data.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/410154"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select the practice host → Configure → Storage → Storage Devices. Click the proposed blank device and compare its identifier, capacity, model, and existing partitions with the lab plan. Do not create or remove a partition during this inspection.",
+      "Record the boot device, existing datastores and the separate blank practice device. Compare its stable ID, capacity and existing partitions with the plan. Device names can change; capacity alone is not enough.",
+      "The vendor reference shows a disk/partition view used to diagnose unavailable storage. Existing partitions are a reason to stop and identify ownership, not permission to clear them.",
+      "If a device is missing, inspect controller/path visibility and rescan only under your approved procedure. Do not clear partition tables or force-mount unfamiliar storage to make a wizard offer it."
+    ]
+  },
+  "vsphere-storage:2": {
+    "title": "Step 2: Create VMFS only on that blank device",
+    "where": "vSphere Client → practice host → New Datastore wizard",
+    "path": [
+      "Practice host",
+      "Storage",
+      "New Datastore",
+      "VMFS",
+      "Blank practice device",
+      "Review",
+      "Finish"
+    ],
+    "why": "VMFS formatting can erase the selected device.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/410154"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Right-click the practice host → Storage → New Datastore. Choose VMFS, enter the lab datastore name, and select only the previously verified blank practice device. Read every partition warning and the final summary before Finish; cancel if the device differs.",
+      "Choose Create new VMFS datastore, enter LAB-VMFS01 and select only the recorded blank device. In vCenter use host → Actions → Storage → New Datastore → VMFS.",
+      "Choose VMFS 6 for this vSphere 8 lab. Inspect the partition preview and final target identifier before Finish. Creation formats the selected capacity; continue only on the approved disposable device.",
+      "After the task succeeds, inspect capacity, free space and accessible host(s). Create a small folder such as LAB-ISOs in the datastore browser. A local device is not shared storage just because vCenter can display it."
+    ]
+  },
+  "vsphere-storage:3": {
+    "title": "Step 3: Keep capacity headroom and grow carefully",
+    "where": "vSphere Client → practice datastore",
+    "path": [
+      "Datastore",
+      "Summary",
+      "Capacity and free space",
+      "Configure",
+      "Device backing"
+    ],
+    "why": "Free capacity protects VM writes and snapshot consolidation.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select the practice datastore in inventory and open Summary. Record Capacity, Provisioned, and Free. Open Configure to inspect its backing device; inspect only, and keep any capacity change behind the separate approved growth plan.",
+      "Compare datastore capacity, used/free space and provisioned VM disk sizes. Thin provisioning grows as data is written; it does not create physical capacity. Reserve headroom for snapshots, swap, operations and expected growth.",
+      "To expand storage later, first follow the storage owner’s supported device expansion procedure, then the datastore’s Increase capacity workflow. Verify the stable device ID and new capacity. Do not add arbitrary extents.",
+      "Growing a VM disk, a datastore and a guest partition are three separate actions. Do not assume any can be safely shrunk through the same wizard."
+    ]
+  },
+  "vsphere-nfs:1": {
+    "title": "Step 1: Check the storage path before mounting",
+    "where": "Your lab plan and approved NFS server configuration",
+    "path": [
+      "Lab storage plan",
+      "NFS server address",
+      "Export path",
+      "Allowed ESXi VMkernel addresses"
+    ],
+    "why": "An NFS export must permit the host’s storage-side network address.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/432896"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-nfs:2": {
+    "title": "Step 2: Add the approved NFS datastore and validate access",
+    "where": "vSphere Client → New Datastore wizard",
+    "path": [
+      "Practice host",
+      "Storage",
+      "New Datastore",
+      "NFS",
+      "Version",
+      "Server and folder",
+      "Finish"
+    ],
+    "why": "NFS mounts a remote export instead of formatting a local disk.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/432896"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Right-click the practice host → Storage → New Datastore → NFS. Choose the NFS version approved for your export. Enter the datastore name, server address, and exact exported folder from your plan; select the intended hosts, review, then finish.",
+      "Enter LAB-NFS01, the planned server and exact share path; choose the supported version. In vCenter select New Datastore → NFS, then the version and permitted hosts. Review before Finish.",
+      "Confirm accessible state and expected capacity on every intended host. With approval, create a uniquely named small test folder/file and verify it is visible from the participating hosts.",
+      "Remove only the test artifact after recording success. Unmounting a datastore is a separate maintenance operation; never unmount while VMs, ISO mounts, swap or other dependencies still use it."
+    ]
+  },
+  "vsphere-vm:1": {
+    "title": "Step 1: Open the new VM wizard and choose its home",
+    "where": "vSphere Client → authorized practice host",
+    "path": [
+      "vSphere Client",
+      "Practice host",
+      "Right-click",
+      "New Virtual Machine",
+      "Create a new virtual machine"
+    ],
+    "why": "The VM needs a compute home and a storage home before it can start.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/313843"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select Menu → Hosts and Clusters. Right-click the practice host → New Virtual Machine → Create a new virtual machine. Use the planned name, inventory location, compute resource, and datastore in the wizard; check each destination before Next.",
+      "Choose Create a new virtual machine and enter LAB-APP01. In vCenter select the training folder and intended host/cluster; in Host Client the current host is the compute destination.",
+      "Select compatibility supported by the actual target hosts and the correct guest OS family/version. Choose LAB-VMFS01 or the approved lab datastore and the intended storage policy when offered.",
+      "Set a modest OS-supported starting CPU and memory size using your resource plan. More vCPUs are not automatically faster. Choose the planned virtual disk size and provisioning policy, leaving growth headroom."
+    ]
+  },
+  "vsphere-vm:2": {
+    "title": "Step 2: Connect the correct network and installer",
+    "where": "vSphere Client → New Virtual Machine wizard",
+    "path": [
+      "New Virtual Machine wizard",
+      "Customize hardware",
+      "Network adapter",
+      "CD/DVD drive",
+      "Ready to complete"
+    ],
+    "why": "The chosen port group is the VM’s virtual cable destination.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "At Customize hardware, set CPU, memory, and disk from the lab plan. Expand Network adapter and select the planned port group. Set CD/DVD drive to the approved installer ISO and select Connect at power on. Review Ready to complete before Finish.",
+      "Choose LAB-Isolated for the first network adapter. For a powered-on test VM, Connected controls its present cable state; Connect at power on controls the next boot. Use the approved NIC model for the guest.",
+      "For an OS install select the authorized datastore ISO in CD/DVD settings and Connect at power on. Use a clean supported ISO; verify its checksum before upload. Review VM options and firmware against OS requirements.",
+      "Finish, wait for the task, and open the console before powering on. The official picture is a NIC connection reference, not proof an OS was installed."
+    ]
+  },
+  "vsphere-guest:1": {
+    "title": "Step 1: Install the operating system and guest tools",
+    "where": "vSphere Client → selected VM → web console",
+    "path": ["Practice VM", "Summary", "Launch Web Console", "Guest installer"],
+    "why": "A VM is empty hardware until an operating system is installed.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select the new practice VM → Summary → Launch Web Console. Power on only this VM and verify that its console starts the intended operating-system installer. Follow the matching Windows or AlmaLinux installation class for the exact guest-installer pages.",
+      "Boot the authorized OS media. Confirm the installer sees only the VM’s intended virtual disk. Select that virtual disk, set the unique guest name and administrator credentials locally, and finish the OS-specific installation.",
+      "After successful boot, install supported VMware Tools on Windows or the distribution-supported open-vm-tools on Linux. Apply OS updates using an approved temporary update path or offline repository; the isolated exercise has no internet route.",
+      "Disconnect the installation ISO after use so later migrations do not depend on an old datastore. Preserve the approved boot disk and firmware settings."
+    ]
+  },
+  "vsphere-guest:2": {
+    "title": "Step 2: Check identity and network from inside the guest",
+    "where": "Inside the practice guest, not the ESXi shell",
+    "path": [
+      "Practice VM",
+      "Guest desktop or terminal",
+      "Hostname and IP checks",
+      "Application test"
+    ],
+    "why": "Host connectivity does not prove the guest application works.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-templates:1": {
+    "title": "Step 1: Prepare a safe golden VM",
+    "where": "vSphere Client → disposable golden-image VM",
+    "path": [
+      "Golden practice VM",
+      "Guest cleanup",
+      "Power",
+      "Shut Down Guest OS"
+    ],
+    "why": "A template must not distribute someone else’s credentials or machine identity.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select the golden practice VM and record its name. Complete the guest-specific cleanup checklist, then right-click the VM → Power → Shut Down Guest OS. Wait until its power state is Powered off before creating the master.",
+      "Use a separate nonproduction golden VM, not a domain controller, PKI CA or existing application database. Patch the OS, install supported guest tools and record its OS/build and purpose.",
+      "Remove personal files, cached deployment secrets and unneeded ISO connections. Plan OS-specific guest customization: Windows uses the supported Sysprep workflow; Linux must receive unique host keys, machine identity and network settings through its supported customization process.",
+      "Do not manually strip identities with guessed commands. Check the guest OS customization support matrix and the approved image preparation procedure. Shut the prepared VM down cleanly."
+    ]
+  },
+  "vsphere-templates:2": {
+    "title": "Step 2: Clone to template and deploy a test copy",
+    "where": "vSphere Client → golden practice VM and resulting template",
+    "path": [
+      "Golden VM",
+      "Clone",
+      "Clone to Template",
+      "Template",
+      "New VM from This Template"
+    ],
+    "why": "A new VM is a separate copy; the master remains reusable.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Right-click the powered-off golden VM → Clone → Clone to Template. Use a versioned master name and planned datastore. After the task succeeds, locate the resulting template in VMs and Templates; right-click it and start the deploy/new-VM-from-template action shown by your vSphere 8 build. Review the new VM name and destinations before completing the wizard.",
+      "Right-click the prepared VM → Clone → Clone to Template. Choose a versioned name such as LAB-Alma-Golden-v1, training folder, compute resource and datastore. Review storage capacity and wait for the clone task.",
+      "Right-click the template → New VM from This Template. Name the new VM LAB-APP02, choose its folder, compute and storage, and select the approved guest customization specification when appropriate. Review NIC mapping before first power-on.",
+      "Boot on the isolated lab network first. Verify the new hostname, IP, OS identity, guest tools and application baseline; verify the golden VM remains unchanged. Templates are vCenter functionality, not a promised free Host Client feature."
+    ]
+  },
+  "vsphere-templates:3": {
+    "title": "Step 3: Confirm the clone’s virtual cable before blaming customization",
+    "where": "vSphere Client → newly deployed test clone",
+    "path": [
+      "New clone",
+      "Edit Settings",
+      "Network adapter",
+      "Port group",
+      "Connected"
+    ],
+    "why": "A clone with the wrong virtual cable can look like a failed customization.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Right-click the new test clone → Edit Settings. Expand its Network adapter, check the selected port group, and check Connected and Connect at power on as appropriate. Compare with your plan before saving; do not edit the master template to repair this clone.",
+      "Compare the template and deployed VM’s intended port group. Check Connected for a running clone and Connect at power on for future boots.",
+      "Enable networking only after identity conflicts are ruled out. Use the guest console to verify the actual address, then test the agreed service. A green cloning task does not prove connectivity."
+    ]
+  },
+  "vsphere-library:1": {
+    "title": "Step 1: Create a local Content Library when vCenter is available",
+    "where": "vSphere Client → Menu → Content Libraries",
+    "path": [
+      "vSphere Client",
+      "Menu",
+      "Content Libraries",
+      "Create",
+      "Local content library"
+    ],
+    "why": "A library keeps approved deployment artifacts in one organized location.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://blogs.vmware.com/cloud-foundation/2020/01/22/creating-and-using-content-library/"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select Menu → Content Libraries → Create. Enter a lab library name and the intended vCenter; choose Local content library, select its planned backing datastore, review, and finish. To import an approved ISO or OVF/OVA, right-click this local library → Import Item.",
+      "Choose a descriptive name such as LAB-Approved-Images, select the intended vCenter and a Local content library. Leave publishing disabled for this private exercise. Select the approved backing datastore and review before Finish.",
+      "Import only approved ISO/OVF/OVA artifacts using the library’s Import item action. Verify publisher, checksum, size and expected network/disk mappings before deploying an appliance.",
+      "Record item version, owner and purpose. OVF/OVA library items and VM Template (VMTX) items have different lifecycle and synchronization behavior. A library is not an independent backup of a running VM."
+    ]
+  },
+  "vsphere-library:2": {
+    "title": "Step 2: Update an image and retain a known-good version",
+    "where": "vSphere Client → versioned practice library",
+    "path": [
+      "Content Libraries",
+      "Practice library",
+      "Templates",
+      "Check out / Check in"
+    ],
+    "why": "Test a new master before replacing the known-good deployment image.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/396400"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-snapshots:1": {
+    "title": "Step 1: Take a temporary snapshot of a disposable VM",
+    "where": "vSphere Client → disposable practice VM",
+    "path": [
+      "Disposable VM",
+      "Snapshots",
+      "Take Snapshot",
+      "Name and description",
+      "Create"
+    ],
+    "why": "A short-lived snapshot is a change checkpoint, not an independent backup.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/318825"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Right-click the disposable VM → Snapshots → Take Snapshot. Enter LAB-before-change with your owner, purpose, and removal deadline in the description. For the powered-off practice VM, do not select a memory snapshot; review the planned state before creating it.",
+      "Check real datastore headroom and existing snapshots first. For a simple practice change, shut down the test guest cleanly, then take a snapshot named LAB-before-change with an owner, reason and removal deadline.",
+      "For powered-on workloads, choose memory or guest filesystem quiescing according to the application-approved procedure; they are not interchangeable and are mutually exclusive in this workflow. Do not assume a snapshot is application-consistent.",
+      "Wait for task success and inspect Manage Snapshots. Use the numbered vendor reference to identify the snapshot list and current state; do not copy the vendor’s example names."
+    ]
+  },
+  "vsphere-snapshots:2": {
+    "title": "Step 2: Understand Revert versus Delete and Consolidate",
+    "where": "vSphere Client → practice VM → Manage Snapshots",
+    "path": [
+      "Disposable VM",
+      "Snapshots",
+      "Manage Snapshots",
+      "Selected checkpoint",
+      "Revert or Delete"
+    ],
+    "why": "Revert discards later changes; Delete preserves the current state while merging disks.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/318825"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Right-click the practice VM → Snapshots → Manage Snapshots. Select the named checkpoint and read its description. Use Revert only when you intend to discard later practice changes; use Delete only after accepting the current state. Do not remove disk files manually.",
+      "Make a harmless guest test-file change. Revert only in this disposable exercise when losing changes since the snapshot is intended. Confirm the exact snapshot and recovery consequence before accepting.",
+      "After accepting the desired current state, Delete removes a snapshot checkpoint while preserving current disk changes through consolidation; it does not mean revert. Wait for completion and verify the guest again.",
+      "Check for a consolidation-needed alert and sufficient free space; use the supported Consolidate workflow only after reviewing the cause and dependencies. Never remove a VMDK or delta file by hand."
+    ]
+  },
+  "vsphere-mobility:1": {
+    "title": "Step 1: Create a cluster only when the prerequisites exist",
+    "where": "vSphere Client → authorized two-host lab datacenter",
+    "path": [
+      "Lab datacenter",
+      "Right-click",
+      "New Cluster",
+      "LAB-Cluster",
+      "Review capabilities"
+    ],
+    "why": "A cluster groups compute resources; advanced services need their own prerequisites.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-mobility:2": {
+    "title": "Step 2: Perform a small permitted migration",
+    "where": "vSphere Client → selected disposable VM",
+    "path": [
+      "Disposable VM",
+      "Right-click",
+      "Migrate",
+      "Change compute resource only",
+      "Compatibility checks"
+    ],
+    "why": "Compatibility checks come before moving a workload.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Right-click the disposable VM → Migrate → Change compute resource only. Select the approved destination host, confirm the destination network, and read every compatibility check. Do not finish if any required check fails or if the isolated network cannot follow the VM.",
+      "Before vMotion, verify compatible CPU/EVC design, supported licensing, working vMotion VMkernel paths, destination port group/VLAN and destination storage visibility. With our isolated no-uplink switch, cross-host guest connectivity is not available.",
+      "Choose Migrate → Change compute resource only for an approved compute move, then select the destination and read every compatibility check. Storage-only and combined moves have separate requirements; do not assume shared storage is always required for every migration type.",
+      "Finish only a clean precheck in the permitted lab. Watch Recent Tasks, verify the new host/datastore/network as applicable, then test the actual guest service. If live migration is unavailable, use an approved cold migration with documented downtime or remain in walkthrough mode."
+    ]
+  },
+  "vsphere-monitor:1": {
+    "title": "Step 1: Review health and the latest task failure",
+    "where": "vSphere Client → affected host or VM",
+    "path": [
+      "Affected object",
+      "Monitor",
+      "Tasks and Events",
+      "Tasks",
+      "Failed task details"
+    ],
+    "why": "The earliest relevant error is more useful than repeated retries.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select the affected host or VM → Monitor → Tasks and Events → Tasks. Select the failed task and expand its details, then open Events for the matching time. Record the first failure and its object; do not reset an alarm to hide an unresolved problem.",
+      "Start with disconnected hosts, hardware/storage/network health, datastore free space, old snapshots and failed backup jobs. Note object, time, severity and the first relevant error.",
+      "For a failed operation open Recent Tasks or Monitor → Tasks and Events. Read the full error and related event timeline; distinguish a warning from the actual failure.",
+      "Acknowledge an alarm only to show an owner is investigating. Do not reset to green until its underlying condition and recovery are verified."
+    ]
+  },
+  "vsphere-monitor:2": {
+    "title": "Step 2: Troubleshoot one slow VM by evidence",
+    "where": "vSphere Client → affected VM → performance charts",
+    "path": [
+      "Affected VM",
+      "Monitor",
+      "Performance",
+      "Advanced",
+      "Matching time window"
+    ],
+    "why": "Compare the same time period before changing CPU, memory, or storage.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select the slow VM → Monitor → Performance. Use Advanced charts when available and choose the time window that contains the symptom. Compare CPU, memory, and disk measures with the host/datastore over the same window; keep the original measurements before making one approved change.",
+      "Record when the symptom occurs and the affected service. Compare guest CPU/memory/disk with host utilization, CPU scheduling pressure, memory reclamation and datastore latency over the same time window.",
+      "Check whether only one VM or several VMs on the same datastore/host are affected. Check recent changes and snapshot growth before adding resources.",
+      "Change one approved variable at a time and retest the service. Adding vCPUs, disabling security or power-cycling the host is not a first diagnostic step."
+    ]
+  },
+  "vsphere-permissions:1": {
+    "title": "Step 1: Assign a small scoped role and test it",
+    "where": "vSphere Client → dedicated practice VM folder",
+    "path": [
+      "VMs and Templates",
+      "Practice folder",
+      "Permissions",
+      "Add Permission",
+      "Read-only"
+    ],
+    "why": "Least privilege limits what a new administrator can accidentally change.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select Menu → VMs and Templates → the dedicated practice folder → Permissions → Add Permission. Choose the approved test identity and Read-only role. Set Propagate to children deliberately, save, then test with that account in a separate browser session.",
+      "Use the organization’s approved identity source and named administrator groups. For practice, use a dedicated test account and training VM folder; never use a shared root account for daily vCenter work.",
+      "Start with the approved read-only role on that lab folder. Set propagation intentionally, then test what the account can see and do. Additional VM deployment rights may also be required on datastore, network and compute objects.",
+      "Record effective scope and keep emergency access protected and tested. Do not grant global Administrator merely to make a single deployment work."
+    ]
+  },
+  "vsphere-permissions:2": {
+    "title": "Step 2: Keep certificates and management services under control",
+    "where": "vSphere Client → practice host → System services",
+    "path": [
+      "Practice host",
+      "Configure",
+      "System",
+      "Services",
+      "SSH and ESXi Shell"
+    ],
+    "why": "Temporary administration services should not remain open after the task.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Select the practice host → Configure → System → Services. Locate SSH and ESXi Shell and read their running state and startup policy. Do not start them for this inspection; record and close any temporary service only through the approved change procedure.",
+      "Restrict management access to approved private networks. Use trusted certificates and monitor their expiry; follow the separate PKI class for certificate concepts rather than disabling validation.",
+      "Keep SSH and ESXi Shell off unless needed for a named task. Document any temporary enablement, time limit and closure. Apply supported MFA/identity controls through the organization’s supported design.",
+      "Review login failures, certificate dates and account lifecycle. Never put license keys, passwords or authentication tokens in screenshots or support notes."
+    ]
+  },
+  "vsphere-patching:1": {
+    "title": "Step 1: Run a version, license and recovery preflight",
+    "where": "vSphere Client → host Summary and your approved change plan",
+    "path": [
+      "Host Summary",
+      "Installed version and build",
+      "Approved target build",
+      "Compatibility and backup checks"
+    ],
+    "why": "A supported upgrade path and recovery evidence come before remediation.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-patching:2": {
+    "title": "Step 2: Evacuate, maintain, verify and return",
+    "where": "vSphere Client → approved practice host / cluster update workflow",
+    "path": [
+      "Practice host",
+      "Maintenance Mode",
+      "Enter Maintenance Mode",
+      "Updates",
+      "Pre-check",
+      "Remediate"
+    ],
+    "why": "Evacuate or shut down guests before a host-level maintenance change.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/322293"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "After the approved guest shutdown or evacuation, right-click the practice host → Maintenance Mode → Enter Maintenance Mode. Confirm the host state and empty workload. Open Updates and use the image or baseline workflow selected by your approved update plan; run its pre-check before any remediation.",
+      "On a standalone host, shut down each guest cleanly and document downtime. On a compatible licensed cluster, evacuate VMs through the approved migration workflow and verify the destination service state.",
+      "Enter Maintenance Mode and confirm no unexpected workload remains. vSAN, NSX and VCF systems require their own product-specific procedures; do not apply a generic maintenance recipe to them.",
+      "Run the approved update/remediation, watch prechecks and reboot through the documented process. Verify build, hardware/storage/network/time health before exiting Maintenance Mode and returning test workloads.",
+      "Test the guest service and monitor for new alarms. If boot or driver checks fail, use the preapproved console/recovery procedure and preserve logs; do not improvise an unsupported downgrade."
+    ]
+  },
+  "vsphere-backup:1": {
+    "title": "Step 1: Configure a protected vCenter file-based backup",
+    "where": "Browser → https://<your-vcenter-fqdn>:5480",
+    "path": ["VAMI :5480", "Backup", "Backup Now", "Backup location", "Review"],
+    "why": "vCenter configuration needs recovery separate from VM workload backups.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/318731"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable.",
+    "actions": [
+      "Open https://<your-vcenter-fqdn>:5480 and verify the appliance identity. Sign in with the authorized appliance account → Backup → Backup Now. Enter the approved remote destination and credentials locally; review the backup selection before starting it.",
+      "Use the verified VAMI interface and the permitted appliance administrator account. Select Backup → Backup Now or the supported schedule configuration.",
+      "Enter an approved remote backup destination such as sftp://backup.lab.example.test/<approved-folder>. Provide its least-privilege credentials locally and use the approved encryption/secret-retention policy. Do not use a datastore on the same single host as your only recovery copy.",
+      "Review data selection, schedule, retention and destination reachability. Start the backup and inspect the result; creating a schedule alone does not prove a backup exists."
+    ]
+  },
+  "vsphere-backup:2": {
+    "title": "Step 2: Verify backup files and plan an isolated restore",
+    "where": "VAMI and an approved isolated recovery environment",
+    "path": [
+      "VAMI",
+      "Backup",
+      "Completed backup entry",
+      "Isolated restore plan"
+    ],
+    "why": "Backup files are useful only if their restore procedure works.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://knowledge.broadcom.com/external/article/318731"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-capstone:1": {
+    "title": "Step 1: Build the evidence pack",
+    "where": "This course → private evidence notebook",
+    "path": [
+      "Your private notebook",
+      "Inventory",
+      "Network and storage checks",
+      "Application evidence"
+    ],
+    "why": "A handoff must show real observations and clearly separate proposals.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  },
+  "vsphere-capstone:2": {
+    "title": "Step 2: Hand off the service and its recovery steps",
+    "where": "Your evidence notebook and authorized handoff destination",
+    "path": [
+      "Your private notebook",
+      "Service owner",
+      "Recovery instructions",
+      "Known issues",
+      "Handoff"
+    ],
+    "why": "The next administrator needs enough context to support the service safely.",
+    "links": [
+      {
+        "title": "Official procedure and version notes",
+        "url": "https://techdocs.broadcom.com/us/en/vmware-cis/vsphere/vsphere/8-0.html"
+      }
+    ],
+    "needs": "Use your private lab values. The vSphere Client requires authorized vCenter access; stay in walkthrough mode if it is unavailable."
+  }
+}

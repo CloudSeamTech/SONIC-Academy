@@ -1,6 +1,11 @@
 'use client';
 import { showStepScreenshot } from '../../lib/step-media';
-import { stepActions, stepResource } from '../../lib/task-navigation';
+import {
+  stepActions,
+  stepResource,
+  taskNavigation,
+  taskLinks,
+} from '../../lib/task-navigation';
 import { SplitFocusWorkspace } from '../split-focus-workspace';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -315,16 +320,33 @@ function LessonReader({
                       }).where
                     }
                   </p>
+                  {(index === 0 ||
+                    step.where !== lesson.steps[index - 1].where) &&
+                    !taskNavigation[`${lesson.id}:${index + 1}`] && (
+                      <WorkspaceStart
+                        where={step.where}
+                        action={step.actions.join(' ')}
+                      />
+                    )}
                   <SplitFocusWorkspace
                     stepId={`${lesson.id}:${index + 1}`}
                     resource={{
                       title: `Step ${index + 1}: ${step.title}`,
                       where: step.where,
                       why: step.guide?.why ?? lesson.why,
-                      links: step.sources.map((url) => ({
-                        title: new URL(url).hostname + ' · step documentation',
-                        url,
-                      })),
+                      links: [
+                        ...taskLinks(
+                          stepActions(
+                            `${lesson.id}:${index + 1}`,
+                            step.actions,
+                          ).join(' '),
+                        ),
+                        ...step.sources.map((url) => ({
+                          title:
+                            new URL(url).hostname + ' · step documentation',
+                          url,
+                        })),
+                      ],
                     }}
                     takeaway={step.guide?.why ?? lesson.why}
 

@@ -1,0 +1,568 @@
+{
+  "pki-alma-explain:1": {
+    "title": "Step 1: A certificate is a website’s checked name badge",
+    "where": "Read here · no server changes",
+    "path": [
+      "This lesson",
+      "A certificate is a website’s checked name badge",
+      "Your private notes"
+    ],
+    "why": "A browser needs a way to check who answered.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-explain:2": {
+    "title": "Step 2: The private key stays home; the CSR asks for a badge",
+    "where": "Read here · application server and PKI team",
+    "path": [
+      "This lesson",
+      "The private key stays home; the CSR asks for a badge",
+      "Your private notes"
+    ],
+    "why": "A CSR lets someone sign your request without receiving your secret.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-explain:3": {
+    "title": "Step 3: Root, intermediate and leaf have different jobs",
+    "where": "Read here · trust-chain example",
+    "path": [
+      "This lesson",
+      "Root, intermediate and leaf have different jobs",
+      "Your private notes"
+    ],
+    "why": "The website badge and the signing offices do not belong in the same place.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-plan:1": {
+    "title": "Step 1: Identify the machine and the TLS endpoint",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "The application’s TLS certificate may actually live on a proxy or load balancer.",
+    "links": [
+      {
+        "title": "NGINX configuration reference",
+        "url": "https://nginx.org/en/docs/switches.html"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-plan:2": {
+    "title": "Step 2: Find the active paths and preserve recovery",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "A configuration test checks syntax; it does not establish client trust.",
+    "links": [
+      {
+        "title": "NGINX configuration reference",
+        "url": "https://nginx.org/en/docs/switches.html"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-csr:1": {
+    "title": "Step 1: Prepare the request settings",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux Terminal", "Your home (~)", "pki-work", "req.cnf"],
+    "why": "SAN is the list of website names the certificate should cover.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you.",
+    "actions": [
+      "In the AlmaLinux Terminal, type mkdir -p ~/pki-work and press Enter. Then type curl --fail --location https://cloudseam.tech/pki-lab/req.cnf --output ~/pki-work/req.cnf and press Enter. Stop if the download fails. To edit the file, type vi ~/pki-work/req.cnf and press Enter; press i to enter insert mode, edit only the approved CN and DNS.1 names, press Esc, then type :wq and press Enter to save and close.",
+      "Create ~/pki-work. Download the CSR settings file below into that folder as req.cnf.",
+      "Open it in your text editor. In this private example CN and DNS.1 are app.example.mil. For an organization request, use only its approved real name and required subject fields. Keep the CN and SAN consistent.",
+      "Confirm every needed DNS name with the application owner and PKI team. Adding a name to a CSR does not create DNS or authorize ownership."
+    ]
+  },
+  "pki-alma-csr:2": {
+    "title": "Step 2: Generate a new key and request once",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "The key is secret; the CSR is the public request.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-csr:3": {
+    "title": "Step 3: Check the signature, names and matching public keys",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "A typo can produce a perfectly signed certificate for the wrong website.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-handoff:1": {
+    "title": "Step 1: Send only the checked request",
+    "where": "Application owner · approved PKI ticket or enrollment portal",
+    "path": [
+      "This lesson",
+      "Download handoff checklist",
+      "Application, owner and SAN fields",
+      "Your approved PKI team process"
+    ],
+    "why": "The PKI team approves the identity and issuance policy.",
+    "links": [
+      {
+        "title": "Download the practice handoff checklist",
+        "url": "https://cloudseam.tech/pki-lab/pki-handoff.txt"
+      }
+    ],
+    "needs": "Your organization supplies its own enrollment URL and form labels. For this private practice, use the downloadable handoff checklist and the separate practice-CA exercise; do not claim that a real PKI request was submitted."
+  },
+  "pki-alma-handoff:2": {
+    "title": "Step 2: Inspect the new leaf and public CA chain",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "Dates, key matching, purpose and names all matter.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-verify/"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-install:1": {
+    "title": "Step 1: Build and stage the server chain",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "NGINX needs the leaf first, followed by the issuing intermediates.",
+    "links": [
+      {
+        "title": "NGINX configuration reference",
+        "url": "https://nginx.org/en/docs/http/configuring_https_servers.html"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-install:2": {
+    "title": "Step 2: Add an approved root only if this client needs it",
+    "where": "AlmaLinux application VM · Terminal · your authorized account · only on an approved disposable trust-test machine",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "A system trust import changes which authorities local clients accept.",
+    "links": [
+      {
+        "title": "Red Hat trust-store procedure",
+        "url": "https://docs.redhat.com/en/documentation/red_hat_enterprise_linux/9/html/securing_networks/using-shared-system-certificates_securing-networks"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-validate:1": {
+    "title": "Step 1: Update only the intended site and test before reload",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "Keep the application configuration and old recovery pair intact.",
+    "links": [
+      {
+        "title": "NGINX configuration reference",
+        "url": "https://nginx.org/en/docs/http/configuring_https_servers.html"
+      },
+      {
+        "title": "NGINX configuration reference",
+        "url": "https://nginx.org/en/docs/switches.html"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you.",
+    "actions": [
+      "In the Terminal, type sudoedit followed by one space and the complete NGINX site-file path you recorded in the inventory step. For example, use sudoedit /etc/nginx/conf.d/app.conf only if that is the file your nginx -T output identified. The filename is your recorded value; the sudoedit command is fixed syntax.",
+      "Open the recorded site configuration with sudoedit. In its existing HTTPS server block, set ssl_certificate to /etc/pki/tls/certs/sonic-app-v1-fullchain.pem and ssl_certificate_key to /etc/pki/tls/private/sonic-app-v1.key.",
+      "For a previously HTTP-only prepared application, add its approved private HTTPS binding with listen 443 ssl and server_name app.example.mil while preserving the real application locations. Do not paste a static-site block over an application proxy.",
+      "Run nginx -t. Reload only if it passes. Check service status and logs. Do not disable SELinux, firewalld or validation to obtain a green result."
+    ]
+  },
+  "pki-alma-validate:2": {
+    "title": "Step 2: Check the actual endpoint from a client",
+    "where": "Private test client · Terminal with OpenSSL and curl",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "SNI selects the named site; hostname and trust checks verify its identity.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-verify/"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-renew:1": {
+    "title": "Step 1: Record dates and schedule useful reminders",
+    "where": "AlmaLinux application VM · Terminal · your authorized account · certificate inventory",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "Someone needs time to request, approve and test a replacement.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+      },
+      {
+        "title": "NGINX configuration reference",
+        "url": "https://nginx.org/en/docs/http/configuring_https_servers.html"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-alma-renew:2": {
+    "title": "Step 2: Renew with overlap and retain a valid rollback",
+    "where": "AlmaLinux application VM · Terminal · your authorized account",
+    "path": ["AlmaLinux application VM", "Activities", "Terminal"],
+    "why": "A new certificate is not active until the endpoint proves it.",
+    "links": [
+      {
+        "title": "OpenSSL command reference",
+        "url": "https://docs.openssl.org/3.5/man1/openssl-req/"
+      },
+      {
+        "title": "NGINX configuration reference",
+        "url": "https://nginx.org/en/docs/http/configuring_https_servers.html"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-explain:1": {
+    "title": "Step 1: A certificate is a website’s checked name badge",
+    "where": "Read here · no server changes",
+    "path": [
+      "This lesson",
+      "A certificate is a website’s checked name badge",
+      "Your private notes"
+    ],
+    "why": "A browser needs a way to check who answered.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-explain:2": {
+    "title": "Step 2: The private key stays home; the CSR asks for a badge",
+    "where": "Read here · application server and PKI team",
+    "path": [
+      "This lesson",
+      "The private key stays home; the CSR asks for a badge",
+      "Your private notes"
+    ],
+    "why": "A CSR lets someone sign your request without receiving your secret.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-explain:3": {
+    "title": "Step 3: Root, intermediate and leaf have different jobs",
+    "where": "Read here · trust-chain example",
+    "path": [
+      "This lesson",
+      "Root, intermediate and leaf have different jobs",
+      "Your private notes"
+    ],
+    "why": "The website badge and the signing offices do not belong in the same place.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-plan:1": {
+    "title": "Step 1: Confirm the application-server prerequisite",
+    "where": "Windows application VM · Administrator PowerShell",
+    "path": [
+      "Application VM",
+      "Start",
+      "Windows PowerShell",
+      "Run as administrator"
+    ],
+    "why": "Certificate work belongs on the server hosting the intended TLS endpoint.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-plan:2": {
+    "title": "Step 2: Save the current configuration and binding",
+    "where": "Windows application VM · Administrator PowerShell · IIS Manager",
+    "path": [
+      "Application VM",
+      "Start",
+      "Windows PowerShell",
+      "Run as administrator"
+    ],
+    "why": "The previous binding identifies the pair you can restore during a failed change.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/iis/get-started/getting-started-with-iis/getting-started-with-appcmdexe"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-csr:1": {
+    "title": "Step 1: Prepare the SAN-aware request file",
+    "where": "Windows application VM · Administrator PowerShell",
+    "path": [
+      "Administrator PowerShell",
+      "C:\\SONIC-PKI",
+      "iis-request.inf",
+      "Notepad"
+    ],
+    "why": "The browser matches DNS names in Subject Alternative Name.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you.",
+    "actions": [
+      "Inside the application VM, open Start → Windows PowerShell → Run as administrator. Type New-Item -ItemType Directory -Path C:\\SONIC-PKI -Force. Then type Invoke-WebRequest -UseBasicParsing -Uri https://cloudseam.tech/pki-lab/iis-request.inf -OutFile C:\\SONIC-PKI\\iis-request.inf. After the download succeeds, type notepad.exe C:\\SONIC-PKI\\iis-request.inf to inspect the settings.",
+      "Create C:\\SONIC-PKI on the application VM. Download iis-request.inf below into that folder.",
+      "Open the INF in Notepad. Confirm Subject CN and the DNS SAN are tickets.lab.example.test for private practice, or your organization’s approved names. Confirm the key algorithm and PKI policy.",
+      "MachineKeySet = TRUE creates the machine-context key; Exportable = FALSE keeps this practice key non-exportable. HashAlgorithm = sha256 signs the request. These are not the validity dates of the returned certificate.",
+      "The IIS Manager Create Certificate Request wizard is another entry point, but do not assume its subject form adds your required SANs. This class uses certreq and then verifies the actual request."
+    ]
+  },
+  "pki-iis-csr:2": {
+    "title": "Step 2: Generate and inspect the request",
+    "where": "Windows application VM · Administrator PowerShell",
+    "path": [
+      "Application VM",
+      "Start",
+      "Windows PowerShell",
+      "Run as administrator"
+    ],
+    "why": "The CSR can travel; the machine private key stays on this server.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-handoff:1": {
+    "title": "Step 1: Submit through the approved enrollment process",
+    "where": "Application owner · approved PKI ticket/portal",
+    "path": [
+      "This lesson",
+      "Download handoff checklist",
+      "Application, owner and SAN fields",
+      "Your approved PKI team process"
+    ],
+    "why": "Issuance needs ownership, policy and a tracked handoff.",
+    "links": [
+      {
+        "title": "Download the practice handoff checklist",
+        "url": "https://cloudseam.tech/pki-lab/pki-handoff.txt"
+      }
+    ],
+    "needs": "Your organization supplies its own enrollment URL and form labels. For this private practice, use the downloadable handoff checklist and the separate practice-CA exercise; do not claim that a real PKI request was submitted."
+  },
+  "pki-iis-handoff:2": {
+    "title": "Step 2: Inspect the returned certificate before import",
+    "where": "Windows application VM · Administrator PowerShell",
+    "path": [
+      "Application VM",
+      "Start",
+      "Windows PowerShell",
+      "Run as administrator"
+    ],
+    "why": "Read the role, name, purpose and dates before selecting a store.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil"
+      },
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-stores:1": {
+    "title": "Step 1: Find the Local Computer stores",
+    "where": "Windows application VM · Certificates (Local Computer)",
+    "path": [
+      "Application VM",
+      "Start",
+      "certlm.msc",
+      "Certificates – Local Computer",
+      "Personal",
+      "Certificates"
+    ],
+    "why": "IIS reads machine certificates, not just the signed-in user’s personal store.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil"
+      },
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-stores:2": {
+    "title": "Step 2: Add only an approved missing CA chain",
+    "where": "Windows application VM · Certificates (Local Computer)",
+    "path": [
+      "certlm.msc",
+      "Trusted Root Certification Authorities",
+      "Certificates",
+      "All Tasks",
+      "Import"
+    ],
+    "why": "Trust changes should be deliberate and limited to the right role.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil"
+      },
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-stores:3": {
+    "title": "Step 3: Complete the pending request and verify its key",
+    "where": "Windows application VM · Administrator PowerShell · then certificate properties",
+    "path": [
+      "Application VM",
+      "Start",
+      "Windows PowerShell",
+      "Run as administrator"
+    ],
+    "why": "A public leaf without its private key cannot serve this website.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certutil"
+      },
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/certreq_1"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-bind:1": {
+    "title": "Step 1: Choose the intended HTTPS binding",
+    "where": "Windows application VM · IIS Manager",
+    "path": [
+      "Server Manager",
+      "Tools",
+      "IIS Manager",
+      "Sites",
+      "Your application site",
+      "Bindings",
+      "https"
+    ],
+    "why": "The IP, port, hostname and SNI setting choose which site answers.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-bind:2": {
+    "title": "Step 2: Verify TLS identity and application behavior",
+    "where": "Allowed private test client · browser and PowerShell",
+    "path": [
+      "Application VM",
+      "Start",
+      "Windows PowerShell",
+      "Run as administrator"
+    ],
+    "why": "Users need a trusted HTTPS connection to the intended application.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-renew:1": {
+    "title": "Step 1: Maintain the certificate inventory",
+    "where": "Windows application VM · Administrator PowerShell · change record",
+    "path": [
+      "Application VM",
+      "Start",
+      "Windows PowerShell",
+      "Run as administrator"
+    ],
+    "why": "A named owner and earlier reminders prevent expiry surprises.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  },
+  "pki-iis-renew:2": {
+    "title": "Step 2: Renew with overlap, then verify or roll back",
+    "where": "Windows application VM · IIS Manager",
+    "path": [
+      "IIS Manager",
+      "Sites",
+      "Your application site",
+      "Bindings",
+      "https",
+      "Edit",
+      "SSL certificate"
+    ],
+    "why": "A new-key renewal needs the new leaf associated with its new machine key.",
+    "links": [
+      {
+        "title": "Microsoft procedure for this task",
+        "url": "https://learn.microsoft.com/en-us/iis/manage/configuring-security/how-to-set-up-ssl-on-iis"
+      }
+    ],
+    "needs": "Complete the preceding chapter and keep your change notes beside you."
+  }
+}

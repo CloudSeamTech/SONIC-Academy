@@ -1,3 +1,6 @@
+import splunkNavigation from '../content/teaching/splunk-navigation.json' with { type: 'json' };
+import pkiNavigation from '../content/teaching/pki-navigation.json' with { type: 'json' };
+import vsphereNavigation from '../content/teaching/vsphere-navigation.json' with { type: 'json' };
 export type StepResource = {
   title: string;
   where?: string;
@@ -13,6 +16,9 @@ export const taskNavigation: Record<
   string,
   StepResource & { actions?: string[] }
 > = {
+  ...vsphereNavigation,
+  ...pkiNavigation,
+  ...splunkNavigation,
   'vsphere-install:1': {
     title: 'Download the installer, then choose the installation disk',
     where:
@@ -98,11 +104,41 @@ export function stepResource(
   stepId: string,
   fallback: StepResource,
 ): StepResource {
-  return { ...fallback, ...taskNavigation[stepId] };
+  const resource = { ...fallback, ...taskNavigation[stepId] };
+  if (resource.links)
+    resource.links = [
+      ...new Map(resource.links.map((link) => [link.url, link])).values(),
+    ];
+  return resource;
 }
 
 export function stepActions(stepId: string, fallback: string[]): string[] {
   return taskNavigation[stepId]?.actions ?? fallback;
+}
+
+/** Surface literal public destinations already authored in a task; do not guess URLs. */
+export function taskLinks(text: string): { title: string; url: string }[] {
+  const links = new Map<string, { title: string; url: string }>();
+  for (const match of text.matchAll(/https:\/\/[^\s<>"'`]+/g)) {
+    const value = match[0].replace(/[),.;]+$/, '');
+    try {
+      const url = new URL(value);
+      if (url.username || url.password || /[{}$\\]/.test(value)) continue;
+      if (
+        /^(localhost|\d+(?:\.\d+){3})$/.test(url.hostname) ||
+        /^(your[-.]|vcenter$|esxi$|host$|server$)/i.test(url.hostname) ||
+        /(?:^|\.)(?:example\.(?:test|com|org)|invalid)$/.test(url.hostname)
+      )
+        continue;
+      links.set(url.href, {
+        title: `Open ${url.hostname}${url.pathname === '/' ? '' : url.pathname}`,
+        url: url.href,
+      });
+    } catch {
+      /* Placeholder addresses belong in the task, not a guessed external link. */
+    }
+  }
+  return [...links.values()];
 }
 
 export const taskScreenshots = [

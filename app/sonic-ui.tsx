@@ -1,5 +1,6 @@
 'use client';
 import { SplitFocusWorkspace } from './split-focus-workspace';
+import { taskLinks } from '../lib/task-navigation';
 import { WorkspaceStart } from './workspace-start';
 import { VisualChecklist } from './visual-checklist';
 import { TerminalExample } from './terminal-example';
@@ -287,11 +288,18 @@ export function SonicWalkthrough({
               </h4>
               <div className="sonic-action-body">
                 <p className="walkthrough-location">Work in: {step.where}</p>
+                {(index === 0 || step.where !== steps[index - 1].where) && (
+                  <WorkspaceStart
+                    where={step.where}
+                    action={step.actions.join(' ')}
+                  />
+                )}
                 <SplitFocusWorkspace
                   stepId={`${lessonId}:${variant}:${index + 1}`}
                   resource={{
                     title: `Step ${index + 1}: ${step.title}`,
                     where: step.where,
+                    links: taskLinks(step.actions.join(' ')),
                   }}
                   dock={variant === 'guided' && focused && index === activeStep}
                   reference={

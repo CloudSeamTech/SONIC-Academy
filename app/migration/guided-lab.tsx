@@ -2,6 +2,7 @@
 /* oxlint-disable next/no-img-element, react/react-compiler -- Load saved local notes after hydration; no lab operations execute here. */
 'use client';
 import { SplitFocusWorkspace } from '../split-focus-workspace';
+import { taskLinks } from '../../lib/task-navigation';
 import { WorkspaceStart } from '../workspace-start';
 import { FocusStepControl } from '../focus-step-control';
 import { LabStepNav } from '../lab-step-nav';
@@ -194,12 +195,21 @@ export function GuidedLab({
                 <p className="lesson-start">
                   <b>Work in:</b> {step.where ?? guide.where}
                 </p>
+                {(index === 0 ||
+                  (step.where ?? guide.where) !==
+                    (guide.steps[index - 1].where ?? guide.where)) && (
+                  <WorkspaceStart
+                    where={step.where ?? guide.where}
+                    action={currentAction}
+                  />
+                )}
                 <SplitFocusWorkspace
                   stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
                   resource={{
                     title: `Step ${index + 1}: ${currentTitle}`,
                     where: step.where ?? guide.where,
                     why: coaching.reason,
+                    links: taskLinks(currentAction),
                   }}
                   takeaway={coaching.reason}
                   reference={
