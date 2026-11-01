@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { LabVerificationPanel } from '../lab-verification-panel';
+import { LivePairing } from './live-pairing';
 import './check-your-work.css';
 type LessonChoice = {
   id: string;
@@ -122,27 +123,11 @@ export function CheckYourWork({
               </a>
             </p>
           )}
-          <section
-            className="check-work-connection"
-            aria-labelledby="live-connection-heading"
-          >
-            <h2 id="live-connection-heading">Secure live connection</h2>
-            <p>
-              <strong>Not connected · platform setup required.</strong> Student
-              sign-in, secure pairing, protected storage and a signed connector
-              are not configured yet.
-            </p>
-            <button
-              type="button"
-              disabled
-              aria-describedby="live-connection-heading"
-            >
-              Connect server · unavailable
-            </button>
-            <button type="button" onClick={() => setView('how')}>
-              See the connection process
-            </button>
-          </section>
+          <LivePairing
+            key={selected}
+            lessonId={selected}
+            onHelp={() => setView('how')}
+          />
           {selected ? (
             <LabVerificationPanel key={selected} lessonId={selected} />
           ) : (
@@ -327,17 +312,25 @@ export function CheckYourWork({
                 permits.
               </li>
               <li>
-                Download the signed connector, verify its publisher, then
-                approve a short-lived pairing request for the named VM.
+                On the website, choose Pair a machine to get a code valid for 10
+                minutes. Inside your VM, open the signed checker, verify its
+                publisher and type that code.
               </li>
               <li>
-                The connector sends selected observations over authenticated
-                HTTPS. The backend validates the pairing and evaluates the
-                versioned class rules.
+                The checker displays a confirmation number. Enter it on the
+                website and approve the matching VM name. Connected appears only
+                after the approved checker contacts the service.
               </li>
               <li>
-                View per-task results and disconnect or revoke the device when
-                finished.
+                Choose Run class checks. The checker asks for approved work over
+                outbound HTTPS, reads the permitted local settings and returns
+                observations. The server compares them with your saved class
+                requirements; it never sends arbitrary commands.
+              </li>
+              <li>
+                Read each pass, fail or not-checked result. Fix a failed task
+                and run again. Stop the checker or revoke its access when done;
+                stale connections must not stay green.
               </li>
             </ol>
             <p>
