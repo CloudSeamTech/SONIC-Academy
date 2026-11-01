@@ -17,6 +17,7 @@ import { careerPathways, standaloneCourses } from './career-pathways';
 import { planLabel, lessonTier } from '../lib/plan-access';
 import { useAcademy } from './academy-provider';
 import { BrandLogo } from './brand-logo';
+import { LabVerificationPanel } from './lab-verification-panel';
 import { LabPassport, LabEnvironmentScope } from './lab-passport';
 import { LessonTools } from './learning-rhythm';
 import { ClickableLabMap } from './clickable-lab-map';
@@ -453,6 +454,10 @@ export function ConsoleReaderShell({
                 <ClickableLabMap lessonId={lessonId} />
                 {!outlineWide && <PrivateNotebook lessonId={lessonId} />}
                 <ModuleTest lessonId={lessonId} />
+                <LabVerificationPanel
+                  key={`verification:${lessonId}`}
+                  lessonId={lessonId}
+                />
               </>
             )}
             <footer className="academy-footer">

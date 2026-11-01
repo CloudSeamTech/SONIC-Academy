@@ -574,7 +574,7 @@ function LessonReader({
         save={save}
       />
       <section className="alma-verify">
-        <h2>Finished? Verify this lesson</h2>
+        <h2>Record your lesson completion</h2>
         <p>
           Check every step, finish the exercise, and pass the knowledge check.
           Progress is self-reported. Signed-in learners can save it to their
@@ -594,8 +594,8 @@ function LessonReader({
           }
         >
           {progress.verified.includes(lesson.id)
-            ? '✓ Lesson verified · undo'
-            : 'Verify lesson complete'}
+            ? '✓ Completion recorded · undo'
+            : 'Mark lesson complete · self-reported'}
         </button>
       </section>
     </article>

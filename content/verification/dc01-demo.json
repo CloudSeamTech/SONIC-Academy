@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "packId": "windows-dc01",
+  "packVersion": "1.0.0",
+  "collectorVersion": "1.0.0",
+  "collectedAt": "2026-01-01T12:00:00Z",
+  "demo": true,
+  "facts": {
+    "computer": {
+      "status": "ok",
+      "value": {
+        "hostname": "DC01",
+        "domain": "lab.example.test",
+        "domainRole": 5,
+        "productType": 2
+      }
+    },
+    "adapters": {
+      "status": "ok",
+      "value": [
+        {
+          "addresses": [{ "address": "10.50.0.10", "prefix": 24 }],
+          "dns": ["10.50.0.99"],
+          "gateways": []
+        }
+      ]
+    },
+    "roles": { "status": "ok", "value": ["AD-Domain-Services", "DNS"] },
+    "services": {
+      "status": "ok",
+      "value": [
+        { "name": "NTDS", "state": "Running" },
+        { "name": "DNS", "state": "Running" },
+        { "name": "Netlogon", "state": "Running" }
+      ]
+    },
+    "shares": { "status": "ok", "value": ["SYSVOL", "NETLOGON"] },
+    "controller": {
+      "status": "ok",
+      "value": {
+        "hostname": "dc01.lab.example.test",
+        "domain": "lab.example.test",
+        "readOnly": false
+      }
+    },
+    "dnsRegistration": {
+      "status": "ok",
+      "value": [{ "target": "dc01.lab.example.test.", "port": 389 }]
+    }
+  }
+}

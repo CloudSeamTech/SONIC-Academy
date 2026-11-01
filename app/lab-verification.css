@@ -1,0 +1,124 @@
+.lab-verification {
+  margin: 28px 0;
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid #d3dce5;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #f8fafc, #e7edf3);
+  box-shadow:
+    0 12px 30px #243b5310,
+    inset 0 1px #fff;
+  min-width: 0;
+}
+.verification-status {
+  display: block;
+  margin: 16px 0;
+}
+.lab-verification h2,
+.lab-verification h3,
+.lab-verification h4 {
+  overflow-wrap: anywhere;
+}
+.verification-mode {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+}
+.verification-notice {
+  padding: 14px 18px;
+  background: #fff;
+  border-radius: 12px;
+}
+.verification-instructions {
+  padding-left: 26px;
+}
+.verification-instructions > li {
+  padding: 10px 0 22px 8px;
+}
+.verification-fields {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: 18px;
+}
+.verification-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+.verification-fields input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 12px;
+  background: #fff;
+  border: 1px solid #a6b4c4;
+  border-radius: 8px;
+}
+.lab-verification pre {
+  padding: 16px;
+  background: #111820;
+  color: #eaf0f7;
+  overflow: auto;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.verification-hash {
+  display: block;
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+.verification-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 18px 0;
+}
+.verification-actions button {
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 9px;
+}
+.verification-actions button:first-child {
+  background: #ffda4c;
+  color: #142334;
+  border: 1px solid #e0bd35;
+}
+.verification-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.verification-results {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 14px;
+}
+.verification-results li {
+  background: #fff;
+  border-radius: 12px;
+  padding: 18px;
+  border-left: 5px solid #6d7a89;
+  min-width: 0;
+}
+.verification-results li[data-status='pass'] {
+  border-left-color: #16764a;
+}
+.verification-results li[data-status='fail'] {
+  border-left-color: #be3345;
+}
+.verification-results li[data-status='pass'] h4 {
+  color: #166342;
+}
+.verification-results li[data-status='fail'] h4,
+.verification-error {
+  color: #a52234;
+}
+.verification-results p {
+  overflow-wrap: anywhere;
+}
+.verification-results h4 small {
+  display: block;
+  font-weight: 500;
+  margin-top: 6px;
+}

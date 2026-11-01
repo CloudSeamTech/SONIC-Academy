@@ -1,6 +1,8 @@
 # Lab checks: proposed first release
 
-Status: design only. No hosted VM connection, provisioning or automated grading is implemented by this document.
+Status: a DC01 local-report preview is implemented. The unsigned PowerShell collector reads local facts; the browser evaluates an imported report and displays per-check results. Other lessons explicitly report that no automated pack is available. No hosted VM connection, provisioning or certified grading is implemented.
+
+Current production blockers: publisher code signing and a real authenticated account/result-storage backend. Do not turn the unsigned preview into an internet-facing command runner or weaken execution policy to make it run. Genuine Windows Server/DC01 execution and supported failure-state testing remain required before production release. Current automated tests use explicit fixtures/mocked collectors; they are not a real VM validation run.
 
 ## Student flow
 
