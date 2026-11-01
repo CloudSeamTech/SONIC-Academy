@@ -2437,3 +2437,9 @@ html body:has(#quiet-desktop),
 html body #quiet-desktop.academy-shell.academy-shell {
   overflow: clip !important;
 }
+/* Keep the clipping value opaque to build-time overflow fallback rewriting. */
+html:has(#quiet-desktop.academy-shell),
+html body:has(#quiet-desktop.academy-shell) {
+  --studio-outer-overflow: clip;
+  overflow: var(--studio-outer-overflow) !important;
+}
