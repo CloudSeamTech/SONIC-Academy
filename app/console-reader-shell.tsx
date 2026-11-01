@@ -10,6 +10,8 @@ import {
   Search,
   Menu,
   UserRound,
+  Terminal,
+  ShieldCheck,
 } from 'lucide-react';
 import { learningPathways, pathwayLessons } from './learning-pathways';
 import { guidedCourses } from '../lib/guided-courses';
@@ -341,6 +343,23 @@ export function ConsoleReaderShell({
                 <FlaskConical size={18} />
                 <span className="studio-nav-label">My Learning</span>
               </a>
+              <a
+                href="/commands"
+                className={activeView === 'commands' ? 'active' : ''}
+                aria-current={activeView === 'commands' ? 'page' : undefined}
+              >
+                <Terminal size={18} />
+                <span className="studio-nav-label">Commands</span>
+              </a>
+              <a
+                href="/check-your-work"
+                className={activeView === 'check-work' ? 'active' : ''}
+                aria-current={activeView === 'check-work' ? 'page' : undefined}
+                aria-label="Check Your Work"
+              >
+                <ShieldCheck size={18} />
+                <span className="studio-nav-label">Check Your Work</span>
+              </a>
             </nav>
             <div className="academy-secondary-nav">
               <a href="/?view=bookmarks">
@@ -453,6 +472,13 @@ export function ConsoleReaderShell({
                 <ClickableLabMap lessonId={lessonId} />
                 {!outlineWide && <PrivateNotebook lessonId={lessonId} />}
                 <ModuleTest lessonId={lessonId} />
+                <p>
+                  <a
+                    href={`/check-your-work?lesson=${encodeURIComponent(lessonId)}`}
+                  >
+                    Open Check Your Work for this lesson →
+                  </a>
+                </p>
               </>
             )}
             <footer className="academy-footer">

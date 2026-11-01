@@ -1,5 +1,6 @@
 'use client';
 import { SplitFocusWorkspace } from './split-focus-workspace';
+import { taskLinks } from '../lib/task-navigation';
 import { WorkspaceStart } from './workspace-start';
 import { VisualChecklist } from './visual-checklist';
 import { TerminalExample } from './terminal-example';
@@ -9,6 +10,7 @@ import { FocusStepControl } from './focus-step-control';
 import { useEffect, useState, type ReactNode } from 'react';
 import { LabStepNav } from './lab-step-nav';
 import { InstructionScreenshots } from './instruction-screenshots';
+import { reviewedInstructionCapture } from '../lib/instruction-media';
 import { StepTeachingNotes } from './step-teaching-notes';
 import { readableStepTitle } from '@/lib/lesson-headings';
 import type { WalkthroughStep } from './wazuh-walkthroughs';
@@ -287,11 +289,24 @@ export function SonicWalkthrough({
               </h4>
               <div className="sonic-action-body">
                 <p className="walkthrough-location">Work in: {step.where}</p>
+                {(index === 0 || step.where !== steps[index - 1].where) && (
+                  <WorkspaceStart
+                    where={step.where}
+                    action={step.actions.join(' ')}
+                  />
+                )}
                 <SplitFocusWorkspace
+                  hasReference={Boolean(
+                    step.command ||
+                    reviewedInstructionCapture(
+                      `${lessonId}:${variant}:${index + 1}`,
+                    ),
+                  )}
                   stepId={`${lessonId}:${variant}:${index + 1}`}
                   resource={{
                     title: `Step ${index + 1}: ${step.title}`,
                     where: step.where,
+                    links: taskLinks(step.actions.join(' ')),
                   }}
                   dock={variant === 'guided' && focused && index === activeStep}
                   reference={

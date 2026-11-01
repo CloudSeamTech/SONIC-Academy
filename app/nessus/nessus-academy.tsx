@@ -1,6 +1,11 @@
 'use client';
 import { showStepScreenshot } from '../../lib/step-media';
-import { stepActions, stepResource } from '../../lib/task-navigation';
+import {
+  stepActions,
+  stepResource,
+  taskNavigation,
+  taskLinks,
+} from '../../lib/task-navigation';
 import { SplitFocusWorkspace } from '../split-focus-workspace';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -315,16 +320,34 @@ function LessonReader({
                       }).where
                     }
                   </p>
+                  {(index === 0 ||
+                    step.where !== lesson.steps[index - 1].where) &&
+                    !lesson.id.startsWith('bicep-') &&
+                    !taskNavigation[`${lesson.id}:${index + 1}`] && (
+                      <WorkspaceStart
+                        where={step.where}
+                        action={step.actions.join(' ')}
+                      />
+                    )}
                   <SplitFocusWorkspace
                     stepId={`${lesson.id}:${index + 1}`}
                     resource={{
                       title: `Step ${index + 1}: ${step.title}`,
                       where: step.where,
                       why: step.guide?.why ?? lesson.why,
-                      links: step.sources.map((url) => ({
-                        title: new URL(url).hostname + ' · step documentation',
-                        url,
-                      })),
+                      links: [
+                        ...taskLinks(
+                          stepActions(
+                            `${lesson.id}:${index + 1}`,
+                            step.actions,
+                          ).join(' '),
+                        ),
+                        ...step.sources.map((url) => ({
+                          title:
+                            new URL(url).hostname + ' · step documentation',
+                          url,
+                        })),
+                      ],
                     }}
                     takeaway={step.guide?.why ?? lesson.why}
 
@@ -373,9 +396,15 @@ function LessonReader({
                           key={`${lesson.id}:${index}`}
                           step={step}
                         />
-                        {lesson.id.startsWith('bicep-') && index === 1 && (
-                          <BicepPractice lessonId={lesson.id} />
-                        )}
+                        {lesson.id.startsWith('bicep-') &&
+                          index === 1 &&
+                          ![
+                            'bicep-workspace',
+                            'bicep-toolchain',
+                            'bicep-environments',
+                          ].includes(lesson.id) && (
+                            <BicepPractice lessonId={lesson.id} />
+                          )}
                       </>
                     }
                   >
@@ -545,7 +574,7 @@ function LessonReader({
         save={save}
       />
       <section className="alma-verify">
-        <h2>Finished? Verify this lesson</h2>
+        <h2>Record your lesson completion</h2>
         <p>
           Check every step, finish the exercise, and pass the knowledge check.
           Progress is self-reported. Signed-in learners can save it to their
@@ -565,8 +594,8 @@ function LessonReader({
           }
         >
           {progress.verified.includes(lesson.id)
-            ? '✓ Lesson verified · undo'
-            : 'Verify lesson complete'}
+            ? '✓ Completion recorded · undo'
+            : 'Mark lesson complete · self-reported'}
         </button>
       </section>
     </article>

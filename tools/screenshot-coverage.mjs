@@ -128,6 +128,14 @@ await writeFile(
   JSON.stringify({ schemaVersion: 1, summary, steps: rows }, null, 2) + '\n',
 );
 const escape = (value) => '"' + String(value).replaceAll('"', '""') + '"';
+await writeFile(
+  resolve(root, 'content/screenshots/instruction-hashes.json'),
+  JSON.stringify(
+    Object.fromEntries(rows.map((row) => [row.stepId, row.instructionHash])),
+    null,
+    2,
+  ) + '\n',
+);
 const columns = [
   'stepId',
   'lessonTitle',

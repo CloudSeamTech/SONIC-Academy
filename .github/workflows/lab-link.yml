@@ -1,0 +1,31 @@
+name: Lab Link backend preparation
+on:
+  pull_request:
+    paths:
+      [
+        'lib/lab-link-server.ts',
+        'lib/lab-verification.ts',
+        'app/api/lab-link/**',
+        'supabase/**',
+        'config/lab-link*',
+        'checker/**',
+        'tools/test-lab-link-source.ps1',
+        'tests/lab-link*',
+        'tests/support/lab-link*',
+        '.github/workflows/lab-link.yml',
+      ]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  database-contract:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install isolated PostgreSQL test engine
+        run: npm install --prefix work/lab-link-tests --no-save --package-lock=false @electric-sql/pglite@0.3.14
+      - name: Verify backend and protocol (no cloud secrets)
+        run: node --experimental-strip-types --test tests/lab-link-backend.test.mjs tests/lab-link-contract.test.mjs tests/lab-link-checker.test.mjs

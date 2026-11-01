@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import { createHash } from 'node:crypto';
+import { refineBicepTeaching } from './refine-bicep-teaching.mjs';
 fs.mkdirSync('content/bicep',{recursive:true});
 fs.mkdirSync('public/bicep',{recursive:true});
 const docs = 'https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/';
@@ -84,6 +85,7 @@ for (const lesson of course.lessons) if (localCommands[lesson.id]) {
   lesson.steps[1].terminal = {shell:'powershell',directory:'C:\\Users\\YourName\\Documents\\CloudSeam-Bicep',user:'your-user',host:'your-workstation'};
 }
 fs.writeFileSync('content/bicep/course.json',JSON.stringify(course,null,2)+'\n');
+refineBicepTeaching();
 fs.writeFileSync('content/bicep/practices.json',JSON.stringify(practices,null,2)+'\n');
 fs.writeFileSync('content/bicep/references.json',JSON.stringify(references,null,2)+'\n');
 fs.writeFileSync('content/screenshots/markers.json',JSON.stringify(markers,null,2)+'\n');

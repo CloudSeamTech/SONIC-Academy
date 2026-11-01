@@ -1,0 +1,281 @@
+.command-library {
+  padding: clamp(18px, 3vw, 38px);
+  min-width: 0;
+  color: #193047;
+}
+.command-library-header {
+  max-width: 1000px;
+  margin-bottom: 24px;
+}
+.command-library h1 {
+  font-size: clamp(28px, 3vw, 42px);
+  line-height: 1.18;
+}
+.command-library p {
+  line-height: 1.7;
+}
+.command-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+}
+.command-sheet-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.command-sheet-links a,
+.command-search-row > button {
+  padding: 12px 17px;
+  border-radius: 10px;
+  background: #fff;
+  color: #17334c;
+  box-shadow: 0 4px 12px #21384f10;
+  text-decoration: none;
+  border: 1px solid #d5dfe8;
+}
+.command-sheet-links a:first-child {
+  background: #ffdb55;
+}
+.command-platforms {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 24px 0;
+}
+.command-platforms button {
+  flex: 1 1 160px;
+  max-width: 270px;
+  padding: 16px 20px;
+  border: 1px solid #b8c7d6;
+  border-radius: 14px;
+  background: #f7f9fc;
+  color: #233d56;
+  text-align: left;
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.command-platforms button[aria-pressed='true'] {
+  background: linear-gradient(135deg, #263b50, #52667b);
+  color: white;
+  box-shadow: 0 7px 16px #24394d25;
+}
+.command-platforms span {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  margin-top: 7px;
+}
+.command-search-row {
+  display: flex;
+  align-items: end;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.command-search-row label {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.command-search-row input,
+.command-search-row select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 13px;
+  border: 1px solid #9fafc0;
+  border-radius: 10px;
+  background: #fff;
+  color: #182f45;
+  font: inherit;
+}
+.command-count {
+  display: block;
+  margin: 18px 0;
+  color: #3c5166;
+  font-size: 13px;
+}
+.command-browser {
+  display: grid;
+  grid-template-columns: minmax(180px, 250px) minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+}
+.command-index {
+  display: grid;
+  gap: 8px;
+  max-height: 680px;
+  overflow: auto;
+  padding: 2px 8px 12px 2px;
+}
+.command-index button {
+  display: block;
+  min-width: 0;
+  text-align: left;
+  background: #f4f7fa;
+  border: 1px solid #d5dfe8;
+  border-radius: 10px;
+  padding: 13px 15px;
+  cursor: pointer;
+  color: #203a52;
+}
+.command-index strong,
+.command-index span {
+  display: block;
+  overflow-wrap: anywhere;
+}
+.command-index span {
+  font-size: 11px;
+  margin-top: 6px;
+}
+.command-index button[aria-pressed='true'] {
+  background: #fff6c7;
+  border-color: #c9a937;
+  box-shadow: 0 3px 9px #293d4c12;
+}
+.command-detail {
+  background: linear-gradient(145deg, #fff, #edf2f7);
+  padding: clamp(18px, 3vw, 30px);
+  border: 1px solid #d6e0ea;
+  border-radius: 18px;
+  box-shadow: 0 14px 28px #172c4110;
+  min-width: 0;
+}
+.command-detail h2 {
+  font-size: clamp(25px, 3vw, 34px);
+  overflow-wrap: anywhere;
+  margin: 18px 0 10px;
+}
+.command-detail h3 {
+  font-size: 16px;
+  margin: 23px 0 8px;
+}
+.command-definition {
+  font-size: 18px;
+}
+.command-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 12px;
+}
+.command-meta span {
+  padding: 6px 10px;
+  background: #e4ebf3;
+  border-radius: 7px;
+}
+.command-detail pre {
+  background: #111820 !important;
+  color: #edf6ff !important;
+  padding: 18px;
+  overflow: auto;
+  border-radius: 11px;
+  font:
+    14px/1.8 Consolas,
+    monospace;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.command-prompt {
+  color: #98d5a5;
+}
+.command-example-label {
+  font-size: 11px;
+  color: #52687b;
+}
+.command-source {
+  display: inline-block;
+  margin-top: 14px;
+}
+.command-library code {
+  overflow-wrap: anywhere;
+}
+.command-prompt-guide {
+  margin-top: 30px;
+  background: #ffffffb8;
+  padding: clamp(18px, 3vw, 28px);
+  border-radius: 16px;
+}
+.command-prompt-guide dl {
+  display: grid;
+  gap: 20px;
+}
+.command-prompt-guide dd {
+  margin: 7px 0 0;
+  line-height: 1.7;
+}
+.command-prompt-guide dt {
+  font-weight: 600;
+}
+.command-library button:focus-visible,
+.command-library a:focus-visible,
+.command-library input:focus-visible,
+.command-library select:focus-visible {
+  outline: 3px solid #8d70bc;
+  outline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .command-browser {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .command-index {
+    max-height: 240px;
+  }
+  .command-library {
+    padding: 18px 14px;
+  }
+  .command-detail {
+    padding: 18px;
+  }
+  .command-sheet-links a {
+    flex: 1 1 200px;
+  }
+  .command-platforms button {
+    max-width: none;
+    flex-basis: 120px;
+  }
+  .command-detail pre {
+    font-size: 12px;
+    padding: 14px;
+  }
+}
+
+/* Keep reference selection visible above the shared legacy button rules. */
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace
+  .command-library
+  .command-platforms
+  button[aria-pressed='true'] {
+  background: linear-gradient(135deg, #263b50, #52667b) !important;
+  color: #fff !important;
+  border-color: #52667b !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace
+  .command-library
+  .command-platforms
+  button
+  span {
+  display: block !important;
+  margin-top: 6px;
+  font-size: 12px !important;
+  color: inherit !important;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace
+  .command-library
+  .command-index
+  button[aria-pressed='true'] {
+  background: #fff6c7 !important;
+  color: #203a52 !important;
+  border-color: #c9a937 !important;
+}

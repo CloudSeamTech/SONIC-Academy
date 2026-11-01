@@ -2443,3 +2443,25 @@ html body:has(#quiet-desktop.academy-shell) {
   --studio-outer-overflow: clip;
   overflow: var(--studio-outer-overflow) !important;
 }
+
+.step-teacher-note p {
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+.step-name-examples {
+  display: grid;
+  gap: 14px;
+  min-width: 0;
+}
+.step-name-examples dt {
+  font-weight: 600;
+}
+.step-name-examples dd {
+  margin: 5px 0 0;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+.step-name-examples code {
+  white-space: normal;
+  overflow-wrap: anywhere;
+}

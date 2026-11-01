@@ -3241,63 +3241,63 @@
     },
     {
       "stepId": "lab-04:guided:2",
-      "instructionHash": "c2e177798eeac9c3497ea0453a199aa41f7e3623435466537efc0b7fd5b5fce5",
-      "assetIds": [
+      "instructionHash": "791d085783d8da66712749b95e4d4f1a9aa30788de9e5812500a7e4ba0aa782f",
+      "assetIds": [],
+      "excludedAssetIds": [
         "workstation-2"
       ],
-      "excludedAssetIds": [],
-      "coverage": "partial-vendor-reference",
-      "reviewed": true,
+      "coverage": "missing-interface-screenshot",
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-04:guided:3",
-      "instructionHash": "676886086a1c6e249789dd8bd8c8a0f5158b7151e982df2fa8c795b348445210",
+      "instructionHash": "4c976f00b676477d66017c828e3cb6112f275cbdfd232fde5843a536d5b07119",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-4"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-04:guided:4",
-      "instructionHash": "5f104ffbd0497f7f08986466e6b5a9e380934e5339ecb38551cd07159d2f7ef1",
+      "instructionHash": "07d0235eb125103b5fa82457a472e1e062b310032d6471b3948a2e91be22b1ba",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-15"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-04:guided:5",
-      "instructionHash": "36f5163414047d05cfcd2b34bdf7f41e099ca4402a30ad317ecbf324afab0f17",
+      "instructionHash": "7c38810bbc8112ae516b95467a47e81defb82b3de4d0bfce425592555674dcb8",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-6"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-04:guided:6",
-      "instructionHash": "93e856a4c0287824345b80ff1cd4a5d77fc59662db7e5dc90365aaaab0f8694b",
+      "instructionHash": "b5ca779b707c78a0cd3b0823ce339de47544fe6b4ea7f88ff51ca4544d914b7b",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-14"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values",
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment.",
       "reviewNote": "Retained control reference after beginner wording and fictional example-value update. Original image bytes and version caveats are unchanged; use the written values. This is not a target-lab capture."
     },
     {
@@ -3738,63 +3738,63 @@
     },
     {
       "stepId": "lab-06:guided:2",
-      "instructionHash": "c2e177798eeac9c3497ea0453a199aa41f7e3623435466537efc0b7fd5b5fce5",
-      "assetIds": [
+      "instructionHash": "791d085783d8da66712749b95e4d4f1a9aa30788de9e5812500a7e4ba0aa782f",
+      "assetIds": [],
+      "excludedAssetIds": [
         "workstation-2"
       ],
-      "excludedAssetIds": [],
-      "coverage": "partial-vendor-reference",
-      "reviewed": true,
+      "coverage": "missing-interface-screenshot",
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-06:guided:3",
-      "instructionHash": "676886086a1c6e249789dd8bd8c8a0f5158b7151e982df2fa8c795b348445210",
+      "instructionHash": "4c976f00b676477d66017c828e3cb6112f275cbdfd232fde5843a536d5b07119",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-4"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-06:guided:4",
-      "instructionHash": "5f104ffbd0497f7f08986466e6b5a9e380934e5339ecb38551cd07159d2f7ef1",
+      "instructionHash": "07d0235eb125103b5fa82457a472e1e062b310032d6471b3948a2e91be22b1ba",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-15"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-06:guided:5",
-      "instructionHash": "cf595dd059bd82bed7c9aa3b5ad5bdb6dd78e3cf75fc55bea3ceb3b242fe4f02",
+      "instructionHash": "dfa118cb6f9b95dd5a6616ca4c2ad7dfe388db2367550be2242144a59b81276e",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-6"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-06:guided:6",
-      "instructionHash": "93e856a4c0287824345b80ff1cd4a5d77fc59662db7e5dc90365aaaab0f8694b",
+      "instructionHash": "b5ca779b707c78a0cd3b0823ce339de47544fe6b4ea7f88ff51ca4544d914b7b",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-14"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values",
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment.",
       "reviewNote": "Retained control reference after beginner wording and fictional example-value update. Original image bytes and version caveats are unchanged; use the written values. This is not a target-lab capture."
     },
     {
@@ -4069,63 +4069,63 @@
     },
     {
       "stepId": "lab-07:guided:2",
-      "instructionHash": "c2e177798eeac9c3497ea0453a199aa41f7e3623435466537efc0b7fd5b5fce5",
-      "assetIds": [
+      "instructionHash": "791d085783d8da66712749b95e4d4f1a9aa30788de9e5812500a7e4ba0aa782f",
+      "assetIds": [],
+      "excludedAssetIds": [
         "workstation-2"
       ],
-      "excludedAssetIds": [],
-      "coverage": "partial-vendor-reference",
-      "reviewed": true,
+      "coverage": "missing-interface-screenshot",
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-07:guided:3",
-      "instructionHash": "676886086a1c6e249789dd8bd8c8a0f5158b7151e982df2fa8c795b348445210",
+      "instructionHash": "4c976f00b676477d66017c828e3cb6112f275cbdfd232fde5843a536d5b07119",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-4"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-07:guided:4",
-      "instructionHash": "5f104ffbd0497f7f08986466e6b5a9e380934e5339ecb38551cd07159d2f7ef1",
+      "instructionHash": "07d0235eb125103b5fa82457a472e1e062b310032d6471b3948a2e91be22b1ba",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-15"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-07:guided:5",
-      "instructionHash": "43fd401c8cdfd6fb4b7450b280d94b424350254f91fe89d64a58f6e02ecdf835",
+      "instructionHash": "341e7d0465d9b1e6ff882881df3e450c824ce8ee8b0cd6d6d56106f61f0e5725",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-6"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-07:guided:6",
-      "instructionHash": "93e856a4c0287824345b80ff1cd4a5d77fc59662db7e5dc90365aaaab0f8694b",
+      "instructionHash": "b5ca779b707c78a0cd3b0823ce339de47544fe6b4ea7f88ff51ca4544d914b7b",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-14"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values",
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment.",
       "reviewNote": "Retained control reference after beginner wording and fictional example-value update. Original image bytes and version caveats are unchanged; use the written values. This is not a target-lab capture."
     },
     {
@@ -4515,63 +4515,63 @@
     },
     {
       "stepId": "lab-08:guided:2",
-      "instructionHash": "c2e177798eeac9c3497ea0453a199aa41f7e3623435466537efc0b7fd5b5fce5",
-      "assetIds": [
+      "instructionHash": "791d085783d8da66712749b95e4d4f1a9aa30788de9e5812500a7e4ba0aa782f",
+      "assetIds": [],
+      "excludedAssetIds": [
         "workstation-2"
       ],
-      "excludedAssetIds": [],
-      "coverage": "partial-vendor-reference",
-      "reviewed": true,
+      "coverage": "missing-interface-screenshot",
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-08:guided:3",
-      "instructionHash": "676886086a1c6e249789dd8bd8c8a0f5158b7151e982df2fa8c795b348445210",
+      "instructionHash": "4c976f00b676477d66017c828e3cb6112f275cbdfd232fde5843a536d5b07119",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-4"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-08:guided:4",
-      "instructionHash": "5f104ffbd0497f7f08986466e6b5a9e380934e5339ecb38551cd07159d2f7ef1",
+      "instructionHash": "07d0235eb125103b5fa82457a472e1e062b310032d6471b3948a2e91be22b1ba",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-15"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-08:guided:5",
-      "instructionHash": "615fda6c9d5a0b7cdb2bda1df54943a7a2651bf9766674ab30c7ce5d079903be",
+      "instructionHash": "15dfd3fd47e215bc06d6b115a9d7c534623646e72a77018bbdc3b76cf675a8c1",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-6"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "lab-08:guided:6",
-      "instructionHash": "93e856a4c0287824345b80ff1cd4a5d77fc59662db7e5dc90365aaaab0f8694b",
+      "instructionHash": "b5ca779b707c78a0cd3b0823ce339de47544fe6b4ea7f88ff51ca4544d914b7b",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-14"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values",
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment.",
       "reviewNote": "Retained control reference after beginner wording and fictional example-value update. Original image bytes and version caveats are unchanged; use the written values. This is not a target-lab capture."
     },
     {
@@ -5561,63 +5561,63 @@
     },
     {
       "stepId": "sql-02:guided:2",
-      "instructionHash": "c2e177798eeac9c3497ea0453a199aa41f7e3623435466537efc0b7fd5b5fce5",
-      "assetIds": [
+      "instructionHash": "791d085783d8da66712749b95e4d4f1a9aa30788de9e5812500a7e4ba0aa782f",
+      "assetIds": [],
+      "excludedAssetIds": [
         "workstation-2"
       ],
-      "excludedAssetIds": [],
-      "coverage": "partial-vendor-reference",
-      "reviewed": true,
+      "coverage": "missing-interface-screenshot",
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "sql-02:guided:3",
-      "instructionHash": "676886086a1c6e249789dd8bd8c8a0f5158b7151e982df2fa8c795b348445210",
+      "instructionHash": "4c976f00b676477d66017c828e3cb6112f275cbdfd232fde5843a536d5b07119",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-4"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "sql-02:guided:4",
-      "instructionHash": "5f104ffbd0497f7f08986466e6b5a9e380934e5339ecb38551cd07159d2f7ef1",
+      "instructionHash": "07d0235eb125103b5fa82457a472e1e062b310032d6471b3948a2e91be22b1ba",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-15"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "sql-02:guided:5",
-      "instructionHash": "41138484a3c8ad93705ef2bb2700e17621b51428694d1ca26dc4bac5e7a0f06f",
+      "instructionHash": "8affa8dcaad62e81a75e5fc574b053738759693b4d68ff7cde658fa309a5a8a2",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-6"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values"
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment."
     },
     {
       "stepId": "sql-02:guided:6",
-      "instructionHash": "4e822127b226a70c9777e06640b60fbad686b4f99f0d46b071891076ef14108a",
+      "instructionHash": "87af3333fbb5a8129510b85506a02d78ecd2b289cdbcc7d365332218bccc1988",
       "assetIds": [],
       "excludedAssetIds": [
         "workstation-14"
       ],
       "coverage": "missing-interface-screenshot",
-      "reviewed": true,
+      "reviewed": false,
       "referenceRole": "interface-orientation",
-      "selectionReason": "VMware Workstation VM creation only; follow the written course values",
+      "selectionReason": "Instruction changed. Previous reference removed; a matching application screenshot must be reviewed before reattachment.",
       "reviewNote": "Retained control reference after beginner wording and fictional example-value update. Original image bytes and version caveats are unchanged; use the written values. This is not a target-lab capture."
     },
     {

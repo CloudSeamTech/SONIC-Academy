@@ -1,0 +1,176 @@
+.check-work-page {
+  padding: clamp(18px, 3vw, 36px);
+  min-width: 0;
+  color: #1c334b;
+}
+.check-work-page header {
+  max-width: 1000px;
+}
+.check-work-page h1 {
+  font-size: clamp(28px, 3vw, 42px);
+}
+.check-work-page p,
+.check-work-page li {
+  line-height: 1.7;
+}
+.check-work-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-weight: 700;
+}
+.check-work-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 26px 0;
+}
+.check-work-tabs button {
+  padding: 13px 20px;
+  min-height: 46px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.check-work-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 22px 0;
+  font-weight: 600;
+}
+.check-work-picker select {
+  padding: 14px;
+  width: 100%;
+  box-sizing: border-box;
+  min-width: 0;
+  max-width: 100%;
+  background: white;
+  color: #193149;
+  border: 1px solid #b6c5d4;
+  border-radius: 10px;
+  font: inherit;
+}
+.check-work-connection,
+.check-work-planned {
+  background: #f4f7fabf;
+  border: 1px solid #d1dce6;
+  padding: clamp(18px, 3vw, 26px);
+  border-radius: 16px;
+  margin: 24px 0;
+}
+.check-work-connection button,
+.check-work-page section > button {
+  padding: 12px 18px;
+  min-height: 44px;
+  margin: 6px 12px 6px 0;
+  border-radius: 10px;
+}
+.check-work-connection button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+.check-work-flow {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  counter-reset: flow;
+}
+.check-work-flow li {
+  counter-increment: flow;
+  flex: 1 1 140px;
+  background: linear-gradient(140deg, #fff, #e2e9f0);
+  padding: 16px;
+  border: 1px solid #cdd9e4;
+  border-radius: 12px;
+  font-weight: 600;
+}
+.check-work-flow li:before {
+  content: counter(flow) ' · ';
+  color: #6a4d00;
+}
+.check-work-howto {
+  padding-left: 26px;
+}
+.check-work-howto > li {
+  padding: 12px 0 20px 9px;
+  border-bottom: 1px solid #cfd9e3;
+}
+.check-work-howto small {
+  font-size: 13px;
+}
+.check-work-page code,
+.check-work-page a {
+  overflow-wrap: anywhere;
+}
+.check-work-page button:focus-visible,
+.check-work-page select:focus-visible {
+  outline: 3px solid #8d70bc;
+  outline-offset: 3px;
+}
+html
+  body
+  #quiet-desktop.academy-shell.academy-shell
+  .reader-workspace
+  .check-work-tabs
+  button[aria-pressed='true'] {
+  background: linear-gradient(135deg, #293d52, #53677b) !important;
+  color: white !important;
+  border-color: #53677b !important;
+}
+@media (max-width: 600px) {
+  .check-work-page {
+    padding: 18px 14px;
+  }
+  .check-work-tabs button {
+    flex: 1 1 130px;
+    max-width: 100%;
+  }
+  .check-work-flow li {
+    flex-basis: 100%;
+  }
+}
+.check-work-connection form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  align-items: end;
+  gap: 1rem;
+  margin-block: 1.25rem;
+}
+.check-work-connection form > h3,
+.check-work-connection form > p {
+  grid-column: 1 / -1;
+}
+.check-work-connection label {
+  display: grid;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.check-work-connection input,
+.check-work-connection select {
+  width: 100%;
+  min-width: 0;
+  padding: 0.75rem;
+  border: 1px solid #9eacbc;
+  border-radius: 0.6rem;
+  background: #fff;
+  color: #14283e;
+  font: inherit;
+  box-sizing: border-box;
+}
+.check-work-connection code {
+  overflow-wrap: anywhere;
+}
+.lab-link-results {
+  display: grid;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+}
+.lab-link-results li {
+  padding: 1.25rem;
+  border-radius: 0.75rem;
+  background: #fff;
+  box-shadow: 0 6px 20px #233a5010;
+  overflow-wrap: anywhere;
+}

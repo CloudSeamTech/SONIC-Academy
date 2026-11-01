@@ -1,0 +1,1325 @@
+{
+  "splunk-start:1": {
+    "title": "Step 1: Choose the practice computer",
+    "where": "Your Windows host → VMware Workstation Pro → Windows Server guest",
+    "path": ["Windows host", "VMware Workstation Pro", "Library", "SPLUNK01"],
+    "why": "Splunk turns machine events into searchable evidence. We will investigate a tiny fictional CloudSeam website, not collect real users’ data.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Supported OS and installation requirements",
+        "url": "https://help.splunk.com/en/splunk-enterprise/administer/install-and-upgrade/10.4/plan-your-splunk-enterprise-installation/system-requirements-for-use-of-splunk-enterprise-on-premises"
+      }
+    ]
+  },
+  "splunk-start:2": {
+    "title": "Step 2: Understand the three jobs",
+    "where": "The interface reference picture in this lesson; open the real app after installation",
+    "path": [
+      "This lesson",
+      "Numbered interface reference",
+      "Three server roles"
+    ],
+    "why": "Splunk turns machine events into searchable evidence. We will investigate a tiny fictional CloudSeam website, not collect real users’ data.",
+    "needs": "Orientation only. Do not look for a running Splunk screen before the installation lesson.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-start:3": {
+    "title": "Step 3: Plan the license and practice files",
+    "where": "Browser inside SPLUNK01 → official downloads and SONIC-Academy practice files",
+    "path": [
+      "Official Splunk Enterprise download",
+      "Sign in",
+      "Windows",
+      "Enterprise MSI"
+    ],
+    "why": "Splunk turns machine events into searchable evidence. We will investigate a tiny fictional CloudSeam website, not collect real users’ data.",
+    "needs": "An eligible Enterprise trial or license. Do not download the Universal Forwarder for this single-server class.",
+    "links": [
+      {
+        "title": "Official Enterprise download",
+        "url": "https://www.splunk.com/en_us/download/splunk-enterprise.html"
+      },
+      {
+        "title": "Supported OS and installation requirements",
+        "url": "https://help.splunk.com/en/splunk-enterprise/administer/install-and-upgrade/10.4/plan-your-splunk-enterprise-installation/system-requirements-for-use-of-splunk-enterprise-on-premises"
+      }
+    ]
+  },
+  "splunk-install:1": {
+    "title": "Step 1: Check and launch the installer",
+    "where": "SPLUNK01 Windows Server guest → File Explorer → Downloads",
+    "path": [
+      "SPLUNK01",
+      "File Explorer",
+      "Downloads",
+      "MSI Properties",
+      "Digital Signatures"
+    ],
+    "why": "We need a working local instance before we can search, build reports or save dashboards.",
+    "needs": "Supported Windows Server guest; use the documented Enterprise 10.4 service identity. Keep Windows and Splunk administrator credentials separate.",
+    "links": [
+      {
+        "title": "Windows installation",
+        "url": "https://help.splunk.com/en/splunk-enterprise/get-started/install-and-upgrade/10.4/install-splunk-enterprise-on-windows/install-on-windows"
+      }
+    ]
+  },
+  "splunk-install:2": {
+    "title": "Step 2: Choose the service identity and administrator login",
+    "where": "SPLUNK01 Windows Server guest → Splunk Enterprise setup wizard",
+    "path": [
+      "Splunk Enterprise installer",
+      "License agreement",
+      "Service identity",
+      "Splunk administrator account",
+      "Install"
+    ],
+    "why": "We need a working local instance before we can search, build reports or save dashboards.",
+    "needs": "Supported Windows Server guest; use the documented Enterprise 10.4 service identity. Keep Windows and Splunk administrator credentials separate.",
+    "links": [
+      {
+        "title": "Windows service identity for 10.4",
+        "url": "https://help.splunk.com/en/splunk-enterprise/administer/install-and-upgrade/10.4/install-splunk-enterprise-on-windows/choose-the-windows-user-splunk-enterprise-should-run-as"
+      }
+    ]
+  },
+  "splunk-install:3": {
+    "title": "Step 3: Sign in and confirm the instance",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "SPLUNK01 browser",
+      "http://localhost:8000",
+      "Sign in",
+      "Apps",
+      "Search & Reporting"
+    ],
+    "why": "We need a working local instance before we can search, build reports or save dashboards.",
+    "needs": "Supported Windows Server guest; use the documented Enterprise 10.4 service identity. Keep Windows and Splunk administrator credentials separate.",
+    "links": [
+      {
+        "title": "Windows installation",
+        "url": "https://help.splunk.com/en/splunk-enterprise/get-started/install-and-upgrade/10.4/install-splunk-enterprise-on-windows/install-on-windows"
+      }
+    ]
+  },
+  "splunk-upload:1": {
+    "title": "Step 1: Select the practice CSV",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Settings",
+      "Add Data",
+      "Upload",
+      "Select File",
+      "Set Source Type"
+    ],
+    "why": "A small known dataset lets you tell whether a search is correct, rather than guessing from unfamiliar production logs.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Splunk Search tutorial prerequisites",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.2/part-1-getting-started/what-you-need-for-this-tutorial"
+      }
+    ]
+  },
+  "splunk-upload:2": {
+    "title": "Step 2: Check time, host and index before submitting",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Add Data wizard",
+      "Set Source Type",
+      "Timestamp",
+      "Input Settings",
+      "Host and index"
+    ],
+    "why": "A small known dataset lets you tell whether a search is correct, rather than guessing from unfamiliar production logs.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Splunk Search tutorial prerequisites",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.2/part-1-getting-started/what-you-need-for-this-tutorial"
+      }
+    ]
+  },
+  "splunk-upload:3": {
+    "title": "Step 3: Import once and prove the event count",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Add Data wizard",
+      "Review",
+      "Submit once",
+      "Start Searching",
+      "All time"
+    ],
+    "why": "A small known dataset lets you tell whether a search is correct, rather than guessing from unfamiliar production logs.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Splunk Search tutorial prerequisites",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.2/part-1-getting-started/what-you-need-for-this-tutorial"
+      }
+    ]
+  },
+  "splunk-navigate:1": {
+    "title": "Step 1: Find the search controls",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Events"
+    ],
+    "why": "Knowing where results and controls live makes every later lesson easier.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-navigate:2": {
+    "title": "Step 2: Try a time filter and explain the result",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "Knowing where results and controls live makes every later lesson easier.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-navigate:3": {
+    "title": "Step 3: Inspect the job and export a result",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "Knowing where results and controls live makes every later lesson easier.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-search:1": {
+    "title": "Step 1: Find one exact status",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Events"
+    ],
+    "why": "Good filters turn a wall of events into a clear question you can answer.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-search:2": {
+    "title": "Step 2: Use AND, OR and NOT deliberately",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Events"
+    ],
+    "why": "Good filters turn a wall of events into a clear question you can answer.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-search:3": {
+    "title": "Step 3: Use a wildcard without losing the scope",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Events"
+    ],
+    "why": "Good filters turn a wall of events into a clear question you can answer.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-fields:1": {
+    "title": "Step 1: Inspect the fields sidebar",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Events"
+    ],
+    "why": "Fields let you ask structured questions such as which user, server or status was involved.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-fields:2": {
+    "title": "Step 2: Separate metadata from the application server",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Fields let you ask structured questions such as which user, server or status was involved.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-fields:3": {
+    "title": "Step 3: Check field coverage before trusting a report",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Fields let you ask structured questions such as which user, server or status was involved.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-pipeline:1": {
+    "title": "Step 1: Read the pipeline from left to right",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "A search pipeline passes its current results to the next command, one stage at a time.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-pipeline:2": {
+    "title": "Step 2: Keep useful fields and rename a heading",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "A search pipeline passes its current results to the next command, one stage at a time.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-pipeline:3": {
+    "title": "Step 3: Explain event results versus statistics",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "A search pipeline passes its current results to the next command, one stage at a time.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-sort:1": {
+    "title": "Step 1: Sort by time explicitly",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Ordering matters: dedup keeps the first matching row it encounters.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-sort:2": {
+    "title": "Step 2: Show the latest event for each user",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Ordering matters: dedup keeps the first matching row it encounters.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-sort:3": {
+    "title": "Step 3: Compare dedup with a statistical total",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Ordering matters: dedup keeps the first matching row it encounters.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-stats:1": {
+    "title": "Step 1: Find the most common user",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Summaries help a support engineer spot what is common, unusual or failing.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-stats:2": {
+    "title": "Step 2: Find a rare value",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Summaries help a support engineer spot what is common, unusual or failing.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-stats:3": {
+    "title": "Step 3: Build and verify the status summary",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Summaries help a support engineer spot what is common, unusual or failing.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-reports:1": {
+    "title": "Step 1: Validate the report search",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "A saved report keeps the search definition, while an export is just a copy of one result.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-reports:2": {
+    "title": "Step 2: Save it with a helpful name",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Search & Reporting",
+      "Search results",
+      "Save As",
+      "Report",
+      "Title and description",
+      "Save"
+    ],
+    "why": "A saved report keeps the search definition, while an export is just a copy of one result.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Create and edit Splunk reports",
+        "url": "https://help.splunk.com/en/splunk-enterprise/create-dashboards-and-reports/reporting-manual/10.4/report-management/create-and-edit-reports"
+      }
+    ]
+  },
+  "splunk-reports:3": {
+    "title": "Step 3: Reopen and edit the report",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Search & Reporting",
+      "Reports",
+      "CloudSeam - HTTP Status Summary",
+      "Edit"
+    ],
+    "why": "A saved report keeps the search definition, while an export is just a copy of one result.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Create and edit Splunk reports",
+        "url": "https://help.splunk.com/en/splunk-enterprise/create-dashboards-and-reports/reporting-manual/10.4/report-management/create-and-edit-reports"
+      }
+    ]
+  },
+  "splunk-dashboard:1": {
+    "title": "Step 1: Create the first dashboard panel",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Search results",
+      "Save As",
+      "Dashboard Panel",
+      "New dashboard",
+      "Classic"
+    ],
+    "why": "A few focused panels are easier to use than a crowded wall of charts.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Classic dashboards",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/9.2/part-7-creating-dashboards/create-dashboards-and-panels"
+      }
+    ]
+  },
+  "splunk-dashboard:2": {
+    "title": "Step 2: Add a failed-login panel",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Search results",
+      "Save As",
+      "Dashboard Panel",
+      "Existing dashboard"
+    ],
+    "why": "A few focused panels are easier to use than a crowded wall of charts.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Classic dashboards",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/9.2/part-7-creating-dashboards/create-dashboards-and-panels"
+      }
+    ]
+  },
+  "splunk-dashboard:3": {
+    "title": "Step 3: Check time controls and the underlying search",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Search & Reporting",
+      "Dashboards",
+      "CloudSeam - Web Operations",
+      "Edit"
+    ],
+    "why": "A few focused panels are easier to use than a crowded wall of charts.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Classic dashboards",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/9.2/part-7-creating-dashboards/create-dashboards-and-panels"
+      }
+    ]
+  },
+  "splunk-lookups:1": {
+    "title": "Step 1: Upload the lookup CSV",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": ["Settings", "Lookups", "Lookup table files", "Add new"],
+    "why": "A lookup adds useful context without changing the original events.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Lookups",
+        "url": "https://help.splunk.com/en/splunk-enterprise/get-started/search-tutorial/9.2/part-5-enriching-events-with-lookups/enabling-field-lookups"
+      }
+    ]
+  },
+  "splunk-lookups:2": {
+    "title": "Step 2: Create the lookup definition",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": ["Settings", "Lookups", "Lookup definitions", "Add new"],
+    "why": "A lookup adds useful context without changing the original events.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Lookups",
+        "url": "https://help.splunk.com/en/splunk-enterprise/get-started/search-tutorial/9.2/part-5-enriching-events-with-lookups/enabling-field-lookups"
+      }
+    ]
+  },
+  "splunk-lookups:3": {
+    "title": "Step 3: Use the definition in a search",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "A lookup adds useful context without changing the original events.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Lookups",
+        "url": "https://help.splunk.com/en/splunk-enterprise/get-started/search-tutorial/9.2/part-5-enriching-events-with-lookups/enabling-field-lookups"
+      }
+    ]
+  },
+  "splunk-lookups:4": {
+    "title": "Step 4: Configure and verify an automatic lookup",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": ["Settings", "Lookups", "Automatic lookups", "Add new"],
+    "why": "A lookup adds useful context without changing the original events.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Lookups",
+        "url": "https://help.splunk.com/en/splunk-enterprise/get-started/search-tutorial/9.2/part-5-enriching-events-with-lookups/enabling-field-lookups"
+      }
+    ]
+  },
+  "splunk-schedule:1": {
+    "title": "Step 1: Check your license and schedule a report",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Search & Reporting",
+      "Reports",
+      "CloudSeam - HTTP Status Summary",
+      "Edit",
+      "Schedule"
+    ],
+    "why": "A scheduled report runs routinely; an alert adds a condition and an action when something needs attention.",
+    "needs": "An Enterprise license and a role allowed to schedule searches. Do not enable email, scripts, or webhook actions for this practice.",
+    "links": [
+      {
+        "title": "Saved searches, reports and alerts",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-manual/10.2/save-and-schedule-searches/saving-searches"
+      }
+    ]
+  },
+  "splunk-schedule:2": {
+    "title": "Step 2: Create a controlled scheduled alert",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Search results",
+      "Save As",
+      "Alert",
+      "Scheduled",
+      "Trigger conditions"
+    ],
+    "why": "A scheduled report runs routinely; an alert adds a condition and an action when something needs attention.",
+    "needs": "An Enterprise license and a role allowed to schedule searches. Do not enable email, scripts, or webhook actions for this practice.",
+    "links": [
+      {
+        "title": "Saved searches, reports and alerts",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-manual/10.2/save-and-schedule-searches/saving-searches"
+      }
+    ]
+  },
+  "splunk-schedule:3": {
+    "title": "Step 3: Observe one firing, then stop the repetition",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": ["Activity", "Triggered Alerts", "Practice alert", "Results"],
+    "why": "A scheduled report runs routinely; an alert adds a condition and an action when something needs attention.",
+    "needs": "An Enterprise license and a role allowed to schedule searches. Do not enable email, scripts, or webhook actions for this practice.",
+    "links": [
+      {
+        "title": "Saved searches, reports and alerts",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-manual/10.2/save-and-schedule-searches/saving-searches"
+      }
+    ]
+  },
+  "splunk-capstone:1": {
+    "title": "Step 1: Answer the incident questions from the data",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "A support engineer needs a clear explanation backed by reproducible evidence.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-capstone:2": {
+    "title": "Step 2: Present a small, understandable handoff",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "A support engineer needs a clear explanation backed by reproducible evidence.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-capstone:3": {
+    "title": "Step 3: Review skills and leave the lab tidy",
+    "where": "Splunk Web → Search & Reporting, on your own practice instance",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "A support engineer needs a clear explanation backed by reproducible evidence.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-security-data:1": {
+    "title": "Step 1: Upload the security CSV once",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "Think of a log as a receipt: it records an action, but you still need to understand the context. We will read prepared saved result without sending attacks or exposing a server.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-security-data:2": {
+    "title": "Step 2: Prove that all 16 events arrived",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Think of a log as a receipt: it records an action, but you still need to understand the context. We will read prepared saved result without sending attacks or exposing a server.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-security-data:3": {
+    "title": "Step 3: Read one event as a short story",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Think of a log as a receipt: it records an action, but you still need to understand the context. We will read prepared saved result without sending attacks or exposing a server.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-injection:1": {
+    "title": "Step 1: Make encoded requests readable",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "An odd request is a clue, not a verdict. You will learn to find clues and check the response before calling an incident.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-injection:2": {
+    "title": "Step 2: Find the SQL-like patterns",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "An odd request is a clue, not a verdict. You will learn to find clues and check the response before calling an incident.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-injection:3": {
+    "title": "Step 3: Find the script marker and write a careful conclusion",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "An odd request is a clue, not a verdict. You will learn to find clues and check the response before calling an incident.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-external-access:1": {
+    "title": "Step 1: Filter authentication events outside the lab subnet",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Not every outside connection is bad. Your job is to identify what happened, check whether it was expected and preserve the evidence.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-external-access:2": {
+    "title": "Step 2: Summarize failures and successes together",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "Not every outside connection is bad. Your job is to identify what happened, check whether it was expected and preserve the evidence.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-external-access:3": {
+    "title": "Step 3: Prepare a useful analyst handoff",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "Not every outside connection is bad. Your job is to identify what happened, check whether it was expected and preserve the evidence.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-dashboard-inputs:1": {
+    "title": "Step 1: Save a verified security panel",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Search results",
+      "Save As",
+      "Dashboard Panel",
+      "New dashboard",
+      "Classic"
+    ],
+    "why": "A filter only helps when the panels actually use it. We will change the input and prove that the displayed results change.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Classic dashboards",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/9.2/part-7-creating-dashboards/create-dashboards-and-panels"
+      }
+    ]
+  },
+  "splunk-dashboard-inputs:2": {
+    "title": "Step 2: Add the source dropdown and set its token",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Security Review dashboard",
+      "Edit",
+      "Add Input",
+      "Dropdown",
+      "Token: src_filter"
+    ],
+    "why": "A filter only helps when the panels actually use it. We will change the input and prove that the displayed results change.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Classic dashboards",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/9.2/part-7-creating-dashboards/create-dashboards-and-panels"
+      }
+    ]
+  },
+  "splunk-dashboard-inputs:3": {
+    "title": "Step 3: Connect the panel and the time picker",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Dashboard Edit",
+      "Authentication Outcomes",
+      "Edit Search",
+      "Add Input",
+      "Time"
+    ],
+    "why": "A filter only helps when the panels actually use it. We will change the input and prove that the displayed results change.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Classic dashboards",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/9.2/part-7-creating-dashboards/create-dashboards-and-panels"
+      }
+    ]
+  },
+  "splunk-dashboard-inputs:4": {
+    "title": "Step 4: Test all three choices before trusting the dashboard",
+    "where": "Your practice VM → browser → http://localhost:8000 → Search & Reporting",
+    "path": [
+      "Saved dashboard",
+      "Source IP dropdown",
+      "Time range",
+      "Submit if enabled"
+    ],
+    "why": "A filter only helps when the panels actually use it. We will change the input and prove that the displayed results change.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Classic dashboards",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/9.2/part-7-creating-dashboards/create-dashboards-and-panels"
+      }
+    ]
+  },
+  "splunk-windows-import:1": {
+    "title": "Step 1: Find the controls",
+    "where": "SPLUNK01 → browser → Splunk Web → Search & Reporting; not a terminal",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "An event ID is a label inside a provider’s event catalog. Read EventID + Channel + Provider together. 4104 belongs to PowerShell/Operational; 7045 belongs to System. These CSV fields are teaching names, not a claim about your production extraction schema.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-import:2": {
+    "title": "Step 2: Run the investigation",
+    "where": "Splunk Web → Search bar",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "An event ID is a label inside a provider’s event catalog. Read EventID + Channel + Provider together. 4104 belongs to PowerShell/Operational; 7045 belongs to System. These CSV fields are teaching names, not a claim about your production extraction schema.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-import:3": {
+    "title": "Step 3: Explain and preserve the result",
+    "where": "Private notebook below this lesson",
+    "path": [
+      "References & notes",
+      "My private evidence notebook",
+      "Lesson note"
+    ],
+    "why": "An event ID is a label inside a provider’s event catalog. Read EventID + Channel + Provider together. 4104 belongs to PowerShell/Operational; 7045 belongs to System. These CSV fields are teaching names, not a claim about your production extraction schema.",
+    "needs": "Record the query, time range, observed evidence and uncertainty. A suspicious pattern is not proof of a confirmed incident.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-logons:1": {
+    "title": "Step 1: Find the controls",
+    "where": "SPLUNK01 → browser → Splunk Web → Search & Reporting; not a terminal",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "A failed-then-successful sequence is a lead to investigate. It does not prove stolen credentials. 4740 identifies account lockout; event context and additional records are needed to establish unlocks or timing across hosts.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-logons:2": {
+    "title": "Step 2: Run the investigation",
+    "where": "Splunk Web → Search bar",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "A failed-then-successful sequence is a lead to investigate. It does not prove stolen credentials. 4740 identifies account lockout; event context and additional records are needed to establish unlocks or timing across hosts.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-logons:3": {
+    "title": "Step 3: Explain and preserve the result",
+    "where": "Private notebook below this lesson",
+    "path": [
+      "References & notes",
+      "My private evidence notebook",
+      "Lesson note"
+    ],
+    "why": "A failed-then-successful sequence is a lead to investigate. It does not prove stolen credentials. 4740 identifies account lockout; event context and additional records are needed to establish unlocks or timing across hosts.",
+    "needs": "Record the query, time range, observed evidence and uncertainty. A suspicious pattern is not proof of a confirmed incident.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-changes:1": {
+    "title": "Step 1: Find the controls",
+    "where": "SPLUNK01 → browser → Splunk Web → Search & Reporting; not a terminal",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "The sequence guides your next question; it does not establish causation. A service name or PowerShell launch alone does not identify malware. Verify binary path, signature, owner and approved change through your authorized response process.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-changes:2": {
+    "title": "Step 2: Run the investigation",
+    "where": "Splunk Web → Search bar",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "The sequence guides your next question; it does not establish causation. A service name or PowerShell launch alone does not identify malware. Verify binary path, signature, owner and approved change through your authorized response process.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-changes:3": {
+    "title": "Step 3: Explain and preserve the result",
+    "where": "Private notebook below this lesson",
+    "path": [
+      "References & notes",
+      "My private evidence notebook",
+      "Lesson note"
+    ],
+    "why": "The sequence guides your next question; it does not establish causation. A service name or PowerShell launch alone does not identify malware. Verify binary path, signature, owner and approved change through your authorized response process.",
+    "needs": "Record the query, time range, observed evidence and uncertainty. A suspicious pattern is not proof of a confirmed incident.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-report:1": {
+    "title": "Step 1: Find the controls",
+    "where": "SPLUNK01 → browser → Splunk Web → Search & Reporting; not a terminal",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar"
+    ],
+    "why": "A useful handoff lets another analyst repeat your search and understand what is known. Screenshots supplement searchable records; preserve original evidence with access controls and the organization’s retention procedure.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-report:2": {
+    "title": "Step 2: Run the investigation",
+    "where": "Splunk Web → Search bar",
+    "path": [
+      "Splunk Web",
+      "Apps",
+      "Search & Reporting",
+      "Search",
+      "Time picker: All time",
+      "Search bar",
+      "Statistics"
+    ],
+    "why": "A useful handoff lets another analyst repeat your search and understand what is known. Screenshots supplement searchable records; preserve original evidence with access controls and the organization’s retention procedure.",
+    "needs": "Use SPL in Search & Reporting, not SPL2 or PowerShell. The supplied event dates are fixed; use All time except when the task deliberately tests a different time range.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  },
+  "splunk-windows-report:3": {
+    "title": "Step 3: Explain and preserve the result",
+    "where": "Private notebook below this lesson",
+    "path": [
+      "References & notes",
+      "My private evidence notebook",
+      "Lesson note"
+    ],
+    "why": "A useful handoff lets another analyst repeat your search and understand what is known. Screenshots supplement searchable records; preserve original evidence with access controls and the organization’s retention procedure.",
+    "needs": "Record the query, time range, observed evidence and uncertainty. A suspicious pattern is not proof of a confirmed incident.",
+    "links": [
+      {
+        "title": "Search app interface",
+        "url": "https://help.splunk.com/en/splunk-enterprise/search/search-tutorial/10.0/part-3-using-the-splunk-search-app/exploring-the-search-views"
+      }
+    ]
+  }
+}

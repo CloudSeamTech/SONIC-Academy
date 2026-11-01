@@ -1,0 +1,355 @@
+{
+  "bicep-first-words:2": {
+    "title": "Type your first change",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "Your Bicep workbench",
+      "main.bicep — source code",
+      "Compile to ARM JSON",
+      "Show generated ARM JSON"
+    ],
+    "why": "A small change lets you follow one input into the generated template.",
+    "actions": [
+      "Find Your Bicep workbench on this lesson page. In File to edit, leave main.bicep selected.",
+      "Click inside main.bicep — source code. On the greeting line, replace only Hello, CloudSeam with Hello, learner. Type the new words; keep the single quote on each side.",
+      "Select Compile to ARM JSON beneath the editor. The first run downloads the compiler; wait while the button says Working….",
+      "If the result offers Show generated ARM JSON, select it. In the JSON, find parameters → greeting → defaultValue. It should say Hello, learner.",
+      "Select Save draft to keep this attempt in this browser. A successful compile has created a template, not an Azure resource."
+    ]
+  },
+  "bicep-workspace:2": {
+    "title": "Create a local file and confirm its folder",
+    "where": "Your Windows workstation → File Explorer; then Visual Studio Code → PowerShell terminal",
+    "path": [
+      "File Explorer → Documents",
+      "New → Folder",
+      "VS Code → File → Open Folder",
+      "Terminal → New Terminal"
+    ],
+    "why": "The terminal folder determines which main.bicep file a relative command reads.",
+    "needs": "VS Code must already be installed for this local-file exercise. If it is missing, complete Install and Check the Tools, then return here.",
+    "actions": [
+      "On your Windows workstation, press Windows+E. Select Documents → New → Folder. Type CloudSeam-Bicep and press Enter.",
+      "Open Visual Studio Code. Select File → Open Folder, choose Documents → CloudSeam-Bicep, then Select Folder. Trust the folder only if it is your own practice folder.",
+      "Select File → New Text File. Type the two-line greeting example shown in this lesson. Press Ctrl+S, name it main.bicep, and save it inside CloudSeam-Bicep.",
+      "Select Terminal → New Terminal. If the terminal is not PowerShell, use the arrow beside the terminal’s + control → Select Default Profile → PowerShell, then open a new terminal.",
+      "At the PowerShell prompt, type Get-Location and press Enter. The printed path must end in Documents\\CloudSeam-Bicep. Your username and Documents location may differ from the example prompt.",
+      "If the folder is wrong, use File → Open Folder to reopen CloudSeam-Bicep, then open a fresh terminal and repeat Get-Location. Do not type the displayed PS, directory, or > prompt symbols.",
+      "This step uses your local file. Compile to ARM JSON belongs to the website workbench; it does not read the file you saved in VS Code."
+    ]
+  },
+  "bicep-toolchain:2": {
+    "title": "Check each local tool separately",
+    "where": "Your Windows workstation → browser and VS Code; then PowerShell in CloudSeam-Bicep",
+    "path": [
+      "Official installation links",
+      "VS Code → Extensions",
+      "PowerShell",
+      "az bicep build"
+    ],
+    "why": "The editor, extension and command-line compiler have different jobs.",
+    "actions": [
+      "Use this lesson’s official VS Code and Azure CLI installation links. Follow the Windows instructions for your workstation; complete the installers locally.",
+      "In VS Code, select Extensions in the left activity bar. Search for Bicep. Open the extension published by Microsoft and select Install if it is not already installed.",
+      "Close and reopen VS Code after installing Azure CLI. Open your CloudSeam-Bicep folder → Terminal → New Terminal → PowerShell. Type Get-Location and confirm the practice folder.",
+      "Type az version and press Enter. Record the azure-cli version. If PowerShell says az is not recognized, reopen the terminal; if it still fails, return to the official CLI installation instructions.",
+      "Type az bicep install and press Enter. After it finishes, type az bicep version and record that version too.",
+      "Save main.bicep with Ctrl+S. Type az bicep build --file .\\main.bicep and press Enter. The .\\ means the current folder; this command reads your saved local file.",
+      "In VS Code’s Explorer, open the generated main.json for comparison. Keep making edits in main.bicep. No az login is needed for this local compile; the website’s Compile to ARM JSON button is a separate browser exercise."
+    ]
+  },
+  "bicep-errors:2": {
+    "title": "Make one error, read it, and repair it",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "main.bicep — source code",
+      "Compile to ARM JSON",
+      "Compiler diagnostics"
+    ],
+    "why": "Reading the first diagnostic is more useful than guessing at several changes.",
+    "actions": [
+      "In the workbench editor, find the greeting text. Delete only its closing single quote after CloudSeam.",
+      "Select Compile to ARM JSON. Read the first Error entry beneath the editor, including its line number and message. An error here is expected.",
+      "Return to that line in the editor. Type the missing single quote, then select Compile to ARM JSON again.",
+      "Confirm that the error is gone and generated JSON is available. If another diagnostic remains, fix its first reported line before changing anything else. Review warnings even when compilation succeeds."
+    ]
+  },
+  "bicep-inputs:2": {
+    "title": "Change the input without changing the expression",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "main.bicep — source code",
+      "Compile to ARM JSON",
+      "Generated ARM JSON → parameters"
+    ],
+    "why": "An input changes the plan; the expression defines how that input is used.",
+    "actions": [
+      "Find param environment string = 'dev'. Replace only dev on this default-value line with test; keep the quotes.",
+      "Leave the @allowed list and resourceName expression unchanged. The list describes permitted values; the expression uses the selected value.",
+      "Select Compile to ARM JSON, then Show generated ARM JSON if it is collapsed.",
+      "Find parameters → environment → defaultValue and confirm test. Find the resourceName expression too: ARM evaluates that expression during deployment, so compilation does not prove a deployed final name."
+    ]
+  },
+  "bicep-types:2": {
+    "title": "Type a number, a Boolean and an array value",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "main.bicep — source code",
+      "Compile to ARM JSON",
+      "Generated ARM JSON → parameters"
+    ],
+    "why": "Quotes change a value’s meaning: the number 3 and the text '3' are different types.",
+    "actions": [
+      "Find the serverCount parameter. Change its default to 3 without quotes.",
+      "Find enableFeature. Change its default to true without quotes.",
+      "Find the teams array. Change ['apps', 'ops'] to ['apps', 'ops', 'operations'], keeping the commas, quotes and square brackets.",
+      "Select Compile to ARM JSON. In generated JSON → parameters, compare the int, bool and array types with the values you typed. If compilation fails, read the first diagnostic and check the edited line’s quotes or brackets."
+    ]
+  },
+  "bicep-resource:2": {
+    "title": "Change one storage setting and restore it",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "Storage resource → sku",
+      "Compile to ARM JSON",
+      "Generated ARM JSON → resources"
+    ],
+    "why": "A resource property controls part of the requested configuration.",
+    "actions": [
+      "In the storage resource, find sku: { name: 'Standard_LRS' }. Replace only Standard_LRS with Standard_GRS.",
+      "Select Compile to ARM JSON. In the generated JSON, find resources → the storage account → sku → name. Confirm Standard_GRS.",
+      "Return to the Bicep editor. Type Standard_LRS in place of Standard_GRS and compile again. Keep this restored setting for later exercises; nothing has been deployed or charged by compilation."
+    ]
+  },
+  "bicep-json:2": {
+    "title": "Match Bicep fields to the JSON template",
+    "where": "This page → Your Bicep workbench → generated ARM JSON",
+    "path": [
+      "Compile to ARM JSON",
+      "Show generated ARM JSON",
+      "parameters → resources → outputs"
+    ],
+    "why": "JSON is the template format ARM receives after Bicep is translated.",
+    "actions": [
+      "Select Compile to ARM JSON beneath the source editor. Select Show generated ARM JSON if the output is hidden.",
+      "Find parameters, resources and outputs in the JSON. These are sections, not commands to type.",
+      "Inside the storage resource, match type, apiVersion, name, sku and properties with the corresponding Bicep declaration above.",
+      "If you also compiled locally in the tools lesson, open main.json in VS Code’s Explorer to compare it. Continue editing main.bicep; generated JSON is an output of compilation."
+    ]
+  },
+  "bicep-guards:2": {
+    "title": "Test a constraint without using a real secret",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "serverCount default",
+      "Compile to ARM JSON",
+      "Compiler diagnostics",
+      "Generated ARM JSON"
+    ],
+    "why": "Constraints catch some invalid inputs before a deployment is requested.",
+    "actions": [
+      "Find serverCount and change its default from 2 to 0. Leave the minValue constraint in place.",
+      "Select Compile to ARM JSON and read the constraint diagnostic. Then restore the default to 2 and compile again.",
+      "In generated JSON → parameters → adminPassword, find type: secureString. Do not type a real password into this website, a source file or your notebook."
+    ]
+  },
+  "bicep-dependencies:2": {
+    "title": "Follow a resource reference",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "VNet → subnets → networkSecurityGroup",
+      "nsg.id",
+      "Compile to ARM JSON",
+      "Generated dependency"
+    ],
+    "why": "A reference tells ARM that another resource is needed first.",
+    "actions": [
+      "In main.bicep, find networkSecurityGroup: { id: nsg.id } inside the subnet configuration.",
+      "Find the resource named nsg earlier in the file. The word before .id points to that declaration; it is not a hostname to replace.",
+      "Select Compile to ARM JSON. In the generated VNet resource, find the dependency on the NSG. Explain in your notes why the subnet configuration needs that NSG first.",
+      "Leave the reference in place. Do not add dependsOn simply to repeat a dependency already expressed by nsg.id."
+    ]
+  },
+  "bicep-network:2": {
+    "title": "Read the private network plan",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "VNet → addressSpace",
+      "subnets → apps",
+      "NSG → securityRules",
+      "Compile to ARM JSON"
+    ],
+    "why": "Network ranges and security rules describe different parts of connectivity.",
+    "actions": [
+      "Find addressPrefixes and read 10.42.0.0/16. Then find the apps subnet and read 10.42.1.0/24. These are private example ranges, not addresses discovered from your own lab.",
+      "In the NSG securityRules entry, find direction, access, priority and destinationPortRange. Match each field to the numbered explanation in this step.",
+      "Select Compile to ARM JSON. Open Resource declarations in this template below the result and confirm the NSG and VNet declarations. Compilation does not check connectivity to a real server."
+    ]
+  },
+  "bicep-existing:2": {
+    "title": "Distinguish a reference from a creation request",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "existing NSG declaration",
+      "Compile to ARM JSON",
+      "Generated ARM JSON → resources"
+    ],
+    "why": "The existing keyword refers to a resource rather than requesting its creation.",
+    "actions": [
+      "Find the NSG declaration marked existing. Select Compile to ARM JSON and inspect the resources section: this declaration is not a new NSG creation request.",
+      "Find existingNsgName in the source. Change only its quoted default name to a different dummy name, then compile again.",
+      "Confirm that the parameter default changed in JSON. Record that a successful compile does not prove either name exists in Azure."
+    ]
+  },
+  "bicep-loops:2": {
+    "title": "Trace each VM to its matching NIC",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "serverCount",
+      "NIC loop",
+      "VM loop → nics[i].id",
+      "Generated ARM JSON → copy"
+    ],
+    "why": "A loop repeats a declaration using an index rather than duplicated code.",
+    "actions": [
+      "Find serverCount and change its default from 2 to 3. Keep its minValue and maxValue constraints.",
+      "Find the nics loop, then the vms loop. In the VM’s networkInterfaces setting, find nics[i].id. The same index i pairs each VM with its NIC.",
+      "Select Compile to ARM JSON. Find the copy blocks in generated JSON and compare them with the two Bicep loops.",
+      "Write why two declaration blocks can request several instances. This is a template plan, not evidence that three VMs have been created."
+    ]
+  },
+  "bicep-server-settings:2": {
+    "title": "Locate the settings that shape each server",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "VM resource → properties",
+      "hardwareProfile",
+      "storageProfile",
+      "osProfile",
+      "identity"
+    ],
+    "why": "A VM plan needs an image, size, disk and sign-in configuration.",
+    "actions": [
+      "In the VM declaration, find hardwareProfile → vmSize. Read the numbered explanation before changing a size.",
+      "Find storageProfile → imageReference, then osDisk. Match the image fields and managed disk setting to their explanations.",
+      "Find identity, then osProfile → linuxConfiguration → disablePasswordAuthentication. Find where sshPublicKey supplies keyData.",
+      "Leave real keys out of browser practice. During a separately approved deployment, sshPublicKey requires a public key, never a private key.",
+      "Compile the unchanged example. Record that Azure region availability, quota and image availability must still be checked before live validation."
+    ]
+  },
+  "bicep-software:2": {
+    "title": "Read the companion file before compiling",
+    "where": "This page → Your Bicep workbench → File to edit",
+    "path": [
+      "File to edit → cloud-init.yml",
+      "packages → nginx",
+      "runcmd",
+      "File to edit → main.bicep"
+    ],
+    "why": "The VM blueprint and its guest-software instructions are separate files.",
+    "actions": [
+      "In File to edit, select cloud-init.yml. Find nginx under packages and the systemctl command under runcmd.",
+      "Return File to edit to main.bicep. Find customData and loadTextContent('cloud-init.yml'); this reference reads the companion file included in the workbench.",
+      "Select Compile to ARM JSON with both files present. If the compiler reports a missing file, check that the companion filename matches cloud-init.yml exactly.",
+      "Record that compilation does not run cloud-init. The NSG still denies inbound traffic, so installing NGINX during a future deployment would not by itself make the website reachable."
+    ]
+  },
+  "bicep-modules:2": {
+    "title": "Follow an input into a companion module",
+    "where": "This page → Your Bicep workbench → File to edit",
+    "path": [
+      "File to edit → network.bicep",
+      "prefix input / subnetId output",
+      "File to edit → main.bicep",
+      "Compile to ARM JSON"
+    ],
+    "why": "A module packages a reusable part of a larger infrastructure plan.",
+    "actions": [
+      "In File to edit, select network.bicep. Find its prefix parameter and subnetId output.",
+      "Select main.bicep in File to edit. Change only the environment default from dev to test; keep the quotes.",
+      "Find the module declaration and its params block. Follow the prefix value into network.bicep, then follow network.outputs.subnetId back to the parent output.",
+      "Select Compile to ARM JSON. The compiler includes the companion module. Find the nested deployment and output reference in generated JSON."
+    ]
+  },
+  "bicep-environments:2": {
+    "title": "Build a local parameter file",
+    "where": "Your Windows workstation → VS Code → CloudSeam-Bicep → PowerShell",
+    "path": [
+      "Workbench → Download main.bicep",
+      "This step’s dev.bicepparam link",
+      "VS Code → File → Open Folder",
+      "Terminal → New Terminal"
+    ],
+    "links": [
+      {
+        "title": "Download the dev.bicepparam practice file",
+        "url": "https://cloudseam.tech/bicep/dev.bicepparam"
+      }
+    ],
+    "why": "Separate parameter files reuse one blueprint with different inputs.",
+    "needs": "Complete the local folder and toolchain lessons first. This step uses the CLI, not the website compiler button.",
+    "actions": [
+      "In this lesson’s workbench, select Download main.bicep. Open this step’s dev.bicepparam practice-file link and save it as dev.bicepparam. Put both files in CloudSeam-Bicep; replace a file only if it is your disposable lesson example.",
+      "In VS Code, use File → Open Folder to open CloudSeam-Bicep. Select dev.bicepparam in Explorer.",
+      "Read using './main.bicep': ./ points to the parameter file’s folder. Read param environment = 'dev': this supplies an input value to that blueprint.",
+      "Open Terminal → New Terminal → PowerShell. Type Get-Location and confirm CloudSeam-Bicep, then type az bicep build-params --file .\\dev.bicepparam and press Enter.",
+      "Open the generated dev.json in Explorer and inspect its environment value. Return to dev.bicepparam → File → Save As → test.bicepparam. Change only 'dev' to 'test' and press Ctrl+S.",
+      "Type az bicep build-params --file .\\test.bicepparam. Compare test.json with dev.json. Compile to ARM JSON on the website builds main.bicep; it is not this local parameter-file command."
+    ]
+  },
+  "bicep-azure-checks:2": {
+    "title": "Keep browser compilation separate from live Azure checks",
+    "where": "This page → Your Bicep workbench; optional live checks run in your own local PowerShell",
+    "path": [
+      "Compile to ARM JSON",
+      "Optional live checks — run locally after scope approval",
+      "Local PowerShell → approved subscription and group"
+    ],
+    "why": "Syntax success and Azure permission or policy checks answer different questions.",
+    "actions": [
+      "In the website workbench, select Compile to ARM JSON. Resolve compiler errors first; this action does not sign in to Azure.",
+      "For the optional live exercise, open Optional live checks — run locally after scope approval. Read its scope requirements before running any command.",
+      "On your own workstation, open PowerShell in CloudSeam-Bicep and confirm the saved main.bicep is the file you intend to check. Type az login and complete Microsoft’s sign-in locally, never in this class page.",
+      "Type az account show. Compare the returned subscription name and ID with your approved lab scope. Stop if they differ; do not guess another subscription or resource group.",
+      "Use the exact local validation and what-if commands in the optional section, replacing only its named placeholders with the approved existing training group and file path. Stop on policy, permission, quota or region errors and keep the error for your administrator.",
+      "Record which evidence came from browser compilation and which came from a live Azure check. Neither result proves a completed deployment."
+    ]
+  },
+  "bicep-capstone:2": {
+    "title": "Build your plan in small, testable sections",
+    "where": "This page → Your Bicep workbench → main.bicep — source code",
+    "path": [
+      "Start blank",
+      "Type a section",
+      "Compile to ARM JSON",
+      "Show example for comparison"
+    ],
+    "why": "Small compile cycles make it easier to locate the change that introduced an error.",
+    "actions": [
+      "Save your current draft if you want to keep it, then select Start blank. Click inside main.bicep — source code.",
+      "Type the parameters from the exercise: location, prefix, serverCount constrained to 1–3, adminUsername and secure sshPublicKey. Compile and resolve the first error before continuing.",
+      "Add the NSG and VNet with its apps subnet. Follow the network lesson’s reference from the subnet to the NSG, then compile again.",
+      "Add the NIC loop, then the Linux VM loop. Pair each VM with nics[i].id. Use private NICs, SSH-key authentication and managed OS disks.",
+      "Compile again and inspect the generated declarations and copy blocks. Keep public IPs, inbound allow rules and real secrets out of this practice plan.",
+      "After attempting it yourself, open Show example for comparison beneath the workbench. Compare one section at a time; type corrections rather than replacing your whole attempt. Save your draft and note what you fixed."
+    ]
+  },
+  "bicep-handoff:2": {
+    "title": "Write a handoff someone else can verify",
+    "where": "This lesson → your private evidence notebook; optional Azure verification stays in your approved environment",
+    "path": [
+      "Compiler result",
+      "Private evidence notebook",
+      "Change summary",
+      "Verification and rollback owner"
+    ],
+    "why": "A handoff makes the requested change and its evidence understandable to the next administrator.",
+    "actions": [
+      "Compile your final practice source. Save the source and the relevant compiler result in your private evidence notebook; exclude credentials and private keys.",
+      "Write the change’s purpose in one sentence. List the inputs you changed and the generated resource types you inspected.",
+      "Record the compiler version and any separate validation or what-if result you actually obtained. If you did not run a live check, write Not run rather than implying success.",
+      "For a proposed live change, record the approved subscription and group, estimated cost, verification owner and rollback plan. Deployment remains optional and requires your own approved scope and budget.",
+      "If an approved deployment is later performed, verify VM provisioning, NICs, NSG association and guest software separately. A compile pass alone is not that evidence."
+    ]
+  }
+}

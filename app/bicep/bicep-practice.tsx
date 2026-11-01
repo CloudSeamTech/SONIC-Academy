@@ -239,7 +239,10 @@ function PracticeEditor({
       <header>
         <p className="bicep-eyebrow">WRITE → COMPILE → EXPLAIN</p>
         <h4>Your Bicep workbench</h4>
-        <p>{exercise.task}</p>
+        <p>
+          Type your edits here, then select Compile to ARM JSON. PowerShell
+          commands belong in your own terminal, not this editor.
+        </p>
       </header>
       <p className="bicep-privacy">
         Real Microsoft Bicep compiler · runs locally in your browser · no Azure
