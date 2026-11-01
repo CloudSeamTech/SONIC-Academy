@@ -266,7 +266,7 @@
             "Run an IIS configuration backup with a unique name. This saves IIS configuration, not the certificate private key or the application/database. Include those in the approved application recovery plan.",
             "Do not delete the old certificate or change HTTP/application settings as part of this certificate task."
           ],
-          "command": "& \"$env:WINDIRSystem32inetsrvappcmd.exe\" add backup SONIC-before-PKI\nImport-Module WebAdministration\nGet-WebBinding | Format-List protocol,bindingInformation,sslFlags,certificateHash,certificateStoreName",
+          "command": "& \"$env:WINDIR\\System32\\inetsrv\\appcmd.exe\" add backup SONIC-before-PKI\nImport-Module WebAdministration\nGet-WebBinding | Format-List protocol,bindingInformation,sslFlags,certificateHash,certificateStoreName",
           "guide": {
             "what": "Save the current configuration and binding",
             "why": "The previous binding identifies the pair you can restore during a failed change.",

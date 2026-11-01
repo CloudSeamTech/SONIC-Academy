@@ -134,7 +134,7 @@ export function workspaceDirections(where: string, action = ''): string {
   if (/SSMS|SQL.*(query|editor|studio)|T-SQL/i.test(where))
     return (
       guest +
-      'Inside the practice Windows server, click Start, search for SQL Server Management Studio and open it. Connect to the SQL instance recorded in your earlier setup lesson. For SQL statements, click New Query and choose the named practice database before pasting.'
+      'Inside the practice Windows server, click Start, search for SQL Server Management Studio and open it. Connect to the SQL instance recorded in your earlier setup lesson. For SQL statements, click New Query and choose the named practice database before typing the SQL statements.'
     );
   if (/DNS Manager/i.test(context) && /DNS|DC0|Server Manager/i.test(where))
     return (
@@ -176,7 +176,7 @@ export function workspaceDirections(where: string, action = ''): string {
       (machine
         ? 'If you see a text login, sign in there. If you see a GNOME desktop, click Activities, type Terminal and open it. '
         : 'Return to the Linux console or SSH connection named above. On a GNOME desktop, click Activities, type Terminal and open it. ') +
-      'Run hostname to check the machine. Paste Linux commands into that terminal, not into Windows PowerShell. When sudo asks for your password, typing may show no characters; that is normal.'
+      'Run hostname to check the machine. Type Linux commands into that terminal, not into Windows PowerShell. When sudo asks for your password, typing may show no characters; that is normal.'
     );
   if (/Server Manager|Windows Server/i.test(where))
     return (
@@ -192,4 +192,3 @@ export function workspaceDirections(where: string, action = ''): string {
     return 'Open a browser on the computer named above. Enter the address given in the step, sign in if asked, and follow the named buttons. This academy page is the guide; it does not configure that application for you.';
   return `Work in ${where.replace(/[.]$/, '')}. Use the named practice machine and app; the instructions below tell you what to select or type there.`;
 }
-
