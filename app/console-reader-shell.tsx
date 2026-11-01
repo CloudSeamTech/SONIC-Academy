@@ -10,6 +10,7 @@ import {
   Search,
   Menu,
   UserRound,
+  Terminal,
 } from 'lucide-react';
 import { learningPathways, pathwayLessons } from './learning-pathways';
 import { guidedCourses } from '../lib/guided-courses';
@@ -341,6 +342,14 @@ export function ConsoleReaderShell({
               <a href="/#resume-learning">
                 <FlaskConical size={18} />
                 <span className="studio-nav-label">My Learning</span>
+              </a>
+              <a
+                href="/commands"
+                className={activeView === 'commands' ? 'active' : ''}
+                aria-current={activeView === 'commands' ? 'page' : undefined}
+              >
+                <Terminal size={18} />
+                <span className="studio-nav-label">Commands</span>
               </a>
             </nav>
             <div className="academy-secondary-nav">

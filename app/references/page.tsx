@@ -25,6 +25,11 @@ export default function References() {
           <span className="eyebrow">OPTIONAL READING</span>
           <h1>Official references</h1>
           <p>
+            <a href="/commands">
+              Windows &amp; Linux commands and printable cheat sheet →
+            </a>
+          </p>
+          <p>
             Product documentation and version notes, kept separate from your lab
             steps. Screens may differ between versions; follow the values in
             your lesson and verify your own results.
