@@ -1,0 +1,25 @@
+# Teaching example: compile-only CI; no Azure sign-in or deployment.
+# Pinned exercise baseline is Bicep v0.37.4, not a claim of latest release.
+name: Check Bicep before review
+on:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compile:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Read the proposed source
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Check tools and compile
+        shell: bash
+        run: |
+          set -euo pipefail
+          az version
+          az bicep install --version v0.37.4
+          az bicep version
+          az bicep build --file ./main.bicep

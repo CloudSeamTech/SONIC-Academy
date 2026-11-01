@@ -1,0 +1,122 @@
+{
+  "bicep-first-words": {
+    "focus": "Find param greeting string and output message string in the picture. param accepts a value; output describes a returned value.",
+    "why": "Follow one input into one output.",
+    "proof": "In generated JSON, expand parameters → greeting and find defaultValue: Hello, learner. Find outputs → message and confirm that it refers to greeting.",
+    "scenario": "At work, a reusable blueprint accepts a different application name for each team."
+  },
+  "bicep-workspace": {
+    "focus": "Read the displayed PowerShell prompt. PS names the shell; the path is the current folder; > marks where your input begins. Type only the command after >.",
+    "why": "The current folder selects the file.",
+    "proof": "In VS Code → Terminal, type Get-Location and press Enter. Confirm the path ends in CloudSeam-Bicep; in Explorer, confirm the file is main.bicep, not main.bicep.txt.",
+    "scenario": "At work, two folders may each contain main.bicep. Checking your folder prevents building the wrong file."
+  },
+  "bicep-toolchain": {
+    "focus": "Identify three separate tools: VS Code edits the file, the Microsoft Bicep extension explains its language, and az bicep compiles saved files.",
+    "why": "Different tools have different jobs.",
+    "proof": "In your practice-folder PowerShell, type az bicep version and record the version. Build main.bicep, then open main.json in VS Code’s Explorer and find parameters and outputs.",
+    "scenario": "At work, record the compiler version so a teammate can reproduce your build."
+  },
+  "bicep-errors": {
+    "focus": "Find the single quote on each side of the greeting text. These quotes mark the beginning and end of a text value.",
+    "why": "Repair the first reported error first.",
+    "proof": "Compile after restoring the missing quote. Confirm that the quote error is gone and generated ARM JSON is available; save the error and repair in your notebook.",
+    "scenario": "At work, one missing quote can produce several diagnostics. Fixing the first often clears the others."
+  },
+  "bicep-inputs": {
+    "focus": "Find environment and resourceName. You choose environment: it is the independent input. resourceName uses that input: it is the dependent value. var declares a calculated or reusable value; it is not automatically independent.",
+    "why": "Change the input; trace its effect.",
+    "proof": "In generated JSON, find environment.defaultValue and confirm test. Find the expression that builds app- from environment. Explain why ARM, not this compile step, resolves deployment-time expressions.",
+    "scenario": "At work, the same blueprint can plan app-dev and app-test by changing one environment input."
+  },
+  "bicep-types": {
+    "focus": "Find string, int, bool, array and object in the example. They mean text, whole number, true/false, ordered list and named fields.",
+    "why": "A value must match its type.",
+    "proof": "In generated JSON → parameters, confirm serverCount is int, enableFeature is bool and teams is array. Confirm the values are 3, true and your three team names.",
+    "scenario": "At work, a server count must be a number, while a team name is text."
+  },
+  "bicep-resource": {
+    "focus": "Read resource storage from left to right: storage is your local symbolic name; Microsoft.Storage/storageAccounts is the Azure resource type; the @ value selects an API contract.",
+    "why": "Know which setting you are changing.",
+    "proof": "After restoring Standard_LRS, compile again. In generated JSON → resources → the storage account → sku → name, confirm Standard_LRS.",
+    "scenario": "At work, changing a storage redundancy setting affects cost and resilience; compilation is not a cost estimate."
+  },
+  "bicep-json": {
+    "focus": "Compare the source and generated JSON pictures. Bicep is the readable authoring language; ARM JSON is the translated template, not a log of created resources.",
+    "why": "Read what Azure would receive.",
+    "proof": "Find the storage account in resources. Match its type, apiVersion, sku.name and properties to the Bicep declaration. Write one matching pair in your notebook.",
+    "scenario": "At work, inspect a generated template when a build behaves differently from what the author intended."
+  },
+  "bicep-guards": {
+    "focus": "Find @minValue, @maxValue and @secure. Decorators add rules to the declaration below them; @secure does not make a hard-coded secret safe to publish.",
+    "why": "Catch bad inputs before deployment.",
+    "proof": "Restore serverCount to 2 and compile. Confirm the constraint error is gone and adminPassword is secureString in generated JSON. Keep real passwords out of this exercise.",
+    "scenario": "At work, a count limit can prevent a typo from requesting hundreds of servers."
+  },
+  "bicep-dependencies": {
+    "focus": "Find nsg.id inside the subnet. The subnet configuration depends on the NSG. This is a resource dependency, different from a calculated value depending on an input.",
+    "why": "Required resources must exist first.",
+    "proof": "In generated JSON, find the VNet resource’s dependency on the NSG. Write: NSG → subnet configuration. Two unrelated resources can deploy in parallel; their position in the file is not an ordering instruction.",
+    "scenario": "At work, an application VM needs its NIC, and that NIC needs its subnet. References express this order."
+  },
+  "bicep-network": {
+    "focus": "Find the VNet, apps subnet and NSG. A VNet is the private network, a subnet is a section of it, and an NSG filters traffic using rules.",
+    "why": "Placement and access are separate decisions.",
+    "proof": "In Resource declarations in this template, identify the NSG and VNet. In the subnet properties, find the NSG reference. Explain why a deny rule does not create a reachable website.",
+    "scenario": "At work, application and database servers may use different subnets and different permitted traffic."
+  },
+  "bicep-existing": {
+    "focus": "Find existing in the NSG declaration. This tells Bicep to reference a resource managed elsewhere rather than request a new one.",
+    "why": "Reuse a managed resource deliberately.",
+    "proof": "Compile with your dummy existingNsgName. Find the changed parameter default and confirm the existing NSG is not a new resource creation entry. Record: existence was not checked against Azure.",
+    "scenario": "At work, a network team may own the NSG while your team owns the application blueprint."
+  },
+  "bicep-loops": {
+    "focus": "Find range(0, serverCount). With a count of 3, i takes 0, 1 and 2. The count is your input; each generated instance and its name depend on that input and index.",
+    "why": "Repeat a plan without duplicating it.",
+    "proof": "In generated JSON, find both copy blocks and the serverCount parameter. Trace nics[i].id to the VM at the same index. Record three planned VM instances, not three deployed VMs.",
+    "scenario": "At work, a team may need three identical application servers with distinct names and NICs."
+  },
+  "bicep-server-settings": {
+    "focus": "Find imageReference, vmSize, osDisk and osProfile. They describe the operating system image, compute size, boot disk and guest sign-in settings.",
+    "why": "Plan the server before creating it.",
+    "proof": "In generated JSON, find the VM size, image publisher/offer/sku, managed disk type and disablePasswordAuthentication. Explain which fields you would review for an application’s requirements.",
+    "scenario": "At work, an application may need more memory while retaining the same approved OS image and sign-in policy."
+  },
+  "bicep-software": {
+    "focus": "Find loadTextContent('cloud-init.yml'). The template reads a companion file; a future Linux VM uses its contents during first-boot configuration.",
+    "why": "Infrastructure and guest setup work together.",
+    "proof": "Compile with cloud-init.yml present. Find the VM’s customData expression in generated JSON. Record that neither the VM nor NGINX has run during compilation.",
+    "scenario": "At work, a new Linux application server may need NGINX installed consistently on its first boot."
+  },
+  "bicep-modules": {
+    "focus": "Find module network './network.bicep'. The parent supplies the module’s inputs; network.outputs.subnetId reads a result from that module.",
+    "why": "Reuse a tested part of the plan.",
+    "proof": "In generated JSON, find the nested deployment and its parameters. Trace the prefix input into the network module and its subnetId output back to the parent.",
+    "scenario": "At work, several applications can reuse a network module instead of maintaining separate copies."
+  },
+  "bicep-environments": {
+    "focus": "Read using './main.bicep' and param environment = 'dev'. The blueprint stays the same; the parameter file supplies environment-specific inputs.",
+    "why": "Separate the blueprint from its inputs.",
+    "proof": "In VS Code, compare dev.json and test.json generated by build-params. Confirm their environment values differ while both parameter files point to the same main.bicep.",
+    "scenario": "At work, development and test can share a blueprint while using different approved names and counts."
+  },
+  "bicep-azure-checks": {
+    "focus": "Distinguish compile, validate and what-if. Compile translates the file; live validation checks it against Azure; what-if previews expected changes. None is a completed deployment.",
+    "why": "Use the right evidence for each claim.",
+    "proof": "Save the compiler result. If you performed the optional live checks, record the approved scope and actual validation/what-if result separately. Otherwise write Live checks: not run.",
+    "scenario": "At work, a syntactically valid VM plan can still fail because of policy, permissions, quota or region availability."
+  },
+  "bicep-capstone": {
+    "focus": "Read the requested plan: private application servers, an NSG, one VNet/apps subnet, NICs and SSH-key sign-in. Identify inputs before writing resource declarations.",
+    "why": "Break a real request into small parts.",
+    "proof": "Compile your own attempt. Trace NSG → subnet → NIC → VM references, then compare your count and security settings with the requirements. Record any missing requirement even if compilation passes.",
+    "scenario": "At work, a request for three application servers becomes a reviewed blueprint, not a rush to create machines manually."
+  },
+  "bicep-handoff": {
+    "focus": "Read CI as automatic checks on a proposed change. Read CD as a controlled delivery/deployment stage after those checks. A green build is not proof of a secure running server.",
+    "why": "Review and check before delivery.",
+    "proof": "Complete the CI security mini-lab linked below. Record the failed build caused by an intentionally unused input, then the successful build after its removal. Keep this separate from any Azure deployment evidence.",
+    "scenario": "At work, a pull request is checked before approval, and deployment uses a separate, restricted identity."
+  }
+}

@@ -322,6 +322,7 @@ function LessonReader({
                   </p>
                   {(index === 0 ||
                     step.where !== lesson.steps[index - 1].where) &&
+                    !lesson.id.startsWith('bicep-') &&
                     !taskNavigation[`${lesson.id}:${index + 1}`] && (
                       <WorkspaceStart
                         where={step.where}
@@ -395,9 +396,15 @@ function LessonReader({
                           key={`${lesson.id}:${index}`}
                           step={step}
                         />
-                        {lesson.id.startsWith('bicep-') && index === 1 && (
-                          <BicepPractice lessonId={lesson.id} />
-                        )}
+                        {lesson.id.startsWith('bicep-') &&
+                          index === 1 &&
+                          ![
+                            'bicep-workspace',
+                            'bicep-toolchain',
+                            'bicep-environments',
+                          ].includes(lesson.id) && (
+                            <BicepPractice lessonId={lesson.id} />
+                          )}
                       </>
                     }
                   >

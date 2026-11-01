@@ -32,9 +32,9 @@
       "id": "bicep-first-words",
       "module": "01 / Start with confidence",
       "title": "What Bicep Does",
-      "description": "A blueprint describes the result you want. Azure Resource Manager (ARM) reads the compiled JSON and requests that result. Bicep does not type PowerShell commands into a VM.",
-      "what": "A blueprint describes the result you want. Azure Resource Manager (ARM) reads the compiled JSON and requests that result. Bicep does not type PowerShell commands into a VM.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a reusable blueprint accepts a different application name for each team.",
+      "what": "At work, a reusable blueprint accepts a different application name for each team.",
+      "why": "Follow one input into one output.",
       "needs": [
         "Start here; no Azure subscription is required for browser compilation."
       ],
@@ -72,11 +72,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "A blueprint describes the result you want. Azure Resource Manager (ARM) reads the compiled JSON and requests that result. Bicep does not type PowerShell commands into a VM.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find param greeting string and output message string in the picture. param accepts a value; output describes a returned value."
           ],
           "breakdown": [
             {
@@ -92,7 +91,7 @@
               "meaning": "The value is text; keep quotes around a text literal."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "What Bicep Does",
@@ -101,7 +100,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Follow one input into one output.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -139,14 +144,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-first-words.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Follow one input into one output.",
+            "verify": "The JSON contains parameters.greeting.defaultValue = Hello, learner, and outputs.message refers to greeting. No resource exists.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In generated JSON, expand parameters → greeting and find defaultValue: Hello, learner. Find outputs → message and confirm that it refers to greeting.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -171,7 +182,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Follow one input into one output.",
+            "verify": "The JSON contains parameters.greeting.defaultValue = Hello, learner, and outputs.message refers to greeting. No resource exists.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -179,9 +196,9 @@
       "id": "bicep-workspace",
       "module": "01 / Start with confidence",
       "title": "Make Your Practice Folder",
-      "description": "A folder keeps related files together. The PowerShell prompt tells you where you are; PS and > are prompt symbols, not part of the command.",
-      "what": "A folder keeps related files together. The PowerShell prompt tells you where you are; PS and > are prompt symbols, not part of the command.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, two folders may each contain main.bicep. Checking your folder prevents building the wrong file.",
+      "what": "At work, two folders may each contain main.bicep. Checking your folder prevents building the wrong file.",
+      "why": "The current folder selects the file.",
       "needs": [
         "Start here; no Azure subscription is required for browser compilation."
       ],
@@ -219,11 +236,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "A folder keeps related files together. The PowerShell prompt tells you where you are; PS and > are prompt symbols, not part of the command.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Read the displayed PowerShell prompt. PS names the shell; the path is the current folder; > marks where your input begins. Type only the command after >."
           ],
           "breakdown": [
             {
@@ -239,7 +255,7 @@
               "meaning": "Saves the editor buffer to the file the local CLI reads."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Make Your Practice Folder",
@@ -248,7 +264,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "The current folder selects the file.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -293,14 +315,20 @@
             "directory": "C:\\Users\\YourName\\Documents\\CloudSeam-Bicep",
             "user": "your-user",
             "host": "your-workstation"
+          },
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "The current folder selects the file.",
+            "verify": "Get-Location ends in Documents\\CloudSeam-Bicep. VS Code shows main.bicep, not main.bicep.txt. Browser practice works even before local tools are installed.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
           }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In VS Code → Terminal, type Get-Location and press Enter. Confirm the path ends in CloudSeam-Bicep; in Explorer, confirm the file is main.bicep, not main.bicep.txt.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -325,7 +353,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/install"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "The current folder selects the file.",
+            "verify": "Get-Location ends in Documents\\CloudSeam-Bicep. VS Code shows main.bicep, not main.bicep.txt. Browser practice works even before local tools are installed.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -333,9 +367,9 @@
       "id": "bicep-toolchain",
       "module": "01 / Start with confidence",
       "title": "Install and Check the Tools",
-      "description": "VS Code edits text. Its Microsoft Bicep extension explains the language. Azure CLI provides az commands; az bicep builds files. They are different tools.",
-      "what": "VS Code edits text. Its Microsoft Bicep extension explains the language. Azure CLI provides az commands; az bicep builds files. They are different tools.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, record the compiler version so a teammate can reproduce your build.",
+      "what": "At work, record the compiler version so a teammate can reproduce your build.",
+      "why": "Different tools have different jobs.",
       "needs": [
         "Start here; no Azure subscription is required for browser compilation."
       ],
@@ -373,11 +407,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "VS Code edits text. Its Microsoft Bicep extension explains the language. Azure CLI provides az commands; az bicep builds files. They are different tools.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Identify three separate tools: VS Code edits the file, the Microsoft Bicep extension explains its language, and az bicep compiles saved files."
           ],
           "breakdown": [
             {
@@ -393,7 +426,7 @@
               "meaning": "Selects a file in the current folder."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Install and Check the Tools",
@@ -402,7 +435,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-cli"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Different tools have different jobs.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -447,14 +486,20 @@
             "directory": "C:\\Users\\YourName\\Documents\\CloudSeam-Bicep",
             "user": "your-user",
             "host": "your-workstation"
+          },
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Different tools have different jobs.",
+            "verify": "main.json appears beside main.bicep. If az is not recognized, reopen the terminal and check the official CLI installation; do not substitute a random installer.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
           }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In your practice-folder PowerShell, type az bicep version and record the version. Build main.bicep, then open main.json in VS Code’s Explorer and find parameters and outputs.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -479,7 +524,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-cli"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Different tools have different jobs.",
+            "verify": "main.json appears beside main.bicep. If az is not recognized, reopen the terminal and check the official CLI installation; do not substitute a random installer.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -487,9 +538,9 @@
       "id": "bicep-errors",
       "module": "01 / Start with confidence",
       "title": "Fix One Error at a Time",
-      "description": "Compiler errors include a location and a reason. Fix the earliest error first because one missing quote can cause several later messages.",
-      "what": "Compiler errors include a location and a reason. Fix the earliest error first because one missing quote can cause several later messages.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, one missing quote can produce several diagnostics. Fixing the first often clears the others.",
+      "what": "At work, one missing quote can produce several diagnostics. Fixing the first often clears the others.",
+      "why": "Repair the first reported error first.",
       "needs": [
         "Start here; no Azure subscription is required for browser compilation."
       ],
@@ -527,11 +578,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Compiler errors include a location and a reason. Fix the earliest error first because one missing quote can cause several later messages.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find the single quote on each side of the greeting text. These quotes mark the beginning and end of a text value."
           ],
           "breakdown": [
             {
@@ -547,7 +597,7 @@
               "meaning": "A concern to review; it may not prevent compilation."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Fix One Error at a Time",
@@ -556,7 +606,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-cli"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Repair the first reported error first.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -594,14 +650,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-errors.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Repair the first reported error first.",
+            "verify": "The damaged file produces real diagnostics. The repaired file produces ARM JSON. Neither result checks Azure permissions.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "Compile after restoring the missing quote. Confirm that the quote error is gone and generated ARM JSON is available; save the error and repair in your notebook.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -626,7 +688,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/bicep-cli"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Repair the first reported error first.",
+            "verify": "The damaged file produces real diagnostics. The repaired file produces ARM JSON. Neither result checks Azure permissions.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -634,9 +702,9 @@
       "id": "bicep-inputs",
       "module": "02 / Read and change the blueprint",
       "title": "Inputs, Derived Values and Fixed Words",
-      "description": "Think of a name badge: you choose dev; the file calculates app-dev. A parameter is an independent input. A variable can derive a value from it. Resource dependencies are a different idea, taught later.",
-      "what": "Think of a name badge: you choose dev; the file calculates app-dev. A parameter is an independent input. A variable can derive a value from it. Resource dependencies are a different idea, taught later.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, the same blueprint can plan app-dev and app-test by changing one environment input.",
+      "what": "At work, the same blueprint can plan app-dev and app-test by changing one environment input.",
+      "why": "Change the input; trace its effect.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -674,11 +742,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Think of a name badge: you choose dev; the file calculates app-dev. A parameter is an independent input. A variable can derive a value from it. Resource dependencies are a different idea, taught later.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find environment and resourceName. You choose environment: it is the independent input. resourceName uses that input: it is the dependent value. var declares a calculated or reusable value; it is not automatically independent."
           ],
           "breakdown": [
             {
@@ -694,7 +761,7 @@
               "meaning": "Language keywords stay spelled exactly this way; your identifiers and allowed input values can differ."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Inputs, Derived Values and Fixed Words",
@@ -703,7 +770,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Change the input; trace its effect.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -741,14 +814,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-inputs.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Change the input; trace its effect.",
+            "verify": "The default is test. The variable expression refers to the parameter. Azure evaluates that expression at deployment time; the browser has not evaluated a live resource.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In generated JSON, find environment.defaultValue and confirm test. Find the expression that builds app- from environment. Explain why ARM, not this compile step, resolves deployment-time expressions.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -773,7 +852,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Change the input; trace its effect.",
+            "verify": "The default is test. The variable expression refers to the parameter. Azure evaluates that expression at deployment time; the browser has not evaluated a live resource.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -781,9 +866,9 @@
       "id": "bicep-types",
       "module": "02 / Read and change the blueprint",
       "title": "Text, Numbers, Lists and Objects",
-      "description": "A type tells you what shape a value has: string=text, int=whole number, bool=true/false, array=list, object=named fields. JSON uses similar shapes but different punctuation.",
-      "what": "A type tells you what shape a value has: string=text, int=whole number, bool=true/false, array=list, object=named fields. JSON uses similar shapes but different punctuation.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a server count must be a number, while a team name is text.",
+      "what": "At work, a server count must be a number, while a team name is text.",
+      "why": "A value must match its type.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -821,11 +906,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "A type tells you what shape a value has: string=text, int=whole number, bool=true/false, array=list, object=named fields. JSON uses similar shapes but different punctuation.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find string, int, bool, array and object in the example. They mean text, whole number, true/false, ordered list and named fields."
           ],
           "breakdown": [
             {
@@ -841,7 +925,7 @@
               "meaning": "Boolean literals, without quotes."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Text, Numbers, Lists and Objects",
@@ -850,7 +934,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/data-types"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "A value must match its type.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -888,14 +978,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-types.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "A value must match its type.",
+            "verify": "int is compiled as int, bool as bool, and the team list remains an array. Quoting 3 where an int is required causes a type diagnostic.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In generated JSON → parameters, confirm serverCount is int, enableFeature is bool and teams is array. Confirm the values are 3, true and your three team names.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -920,7 +1016,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/data-types"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "A value must match its type.",
+            "verify": "int is compiled as int, bool as bool, and the team list remains an array. Quoting 3 where an int is required causes a type diagnostic.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -928,9 +1030,9 @@
       "id": "bicep-resource",
       "module": "02 / Read and change the blueprint",
       "title": "Read Your First Resource",
-      "description": "The symbolic name storage is a local handle inside Bicep. name is the real Azure resource name. The type identifies a service; @2023-05-01 selects its property contract, not today’s date.",
-      "what": "The symbolic name storage is a local handle inside Bicep. name is the real Azure resource name. The type identifies a service; @2023-05-01 selects its property contract, not today’s date.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, changing a storage redundancy setting affects cost and resilience; compilation is not a cost estimate.",
+      "what": "At work, changing a storage redundancy setting affects cost and resilience; compilation is not a cost estimate.",
+      "why": "Know which setting you are changing.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -968,11 +1070,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "The symbolic name storage is a local handle inside Bicep. name is the real Azure resource name. The type identifies a service; @2023-05-01 selects its property contract, not today’s date.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Read resource storage from left to right: storage is your local symbolic name; Microsoft.Storage/storageAccounts is the Azure resource type; the @ value selects an API contract."
           ],
           "breakdown": [
             {
@@ -988,7 +1089,7 @@
               "meaning": "Service settings: HTTPS only, minimum TLS and no anonymous blob access in this example."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Read Your First Resource",
@@ -997,7 +1098,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-declaration"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Know which setting you are changing.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -1035,14 +1142,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-resource.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Know which setting you are changing.",
+            "verify": "The generated resource type is Microsoft.Storage/storageAccounts, its API version is 2023-05-01 and its SKU matches your edit. Creating it later could incur storage charges.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "After restoring Standard_LRS, compile again. In generated JSON → resources → the storage account → sku → name, confirm Standard_LRS.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -1067,7 +1180,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-declaration"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Know which setting you are changing.",
+            "verify": "The generated resource type is Microsoft.Storage/storageAccounts, its API version is 2023-05-01 and its SKU matches your edit. Creating it later could incur storage charges.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -1075,9 +1194,9 @@
       "id": "bicep-json",
       "module": "02 / Read and change the blueprint",
       "title": "Read the JSON Under the Bicep",
-      "description": "Bicep is a readable authoring language for ARM templates. The compiler emits JSON with quoted keys, commas and expressions such as [parameters(...)]. It is not a different resource plan.",
-      "what": "Bicep is a readable authoring language for ARM templates. The compiler emits JSON with quoted keys, commas and expressions such as [parameters(...)]. It is not a different resource plan.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, inspect a generated template when a build behaves differently from what the author intended.",
+      "what": "At work, inspect a generated template when a build behaves differently from what the author intended.",
+      "why": "Read what Azure would receive.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -1115,11 +1234,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Bicep is a readable authoring language for ARM templates. The compiler emits JSON with quoted keys, commas and expressions such as [parameters(...)]. It is not a different resource plan.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Compare the source and generated JSON pictures. Bicep is the readable authoring language; ARM JSON is the translated template, not a log of created resources."
           ],
           "breakdown": [
             {
@@ -1135,7 +1253,7 @@
               "meaning": "Information the deployment can return; never output credentials."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Read the JSON Under the Bicep",
@@ -1144,7 +1262,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Read what Azure would receive.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -1182,14 +1306,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-json.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Read what Azure would receive.",
+            "verify": "You can point to the same storage declaration in both formats. Expressions in square-bracket strings are ARM expressions, not literal final deployed values.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "Find the storage account in resources. Match its type, apiVersion, sku.name and properties to the Bicep declaration. Write one matching pair in your notebook.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -1214,7 +1344,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Read what Azure would receive.",
+            "verify": "You can point to the same storage declaration in both formats. Expressions in square-bracket strings are ARM expressions, not literal final deployed values.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -1222,9 +1358,9 @@
       "id": "bicep-guards",
       "module": "03 / Relationships and safe inputs",
       "title": "Add Guardrails Before Resources",
-      "description": "Decorators constrain inputs before a deployment is requested. They improve a contract; they do not prove that a region has capacity or that you have quota.",
-      "what": "Decorators constrain inputs before a deployment is requested. They improve a contract; they do not prove that a region has capacity or that you have quota.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a count limit can prevent a typo from requesting hundreds of servers.",
+      "what": "At work, a count limit can prevent a typo from requesting hundreds of servers.",
+      "why": "Catch bad inputs before deployment.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -1262,11 +1398,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Decorators constrain inputs before a deployment is requested. They improve a contract; they do not prove that a region has capacity or that you have quota.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find @minValue, @maxValue and @secure. Decorators add rules to the declaration below them; @secure does not make a hard-coded secret safe to publish."
           ],
           "breakdown": [
             {
@@ -1282,7 +1417,7 @@
               "meaning": "Suppresses normal parameter-value logging/display in ARM; still obtain secrets through an approved secret workflow."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Add Guardrails Before Resources",
@@ -1291,7 +1426,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Catch bad inputs before deployment.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -1329,14 +1470,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-guards.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Catch bad inputs before deployment.",
+            "verify": "The bad default is flagged. The secret input is secureString in JSON. Secure typing does not make a hard-coded secret safe.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "Restore serverCount to 2 and compile. Confirm the constraint error is gone and adminPassword is secureString in generated JSON. Keep real passwords out of this exercise.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -1361,7 +1508,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameters"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Catch bad inputs before deployment.",
+            "verify": "The bad default is flagged. The secret input is secureString in JSON. Secure typing does not make a hard-coded secret safe.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -1369,9 +1522,9 @@
       "id": "bicep-dependencies",
       "module": "03 / Relationships and safe inputs",
       "title": "Understand What Depends on What",
-      "description": "A dependency is a resource relationship, not a statistical dependent variable. Referencing nsg.id tells ARM that the VNet subnet configuration needs that NSG. Textual order alone does not set deployment order.",
-      "what": "A dependency is a resource relationship, not a statistical dependent variable. Referencing nsg.id tells ARM that the VNet subnet configuration needs that NSG. Textual order alone does not set deployment order.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, an application VM needs its NIC, and that NIC needs its subnet. References express this order.",
+      "what": "At work, an application VM needs its NIC, and that NIC needs its subnet. References express this order.",
+      "why": "Required resources must exist first.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -1409,11 +1562,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "A dependency is a resource relationship, not a statistical dependent variable. Referencing nsg.id tells ARM that the VNet subnet configuration needs that NSG. Textual order alone does not set deployment order.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find nsg.id inside the subnet. The subnet configuration depends on the NSG. This is a resource dependency, different from a calculated value depending on an input."
           ],
           "breakdown": [
             {
@@ -1429,7 +1581,7 @@
               "meaning": "References an already present resource; it does not create that resource or check its live existence during local compilation."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Understand What Depends on What",
@@ -1438,7 +1590,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-dependencies"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Required resources must exist first.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -1476,14 +1634,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-dependencies.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Required resources must exist first.",
+            "verify": "The VNet template contains a dependency on the NSG. ARM can schedule independent resources in parallel; it is not simply reading top to bottom.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In generated JSON, find the VNet resource’s dependency on the NSG. Write: NSG → subnet configuration. Two unrelated resources can deploy in parallel; their position in the file is not an ordering instruction.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -1508,7 +1672,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/resource-dependencies"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Required resources must exist first.",
+            "verify": "The VNet template contains a dependency on the NSG. ARM can schedule independent resources in parallel; it is not simply reading top to bottom.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -1516,9 +1686,9 @@
       "id": "bicep-network",
       "module": "03 / Relationships and safe inputs",
       "title": "Build a VNet, Subnet and NSG",
-      "description": "A VNet is an address space; a subnet is one section; an NSG is a traffic rulebook. An NSG is not a Microsoft Entra security group, which groups identities for access decisions.",
-      "what": "A VNet is an address space; a subnet is one section; an NSG is a traffic rulebook. An NSG is not a Microsoft Entra security group, which groups identities for access decisions.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, application and database servers may use different subnets and different permitted traffic.",
+      "what": "At work, application and database servers may use different subnets and different permitted traffic.",
+      "why": "Placement and access are separate decisions.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -1556,11 +1726,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "A VNet is an address space; a subnet is one section; an NSG is a traffic rulebook. An NSG is not a Microsoft Entra security group, which groups identities for access decisions.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find the VNet, apps subnet and NSG. A VNet is the private network, a subnet is a section of it, and an NSG filters traffic using rules."
           ],
           "breakdown": [
             {
@@ -1576,7 +1745,7 @@
               "meaning": "Network packet rules versus identity membership; do not interchange their resource types."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Build a VNet, Subnet and NSG",
@@ -1585,7 +1754,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Placement and access are separate decisions.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -1623,14 +1798,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-network.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Placement and access are separate decisions.",
+            "verify": "The template contains one NSG and one VNet with an embedded subnet. The explicit priority-4096 deny blocks inbound including traffic normally allowed by default NSG inbound rules; no public IP or admin port is opened.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In Resource declarations in this template, identify the NSG and VNet. In the subnet properties, find the NSG reference. Explain why a deny rule does not create a reachable website.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -1655,7 +1836,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Placement and access are separate decisions.",
+            "verify": "The template contains one NSG and one VNet with an embedded subnet. The explicit priority-4096 deny blocks inbound including traffic normally allowed by default NSG inbound rules; no public IP or admin port is opened.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -1663,9 +1850,9 @@
       "id": "bicep-existing",
       "module": "03 / Relationships and safe inputs",
       "title": "Reference an Existing Resource",
-      "description": "Sometimes the network team already owns the VNet. existing says to reference it rather than create another. The name and scope must identify a real resource for a later Azure operation.",
-      "what": "Sometimes the network team already owns the VNet. existing says to reference it rather than create another. The name and scope must identify a real resource for a later Azure operation.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a network team may own the NSG while your team owns the application blueprint.",
+      "what": "At work, a network team may own the NSG while your team owns the application blueprint.",
+      "why": "Reuse a managed resource deliberately.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -1703,11 +1890,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Sometimes the network team already owns the VNet. existing says to reference it rather than create another. The name and scope must identify a real resource for a later Azure operation.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find existing in the NSG declaration. This tells Bicep to reference a resource managed elsewhere rather than request a new one."
           ],
           "breakdown": [
             {
@@ -1723,7 +1909,7 @@
               "meaning": "A resource identifier expression; constructing it locally does not contact Azure."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Reference an Existing Resource",
@@ -1732,7 +1918,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/existing-resource"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Reuse a managed resource deliberately.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -1770,14 +1962,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-existing.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Reuse a managed resource deliberately.",
+            "verify": "The template describes a reference/output without creating an NSG. Azure access and existence require an authorized live check later.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "Compile with your dummy existingNsgName. Find the changed parameter default and confirm the existing NSG is not a new resource creation entry. Record: existence was not checked against Azure.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -1802,7 +2000,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/existing-resource"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Reuse a managed resource deliberately.",
+            "verify": "The template describes a reference/output without creating an NSG. Azure access and existence require an authorized live check later.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -1810,9 +2014,9 @@
       "id": "bicep-loops",
       "module": "04 / Reusable enterprise patterns",
       "title": "Plan Multiple Servers with a Loop",
-      "description": "A loop expands a repeated declaration. range(0, serverCount) begins at zero and produces serverCount items. i + 1 makes human-friendly suffixes 1, 2 and 3.",
-      "what": "A loop expands a repeated declaration. range(0, serverCount) begins at zero and produces serverCount items. i + 1 makes human-friendly suffixes 1, 2 and 3.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a team may need three identical application servers with distinct names and NICs.",
+      "what": "At work, a team may need three identical application servers with distinct names and NICs.",
+      "why": "Repeat a plan without duplicating it.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -1850,11 +2054,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "A loop expands a repeated declaration. range(0, serverCount) begins at zero and produces serverCount items. i + 1 makes human-friendly suffixes 1, 2 and 3.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find range(0, serverCount). With a count of 3, i takes 0, 1 and 2. The count is your input; each generated instance and its name depend on that input and index."
           ],
           "breakdown": [
             {
@@ -1870,7 +2073,7 @@
               "meaning": "A training limit, not a guarantee that three VMs are affordable or available."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Plan Multiple Servers with a Loop",
@@ -1879,7 +2082,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/loops"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Repeat a plan without duplicating it.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -1917,14 +2126,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-loops.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Repeat a plan without duplicating it.",
+            "verify": "The parameter default is 3 and both copy counts refer to serverCount. Each VM references its matching NIC. No VM is created in browser practice.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In generated JSON, find both copy blocks and the serverCount parameter. Trace nics[i].id to the VM at the same index. Record three planned VM instances, not three deployed VMs.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -1949,7 +2164,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/loops"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Repeat a plan without duplicating it.",
+            "verify": "The parameter default is 3 and both copy counts refer to serverCount. Each VM references its matching NIC. No VM is created in browser practice.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -1957,9 +2178,9 @@
       "id": "bicep-server-settings",
       "module": "04 / Reusable enterprise patterns",
       "title": "Read the VM Settings Before You Build",
-      "description": "Enterprise servers need deliberate image, size, disks, identity and access choices. This Ubuntu example uses SSH public-key authentication and private NICs, not a production-ready server baseline.",
-      "what": "Enterprise servers need deliberate image, size, disks, identity and access choices. This Ubuntu example uses SSH public-key authentication and private NICs, not a production-ready server baseline.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, an application may need more memory while retaining the same approved OS image and sign-in policy.",
+      "what": "At work, an application may need more memory while retaining the same approved OS image and sign-in policy.",
+      "why": "Plan the server before creating it.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -1997,11 +2218,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Enterprise servers need deliberate image, size, disks, identity and access choices. This Ubuntu example uses SSH public-key authentication and private NICs, not a production-ready server baseline.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find imageReference, vmSize, osDisk and osProfile. They describe the operating system image, compute size, boot disk and guest sign-in settings."
           ],
           "breakdown": [
             {
@@ -2017,7 +2237,7 @@
               "meaning": "The OS disk remains a billable resource after deployment; stopping a VM does not remove disks."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Read the VM Settings Before You Build",
@@ -2026,7 +2246,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachines"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Plan the server before creating it.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -2064,14 +2290,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-server-settings.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Plan the server before creating it.",
+            "verify": "The template has no public-IP resource, disables password authentication and assigns a system-managed identity. No access roles are granted by assigning an identity. The explicit inbound deny means management/application traffic is not yet allowed.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In generated JSON, find the VM size, image publisher/offer/sku, managed disk type and disablePasswordAuthentication. Explain which fields you would review for an application’s requirements.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -2096,7 +2328,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/templates/microsoft.compute/virtualmachines"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Plan the server before creating it.",
+            "verify": "The template has no public-IP resource, disables password authentication and assigns a system-managed identity. No access roles are granted by assigning an identity. The explicit inbound deny means management/application traffic is not yet allowed.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -2104,9 +2342,9 @@
       "id": "bicep-software",
       "module": "04 / Reusable enterprise patterns",
       "title": "Install Software with Cloud-Init",
-      "description": "Bicep declares Azure resources. A supported guest-init mechanism configures software inside an OS. This Ubuntu example reads a cloud-init YAML file and passes its Base64 content as customData.",
-      "what": "Bicep declares Azure resources. A supported guest-init mechanism configures software inside an OS. This Ubuntu example reads a cloud-init YAML file and passes its Base64 content as customData.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a new Linux application server may need NGINX installed consistently on its first boot.",
+      "what": "At work, a new Linux application server may need NGINX installed consistently on its first boot.",
+      "why": "Infrastructure and guest setup work together.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -2144,11 +2382,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Bicep declares Azure resources. A supported guest-init mechanism configures software inside an OS. This Ubuntu example reads a cloud-init YAML file and passes its Base64 content as customData.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find loadTextContent('cloud-init.yml'). The template reads a companion file; a future Linux VM uses its contents during first-boot configuration."
           ],
           "breakdown": [
             {
@@ -2164,7 +2401,7 @@
               "meaning": "OS first-boot configuration versus an Azure extension resource; choose a supported mechanism and make retries safe."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Install Software with Cloud-Init",
@@ -2173,7 +2410,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/using-cloud-init"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Infrastructure and guest setup work together.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -2211,14 +2454,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-software.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Infrastructure and guest setup work together.",
+            "verify": "The ARM VM osProfile contains Base64-encoded customData. Compilation proves the file can be read and embedded, not that apt reached a mirror or NGINX started inside a real guest.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "Compile with cloud-init.yml present. Find the VM’s customData expression in generated JSON. Record that neither the VM nor NGINX has run during compilation.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -2243,7 +2492,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/virtual-machines/linux/using-cloud-init"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Infrastructure and guest setup work together.",
+            "verify": "The ARM VM osProfile contains Base64-encoded customData. Compilation proves the file can be read and embedded, not that apt reached a mirror or NGINX started inside a real guest.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -2251,9 +2506,9 @@
       "id": "bicep-modules",
       "module": "04 / Reusable enterprise patterns",
       "title": "Split a Network into a Module",
-      "description": "A module is another Bicep file with its own input/output contract. The parent provides prefix; the child returns subnetId. A module can be reused without copying all its resource text.",
-      "what": "A module is another Bicep file with its own input/output contract. The parent provides prefix; the child returns subnetId. A module can be reused without copying all its resource text.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, several applications can reuse a network module instead of maintaining separate copies.",
+      "what": "At work, several applications can reuse a network module instead of maintaining separate copies.",
+      "why": "Reuse a tested part of the plan.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -2291,11 +2546,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "A module is another Bicep file with its own input/output contract. The parent provides prefix; the child returns subnetId. A module can be reused without copying all its resource text.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Find module network './network.bicep'. The parent supplies the module’s inputs; network.outputs.subnetId reads a result from that module."
           ],
           "breakdown": [
             {
@@ -2311,7 +2565,7 @@
               "meaning": "The module’s declared output, not a free-form field name."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Split a Network into a Module",
@@ -2320,7 +2574,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/modules"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Reuse a tested part of the plan.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -2358,14 +2618,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-modules.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Reuse a tested part of the plan.",
+            "verify": "The module is embedded as a nested deployment template. network.outputs.subnetId connects parent and child. A missing file or misspelled parameter produces diagnostics.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In generated JSON, find the nested deployment and its parameters. Trace the prefix input into the network module and its subnetId output back to the parent.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -2390,7 +2656,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/modules"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Reuse a tested part of the plan.",
+            "verify": "The module is embedded as a nested deployment template. network.outputs.subnetId connects parent and child. A missing file or misspelled parameter produces diagnostics.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -2398,9 +2670,9 @@
       "id": "bicep-environments",
       "module": "05 / Validate, practice and hand off",
       "title": "Separate Dev and Test Inputs",
-      "description": "Reuse one blueprint with different inputs. A .bicepparam file selects its Bicep file with using. Do not confuse the browser’s companion-file viewer with a validated parameter-file editor.",
-      "what": "Reuse one blueprint with different inputs. A .bicepparam file selects its Bicep file with using. Do not confuse the browser’s companion-file viewer with a validated parameter-file editor.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, development and test can share a blueprint while using different approved names and counts.",
+      "what": "At work, development and test can share a blueprint while using different approved names and counts.",
+      "why": "Separate the blueprint from its inputs.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -2438,11 +2710,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Reuse one blueprint with different inputs. A .bicepparam file selects its Bicep file with using. Do not confuse the browser’s companion-file viewer with a validated parameter-file editor.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Read using './main.bicep' and param environment = 'dev'. The blueprint stays the same; the parameter file supplies environment-specific inputs."
           ],
           "breakdown": [
             {
@@ -2458,7 +2729,7 @@
               "meaning": "Names, counts and approved regions may differ; keywords and the module contract stay stable."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Separate Dev and Test Inputs",
@@ -2467,7 +2738,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameter-files"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Separate the blueprint from its inputs.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -2512,14 +2789,20 @@
             "directory": "C:\\Users\\YourName\\Documents\\CloudSeam-Bicep",
             "user": "your-user",
             "host": "your-workstation"
+          },
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Separate the blueprint from its inputs.",
+            "verify": "The local CLI emits a parameters JSON file. The browser practice compiles main.bicep only; it does not validate .bicepparam files. The defaults and environment-specific overrides have separate jobs.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
           }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "In VS Code, compare dev.json and test.json generated by build-params. Confirm their environment values differ while both parameter files point to the same main.bicep.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -2544,7 +2827,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/parameter-files"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Separate the blueprint from its inputs.",
+            "verify": "The local CLI emits a parameters JSON file. The browser practice compiles main.bicep only; it does not validate .bicepparam files. The defaults and environment-specific overrides have separate jobs.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -2552,9 +2841,9 @@
       "id": "bicep-azure-checks",
       "module": "05 / Validate, practice and hand off",
       "title": "Validate Against Azure and Preview Changes",
-      "description": "Local compilation checks the language and template. ARM provider validation checks the selected Azure scope. What-if previews changes, with limits; neither is a guarantee that a later deployment will succeed.",
-      "what": "Local compilation checks the language and template. ARM provider validation checks the selected Azure scope. What-if previews changes, with limits; neither is a guarantee that a later deployment will succeed.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a syntactically valid VM plan can still fail because of policy, permissions, quota or region availability.",
+      "what": "At work, a syntactically valid VM plan can still fail because of policy, permissions, quota or region availability.",
+      "why": "Use the right evidence for each claim.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -2592,11 +2881,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Local compilation checks the language and template. ARM provider validation checks the selected Azure scope. What-if previews changes, with limits; neither is a guarantee that a later deployment will succeed.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Distinguish compile, validate and what-if. Compile translates the file; live validation checks it against Azure; what-if previews expected changes. None is a completed deployment."
           ],
           "breakdown": [
             {
@@ -2612,7 +2900,7 @@
               "meaning": "An actual deployment command, deliberately separate from this practice checker."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Validate Against Azure and Preview Changes",
@@ -2621,7 +2909,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-what-if"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Use the right evidence for each claim.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -2659,14 +2953,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-azure-checks.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Use the right evidence for each claim.",
+            "verify": "A successful validate response is recorded separately from a what-if result. Read Create/Modify/Delete/NoChange and unresolved expressions. Do not proceed on unexpected deletes, replacements or scope changes. The class never runs Azure operations for you.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "Save the compiler result. If you performed the optional live checks, record the approved scope and actual validation/what-if result separately. Otherwise write Live checks: not run.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -2691,7 +2991,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/deploy-what-if"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Use the right evidence for each claim.",
+            "verify": "A successful validate response is recorded separately from a what-if result. Read Create/Modify/Delete/NoChange and unresolved expressions. Do not proceed on unexpected deletes, replacements or scope changes. The class never runs Azure operations for you.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -2699,9 +3005,9 @@
       "id": "bicep-capstone",
       "module": "05 / Validate, practice and hand off",
       "title": "Write Your Own Private Server Plan",
-      "description": "Now write a small plan from requirements, then compare it with an example. Confidence comes from explaining the plan and diagnosing mistakes, not copying a green check.",
-      "what": "Now write a small plan from requirements, then compare it with an example. Confidence comes from explaining the plan and diagnosing mistakes, not copying a green check.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a request for three application servers becomes a reviewed blueprint, not a rush to create machines manually.",
+      "what": "At work, a request for three application servers becomes a reviewed blueprint, not a rush to create machines manually.",
+      "why": "Break a real request into small parts.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -2739,11 +3045,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "Now write a small plan from requirements, then compare it with an example. Confidence comes from explaining the plan and diagnosing mistakes, not copying a green check.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Read the requested plan: private application servers, an NSG, one VNet/apps subnet, NICs and SSH-key sign-in. Identify inputs before writing resource declarations."
           ],
           "breakdown": [
             {
@@ -2759,7 +3064,7 @@
               "meaning": "A relationship such as a VM needing its NIC; different from the input/derived-value distinction."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
             "status": "illustration",
             "title": "Write Your Own Private Server Plan",
@@ -2768,7 +3073,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/best-practices"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Break a real request into small parts.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -2806,14 +3117,20 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-capstone.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Break a real request into small parts.",
+            "verify": "Your code compiles and its JSON contains the correct resource types and loop counts. Manually check the five requirements in the panel; compilation alone does not grade network safety or enterprise readiness. Save the script and your explanation in the notebook.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
+          "title": "Check the result yourself",
           "where": "Practice result, your private notebook and the module test at the module’s end",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "Compile your own attempt. Trace NSG → subnet → NIC → VM references, then compare your count and security settings with the requirements. Record any missing requirement even if compilation passes.",
+            "In your private notebook, write what you changed and what stayed fixed. Use dummy values; exclude secrets."
           ],
           "breakdown": [
             {
@@ -2838,7 +3155,13 @@
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/best-practices"
-          ]
+          ],
+          "guide": {
+            "what": "Check the result yourself",
+            "why": "Break a real request into small parts.",
+            "verify": "Your code compiles and its JSON contains the correct resource types and loop counts. Manually check the five requirements in the panel; compilation alone does not grade network safety or enterprise readiness. Save the script and your explanation in the notebook.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         }
       ]
     },
@@ -2846,9 +3169,9 @@
       "id": "bicep-handoff",
       "module": "05 / Validate, practice and hand off",
       "title": "Review, Deploy Deliberately and Clean Up",
-      "description": "A professional handoff includes inputs, versions, scope, expected changes, costs, verification and recovery. Incremental deployment does not delete a resource just because you remove its declaration.",
-      "what": "A professional handoff includes inputs, versions, scope, expected changes, costs, verification and recovery. Incremental deployment does not delete a resource just because you remove its declaration.",
-      "why": "Understand the plan before requesting Azure changes. Small edits and explicit checks make mistakes easier to diagnose.",
+      "description": "At work, a pull request is checked before approval, and deployment uses a separate, restricted identity.",
+      "what": "At work, a pull request is checked before approval, and deployment uses a separate, restricted identity.",
+      "why": "Review and check before delivery.",
       "needs": [
         "Complete the previous lessons in order. The example can compile independently; do not skip the explanations."
       ],
@@ -2886,11 +3209,10 @@
       ],
       "steps": [
         {
-          "title": "Read the picture and the words",
+          "title": "Find the parts you will use",
           "where": "This lesson → numbered code illustration, then the practice editor below",
           "actions": [
-            "A professional handoff includes inputs, versions, scope, expected changes, costs, verification and recovery. Incremental deployment does not delete a resource just because you remove its declaration.",
-            "Read all numbered explanations. Language keywords stay fixed; input values and your chosen identifiers may change according to the resource contract."
+            "Read CI as automatic checks on a proposed change. Read CD as a controlled delivery/deployment stage after those checks. A green build is not proof of a secure running server."
           ],
           "breakdown": [
             {
@@ -2906,16 +3228,21 @@
               "meaning": "Review the exact disposable scope and costs; snapshots, disks and other retained items may continue billing."
             }
           ],
-          "expected": "You can explain the three numbered concepts before editing.",
+          "expected": "You can identify the named fields in the example before changing them.",
           "screenshot": {
-            "status": "illustration",
-            "title": "Review, Deploy Deliberately and Clean Up",
-            "instructions": "Match every numbered callout with its explanation, then edit the complete source below.",
-            "assetId": "bicep-handoff"
+            "status": "capture-needed",
+            "title": "Compile-only CI workflow",
+            "instructions": "Capture the practice workflow after its hosted run; do not substitute an Azure deployment screenshot."
           },
           "sources": [
             "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes"
-          ]
+          ],
+          "guide": {
+            "what": "Find the parts you will use",
+            "why": "Review and check before delivery.",
+            "verify": "You can identify the named fields in the example before changing them.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
           "title": "Make one change and compile",
@@ -2953,14 +3280,25 @@
               "title": "Download this lesson’s example Bicep file",
               "href": "/bicep/bicep-handoff.bicep"
             }
-          ]
+          ],
+          "guide": {
+            "what": "Make one change and compile",
+            "why": "Review and check before delivery.",
+            "verify": "Your notebook distinguishes compiled, Azure-validated, previewed, deployed and runtime-verified evidence. For a disposable lab, list resources before approved resource-group deletion; never delete a shared or production group. Reverting source does not automatically reverse a deployment.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          }
         },
         {
-          "title": "Prove what you learned",
-          "where": "Practice result, your private notebook and the module test at the module’s end",
+          "title": "Try a check that blocks a mistake",
+          "where": "Your Windows workstation → VS Code → new CloudSeam-Bicep-CI folder → PowerShell",
           "actions": [
-            "Read the expected result below. Explain what changed and what stayed fixed. Save your source, the relevant JSON section and any diagnostic you resolved in your notebook.",
-            "Repeat the requested edit without looking at Show example. Check the result again. A compile pass is language/template evidence; live Azure evidence is separate."
+            "Open the CI security mini-lab below. Create a separate CloudSeam-Bicep-CI folder in Documents; open it with VS Code → File → Open Folder.",
+            "Create main.bicep. Type param greeting string = 'Hello, team' on line 1 and output message string = greeting on line 2. Save with Ctrl+S.",
+            "Open the practice linter configuration below. Create bicepconfig.json beside main.bicep and type its JSON; keep each rule’s level set to error. Save it.",
+            "Select Terminal → New Terminal → PowerShell. Type Get-Location and confirm CloudSeam-Bicep-CI, then type az bicep build --file .\\main.bicep. Expect main.json without a build error.",
+            "Add param unusedName string = 'practice' as a new line in main.bicep. Save, then run the same build command. Expect no-unused-params to fail the build.",
+            "Delete only the unusedName line, save and build again. Expect that error to disappear. Keep the failed and repaired results in your private notebook.",
+            "Read the compile-only workflow example below. The optional hosted-run section in the mini-lab shows its exact .github/workflows/ci-check.yml location and Actions → Run workflow route. No Azure sign-in or deployment is included."
           ],
           "breakdown": [
             {
@@ -2976,15 +3314,36 @@
               "meaning": "Review the exact disposable scope and costs; snapshots, disks and other retained items may continue billing."
             }
           ],
-          "expected": "Your notebook distinguishes compiled, Azure-validated, previewed, deployed and runtime-verified evidence. For a disposable lab, list resources before approved resource-group deletion; never delete a shared or production group. Reverting source does not automatically reverse a deployment.",
+          "expected": "An unused input fails the configured local build; removing it allows compilation. Your notes distinguish compile-only CI from a separately approved Azure deployment.",
           "screenshot": {
-            "status": "illustration",
-            "title": "Review, Deploy Deliberately and Clean Up",
-            "instructions": "Match every numbered callout with its explanation, then edit the complete source below.",
-            "assetId": "bicep-handoff"
+            "status": "capture-needed",
+            "title": "Local CI rule: failed build, then repaired build",
+            "instructions": "Capture the actual unused-input diagnostic and repaired local build. No CI execution screenshot is supplied yet."
           },
           "sources": [
-            "https://learn.microsoft.com/en-us/azure/azure-resource-manager/templates/deployment-modes"
+            "https://learn.microsoft.com/en-us/azure/azure-resource-manager/bicep/linter",
+            "https://docs.github.com/en/actions/reference/security/secure-use",
+            "https://learn.microsoft.com/en-us/devops/deliver/iac-github-actions"
+          ],
+          "guide": {
+            "what": "Try a check that blocks a mistake",
+            "why": "Review and check before delivery.",
+            "verify": "An unused input fails the configured local build; removing it allows compilation. Your notes distinguish compile-only CI from a separately approved Azure deployment.",
+            "failure": "Read the first compiler diagnostic. Return to the named file and line, correct one change, and compile again. For local commands, confirm Get-Location and save the file first."
+          },
+          "downloads": [
+            {
+              "title": "Open the beginner CI security mini-lab",
+              "href": "/bicep/ci-security-lab.md"
+            },
+            {
+              "title": "Download the practice linter configuration",
+              "href": "/bicep/bicepconfig.json"
+            },
+            {
+              "title": "Download the compile-only GitHub workflow example",
+              "href": "/bicep/ci-check.yml"
+            }
           ]
         }
       ]
