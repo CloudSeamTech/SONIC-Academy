@@ -1,4 +1,5 @@
 import splunkNavigation from '../content/teaching/splunk-navigation.json' with { type: 'json' };
+import bicepNavigation from '../content/teaching/bicep-navigation.json' with { type: 'json' };
 import pkiNavigation from '../content/teaching/pki-navigation.json' with { type: 'json' };
 import vsphereNavigation from '../content/teaching/vsphere-navigation.json' with { type: 'json' };
 export type StepResource = {
@@ -19,6 +20,7 @@ export const taskNavigation: Record<
   ...vsphereNavigation,
   ...pkiNavigation,
   ...splunkNavigation,
+  ...bicepNavigation,
   'vsphere-install:1': {
     title: 'Download the installer, then choose the installation disk',
     where:
