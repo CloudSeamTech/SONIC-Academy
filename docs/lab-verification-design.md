@@ -43,6 +43,16 @@ Checks must use stable structured values where possible, not a naive search for 
 
 ## Boundary and integration
 
+### Connection direction and readiness contract
+
+For internet-enabled NAT guests, the proposed in-VM connector initiates authenticated HTTPS polling to the verification service. The backend queues a versioned, allowlisted check set; it returns that assignment in a response to the connector’s outbound request. The connector reads local facts and posts observations outbound. No internet host attempts to route to the learner’s private IP. Account plus revocable device identity, not public IP, binds the connection to a learner. A normal public egress address still exists and may appear in service logs; no learner-entered/static public IP or inbound port forwarding is required.
+
+Before displaying Connected, the implementation must independently prove DNS/routing and outbound 443, trusted HTTPS, valid account/device pairing and class scope, and a fresh authenticated application-level round trip. Display the last heartbeat time; expire the state on disconnect or staleness. Evaluate local tool availability and permissions per check, separately from transport status. Neither NAT selection, a TCP probe nor a successful homepage request proves that pairing or configuration verification works. No permanent connection guarantee is made.
+
+An isolated host-only guest has no automatic internet path. Preserve that lab topology. Current report transfer works independently; a future host relay needs a separate authenticated private connection and its own threat/transport review. Never silently switch the guest to Bridged/NAT or publish a management port to make verification work.
+
+These are design requirements, not an implemented preflight service. The How to use it section now explains this distinction in student-facing language.
+
 The existing local-companion is a loopback-only terminal service and accepts loopback web origins. It is not a public-site connector or a verifier. Preserve those protections; do not add permissive CORS or expose that service.
 
 For hosted verification, add a separate pairing flow with short-lived, revocable lab/device identity, authenticated user ownership, per-lesson check-pack versions, server-side rule evaluation, signed result envelopes, nonce/replay protection, rate limits and deletion controls. Keep raw logs local by default and send minimum non-secret facts. Do not accept arbitrary PowerShell from the website. Use an allowlisted, versioned check pack; explicit reruns cannot mutate the VM.

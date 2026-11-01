@@ -197,6 +197,113 @@ export function CheckYourWork({
               This is the future connection design, not an available connection
               flow.
             </p>
+            <h3>How does it work behind VMware NAT?</h3>
+            <p>
+              <strong>The VM calls us first.</strong> CloudSeam does not try to
+              reach a private address such as 192.168.211.130 over the internet.
+            </p>
+            <ol
+              className="check-work-flow"
+              aria-label="Outbound connection through NAT"
+            >
+              {[
+                'Checker inside your VM',
+                'VMware NAT / your router',
+                'CloudSeam HTTPS endpoint',
+                'Reply on the VM’s request',
+              ].map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ol>
+            <ol>
+              <li>
+                <strong>The checker starts an HTTPS request.</strong> NAT lets
+                the request leave through the host’s internet connection and
+                tracks where its reply belongs.
+              </li>
+              <li>
+                <strong>Pairing identifies the student and VM.</strong> Your
+                account and a revocable device identity tell CloudSeam which
+                checker is yours. Your private IP is a value to validate, not an
+                internet destination.
+              </li>
+              <li>
+                <strong>The checker asks for its next approved check.</strong>{' '}
+                Clicking Run checks would queue that class’s check set. The
+                checker receives it in a response to its own authenticated HTTPS
+                request.
+              </li>
+              <li>
+                <strong>The checker reads and reports.</strong> It inspects
+                allowed local settings and sends observations back over HTTPS.
+                The website displays the evaluated results.
+              </li>
+            </ol>
+            <p>
+              No student-entered public IP, static public IP, router port
+              forwarding, RDP or SSH is required for this outbound-only design.
+              The service will still see the connection’s public egress IP, as
+              websites normally do; it must not use that shared or changing
+              address as the student’s identity. Two students can both use
+              10.50.0.10 in their separate labs.
+            </p>
+            <a
+              href="https://knowledge.broadcom.com/external/article?legacyId=1006480"
+              target="_blank"
+              rel="noreferrer"
+            >
+              VMware NAT and host-only networking explained ↗
+            </a>
+            <h3>What must pass before we say Connected?</h3>
+            <p>
+              <strong>NAT alone is not a guarantee.</strong> The planned
+              connector must test each condition and show a specific failure
+              instead of a generic connection error.
+            </p>
+            <ol>
+              <li>
+                <strong>Network ready:</strong> the VM has a permitted route
+                out, working DNS and outbound TCP 443 access to the actual
+                verification endpoint. NAT mode by itself does not prove these
+                work.
+              </li>
+              <li>
+                <strong>HTTPS trusted:</strong> an HTTPS request succeeds with
+                certificate validation enabled. A proxy or incorrect clock can
+                prevent this even when TCP 443 opens.
+              </li>
+              <li>
+                <strong>Pairing accepted:</strong> the backend authenticates the
+                student/device and accepts the selected class scope. Opening the
+                homepage does not prove this.
+              </li>
+              <li>
+                <strong>Checker responding:</strong> an authenticated
+                application round trip succeeds and a recent heartbeat is
+                visible. Show its time and change to Disconnected or Stale if it
+                stops.
+              </li>
+              <li>
+                <strong>Checks can run:</strong> the required local tools and
+                permissions are available. A connected checker can still report
+                Not checked for an individual task.
+              </li>
+            </ol>
+            <p>
+              Those tests prove readiness at that moment, not permanent
+              connectivity or a correctly configured class. Live pairing and
+              this preflight are not implemented yet; this preview cannot report
+              a real Connected state.
+            </p>
+            <h3>NAT lab or isolated lab?</h3>
+            <p>
+              <strong>NAT with approved internet access:</strong> the in-VM
+              checker can make the outbound HTTPS requests described above.{' '}
+              <strong>Host-only with no route out:</strong> it cannot. Keep the
+              lab isolated and use report mode; live checking would require a
+              separately implemented, approved host relay and a private
+              authenticated VM-to-relay path.
+            </p>
             <ol
               className="check-work-flow"
               aria-label="Planned live connection flow"
@@ -205,7 +312,7 @@ export function CheckYourWork({
                 'Student signs in',
                 'Pairs a signed checker',
                 'Checker reads allowed facts',
-                'Outbound HTTPS',
+                'Checker-initiated HTTPS',
                 'Private results',
               ].map((item) => (
                 <li key={item}>{item}</li>
