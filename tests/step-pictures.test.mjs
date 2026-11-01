@@ -6,18 +6,14 @@ import { smallActions } from '../lib/beginner-directions.ts';
 const read = (path) => JSON.parse(fs.readFileSync(path, 'utf8'));
 const coverage = read('content/screenshots/coverage.json');
 const registry = read('content/screenshots/step-pictures.json');
-test('Every actual instruction, including help variants, has its own fresh picture', () => {
-  assert.equal(registry.pictures.length, coverage.steps.length);
+test('Archived step maps retain their integrity and honest labels, without being treated as screenshots', () => {
   const ids = new Set(registry.pictures.map((p) => p.stepId));
   assert.equal(ids.size, coverage.steps.length);
   for (const step of coverage.steps) {
     const picture = registry.pictures.find((p) => p.stepId === step.stepId);
     assert.ok(picture, step.stepId);
-    assert.equal(
-      picture.instructionHash,
-      step.instructionHash,
-      `Stale picture: ${step.stepId}`,
-    );
+    // These archived diagrams are no longer a renderer fallback. Current
+    // instruction hashes gate genuine captures, not obsolete text-card images.
     const svg = fs.readFileSync('public' + picture.src, 'utf8');
     assert.equal(
       createHash('sha256').update(svg).digest('hex'),

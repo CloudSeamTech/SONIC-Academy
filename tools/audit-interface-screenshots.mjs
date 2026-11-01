@@ -22,7 +22,11 @@ for (const asset of sources.assets) {
 }
 for (const ref of sources.steps) {
   const step = coverage.steps.find((row) => row.stepId === ref.stepId);
-  if (!step || step.instructionHash !== ref.instructionHash || !ref.reviewed)
+  if (
+    !step ||
+    step.instructionHash !== ref.instructionHash ||
+    (ref.assetIds.length > 0 && !ref.reviewed)
+  )
     throw Error('Stale screenshot association: ' + ref.stepId);
   for (const id of ref.assetIds)
     if (!assets.has(id)) throw Error('Missing asset: ' + id);
@@ -107,7 +111,10 @@ fs.writeFileSync(
     '\n',
 );
 console.log(JSON.stringify({ summary, byTrack }, null, 2));
-if (process.argv.includes('--require-references') && summary.stepsWithoutInterfaceScreenshots > 0) {
+if (
+  process.argv.includes('--require-references') &&
+  summary.stepsWithoutInterfaceScreenshots > 0
+) {
   console.error('Missing interface screenshot references.');
   process.exitCode = 1;
 }

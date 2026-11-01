@@ -19,6 +19,7 @@ import { LabOverview } from '../lab-overview';
 import { LessonWelcome } from '../lesson-welcome';
 import { welcomeFor } from '@/lib/lesson-welcome';
 import { InstructionScreenshots } from '../instruction-screenshots';
+import { reviewedInstructionCapture } from '../../lib/instruction-media';
 import './guided-lab.css';
 
 export function GuidedLab({
@@ -204,6 +205,12 @@ export function GuidedLab({
                   />
                 )}
                 <SplitFocusWorkspace
+                  hasReference={Boolean(
+                    step.command ||
+                    reviewedInstructionCapture(
+                      `${screenshotLessonId}:guided:${index + stepOffset + 1}`,
+                    ),
+                  )}
                   stepId={`${screenshotLessonId}:guided:${index + stepOffset + 1}`}
                   resource={{
                     title: `Step ${index + 1}: ${currentTitle}`,

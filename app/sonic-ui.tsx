@@ -10,6 +10,7 @@ import { FocusStepControl } from './focus-step-control';
 import { useEffect, useState, type ReactNode } from 'react';
 import { LabStepNav } from './lab-step-nav';
 import { InstructionScreenshots } from './instruction-screenshots';
+import { reviewedInstructionCapture } from '../lib/instruction-media';
 import { StepTeachingNotes } from './step-teaching-notes';
 import { readableStepTitle } from '@/lib/lesson-headings';
 import type { WalkthroughStep } from './wazuh-walkthroughs';
@@ -295,6 +296,12 @@ export function SonicWalkthrough({
                   />
                 )}
                 <SplitFocusWorkspace
+                  hasReference={Boolean(
+                    step.command ||
+                    reviewedInstructionCapture(
+                      `${lessonId}:${variant}:${index + 1}`,
+                    ),
+                  )}
                   stepId={`${lessonId}:${variant}:${index + 1}`}
                   resource={{
                     title: `Step ${index + 1}: ${step.title}`,
