@@ -117,6 +117,30 @@
 .verification-results p {
   overflow-wrap: anywhere;
 }
+.verification-task-coverage {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.verification-task-coverage li {
+  padding: 16px;
+  background: #ffffffad;
+  border-radius: 10px;
+  border-left: 4px solid #78899a;
+}
+.verification-task-coverage li[data-status='pass'] {
+  border-left-color: #16764a;
+}
+.verification-task-coverage li[data-status='fail'] {
+  border-left-color: #be3345;
+}
+.verification-task-coverage h4 {
+  margin: 0;
+}
+.verification-task-coverage p {
+  overflow-wrap: anywhere;
+}
 .verification-results h4 small {
   display: block;
   font-weight: 500;

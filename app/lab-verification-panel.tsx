@@ -10,6 +10,7 @@ import {
 } from '../lib/lab-verification';
 import manifest from '../content/teaching/verifier-manifest.json';
 import demo from '../content/verification/dc01-demo.json';
+import { dc01LessonCoverage } from '../lib/verification-course-map';
 import './lab-verification.css';
 
 export function LabVerificationPanel({ lessonId }: { lessonId: string }) {
@@ -358,6 +359,45 @@ export function LabVerificationPanel({ lessonId }: { lessonId: string }) {
                 After a repair, rerun the checker on DC01 and choose the newly
                 generated report. The old report cannot show your new settings.
               </p>
+              <h3>How these results match the lesson</h3>
+              <p>
+                Only the named configuration facts are checked. Manual evidence
+                is still needed for the other steps; no password or wizard-click
+                history is collected.
+              </p>
+              <ol className="verification-task-coverage">
+                {dc01LessonCoverage.map((task) => {
+                  const evidence = task.checks.map((id) =>
+                    results.find((result) => result.id === id),
+                  );
+                  const state = !evidence.length
+                    ? 'manual'
+                    : evidence.some((item) => item?.status === 'fail')
+                      ? 'fail'
+                      : evidence.every((item) => item?.status === 'pass')
+                        ? 'pass'
+                        : 'not-checked';
+                  return (
+                    <li key={task.step} data-status={state}>
+                      <h4>
+                        Step {task.step}: {task.title}
+                      </h4>
+                      <p>
+                        <strong>
+                          {state === 'manual'
+                            ? 'Manual evidence needed'
+                            : state === 'pass'
+                              ? '✓ Checked configuration facts passed'
+                              : state === 'fail'
+                                ? '✕ A checked configuration fact failed'
+                                : '— Not checked'}
+                        </strong>
+                      </p>
+                      <p>{task.note}</p>
+                    </li>
+                  );
+                })}
+              </ol>
             </section>
           )}
           <details>

@@ -7,12 +7,16 @@ Current production blockers: publisher code signing and a real authenticated acc
 ## Student flow
 
 1. Select the Windows Administration lesson and enter their own expected DC01 hostname, address and domain in a private lab profile.
-2. Download a versioned, signed checker, inspect its declared checks, and run it locally on the disposable lab VM. No password is entered on CloudSeam.
+2. Download a versioned checker, inspect its declared checks and hash, and run it locally on the disposable lab VM only when local policy permits it. The current preview is unsigned; a signed publisher release is required for production. No password is entered on CloudSeam.
 3. Start with a local report. The page imports only the structured check results after the learner chooses the file. Label this **local evidence — self-reported**, because an uploaded file can be edited.
 4. A future paired connector on the VMware host could run approved, read-only checks against that VM using local credentials. It would send a small result over outbound HTTPS to a scoped authenticated API. No public inbound RDP, WinRM or SSH port is needed.
 5. Show each check’s expected value, observed value, time, target, evidence provenance and a short repair. Allow rerun after the repair.
 
 ## First DC01 check pack
+
+The `/check-your-work` hub contains Check a class, How to use it and Platform setup sections. Every lesson links to `/check-your-work?lesson=<its-existing-id>`; the server validates that ID before preselecting it. Unsupported lessons never inherit the DC01 pack. The student how-to maps current local-report use; the live pairing diagram is explicitly planned/unavailable. Supabase setup is separated as platform-owner work, not a requirement for students to create Supabase accounts.
+
+`lib/verification-course-map.ts` maps the actual eleven DC01 lesson steps to observed configuration subsets or manual evidence. A regression test checks the titles/order against the curriculum. Wizard clicks, recovery credentials and uncollected AD paths are not marked passed; DNS failure propagates into the directory-verification subset. No aggregate class completion is awarded.
 
 | Check | Expected result from lesson/profile | Evidence source |
 | --- | --- | --- |
